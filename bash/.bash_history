@@ -397,3 +397,5 @@ git remote -v
 git remote add origin git@github.com:Deedss/dotfiles.git
 cd .dot
 exit
+stow zsh
+exit
