@@ -64,14 +64,14 @@ set encoding=utf8
 "nnoremap <leader>sa :ggVG$
 
 "" Make Y yank to end of the line
-nnoremap Y y$
+" nnoremap Y y$
 
 "" Make visual yanks place the cursor back where started
 "vnoremap y ygv<Esc>
 
 "" switch buffers in Normal mode
-nnoremap <Tab> :bnext<CR>
-nnoremap <S-Tab> :bprevious<CR>
+" nnoremap <Tab> :bnext<CR>
+" nnoremap <S-Tab> :bprevious<CR>
 ""leader key twice to cycle between last two open buffers
 "nnoremap <leader><leader> <c-^>
 
@@ -101,8 +101,8 @@ nnoremap k gk
 nnoremap j gj
 
 "" Easier indenting control in visual mode
-vnoremap <silent> > >gv
-vnoremap <silent> < <gv
+" vnoremap <silent> > >gv
+" vnoremap <silent> < <gv
 
 """"""""""""""""""""""""""""""
 " => Status line

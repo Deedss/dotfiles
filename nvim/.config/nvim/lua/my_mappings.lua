@@ -3,26 +3,26 @@
 -- Contains all mappings for nvim
 -----------------------------------------------------------------------------------
 local function map(mode, lhs, rhs, opts)
-  local options = { noremap = true }
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-  vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 -- -- Easy select all of file
 -- map("n", "<Leader>sa", "ggVG<c-$>")
 
 -- -- Make visual yanks place the cursor back where started
-map("v", "y", "ygv<Esc>")
+-- map("v", "y", "ygv<Esc>")
 
 -- -- switch buffers in Normal mode
-map("n", "<Tab>", ":bnext<CR>")
-map("n", "<S-Tab>", ":bprevious<CR>")
+-- map("n", "<Tab>", ":bnext<CR>")
+-- map("n", "<S-Tab>", ":bprevious<CR>")
 -- map("n", "<leader><leader>", "<C-^>")
 
 -- -- Make Y yank to end of the line
-map("n", "Y", "y$")
+-- map("n", "Y", "y$")
 
 -- -- Automatically go to current directory
 -- map("n", "<leader>cd", ":cd %:p:h<CR>")
@@ -39,8 +39,8 @@ map("n", "Y", "y$")
 map("v", "J" ,":m '>+1<CR>gv=gv")
 map("v" ,"K", ":m '<-2<CR>gv=gv")
 
-map("n", "j", "gj")
-map("n", "k", "gk")
+-- map("n", "j", "gj")
+-- map("n", "k", "gk")
 -- -- " Useful mappings for managing tabs
 -- map("n", "<leader>te", ":tabedit<Space>")
 -- map("n", "<leader>tm", ":tabm<Space>")
@@ -64,8 +64,8 @@ map("n", "k", "gk")
 -- map('n', '<leader>wh', [[<Cmd>split<CR>]])
 
 -- -- Easier indenting control in visual mode
-map('v', '>', '>gv')
-map('v', '<', '<gv')
+-- map('v', '>', '>gv')
+-- map('v', '<', '<gv')
 
 -- -- Ctrl+t to open an integrated terminal in a split, like other IDEs
 -- map('n', '<leader>t', ':vsplit | set nonumber norelativenumber | terminal<CR>:set nobuflisted<CR>a', {silent = true})
