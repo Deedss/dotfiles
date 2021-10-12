@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ "$1" == "on" ]; then
+	pkexec bash -c "echo 1  > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode"
+elif [ "$1" == "off" ]; then
+	pkexec bash -c "echo 0  > /sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode"
+else
+        cat "/sys/bus/platform/drivers/ideapad_acpi/VPC2004:00/conservation_mode"
+fi

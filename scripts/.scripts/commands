@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+function full_update(){
+    echo '-------------------------'
+    echo '--------- DNF -----------'
+    echo '-------------------------'
+    sudo dnf update --refresh
+    echo '-------------------------'
+    echo '------- Flatpak ---------'
+    echo '-------------------------'
+    sudo flatpak update
+}

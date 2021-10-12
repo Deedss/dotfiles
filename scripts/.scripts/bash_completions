@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+### CONSERVATION MODE
+_conservation-mode(){
+    if [ "${#COMP_WORDS[@]}" != "2" ]; then
+        return
+    fi
+
+    local cur=${COMP_WORDS[COMP_CWORD]}
+    COMPREPLY=( $(compgen -W "on off" -- $cur))
+}
+complete -F _conservation-mode conservation-mode
+
+### OTHERS
