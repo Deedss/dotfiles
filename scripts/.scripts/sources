@@ -6,16 +6,7 @@ alias update='sudo dnf update --refresh && sudo flatpak update'
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
 source "$HOME/.scripts/commands"
-
-# source "$HOME/.scripts/bash_completions"
-_dotnet_zsh_complete() 
-{
-  local completions=("$(dotnet complete "$words")")
-
-  reply=( "${(ps:\n:)completions}" )
-}
-
-compctl -K _dotnet_zsh_complete dotnet
+source "$HOME/.scripts/bash_completions"
 
 # Set Editor to NVIM
 export EDITOR='nvim'

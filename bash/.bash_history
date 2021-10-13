@@ -399,3 +399,7 @@ cd .dot
 exit
 stow zsh
 exit
+ll
+exit
+conservation-mode 
+exit

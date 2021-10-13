@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------
--- LANGUAGE SERVER PROTOCOL 
+-- LANGUAGE SERVER PROTOCOL
 -- Contains all settings for the LSP configurations
 -----------------------------------------------------------------------------------
 local nvim_lsp = require 'lspconfig'
@@ -31,13 +31,13 @@ end
 --------------------------------------------------------------------
 -- Enable the following language servers
 --------------------------------------------------------------------
-local servers = { 
-    vimls = true, 
-    bashls = true, 
-    pyright = true, 
+local servers = {
+    vimls = true,
+    bashls = true,
+    pyright = true,
     rust_analyzer = true,
     clangd = {
-        cmd = { 
+        cmd = {
             "clangd",
             "--background-index",
             "--suggest-missing-includes",
@@ -49,23 +49,10 @@ local servers = {
             clangdFileStatus = true,
         },
     },
-    omnisharp = {     
-        cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
-    }
+    -- omnisharp = {
+    --     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
+    -- }
 }
-
--- for _, lsp in ipairs(servers) do
---   nvim_lsp[lsp].setup {
---     on_attach = on_attach,
---     capabilities = capabilities,
---   }
--- end
-
--- local pid = vim.fn.getpid()
--- local omnisharp_bin = "/home/gertjan/Tools/omnisharp-linux-x64/run"
--- require'lspconfig'.omnisharp.setup{
---     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(pid) };
--- }
 
 local setup_server = function(server, config)
     if not config then
