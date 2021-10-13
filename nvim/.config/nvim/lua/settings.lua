@@ -1,52 +1,89 @@
------------------------------------------------------------------------------------
--- SETTINGS
--- Contains all settings concerning nvim
------------------------------------------------------------------------------------
-vim.cmd('set iskeyword+=-') -- treat dash separated words as a word text object"
-vim.cmd('set shortmess+=c') -- Don't pass messages to |ins-completion-menu|.
-vim.cmd('set inccommand=split') -- Make substitution work in realtime
-vim.o.hidden = true -- Required to keep multiple buffers open multiple buffers
-vim.o.title = true
-vim.o.titlestring="%<%F%=%l/%L - nvim"
-vim.wo.wrap = true -- Display long lines as just one line
-vim.o.textwidth = 80
-vim.cmd('set whichwrap+=<,>,[,],h,l') -- move to next line with theses keys
-vim.cmd('syntax on') -- syntax highlighting vim.o.pumheight = 10 -- Makes popup menu smaller
-vim.o.fileencoding = "utf-8" -- The encoding written to file
-vim.o.cmdheight = 2 -- More space for displaying messages
-vim.cmd('set colorcolumn=99999') -- fix indentline for now
-vim.o.mouse = "a" -- Enable your mouse
-vim.o.splitbelow = true -- Horizontal splits will automatically be below
+-----------------------------------------------------------
+-- Neovim settings
+-----------------------------------------------------------
 
-vim.o.ruler = true
-vim.o.showmatch = true
-vim.o.splitright = true -- Vertical splits will automatically be to the right
-vim.o.conceallevel = 0 -- So that I can see `` in markdown files
-vim.cmd('set ts=4') -- Insert 2 spaces for a tab
-vim.cmd('set sw=4') -- Change the number of space characters inserted for indentation
-vim.cmd('set expandtab') -- Converts tabs to spaces
-vim.bo.smartindent = true -- Makes indenting smart
-vim.wo.number = true -- set numbered lines
-vim.wo.relativenumber = true -- set relative number
-vim.wo.cursorline = true -- Enable highlighting of the current line
-vim.o.showtabline = 2 -- Always show tabs
-vim.o.showmode = false -- We don't need to see things like -- INSERT -- anymore
-vim.o.backup = false -- This is recommended by coc
-vim.o.writebackup = false -- This is recommended by coc
-vim.wo.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
-vim.o.updatetime = 300 -- Faster completion
-vim.o.clipboard = "unnamedplus" -- Copy paste between vim and everything else
-vim.cmd('filetype plugin on') -- filetype detection
-vim.o.completeopt = 'menuone,noselect'
+-----------------------------------------------------------
+-- Neovim API aliases
+-----------------------------------------------------------
+--local map = vim.api.nvim_set_keymap  -- set global keymap
+local cmd = vim.cmd     		-- execute Vim commands
+local exec = vim.api.nvim_exec 	-- execute Vimscript
+local fn = vim.fn       		-- call Vim functions
+local g = vim.g         		-- global variables
+local opt = vim.opt         	-- global/buffer/windows-scoped options
 
----------------------------------
--- Color Schemes
----------------------------------
-vim.o.termguicolors = true
+-----------------------------------------------------------
+-- General
+-----------------------------------------------------------
+opt.mouse = 'a'                 -- enable mouse support
+opt.clipboard = 'unnamedplus'   -- copy/paste to system clipboard
+opt.swapfile = false            -- don't use swapfile
+opt.syntax = 'on'
+opt.fileencoding = 'utf-8'
+opt.updatetime = 300
+cmd [[filetype plugin on]]
+opt.signcolumn = 'yes:1'
+
+cmd [[set iskeyword+=-]]        -- treat dash separated words as a word text object"
+cmd [[set shortmess+=c]]        -- Don't pass messages to |ins-completion-menu|.
+cmd [[set inccommand=split]]    -- Make substitution work in realtime
+
+-----------------------------------------------------------
+-- Neovim UI
+-----------------------------------------------------------
+opt.number = true               -- show line number
+opt.relativenumber = true       -- show relative line number
+opt.showmatch = true            -- highlight matching parenthesis
+-- opt.foldmethod = 'marker'       -- enable folding (default 'foldmarker')
+opt.splitright = true           -- vertical split to the right
+opt.splitbelow = true           -- Horizontal split to the bottom
+opt.linebreak = true            -- wrap on word boundary
+opt.title = true                -- set a title
+opt.titlestring = '%<%F%= - nvim'
+opt.cursorline = true           -- Enable highlighting of the current line
+opt.cmdheight = 2               -- Set commandlien height
+opt.showtabline = 2             -- Always show tabs
+opt.inccommand = 'split'        -- inccommand
+opt.showmode = false            -- Don't show mode anymore
+cmd [[set whichwrap+=<,>,[,],h,l]]
+
+-- remove whitespace on save
+cmd [[au BufWritePre * :%s/\s\+$//e]]
+
+-- highlight on yank
+exec([[
+  augroup YankHighlight
+    autocmd!
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
+  augroup end
+]], false)
+
+-----------------------------------------------------------
+-- Search
+-----------------------------------------------------------
+opt.ignorecase = true           -- ignore case letters when search
+opt.smartcase = true            -- ignore lowercase for the whole pattern
+
+-----------------------------------------------------------
+-- Memory, CPU
+-----------------------------------------------------------
+opt.hidden = true               -- enable background buffers
+opt.history = 100               -- remember n lines in history
+opt.lazyredraw = true           -- faster scrolling
+opt.synmaxcol = 240             -- max column for syntax highlight
+
+-----------------------------------------------------------
+-- Colorscheme
+-----------------------------------------------------------
+opt.termguicolors = true      -- enable 24-bit RGB colors
 -- vim.g.onedark_style = 'darker'
 -- require('onedark').setup()
-vim.g.material_style = 'darker'
-vim.cmd([[colorscheme material]])
+g.material_style = 'darker'
+cmd([[colorscheme material]])
+
+-----------------------------------------------------------
+-- Tabline and BufferLine
+-----------------------------------------------------------
 require("bufferline").setup{
     options = {
         numbers = function(opts)
@@ -61,3 +98,32 @@ require('lualine').setup {
   }
 }
 
+-----------------------------------------------------------
+-- Tabs, indent
+-----------------------------------------------------------
+opt.expandtab = true      -- use spaces instead of tabs
+opt.shiftwidth = 4        -- shift 4 spaces when tab
+opt.tabstop = 4           -- 1 tab == 4 spaces
+opt.smartindent = true    -- autoindent new lines
+
+-----------------------------------------------------------
+-- Autocompletion
+-----------------------------------------------------------
+opt.completeopt = 'menuone,noselect'
+-- don't auto commenting new lines
+cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
+
+-----------------------------------------------------------
+-- Terminal
+-----------------------------------------------------------
+-- open a terminal pane on the right using :Term
+cmd [[command Term :botright vsplit term://$SHELL]]
+
+-- Terminal visual tweaks
+--- enter insert mode when switching to terminal
+--- close terminal buffer on process exit
+cmd [[
+    autocmd TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
+    autocmd TermOpen * startinsert
+    autocmd BufLeave term://* stopinsert
+]]
