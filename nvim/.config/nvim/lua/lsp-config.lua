@@ -49,9 +49,9 @@ local servers = {
             clangdFileStatus = true,
         },
     },
-    -- omnisharp = {
-    --     cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
-    -- }
+    omnisharp = {
+        cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
+    }
 }
 
 local setup_server = function(server, config)

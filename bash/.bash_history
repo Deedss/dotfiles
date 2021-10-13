@@ -403,3 +403,28 @@ ll
 exit
 conservation-mode 
 exit
+ll
+cd .dotfiles/
+ll
+git statu
+git status
+git diff scripts/.scripts/sources
+ll
+git status
+git add .
+git commit -m "removed dotnet/omnisharp"
+git push
+exit
+ll
+full_update 
+exit
+nvim .config/nvim/lua/lsp-config.lua 
+nvim .scripts/sources 
+exit
+sudo dnf install dotnet
+dotnet --version
+exit
+ll
+exit
+l
+exit
