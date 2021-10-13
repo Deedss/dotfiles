@@ -428,3 +428,20 @@ ll
 exit
 l
 exit
+cd .dotfiles/
+ll
+git status
+git add .
+git commit -m "update"
+git diff
+git diff nvim/.config/nvim/lua/lsp-config.lua
+git push
+exit
+nvim .scripts/sources 
+exit
+nvim .config/nvim/lua/lsp-config.lua 
+nvim
+full_update 
+exit
+nvim
+exit
