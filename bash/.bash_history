@@ -565,3 +565,31 @@ ll
 nvim note.py 
 ll
 exit
+cd .dot
+cd .dotfiles/
+ll
+git status
+git add .
+git commit -m "initial setup of nvim-dap"
+git push
+exit
+ll
+python --version
+pip install
+pip help
+sudo dnf install bash-copmletions
+sudo dnf install bash-completions
+sudo dnf search bash-completion
+sudo dnf install bash-completion
+exit
+pip --help
+$ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+ll
+ls
+exit
+cd ~
+ll
+nvim .zshrc.omz-uninstalled-2021-10-13_21-04-56 
+cd Dev/LearningPython/
+ll
