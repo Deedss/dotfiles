@@ -73,9 +73,21 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/bufferline.nvim"
   },
+  ["cmp-buffer"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/cmp-buffer"
+  },
   ["cmp-nvim-lsp"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/cmp-nvim-lsp"
+  },
+  ["cmp-nvim-lua"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/cmp-nvim-lua"
+  },
+  ["cmp-path"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/cmp-path"
   },
   ["lualine.nvim"] = {
     loaded = true,
@@ -92,6 +104,10 @@ _G.packer_plugins = {
   ["nvim-dap"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/nvim-dap"
+  },
+  ["nvim-dap-ui"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/nvim-dap-ui"
   },
   ["nvim-dap-virtual-text"] = {
     loaded = true,

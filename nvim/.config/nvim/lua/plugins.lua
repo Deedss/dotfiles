@@ -14,9 +14,9 @@ require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     -- Color Schemes
-    use 'navarasu/onedark.nvim' 
+    use 'navarasu/onedark.nvim'
     use 'marko-cerovac/material.nvim'
-    
+
     -- Telescope
     use {
         'nvim-telescope/telescope.nvim',
@@ -57,8 +57,9 @@ require('packer').startup(function()
     use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
 
 
-    -- use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-    -- use 'mfussenegger/nvim-dap'
-    --use 'theHamsta/nvim-dap-virtual-text'
+    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+    use 'mfussenegger/nvim-dap'
+    use 'theHamsta/nvim-dap-virtual-text'
+
 end)
 

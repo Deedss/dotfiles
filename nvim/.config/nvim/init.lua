@@ -25,4 +25,4 @@ require "lsp-config"
 require "nvim-cmp"
 
 -- nvim-dap
--- require "nvim-dap"
+require "nvim-dap"

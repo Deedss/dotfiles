@@ -445,3 +445,123 @@ full_update
 exit
 nvim
 exit
+nvim .config/nvim/lua/nvim-cmp.lua 
+shutdown 0
+cd .dotfiles
+git status
+git add .
+git commit -m "test.vim was for trying out vscode/neovim plugin"
+git push
+full_update 
+reboot
+/bin/python /home/gertjan/Dev/LearningPython/NoteCmd/note.py
+/bin/python
+exit
+cd NoteCmd/
+python note.py 
+python --debug note.py 
+python -h
+ll
+python -d note.py 
+python note.py 
+exit
+cd Dev/LearningPython/
+ll
+nvim NoteCmd/note.py 
+l
+exit
+exit
+full
+full_update 
+ffplay -o /dev/video
+ffplay /dev/video
+ffplay /dev/video0
+ffplay --help /dev/video0 
+exit
+full
+full_update 
+cd .dotfiles/
+ll
+git status
+cd ../Dev/LearningPython/
+ll
+git status
+git add .
+git commit -m "upd"
+git push
+cd ../
+ll
+cd Rust/
+cd ../Scripts/
+ll
+exit
+sudo dnf autoremove code
+sudo dnf install code
+echo $SHELL
+echo $TERM 
+echo $TERMINAL
+ll
+git status
+exit
+git add .
+git commit - m 'Up"
+'
+git commit - m "upd"
+git status
+git push
+git statsu
+git status
+git commit -m "update"
+git push
+exit
+git add .
+git commit -m "remove some stuff"
+git push
+cd NO
+cd NoteCmd/
+ll
+python -d note.py 
+pdb note.py
+python
+python note.py 
+python -d note.py 
+pdb note.py 
+python -m pdb note.py 
+exit
+cd Dev/LearningPython/
+nvim NoteCmd/note.py 
+exit
+cd NoteCmd/
+ll
+python -m pdb note.py 
+exit
+cd .config/nvim/
+nvim lua/plugins.lua 
+nvim
+nvim lua/nvim-dap.lua 
+nvim
+exit
+nvim 
+exit
+full_update 
+cd Dev/LearningPython/
+cd NoteCmd/
+ll
+nvim note.py 
+exit
+cd Dev/LearningPython/
+nvim 
+cd NoteCmd/
+nvim note.py 
+cd ~/.config/nvim/
+cd lua/
+nvim nvim-dap.lua 
+nivm
+nvim
+nvim nvim-dap.lua 
+exit
+cd Dev/LearningPython/NoteCmd/
+ll
+nvim note.py 
+ll
+exit
