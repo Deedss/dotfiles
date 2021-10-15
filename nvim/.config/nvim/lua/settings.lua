@@ -76,10 +76,10 @@ opt.synmaxcol = 240             -- max column for syntax highlight
 -- Colorscheme
 -----------------------------------------------------------
 opt.termguicolors = true      -- enable 24-bit RGB colors
-vim.g.onedark_style = 'darker'
-require('onedark').setup()
--- g.material_style = 'darker'
--- cmd([[colorscheme material]])
+-- vim.g.onedark_style = 'darker'
+-- require('onedark').setup()
+g.material_style = 'darker'
+cmd [[colorscheme material]]
 
 -----------------------------------------------------------
 -- Tabline and BufferLine
@@ -93,8 +93,8 @@ require("bufferline").setup{
 }
 require('lualine').setup {
   options = {
-      theme = 'onedark'
-      -- theme = 'material-nvim'
+      -- theme = 'onedark'
+      theme = 'material-nvim'
   }
 }
 
