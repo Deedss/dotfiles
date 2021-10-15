@@ -13,6 +13,9 @@ source "$HOME/.scripts/zsh_completions"
 export EDITOR='nvim'
 export VISUAL='nvim'
 
+# add Local to PATH
+export PATH=$PATH:$HOME/.local/bin
+
 # Dotnet
 # source "$HOME/Tools/omnisharp-linux-x64"
 

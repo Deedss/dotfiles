@@ -20,7 +20,7 @@ opt.clipboard = 'unnamedplus'   -- copy/paste to system clipboard
 opt.swapfile = false            -- don't use swapfile
 opt.syntax = 'on'
 opt.fileencoding = 'utf-8'
-opt.updatetime = 300
+opt.updatetime = 700
 cmd [[filetype plugin on]]
 opt.signcolumn = 'yes:1'
 

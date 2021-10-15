@@ -51,7 +51,8 @@ local servers = {
     },
     omnisharp = {
         cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
-    }
+    },
+    cmake = true,
 }
 
 local setup_server = function(server, config)

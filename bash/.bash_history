@@ -593,3 +593,5 @@ ll
 nvim .zshrc.omz-uninstalled-2021-10-13_21-04-56 
 cd Dev/LearningPython/
 ll
+lldb --help
+exit
