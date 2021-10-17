@@ -30,7 +30,11 @@ require('packer').startup(function()
         requires = 'kyazdani42/nvim-web-devicons',
         config = function() require'nvim-tree'.setup {} end
     }
-    use 'nvim-treesitter/nvim-treesitter'
+
+    use {
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate'
+    }
 
     -- LSP config
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client

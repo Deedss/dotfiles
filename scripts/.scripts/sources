@@ -16,6 +16,10 @@ export VISUAL='nvim'
 # add Local to PATH
 export PATH=$PATH:$HOME/.local/bin
 
+# Python VirtualEnv
+export WORKON_HOME=$HOME/.virtualenvs
+source "$HOME/.local/bin/virtualenvwrapper.sh"
+
 # Dotnet
 # source "$HOME/Tools/omnisharp-linux-x64"
 

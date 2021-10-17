@@ -21,6 +21,9 @@ require "telescope_mappings"
 -- LSP-config
 require "lsp-config"
 
+-- Treesitter
+require "treesitter"
+
 -- nvim-cmp
 require "nvim-cmp"
 
