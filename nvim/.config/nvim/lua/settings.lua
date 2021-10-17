@@ -38,6 +38,7 @@ opt.showmatch = true            -- highlight matching parenthesis
 opt.splitright = true           -- vertical split to the right
 opt.splitbelow = true           -- Horizontal split to the bottom
 opt.linebreak = true            -- wrap on word boundary
+opt.wrap = false
 opt.title = true                -- set a title
 opt.titlestring = '%<%F%= - nvim'
 opt.cursorline = true           -- Enable highlighting of the current line
