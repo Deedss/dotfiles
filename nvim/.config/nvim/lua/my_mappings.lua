@@ -54,7 +54,7 @@ map("n", "H", "^")
 map("n", "L", "$")
 
 -- Open hotkeys
-map("a", "<C-p>", ":Files<CR>")
+map("", "<C-p>", ":Files<CR>")
 map("n", "<leader>;", ":Buffers<CR>")
 
 -- Quick Save
