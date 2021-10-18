@@ -77,14 +77,8 @@ opt.synmaxcol = 240             -- max column for syntax highlight
 -- Colorscheme
 -----------------------------------------------------------
 opt.termguicolors = true      -- enable 24-bit RGB colors
-vim.g.onedark_style = 'darker'
-require('onedark').setup()
--- g.material_style = 'darker'
--- cmd [[colorscheme material]]gcc
--- cmd [[colorscheme base16-default-dark]]
--- g.gruvbox_material_background = 'soft'
--- cmd [[colorscheme gruvbox-material]]
-
+cmd [[set background=dark]]
+cmd [[colorscheme base16-gruvbox-dark-hard]]
 -----------------------------------------------------------
 -- Tabline and BufferLine
 -----------------------------------------------------------
@@ -97,8 +91,7 @@ require("bufferline").setup{
 }
 require('lualine').setup {
   options = {
-      theme = 'onedark'
-      -- theme = 'material-nvim'
+      theme = 'gruvbox'
   }
 }
 

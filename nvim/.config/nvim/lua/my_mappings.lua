@@ -53,9 +53,5 @@ map("v", "<C-h>", ":nohlsearch<CR>")
 map("n", "H", "^")
 map("n", "L", "$")
 
--- Open hotkeys
-map("", "<C-p>", ":Files<CR>")
-map("n", "<leader>;", ":Buffers<CR>")
-
 -- Quick Save
 map("n", "<leader>w", ":w<CR>")

@@ -14,8 +14,7 @@ require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     -- Color Schemes
-    use 'navarasu/onedark.nvim'
-    use 'marko-cerovac/material.nvim'
+    use 'RRethy/nvim-base16'
 
     -- Telescope
     use {
