@@ -44,7 +44,13 @@ require('packer').startup(function()
     use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
     use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
     use "godlygeek/tabular" -- Quickly align text by pattern
-    use 'tpope/vim-surround'
+    -- use 'tpope/vim-surround'
+    use {
+        "blackCauldron7/surround.nvim",
+        config = function()
+            require"surround".setup {mappings_style = "surround"}
+        end
+    }
 
     -- Nvim Completions
     use 'hrsh7th/nvim-cmp'              -- Autocompletion plugin
