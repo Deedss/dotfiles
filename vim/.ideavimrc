@@ -18,7 +18,7 @@ set relativenumber
 set title
 set textwidth=0
 set tabstop=4 softtabstop=4 shiftwidth=4 expandtab smarttab autoindent
-set ignorecase 
+set ignorecase
 set incsearch
 set magic
 set showmatch mat=2
@@ -42,67 +42,67 @@ filetype indent on
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable 
+syntax enable
 " Enable 256 colors palette in Gnome Terminal
 set termguicolors
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Mappings   
+" => Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """ Map leader to , ---------------------
-"let mapleader="\<space>"
-
-"" Quick quit and write
-"nnoremap <leader>q :q!<cr>
-"nnoremap <leader>z :wq<cr>
-"nnoremap <leader>w :w<cr>
-"nnoremap <silent> <esc> :noh<cr><esc>
-
-"" Easy select all of file
-"nnoremap <leader>sa :ggVG$
-
-"" Make Y yank to end of the line
-" nnoremap Y y$
-
-"" Make visual yanks place the cursor back where started
-"vnoremap y ygv<Esc>
-
-"" switch buffers in Normal mode
-" nnoremap <Tab> :bnext<CR>
-" nnoremap <S-Tab> :bprevious<CR>
-""leader key twice to cycle between last two open buffers
-"nnoremap <leader><leader> <c-^>
-
-"" Remap VIM 0 to first non-blank character
-"map 0 ^
+let mapleader="\<space>"
 
 "" Move a line of text using ALT+[jk] or Command+[jk] on mac
 vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
-"" Moving around the windows
-"nnoremap <silent> <C-h> <C-W>h
-"nnoremap <silent> <C-j> <C-W>j
-"nnoremap <silent> <C-k> <C-W>k
-"nnoremap <silent> <C-l> <C-W>l
+" No arrow keys --- force yourself to use the home row
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
 
-"" Useful mappings for managing tabs
-"nnoremap <leader>te  :tabedit<Space>
-"nnoremap <leader>tm  :tabm<Space>
-"nnoremap <leader>td  :tabclose<CR>
-"nnoremap <leader>tl  :tabnext<CR>
-"nnoremap <leader>th  :tabprev<CR>
-"nnoremap <leader>tn  :tabnew<space>
+" Left and right can switch buffers
+nnoremap <left> :bp<CR>
+nnoremap <right> :bn<CR>
 
-"" For long, wrapped lines
-nnoremap k gk
+" Move by line
 nnoremap j gj
+nnoremap k gk
 
-"" Easier indenting control in visual mode
-" vnoremap <silent> > >gv
-" vnoremap <silent> < <gv
+" <leader><leader> toggles between buffers
+nnoremap <leader><leader> <c-^>
+
+" Jump to start and end of line using the home row keys
+map H ^
+map L $
+
+" Ctrl+h to stop searching
+vnoremap <C-h> :nohlsearch<cr>
+nnoremap <C-h> :nohlsearch<cr>
+
+" Search results centered please
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+
+" Very magic by default
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
+
+" Open hotkeys
+map <C-p> :Files<CR>
+nmap <leader>; :Buffers<CR>
+
+" Quick-save
+nmap <leader>w :w<CR>
 
 """"""""""""""""""""""""""""""
 " => Status line
