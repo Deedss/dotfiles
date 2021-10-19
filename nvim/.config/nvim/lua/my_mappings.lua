@@ -41,9 +41,9 @@ map("n", "#", "#zz", { silent = true })
 map("n", "g*", "g*zz", { silent = true })
 
 -- Very magic by default
-map("n", "?", "?\v")
-map("n", "/", "/\v")
-map("c", "%s/", "%sm/")
+-- map("n", "?", "?\v")
+-- map("n", "/", "/\v")
+-- map("c", "%s/", "%sm/")
 
 -- Ctrl + h to stop search
 map("n", "<C-h>", ":nohlsearch<CR>")

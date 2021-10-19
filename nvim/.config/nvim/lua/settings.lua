@@ -77,16 +77,25 @@ opt.synmaxcol = 240             -- max column for syntax highlight
 -- Colorscheme
 -----------------------------------------------------------
 opt.termguicolors = true      -- enable 24-bit RGB colors
-cmd [[set background=dark]]
+-- cmd [[set background=dark]]
 cmd [[colorscheme base16-gruvbox-dark-hard]]
 -----------------------------------------------------------
 -- Tabline and BufferLine
 -----------------------------------------------------------
 require("bufferline").setup{
     options = {
+        show_buffer_icons = false,
+        show_close_icon = false,
+        show_buffer_close_icons = false,
         numbers = function(opts)
             return string.format('[%s]', opts.id)
         end
+    },
+    highlights = {
+        fill = {
+            guifg = '#d3869b',
+            guibg = '#1d2021',
+        },
     }
 }
 require('lualine').setup {
