@@ -64,6 +64,8 @@ exec([[
 -----------------------------------------------------------
 opt.ignorecase = true           -- ignore case letters when search
 opt.smartcase = true            -- ignore lowercase for the whole pattern
+opt.gdefault = true
+opt.incsearch = true
 
 -----------------------------------------------------------
 -- Memory, CPU
@@ -71,7 +73,7 @@ opt.smartcase = true            -- ignore lowercase for the whole pattern
 opt.hidden = true               -- enable background buffers
 opt.history = 100               -- remember n lines in history
 opt.lazyredraw = true           -- faster scrolling
-opt.synmaxcol = 240             -- max column for syntax highlight
+opt.synmaxcol = 500            -- max column for syntax highlight
 
 -----------------------------------------------------------
 -- Colorscheme

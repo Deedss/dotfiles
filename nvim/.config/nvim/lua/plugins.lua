@@ -57,6 +57,7 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-nvim-lua'
     use "hrsh7th/cmp-path"
+    use "windwp/nvim-autopairs"
 
     -- Interface
     use {
@@ -65,10 +66,10 @@ require('packer').startup(function()
     }
     use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
 
-
-    use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-    use 'mfussenegger/nvim-dap'
-    use 'theHamsta/nvim-dap-virtual-text'
-
+    -- Nvim Debug Adapter Protocol
+    use "mfussenegger/nvim-dap"
+    use "rcarriga/nvim-dap-ui"
+    use "theHamsta/nvim-dap-virtual-text"
+    use "nvim-telescope/telescope-dap.nvim"
 end)
 

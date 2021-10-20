@@ -32,3 +32,6 @@ require "nvim-dap"
 
 -- nvim-tree
 require "nvimtree"
+
+-- nvim-autopairs
+require "autopairs"

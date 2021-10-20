@@ -93,6 +93,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
+  ["nvim-autopairs"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/nvim-autopairs"
+  },
   ["nvim-base16"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/nvim-base16"
@@ -146,6 +150,10 @@ _G.packer_plugins = {
   tabular = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/tabular"
+  },
+  ["telescope-dap.nvim"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/telescope-dap.nvim"
   },
   ["telescope-fzf-native.nvim"] = {
     loaded = true,

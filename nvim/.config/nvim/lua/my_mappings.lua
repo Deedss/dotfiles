@@ -55,3 +55,7 @@ map("n", "L", "$")
 
 -- Quick Save
 map("n", "<leader>w", ":w<CR>")
+
+-- Switching buffers
+map("n", "]b", "<CMD>bn<CR>")
+map("n", "[b", "<CMD>bp<CR>")
