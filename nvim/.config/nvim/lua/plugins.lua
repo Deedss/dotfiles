@@ -60,6 +60,10 @@ require('packer').startup(function()
     use "hrsh7th/cmp-path"
     use "windwp/nvim-autopairs"
 
+    -- Snippets
+    use "rafamadriz/friendly-snippets"
+    use "L3MON4D3/LuaSnip" 
+    
     -- Interface
     use {
       'hoob3rt/lualine.nvim',
