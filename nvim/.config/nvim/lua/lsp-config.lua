@@ -3,6 +3,7 @@
 -- Contains all settings for the LSP configurations
 -----------------------------------------------------------------------------------
 local nvim_lsp = require 'lspconfig'
+require('telescope').load_extension('fzf')
 local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -66,5 +67,3 @@ end
 for server, config in pairs(servers) do
     setup_server(server, config)
 end
-
-require('telescope').load_extension('fzf')
