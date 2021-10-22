@@ -50,7 +50,6 @@ function main_packages(){
         wireshark \
         nmap \
         qbittorrent \
-        neovim \
         ncurses \
         git \
         curl \
@@ -92,4 +91,11 @@ function install_kitty(){
 
 function install_flathub(){
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
+function install_neovim(){
+    mkdir -p /Tools/AppImages \
+    wget -P ~/Tools/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage \
+    chmod u+x nvim.appimage \
+    sudo ln -s ~/Tools/AppImages/nvim.appimage /usr/local/bin/nvim
 }
