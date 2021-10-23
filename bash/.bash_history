@@ -595,3 +595,8 @@ cd Dev/LearningPython/
 ll
 lldb --help
 exit
+sudo dnf install power-profiles-daemon
+sudo systemctl enable power-profiles-daemon.service 
+sudo systemctl status packagekit
+sudo systemctl disable packagekit
+exit
