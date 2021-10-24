@@ -42,7 +42,7 @@ export PATH=$PATH:$HOME/Tools/go/bin
 # export PATH=$PATH:$HOME/Tools/cmake-3.19.7-Linux-x86_64/bin
 
 # Espressif
-alias getIdf='. $HOME/Tools/esp-idf-stable/export.sh'
+alias getIdf='. $HOME/Tools/esp-idf/export.sh'
 
 # Emscripten
 alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
