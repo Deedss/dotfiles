@@ -15,6 +15,7 @@ require('packer').startup(function()
 
     -- Color Schemes
     use 'RRethy/nvim-base16'
+    use 'olimorris/onedarkpro.nvim'
 
     -- Telescope
     use {
@@ -62,8 +63,8 @@ require('packer').startup(function()
 
     -- Snippets
     use "rafamadriz/friendly-snippets"
-    use "L3MON4D3/LuaSnip" 
-    
+    use "L3MON4D3/LuaSnip"
+
     -- Interface
     use {
       'hoob3rt/lualine.nvim',
