@@ -63,7 +63,7 @@ function main_packages(){
         libvdpau-va-gl gstreamer1-vaapi \
         power-profiles-daemon \
         java-11-openjdk \
-        ncurses ncurses-libs \
+        ncurses ncurses-libs 
 }
 
 function install_oh_my_zsh(){

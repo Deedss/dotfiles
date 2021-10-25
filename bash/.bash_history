@@ -600,3 +600,26 @@ sudo systemctl enable power-profiles-daemon.service
 sudo systemctl status packagekit
 sudo systemctl disable packagekit
 exit
+source .scripts/install.sh 
+install_flathub 
+install_rust 
+install_vscode 
+sudo dnf install arc-kde arc-theme
+sudo dnf install vlc
+sudo dnf install yakuake
+ll
+tar -I zstd -xvf VirtualMachines.tar.zst 
+sudo dnf install arc-kde arc-theme
+sudo dnf install zsh
+install_oh_my_zsh 
+ll
+install_pythontools 
+cd .dotfiles/
+stow nvim/
+stow vim
+stow git
+stow fonts
+stow bash
+stow zsh
+exit
+reboot
