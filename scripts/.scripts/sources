@@ -1,7 +1,6 @@
 ## Personal aliases
 alias balanced='powerprofilesctl set balanced'
 alias power-saver='powerprofilesctl set power-saver'
-alias update='sudo dnf update --refresh && sudo flatpak update'
 
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
