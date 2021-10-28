@@ -30,11 +30,5 @@ require "nvim-cmp"
 -- nvim-dap
 -- require "nvim-dap"
 
--- nvim-tree
-require "nvimtree"
-
--- nvim-autopairs
-require "autopairs"
-
 --nvim-toggletree
 require "toggle_term"

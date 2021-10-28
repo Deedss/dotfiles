@@ -24,12 +24,12 @@ require('packer').startup(function()
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
-    -- NVim-Tree
-    use {
-        'kyazdani42/nvim-tree.lua',
-        requires = 'kyazdani42/nvim-web-devicons',
-        config = function() require'nvim-tree'.setup {} end
-    }
+--     -- NVim-Tree
+--     use {
+--         'kyazdani42/nvim-tree.lua',
+--         requires = 'kyazdani42/nvim-web-devicons',
+--         config = function() require'nvim-tree'.setup {} end
+--     }
 
     -- Toggleterm
     use {"akinsho/toggleterm.nvim"}
@@ -62,7 +62,6 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-buffer'
     use 'hrsh7th/cmp-nvim-lua'
     use "hrsh7th/cmp-path"
-    use "windwp/nvim-autopairs"
 
     -- Snippets
     use "rafamadriz/friendly-snippets"

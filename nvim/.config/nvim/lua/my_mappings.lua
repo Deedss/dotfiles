@@ -46,8 +46,8 @@ map("n", "g*", "g*zz", { silent = true })
 -- map("c", "%s/", "%sm/")
 
 -- Ctrl + h to stop search
-map("n", "<C-H>", ":nohlsearch<CR>")
-map("v", "<C-H>", ":nohlsearch<CR>")
+-- map("n", "<C-H>", ":nohlsearch<CR>")
+-- map("v", "<C-H>", ":nohlsearch<CR>")
 
 -- Jump to start and end of the line using home row
 map("n", "H", "^")
