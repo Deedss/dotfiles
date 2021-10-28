@@ -16,7 +16,9 @@ require "settings"
 
 -- Mappings
 require "my_mappings"
-require "telescope_mappings"
+
+-- Telescope
+require "telescope-settings"
 
 -- LSP-config
 require "lsp-config"
@@ -29,6 +31,12 @@ require "nvim-cmp"
 
 -- nvim-dap
 -- require "nvim-dap"
+
+-- nvim-tree
+-- require "nvimtree"
+
+-- nvim-autopairs
+-- require "autopairs"
 
 --nvim-toggletree
 require "toggle_term"

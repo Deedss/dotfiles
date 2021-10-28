@@ -24,12 +24,12 @@ require('packer').startup(function()
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
---     -- NVim-Tree
---     use {
---         'kyazdani42/nvim-tree.lua',
---         requires = 'kyazdani42/nvim-web-devicons',
---         config = function() require'nvim-tree'.setup {} end
---     }
+    -- -- NVim-Tree
+    -- use {
+    --     'kyazdani42/nvim-tree.lua',
+    --     requires = 'kyazdani42/nvim-web-devicons',
+    --     config = function() require'nvim-tree'.setup {} end
+    -- }
 
     -- Toggleterm
     use {"akinsho/toggleterm.nvim"}
