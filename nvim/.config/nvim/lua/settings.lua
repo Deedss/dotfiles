@@ -81,10 +81,11 @@ opt.synmaxcol = 500            -- max column for syntax highlight
 opt.termguicolors = true      -- enable 24-bit RGB colors
 -- cmd [[set background=dark]]
 -- cmd [[colorscheme base16-gruvbox-dark-hard]]
-opt.background = "dark"
-require('onedarkpro').load()
-
-local colors = require("onedarkpro").get_colors("onedark")
+-- opt.background = "dark"
+-- require('onedarkpro').load()
+-- local colors = require("onedarkpro").get_colors("onedark")
+g.material_style = "darker"
+cmd [[colorscheme material]]
 -----------------------------------------------------------
 -- Tabline and BufferLine
 -----------------------------------------------------------
@@ -97,16 +98,17 @@ require("bufferline").setup{
             return string.format('[%s]', opts.id)
         end
     },
-    highlights = {
-        fill = {
-            guifg = colors.fg,
-            guibg = colors.bg,
-        },
-    }
+    -- highlights = {
+    --     fill = {
+    --         -- guifg = colors.fg,
+    --         -- guibg = colors.bg,
+    --     },
+    -- }
 }
 require('lualine').setup {
   options = {
-      theme = 'onedark'
+      -- theme = 'onedark'
+      theme = 'material-nvim'
   }
 }
 

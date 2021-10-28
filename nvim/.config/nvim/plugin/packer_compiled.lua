@@ -101,6 +101,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/lualine.nvim"
   },
+  ["material.nvim"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/material.nvim"
+  },
   ["nvim-base16"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/nvim-base16"
