@@ -35,3 +35,6 @@ require "nvimtree"
 
 -- nvim-autopairs
 require "autopairs"
+
+--nvim-toggletree
+require "toggle_term"

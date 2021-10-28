@@ -175,6 +175,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/telescope.nvim"
   },
+  ["toggleterm.nvim"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/toggleterm.nvim"
+  },
   ["vim-commentary"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/vim-commentary"
