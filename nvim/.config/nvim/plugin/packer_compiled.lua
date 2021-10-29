@@ -97,6 +97,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/friendly-snippets"
   },
+  ["lspkind-nvim"] = {
+    loaded = true,
+    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/lspkind-nvim"
+  },
   ["lualine.nvim"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/lualine.nvim"
