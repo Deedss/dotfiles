@@ -63,7 +63,7 @@ function main_packages(){
         libvdpau-va-gl gstreamer1-vaapi \
         power-profiles-daemon \
         java-11-openjdk \
-        ncurses ncurses-libs 
+        ncurses ncurses-libs
 }
 
 function install_oh_my_zsh(){
@@ -115,4 +115,16 @@ function install_vscode(){
 
 function install_pythontools(){
     pip install virtualenvwrapper
+}
+
+function install_docker(){
+    sudo dnf config-manager \
+    --add-repo \
+    https://download.docker.com/linux/fedora/docker-ce.repo
+
+    sudo dnf install docker-ce docker-ce-cli containerd.io
+
+    sudo usermod -aG docker $USER
+    sudo systemctl enable docker.service
+    sudo systemctl enable containerd.service
 }

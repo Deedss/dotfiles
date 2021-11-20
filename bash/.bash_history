@@ -660,3 +660,26 @@ stow starship/
 stow fonts/
 stow vim
 stow git
+cd .dotfiles/
+stow bash/
+stow zsh
+stow git/
+stow starship/
+stow vim
+stow nvim
+stow fonts
+stow alacritty/
+exit
+ll
+exit
+sudo dnf install chsh
+chsh
+chsh /bin/zsh
+sudo dnf install zsh
+rm -rf .oh-my-zsh/
+exit
+cd .dotfiles/
+stow zsh
+exit
+ll
+reboot
