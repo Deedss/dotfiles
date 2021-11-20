@@ -623,3 +623,40 @@ stow bash
 stow zsh
 exit
 reboot
+cd ~
+source .scripts/install.sh 
+first_cleanup_kde 
+install_rust 
+install_vscode 
+add_rpmfusion 
+main_packages 
+sudo dnf install google-roboto-fonts ncurses-lib
+sudo dnf install google-roboto-fonts ncurses-libs
+sudo dnf install python3-virtualenv python3-wheel
+install_flathub 
+install_pythontools 
+sudo dnf install neovim
+install_brave 
+sudo dnf install yakuake -y
+install_oh_my_zsh 
+cd .dotfiles/
+stow bash
+stow zsh
+stow kdessh/
+reboot
+sudo dnf install arc-kde arc-theme -y
+git clone git@github.com:Deedss/dotfiles .dotfiles
+sudo dnf install kate ark -y
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+git clone git@github.com:Deedss/dotfiles .dotfiles
+sudo dnf install stow
+sudo dnf install stow -y
+cd .dotfiles/
+ll
+stow scripts/
+stow nvim
+stow starship/
+stow fonts/
+stow vim
+stow git
