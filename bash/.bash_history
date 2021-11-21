@@ -683,3 +683,7 @@ stow zsh
 exit
 ll
 reboot
+ll
+sudo update-alternatives --list python
+sudo update-alternatives --set python /usr/bin/python3.9
+exit

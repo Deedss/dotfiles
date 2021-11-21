@@ -1,4 +1,18 @@
 [Desktop Entry]
-Exec=ssh-add -q ~/.ssh/id_ed25519
+Comment[en_US]=
+Comment=
+Exec=ssh-add ~/.ssh/id_ed25519 < /dev/null
+GenericName[en_US]=
+GenericName=
+MimeType=
+Name[en_US]=ssh-add
 Name=ssh-add
+Path=
+StartupNotify=true
+Terminal=false
+TerminalOptions=
 Type=Application
+X-DBUS-ServiceName=
+X-DBUS-StartupType=
+X-KDE-SubstituteUID=false
+X-KDE-Username=

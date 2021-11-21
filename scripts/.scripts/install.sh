@@ -114,6 +114,7 @@ function install_vscode(){
 }
 
 function install_pythontools(){
+    sudo dnf install python3-devel python3-wheel python3-virtualenv
     pip install virtualenvwrapper
 }
 
