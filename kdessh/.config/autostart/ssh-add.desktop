@@ -1,5 +1,5 @@
 [Desktop Entry]
-Exec=/home/gertjan/.config/old-autostart-scripts/ssh-add.sh
+Exec=/home/gertjan/.scripts/ssh-add.sh
 Icon=dialog-scripts
 Name=ssh-add.sh
 Path=

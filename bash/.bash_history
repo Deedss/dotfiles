@@ -687,3 +687,31 @@ ll
 sudo update-alternatives --list python
 sudo update-alternatives --set python /usr/bin/python3.9
 exit
+source install.sh 
+main_packages 
+add_rpmfusion 
+install_flathub 
+install_rust 
+sudo dnf install stow
+install_vscode
+install_brave 
+sudo dnf install ark zstd
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+install_oh_my_zsh 
+ll
+install_pythontools 
+reboot
+cd ~
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+cd .dotfiles/
+ll
+stow bash
+stow scripts
+stow vim
+stow nvim
+stow kdessh/
+stow fonts
+stow starship
+stow git
+stow zsh
