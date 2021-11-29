@@ -715,3 +715,32 @@ stow fonts
 stow starship
 stow git
 stow zsh
+sudo dnf autoremove simple-scan-40.6-1.fc35.x86_64 
+sudo dnf install skanlite
+skanlite
+update
+sudo dnf search planner
+update
+cd Dev/LearningPython/
+git clone git@github.com:Pierian-Data/Complete-Python-3-Bootcamp.git
+git status
+git add .
+git submodule add git@github.com:Pierian-Data/Complete-Python-3-Bootcamp.git Complete-Python-3-Bootcamp
+rm -rf Complete-Python-3-Bootcamp/
+git status
+git ll
+ll
+git submodule add git@github.com:Pierian-Data/Complete-Python-3-Bootcamp.git Complete-Python-3-Bootcamp
+git commit -m "update'
+"
+git push
+git add .
+git commit -m "update"
+git pus
+git push
+git submodule add git@github.com:Pierian-Data/Complete-Python-3-Bootcamp.git Complete-Python-3-Bootcamp
+git add .
+git commit -m "update
+"
+git push
+exit
