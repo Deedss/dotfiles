@@ -32,7 +32,7 @@ alias adb='sudo $ANDROID_HOME/platform-tools/adb'
 
 # Flutter
 export PATH=$PATH:$HOME/Tools/flutter/bin
-export CHROME_EXECUTABLE=/usr/bin/brave-browser-stable
+export CHROME_EXECUTABLE=brave-browser-stable
 
 # Go
 #export PATH=$PATH:/usr/local/go/bin
