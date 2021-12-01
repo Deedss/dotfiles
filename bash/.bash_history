@@ -744,3 +744,14 @@ git commit -m "update
 "
 git push
 exit
+exit
+
+exit
+nvim .scripts/sources 
+exit
+ll
+exit
+ll
+exit
+ll
+exit

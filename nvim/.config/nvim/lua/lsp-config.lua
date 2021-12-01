@@ -30,7 +30,6 @@ end
 --------------------------------------------------------------------
 local servers = {
     vimls = true,
-    bashls = true,
     dartls = true,
     pyright = true,
     rust_analyzer = true,
