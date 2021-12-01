@@ -2,11 +2,6 @@
 alias balanced='powerprofilesctl set balanced'
 alias power-saver='powerprofilesctl set power-saver'
 
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
 source "$HOME/.scripts/commands"
