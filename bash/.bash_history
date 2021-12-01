@@ -755,3 +755,16 @@ ll
 exit
 ll
 exit
+nvim .scripts/sources 
+cd .dotfiles/
+stow zsh
+git status
+git add .
+git commit -m "update"
+git push
+exit
+sudo dnf search apptainer
+source .scripts/install.sh 
+install_oh_my_zsh 
+reboot
+exit
