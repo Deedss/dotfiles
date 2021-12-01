@@ -768,3 +768,5 @@ source .scripts/install.sh
 install_oh_my_zsh 
 reboot
 exit
+docker image rm probot-hello:latest node:8-onbuild 
+exit
