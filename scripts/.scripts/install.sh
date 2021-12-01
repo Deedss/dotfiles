@@ -118,6 +118,10 @@ function install_pythontools(){
     pip install virtualenvwrapper
 }
 
+function install_podman(){
+    sudo dnf install podman podman-compose podman-docker buildah
+}
+
 function install_docker(){
     sudo dnf config-manager \
     --add-repo \
