@@ -33,6 +33,9 @@ alias adb='sudo $ANDROID_HOME/platform-tools/adb'
 # Heroku
 export PATH=$PATH:$HOME/Tools/heroku/bin
 
+# Prometheus
+export PATH=$PATH:$HOME/Tools/prometheus
+
 # Flutter
 export PATH=$PATH:$HOME/Tools/flutter/bin
 export CHROME_EXECUTABLE=brave-browser-stable

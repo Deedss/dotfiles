@@ -97,3 +97,6 @@ fi
 source $HOME/.scripts/sources
 
 eval "$(starship init bash)"
+
+# added by travis gem
+[ ! -s /home/gertjan/.travis/travis.sh ] || source /home/gertjan/.travis/travis.sh

@@ -108,3 +108,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 eval "$(starship init zsh)"
+
+# added by travis gem
+[ ! -s /home/gertjan/.travis/travis.sh ] || source /home/gertjan/.travis/travis.sh
