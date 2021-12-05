@@ -65,6 +65,7 @@ function main_packages(){
         java-11-openjdk \
         ncurses ncurses-libs \
         clang-tools-extra \
+        stow
 }
 
 function install_oh_my_zsh(){
