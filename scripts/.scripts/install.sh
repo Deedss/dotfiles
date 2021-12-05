@@ -106,7 +106,8 @@ function install_neovim(){
     mkdir -p /Tools/AppImages
     wget -P ~/Tools/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
     chmod u+x nvim.appimage
-    sudo ln -s ~/Tools/AppImages/nvim.appimage /usr/local/bin/nvim
+    sudo cp ~/Tools/AppImages/nvim.appimage /usr/local/bin/nvim
+    sudo chown gertjan:gertjan /usr/local/bin/nvim
 }
 
 function install_vscode(){
