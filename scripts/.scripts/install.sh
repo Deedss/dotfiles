@@ -63,7 +63,8 @@ function main_packages(){
         libvdpau-va-gl gstreamer1-vaapi \
         power-profiles-daemon \
         java-11-openjdk \
-        ncurses ncurses-libs
+        ncurses ncurses-libs \
+        clang-tools-extra \
 }
 
 function install_oh_my_zsh(){
@@ -132,4 +133,21 @@ function install_docker(){
     sudo usermod -aG docker $USER
     sudo systemctl enable docker.service
     sudo systemctl enable containerd.service
+}
+
+function install_npm(){
+    sudo dnf install npm
+    sudo npm install -g pyright
+}
+
+function arc_theme_kde(){
+    if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]
+    then
+        sudo dnf install arc-theme arc-kde
+    fi
+
+    if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]
+    then
+        sudo dnf install arc-theme
+    fi
 }

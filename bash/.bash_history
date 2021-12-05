@@ -770,3 +770,24 @@ reboot
 exit
 docker image rm probot-hello:latest node:8-onbuild 
 exit
+cd .dotfiles/
+stow bash/
+stow zsh
+stow vim
+stow kdessh
+stow nvim
+stow starship
+stow git
+stow fonts
+stow scripts
+stow vim
+exit
+sudo dnf install yakuake
+exit
+if [ "$XDG_CURRENT_DESKTOP" = "" ]; then   desktop=$(echo "$XDG_DATA_DIRS" | sed 's/.*\(xfce\|kde\|gnome\).*/\1/'); else   desktop=$XDG_CURRENT_DESKTOP; fi
+desktop=${desktop,,}  # convert to lower case
+echo "$desktop"
+if [ "$XDG_CURRENT_DESKTOP" = "" ]; then   desktop=$(echo "$XDG_DATA_DIRS" | sed 's/.*\(xfce\|kde\|gnome\).*/\1/'); else   desktop=$XDG_CURRENT_DESKTOP; fi
+desktop=${desktop,,}  # convert to lower case
+echo "$desktop"
+exit
