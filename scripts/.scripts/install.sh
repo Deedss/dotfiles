@@ -151,3 +151,8 @@ function arc_theme_kde(){
         sudo dnf install arc-theme
     fi
 }
+
+function grub_update(){
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+    sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+}
