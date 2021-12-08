@@ -791,3 +791,7 @@ if [ "$XDG_CURRENT_DESKTOP" = "" ]; then   desktop=$(echo "$XDG_DATA_DIRS" | sed
 desktop=${desktop,,}  # convert to lower case
 echo "$desktop"
 exit
+docker stop
+docker stop (base)
+docker ps
+exit

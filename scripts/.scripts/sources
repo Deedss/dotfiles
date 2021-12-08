@@ -52,3 +52,6 @@ alias getIdf='. $HOME/Tools/esp-idf/export.sh'
 
 # Emscripten
 alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
+
+# Conda
+alias getConda='eval "$(/home/gertjan/Tools/anaconda3/bin/conda shell.zsh hook)"'
