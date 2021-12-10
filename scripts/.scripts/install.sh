@@ -168,7 +168,7 @@ function install_flutter(){
 }
 
 function install_espIdf(){
-    sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+    sudo yum -y update && sudo yum install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     mkdir -p ~/Tools
     cd ~/Tools
     git clone --recursive https://github.com/espressif/esp-idf.git

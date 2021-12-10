@@ -827,3 +827,20 @@ stow vim
 stow zsh/
 sudo dnf install arc-theme arc-kde -y
 reboot
+sudo dnf install yakuake -y
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+cd .dotfiles/
+source scripts/.scripts/install.sh 
+install_oh_my_zsh 
+stow zsh
+stow bash
+stow git
+stow kdessh
+stow scripts/
+stow fonts
+stow starship/
+stow vim
+stow nvim
+exit
+ll
+exit
