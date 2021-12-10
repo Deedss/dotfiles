@@ -795,3 +795,35 @@ docker stop
 docker stop (base)
 docker ps
 exit
+cd /run/media/gertjan/Extreme\ SSD/
+source install.sh 
+add_rpmfusion 
+install_flathub 
+main_packages 
+install_brave 
+install_vscode 
+install_docker
+install_pythontools 
+install_rust 
+install_npm
+install_oh_my_zsh 
+install_neovim
+sudo dnf install vlc discord -y
+sudo usermod -aG libvirt,kvm,dialout $USER
+cd ~
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+cd .dotfiles/
+ll
+stow bash
+stow fonts
+stow git
+stow kdessh
+stow nvim
+stow scripts
+stow starship/
+stow vim
+stow zsh/
+sudo dnf install arc-theme arc-kde -y
+reboot

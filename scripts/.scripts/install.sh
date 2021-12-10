@@ -65,7 +65,8 @@ function main_packages(){
         java-11-openjdk \
         ncurses ncurses-libs \
         clang-tools-extra \
-        stow
+        stow \
+        google-roboto-fonts
 }
 
 function install_oh_my_zsh(){
@@ -157,4 +158,35 @@ function arc_theme_kde(){
 function grub_update(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+}
+
+function install_flutter(){
+    mkdir -p ~/Tools
+    cd ~/Tools
+    git clone https://github.com/flutter/flutter.git -b stable
+    flutter doctor
+}
+
+function install_espIdf(){
+    sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+    mkdir -p ~/Tools
+    cd ~/Tools
+    git clone --recursive https://github.com/espressif/esp-idf.git
+    cd esp-idf
+    sh install.sh
+}
+
+function install_emscripten(){
+    mkdir -p ~/Tools
+    cd ~/Tools
+    # Get the emsdk repo
+    git clone https://github.com/emscripten-core/emsdk.git
+    # Enter that directory
+    cd emsdk
+    # Fetch the latest version of the emsdk (not needed the first time you clone)
+    git pull
+    # Download and install the latest SDK tools.
+    ./emsdk install latest
+    # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+    ./emsdk activate latest
 }
