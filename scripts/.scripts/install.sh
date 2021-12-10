@@ -190,3 +190,7 @@ function install_emscripten(){
     # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
     ./emsdk activate latest
 }
+
+function install_heroku(){
+    curl https://cli-assets.heroku.com/install.sh | sh
+}
