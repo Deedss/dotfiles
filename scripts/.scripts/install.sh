@@ -30,8 +30,7 @@ function first_cleanup_gnome(){
         gnome-contacts \
         gnome-maps \
         gnome-weather \
-        gnome-boxes \
-        gnome-connections
+        gnome-boxes
 }
 
 function add_rpmfusion(){
@@ -143,24 +142,13 @@ function install_npm(){
     sudo npm install -g pyright
 }
 
-function arc_theme_kde(){
-    if [ "$XDG_CURRENT_DESKTOP" = "KDE" ]
-    then
-        sudo dnf install arc-theme arc-kde
-    fi
-
-    if [ "$XDG_CURRENT_DESKTOP" = "GNOME" ]
-    then
-        sudo dnf install arc-theme
-    fi
-}
-
 function grub_update(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 }
 
 function install_flutter(){
+    sudo dnf install gtk3-devel -y
     mkdir -p ~/Tools
     cd ~/Tools
     git clone https://github.com/flutter/flutter.git -b stable
@@ -193,4 +181,8 @@ function install_emscripten(){
 
 function install_heroku(){
     curl https://cli-assets.heroku.com/install.sh | sh
+}
+
+function install_robotframework(){
+    pip install robotframework robotframework-selenium2library
 }
