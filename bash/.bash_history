@@ -844,3 +844,38 @@ stow nvim
 exit
 ll
 exit
+eval $(ssh-agent -s)
+ssh-add ~/.ssh/id_ed25519
+cd ~
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+cd .dotfiles/
+stow git
+stow kdessh
+stow nvim
+stow vim
+stow bash
+stow fonts
+stow starship
+stow scripts
+stow zsh
+exit
+sudo su
+cd /run/media/gertjan/Extreme\ SSD/
+source install.sh 
+sudo nano /etc/dnf/dnf.conf 
+sudo dnf install ark kate -y
+main_packages 
+install_brave 
+add_rpmfusion 
+install_flathub 
+install_rust
+install_neovim
+install_heroku
+install_pythontools 
+install_docker 
+install_vscode 
+install_rust
+install_npm
+sudo dnf install arc-theme arc-kde -y
+install_oh_my_zsh 
+reboot
