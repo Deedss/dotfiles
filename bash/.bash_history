@@ -879,3 +879,74 @@ install_npm
 sudo dnf install arc-theme arc-kde -y
 install_oh_my_zsh 
 reboot
+cd ~
+ll
+files
+nautilus
+exit
+sudo yum install zlib.i686 ncurses-libs.i686 bzip2-libs.i686
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+cd .dotfiles/
+stow scripts/
+stow nvim
+stow starship/
+stow git
+stow fonts
+stow vim
+stow bash
+stow zsh/
+exit
+ll
+tar -xf tsetup.3.3.0.tar.xz 
+mkdir -p ~/Tools/Android/Sdk
+exit
+cd Downloads/
+sh Anaconda3-2021.11-Linux-x86_64.sh 
+chmod +x qt-unified-linux-x64-4.2.0-online.run 
+sudo ./qt-unified-linux-x64-4.2.0-online.run 
+exit
+pip install robotframework robotframework-selenium2library pytest
+exit
+conda_init 
+conda create -n tf tensorflow
+conda activate tf
+pip install pytest keras==2.6.0
+pip install tensorflow
+exit
+cd ~
+mkdir Dev
+cd De
+cd Dev/
+l
+ll
+git clone git@github.com:Deedss/AdventOfCode2021.git
+git clone git@github.com:Deedss/Rust.git
+git clone git@github.com:Deedss/LearningPython.git
+git clone git@github.com:Deedss/DMF_PythonDefectPredictor.git
+exit
+tar -xf *.gz
+ll
+rm Anaconda3-2021.11-Linux-x86_64.sh tsetup.3.3.0.tar.xz android-studio-2020.3.1.26-linux.tar.gz 
+sudo mv android-studio/ /opt/
+cd /opt/
+ll
+cd android-studio/
+ll
+cd ../
+cd Dow
+cd ~/Downloads/
+l
+ll
+sudo mv Telegram/ /opt/
+cd /opt/
+sh /opt/android-studio/bin/studio.sh 
+cd ~/Downloads/
+ll
+cd ~
+source .scripts/install.sh 
+install_flutter 
+flutter doctor --android-licenses 
+flutter config --no-analytics 
+flutter config --enable-linux-desktop 
+exit
+reboot
