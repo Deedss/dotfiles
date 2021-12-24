@@ -950,3 +950,76 @@ flutter config --no-analytics
 flutter config --enable-linux-desktop 
 exit
 reboot
+git clone git@github.com:Deedss/AdventOfCode2021
+git clone git@github.com:Deedss/DMF_PythonDefectPredictor
+git clone git@github.com:Deedss/LearningPython
+git clone git@github.com:Deedss/Rust
+exit
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+sudo dnf install yakuake -y
+cd .dotfiles/
+stow bash
+stow git
+stow starship/
+stow scripts/
+stow nvim
+stow vim
+ll
+stow fonts
+sudo dnf install libreoffice-writer libreoffice-calc -y
+stow kdessh/
+sudo dnf install arc-kde arc-theme -y
+exot
+exit
+sudo ausearch -c 'alsactl' --raw | audit2allow -M my-alsactl
+sudo semodule -i my-alsactl.pp 
+rm my-alsactl.*
+exit
+sudo usermod -aG kvm,libvirt,dialout $USER
+exit
+cd Downloads/
+sh Anaconda3-2021.11-Linux-x86_64.sh 
+exit
+sudo mv android-studio/ /opt/
+sudo mv Telegram/ /opt/
+exit
+source .scripts/install.sh
+install_emscripten 
+exit
+mkdir -p Android/Sdk
+exit
+cd ~
+source .scripts/install
+source .scripts/install.sh 
+install_espIdf 
+exit
+sudo flatpak install spotify drawio
+exit
+cd ~
+source .scripts/install.sh 
+install_robotframework 
+install_heroku 
+sudo yum install zlib.i686 ncurses-libs.i686 bzip2-libs.i686
+exit
+sudo dnf install vlc -y
+exit
+cp jetbrains-studio.desktop ~/.local/share/applications/
+exit
+nvim
+exit
+sh /opt/android-studio/bin/studio.sh 
+exit
+chmod +x qt-unified-linux-x64-4.2.0-online.run 
+sudo ./qt-unified-linux-x64-4.2.0-online.run 
+exit
+source .scripts/install.sh 
+install_oh_my_zsh 
+cd .dotfiles/
+stow zsh
+exit
+source .scripts/install.sh 
+install_flutter 
+flutter config --no-analytics 
+flutter config --enable-linux-desktop 
+exit
+reboot

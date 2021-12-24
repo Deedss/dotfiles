@@ -1,6 +1,7 @@
 ## Personal aliases
 alias balanced='powerprofilesctl set balanced'
 alias power-saver='powerprofilesctl set power-saver'
+alias chrome='brave-browser-stable'
 
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
