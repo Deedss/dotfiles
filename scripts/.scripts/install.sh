@@ -186,5 +186,5 @@ function install_heroku(){
 }
 
 function install_robotframework(){
-    pip install robotframework robotframework-selenium2library
+    pip install robotframework robotframework-selenium2library pygame PyHamcrest pytest
 }
