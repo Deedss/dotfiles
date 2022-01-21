@@ -56,3 +56,12 @@ alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
 
 # Conda
 alias conda_init='eval "$(/home/gertjan/Tools/anaconda/bin/conda shell.zsh hook)"'
+
+# SUMO
+export SUMO_HOME=/home/gertjan/.local/bin/sumo
+
+# esmini
+export PATH=$PATH:$HOME/Tools/esmini/bin
+
+# azuredatastudio
+export PATH=$PATH:$HOME/Tools/azuredatastudio-linux-x64
