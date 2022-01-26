@@ -71,7 +71,21 @@ export ZSH="/home/gertjan/.oh-my-zsh"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    adb
+    colored-man-pages
+    command-not-found
+    common-aliases
+    docker
+    dotnet
+    flutter
     git
+    heroku
+    npm
+    pip
+    pyenv
+    python
+    rust
+
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting

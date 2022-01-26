@@ -7,7 +7,7 @@ alias chrome='brave-browser-stable'
 export PATH=$PATH:$HOME/.scripts
 source "$HOME/.scripts/commands"
 # source "$HOME/.scripts/bash_completions"
-source "$HOME/.scripts/zsh_completions"
+# source "$HOME/.scripts/zsh_completions"
 
 # Set Editor to NVIM
 export EDITOR='nvim'

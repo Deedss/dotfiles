@@ -114,11 +114,6 @@ _G.packer_plugins = {
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/lualine.nvim",
     url = "https://github.com/hoob3rt/lualine.nvim"
   },
-  ["material.nvim"] = {
-    loaded = true,
-    path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/material.nvim",
-    url = "https://github.com/marko-cerovac/material.nvim"
-  },
   ["nvim-base16"] = {
     loaded = true,
     path = "/home/gertjan/.local/share/nvim/site/pack/packer/start/nvim-base16",

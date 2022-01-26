@@ -82,10 +82,10 @@ opt.termguicolors = true      -- enable 24-bit RGB colors
 -- cmd [[set background=dark]]
 -- cmd [[colorscheme base16-gruvbox-dark-hard]]
 -- opt.background = "dark"
--- require('onedarkpro').load()
--- local colors = require("onedarkpro").get_colors("onedark")
-g.material_style = "darker"
-cmd [[colorscheme material]]
+require('onedarkpro').load()
+local colors = require("onedarkpro").get_colors("onedark")
+-- g.material_style = "darker"
+-- cmd [[colorscheme material]]
 -----------------------------------------------------------
 -- Tabline and BufferLine
 -----------------------------------------------------------
@@ -107,8 +107,8 @@ require("bufferline").setup{
 }
 require('lualine').setup {
   options = {
-      -- theme = 'onedark'
-      theme = 'material-nvim'
+      theme = 'onedark'
+      -- theme = 'material-nvim'
   }
 }
 
