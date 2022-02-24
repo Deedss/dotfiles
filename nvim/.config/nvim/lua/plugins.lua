@@ -51,10 +51,10 @@ require('packer').startup(function()
     use "godlygeek/tabular" -- Quickly align text by pattern
     -- use 'tpope/vim-surround'
     use {
-        "blackCauldron7/surround.nvim",
-        config = function()
-            require"surround".setup {mappings_style = "surround"}
-        end
+      "ur4ltz/surround.nvim",
+      config = function()
+        require"surround".setup {mappings_style = "surround"}
+      end
     }
 
     -- Nvim Completions
