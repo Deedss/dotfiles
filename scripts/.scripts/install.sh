@@ -25,10 +25,10 @@ function first_cleanup_kde(){
 
 function setup_dnf(){
     ## Fixing DNF 
-    sudo echo 'skip_if_unavailable=True' >> /etc/dnf/dnf.conf
-    sudo echo 'max_parallel_downloads=20' >> /etc/dnf/dnf.conf
-    sudo echo 'defaultyes=True' >> /etc/dnf/dnf.conf
-    sudo echo 'exclude=plasma-browser-integration' >> /etc/dnf/dnf.conf
+    max_parallel_downloads=20
+    defaultyes=True
+    
+    exclude=plasma-browser-integration
 }
 
 function first_cleanup_gnome(){
