@@ -20,9 +20,6 @@ export PATH=$PATH:$HOME/.local/bin
 export WORKON_HOME=$HOME/.virtualenvs
 source "$HOME/.local/bin/virtualenvwrapper.sh"
 
-# Dotnet
-# source "$HOME/Tools/omnisharp-linux-x64"
-
 # Rust
 source "$HOME/.cargo/env"
 
@@ -30,12 +27,6 @@ source "$HOME/.cargo/env"
 export ANDROID_HOME=$HOME/Tools/Android/Sdk
 alias fastboot='sudo $ANDROID_HOME/platform-tools/fastboot'
 alias adb='sudo $ANDROID_HOME/platform-tools/adb'
-
-# Heroku
-export PATH=$PATH:$HOME/Tools/heroku/bin
-
-# Prometheus
-export PATH=$PATH:$HOME/Tools/prometheus
 
 # Flutter
 export PATH=$PATH:$HOME/Tools/flutter/bin
@@ -45,9 +36,6 @@ export CHROME_EXECUTABLE=brave-browser-stable
 #export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/Tools/go/bin
 
-# Cmake
-# export PATH=$PATH:$HOME/Tools/cmake-3.19.7-Linux-x86_64/bin
-
 # Espressif
 alias getIdf='. $HOME/Tools/esp-idf/export.sh'
 
@@ -56,12 +44,6 @@ alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
 
 # Conda
 alias conda_init='eval "$(/home/gertjan/Tools/anaconda/bin/conda shell.zsh hook)"'
-
-# SUMO
-export SUMO_HOME=/home/gertjan/.local/bin/sumo
-
-# esmini
-export PATH=$PATH:$HOME/Tools/esmini/bin
 
 # azuredatastudio
 export PATH=$PATH:$HOME/Tools/azuredatastudio-linux-x64

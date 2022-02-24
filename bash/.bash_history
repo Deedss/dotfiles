@@ -1027,3 +1027,12 @@ ll
 exit
 ll
 exit
+pandoc -s OpenDrive.md -o OpenDrive.docx
+ll
+pandoc -s OpenDrive.md -o OpenDrive.docx
+update
+exit
+pandoc -s OpenDrive.md -o OpenDrive.docx 
+libreoffice OpenDrive.docx 
+update
+exit

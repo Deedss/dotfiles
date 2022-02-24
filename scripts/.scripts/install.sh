@@ -20,8 +20,15 @@ function first_cleanup_kde(){
         kcharselect \
         kde-spectacle \
         firefox \
-        plasma-browser-integration plasma-discover \
-        spectacle
+        plasma-browser-integration plasma-discover 
+}
+
+function setup_dnf(){
+    ## Fixing DNF 
+    sudo echo 'skip_if_unavailable=True' >> /etc/dnf/dnf.conf
+    sudo echo 'max_parallel_downloads=20' >> /etc/dnf/dnf.conf
+    sudo echo 'defaultyes=True' >> /etc/dnf/dnf.conf
+    sudo echo 'exclude=plasma-browser-integration' >> /etc/dnf/dnf.conf
 }
 
 function first_cleanup_gnome(){
@@ -187,4 +194,10 @@ function install_heroku(){
 
 function install_robotframework(){
     pip install robotframework robotframework-selenium2library pygame PyHamcrest pytest
+}
+
+function install_anaconda(){
+    cd /tmp
+    curl -0 https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
+    sh Anaconda3-2021.11-Linux-x86_64.sh
 }
