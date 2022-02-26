@@ -23,7 +23,6 @@ end
 -- Nvim
 map_tele("<space>fb", "buffers")
 map_tele("<space>fi", "find_files")
-map_tele("<space>fs", "file_browser")
 map_tele("<space>fg", "live_grep")
 map_tele("<space>fh", "help_tags")
 map_tele("<space>ff", "current_buffer_fuzzy_find")
