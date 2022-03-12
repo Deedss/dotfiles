@@ -9,7 +9,7 @@ function full_first_install(){
     sudo dnf autoremove -y \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin ibus-libzhuyin \
         ibus-cangjie-* ibus-hangul kcharselect kde-spectacle firefox \
-        plasma-browser-integration plasma-discover 
+        plasma-browser-integration plasma-discover
 
     ###############################################################################
     ###  ADD RPM FUSION / FLATPAK                                               ###
@@ -36,7 +36,7 @@ function full_first_install(){
     sudo dnf install -y virt-manager
 
     ###### NETWORKING ######
-    sudo dnf install -y wireshark nmap curl wget 
+    sudo dnf install -y wireshark nmap curl wget
 
     ###### ZSH ######
     sudo dnf install -y zsh
@@ -48,7 +48,7 @@ function full_first_install(){
     ##### VIDEO DRIVERS ######
     sudo dnf install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-libGLw mesa-libEGL \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi 
+        libvdpau-va-gl gstreamer1-vaapi
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts
@@ -58,7 +58,7 @@ function full_first_install(){
         com.obsproject.Studio com.spotify.Client org.blender.Blender org.gtk.Gtk3theme.Arc-Dark \
         org.gtk.Gtk3theme.Arc-Dark-solid org.kde.KStyle.Adwaita org.libreoffice.LibreOffice \
         org.mozilla.Thunderbird org.mozilla.firefox org.qbittorrent.qBittorrent org.remmina.Remmina \
-        org.signal.Signal org.videolan.VLC                   
+        org.signal.Signal org.videolan.VLC
 
     ##### BRAVE BROWSER ######
     sudo dnf install dnf-plugins-core
@@ -83,18 +83,19 @@ function full_first_install(){
     pip install virtualenvwrapper
 
     ###### DOCKER #######
-    sudo dnf config-manager \
-        --add-repo \
-        https://download.docker.com/linux/fedora/docker-ce.repo
+    # sudo dnf config-manager \
+    #     --add-repo \
+    #     https://download.docker.com/linux/fedora/docker-ce.repo
 
-    sudo dnf install docker-ce docker-ce-cli containerd.io
-    sudo usermod -aG docker $USER
-    sudo systemctl enable docker.service
-    sudo systemctl enable containerd.service
+    # sudo dnf install docker-ce docker-ce-cli containerd.io
+    # sudo usermod -aG docker $USER
+    # sudo systemctl enable docker.service
+    # sudo systemctl enable containerd.service
+    sudo dnf install podman podman-compose podman-docker buildah
 
     ###### NODE JS #######
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    nvm install 'lts/*' 
+    nvm install 'lts/*'
     nvm use default
     sudo npm install -g pyright
 
