@@ -1036,3 +1036,5 @@ pandoc -s OpenDrive.md -o OpenDrive.docx
 libreoffice OpenDrive.docx 
 update
 exit
+conda --version
+exit
