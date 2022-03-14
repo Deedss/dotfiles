@@ -97,22 +97,3 @@ fi
 source $HOME/.scripts/sources
 
 eval "$(starship init bash)"
-
-# added by travis gem
-[ ! -s /home/gertjan/.travis/travis.sh ] || source /home/gertjan/.travis/travis.sh
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/gertjan/Tools/anaconda/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/gertjan/Tools/anaconda/etc/profile.d/conda.sh" ]; then
-        . "/home/gertjan/Tools/anaconda/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/gertjan/Tools/anaconda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-

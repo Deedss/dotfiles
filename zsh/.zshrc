@@ -75,6 +75,7 @@ plugins=(
     colored-man-pages
     command-not-found
     common-aliases
+    conda-zsh-completion
     docker
     dotnet
     flutter
@@ -92,22 +93,6 @@ plugins=(
 
 fpath=(~/.scripts $fpath);
 source ~/.scripts/sources
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/gertjan/Tools/anaconda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/gertjan/Tools/anaconda/etc/profile.d/conda.sh" ]; then
-        . "/home/gertjan/Tools/anaconda/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/gertjan/Tools/anaconda/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
