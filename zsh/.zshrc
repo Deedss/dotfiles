@@ -77,7 +77,9 @@ plugins=(
     common-aliases
     git
     npm
+    nvm
     pip
+    poetry
     python
     rust
     zsh-autosuggestions
