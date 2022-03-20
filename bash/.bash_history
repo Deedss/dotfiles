@@ -1038,3 +1038,32 @@ update
 exit
 conda --version
 exit
+cd ~
+ll
+cd .dotfiles
+cd .dotfiles/
+ll
+stow *
+stow 
+stow alacritty fonts git kdessh nvim starship zsh bash kitty scripts vim
+source install.sh 
+first_cleanup_kde 
+ll
+sudo dnf install kate
+sudo nano /etc/dnf/dnf.conf 
+add_rpmfusion 
+main_packages 
+install_brave 
+install_flathub 
+install_rust 
+sudo dnf install ark
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+cd .dotfiles/
+install_oh_my_zsh 
+cd ../
+sudo dnf install stow
+install_vscode 
+grub_update 
+install_neovim 
+sudo dnf install arc-kde arc-theme
+reboot

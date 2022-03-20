@@ -75,15 +75,9 @@ plugins=(
     colored-man-pages
     command-not-found
     common-aliases
-    conda-zsh-completion
-    docker
-    dotnet
-    flutter
     git
-    heroku
     npm
     pip
-    pyenv
     python
     rust
     zsh-autosuggestions
@@ -130,3 +124,5 @@ eval "$(starship init zsh)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PATH="$HOME/.poetry/bin:$PATH"

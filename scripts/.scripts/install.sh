@@ -234,7 +234,7 @@ function install_vscode(){
 
 function install_pythontools(){
     sudo dnf install python3-devel python3-wheel python3-virtualenv
-    pip install virtualenvwrapper
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 }
 
 function install_podman(){
@@ -299,14 +299,4 @@ function install_emscripten(){
 
 function install_heroku(){
     curl https://cli-assets.heroku.com/install.sh | sh
-}
-
-function install_robotframework(){
-    pip install robotframework robotframework-selenium2library pygame PyHamcrest pytest
-}
-
-function install_anaconda(){
-    cd /tmp
-    curl -0 https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh
-    sh Anaconda3-2021.11-Linux-x86_64.sh
 }
