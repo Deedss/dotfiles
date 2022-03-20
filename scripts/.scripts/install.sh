@@ -80,17 +80,17 @@ function full_first_install(){
 
     ###### PYTHON #######
     sudo dnf install python3-devel python3-wheel python3-virtualenv
-    pip install virtualenvwrapper
+#     pip install virtualenvwrapper
 
     ###### DOCKER #######
-    sudo dnf config-manager \
-        --add-repo \
-        https://download.docker.com/linux/fedora/docker-ce.repo
-
-    sudo dnf install docker-ce docker-ce-cli containerd.io
-    sudo usermod -aG docker $USER
-    sudo systemctl enable docker.service
-    sudo systemctl enable containerd.service
+#     sudo dnf config-manager \
+#         --add-repo \
+#         https://download.docker.com/linux/fedora/docker-ce.repo
+#
+#     sudo dnf install docker-ce docker-ce-cli containerd.io
+#     sudo usermod -aG docker $USER
+#     sudo systemctl enable docker.service
+#     sudo systemctl enable containerd.service
 
     ###### NODE JS #######
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -153,7 +153,9 @@ function main_packages(){
         virt-manager\
         wireshark \
         nmap \
-        qbittorrent \
+        kate \
+        ark \
+        yakuake \
         ncurses \
         git \
         curl \
@@ -206,11 +208,14 @@ function install_kitty(){
 
 function install_flathub(){
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+}
+
+function install_flatpak_packages(){
     flatpak install com.discordapp.Discord com.github.tchx84.Flatseal com.jgraph.drawio.desktop \
-    com.obsproject.Studio com.spotify.Client org.blender.Blender org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid org.kde.KStyle.Adwaita org.libreoffice.LibreOffice \
-    org.mozilla.Thunderbird org.mozilla.firefox org.qbittorrent.qBittorrent org.remmina.Remmina \
-    org.signal.Signal org.videolan.VLC  
+        com.obsproject.Studio com.spotify.Client org.blender.Blender org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid org.kde.KStyle.Adwaita org.libreoffice.LibreOffice \
+        org.mozilla.Thunderbird org.mozilla.firefox org.qbittorrent.qBittorrent org.remmina.Remmina \
+        org.signal.Signal org.videolan.VLC
 }
 
 function install_neovim(){

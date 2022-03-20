@@ -16,10 +16,6 @@ export VISUAL='nvim'
 # add Local to PATH
 export PATH=$PATH:$HOME/.local/bin
 
-# Python VirtualEnv
-export WORKON_HOME=$HOME/.virtualenvs
-source "$HOME/.local/bin/virtualenvwrapper.sh"
-
 # Rust
 source "$HOME/.cargo/env"
 
@@ -41,6 +37,3 @@ alias getIdf='. $HOME/Tools/esp-idf/export.sh'
 
 # Emscripten
 alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
-
-# CONDA
-export PATH="/home/gertjan/Tools/anaconda/bin:$PATH"
