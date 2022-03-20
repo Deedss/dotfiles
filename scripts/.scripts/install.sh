@@ -81,10 +81,10 @@ function full_first_install(){
 
     ###### PYTHON #######
     sudo dnf install python3-devel python3-wheel python3-virtualenv
-#     pip install virtualenvwrapper
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
     ###### DOCKER #######
-    sudo usermod -aG kvm,libvirt,lp,dialout $USER
+    sudo dnf install podman podman-compose podman-docker buildah
 #     sudo dnf config-manager \
 #         --add-repo \
 #         https://download.docker.com/linux/fedora/docker-ce.repo
