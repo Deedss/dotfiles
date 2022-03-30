@@ -8,7 +8,7 @@ function update(){
     echo '-------------------------'
     echo '------- Flatpak ---------'
     echo '-------------------------'
-    sudo flatpak update
+    flatpak update
 }
 
 function grub_update(){
