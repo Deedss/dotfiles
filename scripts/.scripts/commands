@@ -15,3 +15,22 @@ function grub_update(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 }
+
+function update_tools(){
+    # Rust Update
+    rustup update
+
+    # Emscripten update
+    cd ~/Tools/emsdk
+    git pull
+    ./emsdk install latest
+    ./emsdk activate latest
+
+    # Esp-Idf
+    cd ~/Tools/esp-idf
+    git pull
+    ./install.sh
+
+    # Go back to main
+    cd ~
+}
