@@ -18,19 +18,41 @@ function grub_update(){
 
 function update_tools(){
     # Rust Update
+    echo '-------------------------'
+    echo '-------- RUST -----------'
+    echo '-------------------------'
     rustup update
+    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
+    chomd +x ~/.local/bin/rust-analyzer
 
     # Emscripten update
+    echo '-------------------------'
+    echo '----- EMSCRIPTEN --------'
+    echo '-------------------------'
     cd ~/Tools/emsdk
     git pull
-    ./emsdk install latest
-    ./emsdk activate latest
+    if [ $? != 0 ];
+    then
+        ./emsdk install latest
+        ./emsdk activate latest
+    fi
+    cd ~
 
     # Esp-Idf
+    echo '-------------------------'
+    echo '------- ESP-IDF ---------'
+    echo '-------------------------'
     cd ~/Tools/esp-idf
     git pull
-    ./install.sh
-
-    # Go back to main
+    if [ $? != 0 ];
+    then
+        ./install.sh
+    fi
     cd ~
+
+    # Esp-Idf
+    echo '-------------------------'
+    echo '------- POETRY ----------'
+    echo '-------------------------'
+    poetry self update
 }

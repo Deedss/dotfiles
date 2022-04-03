@@ -97,3 +97,4 @@ fi
 source $HOME/.scripts/sources
 
 eval "$(starship init bash)"
+. "$HOME/.cargo/env"
