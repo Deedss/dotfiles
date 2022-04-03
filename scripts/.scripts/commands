@@ -5,52 +5,59 @@ function update(){
     echo '--------- DNF -----------'
     echo '-------------------------'
     sudo dnf update --refresh
+    echo ''
+
     echo '-------------------------'
     echo '------- Flatpak ---------'
     echo '-------------------------'
     flatpak update
 }
 
-function grub_update(){
+function grub-update(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 }
 
-function update_tools(){
+function update-tools(){
     # Rust Update
     echo '-------------------------'
     echo '-------- RUST -----------'
     echo '-------------------------'
     rustup update
     curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-    chomd +x ~/.local/bin/rust-analyzer
+    chmod +x ~/.local/bin/rust-analyzer
+    echo ''
 
     # Emscripten update
     echo '-------------------------'
     echo '----- EMSCRIPTEN --------'
     echo '-------------------------'
     cd ~/Tools/emsdk
-    git pull
-    if [ $? != 0 ];
+    pull=$(git pull)
+    echo $pull
+    if [[ $pull != "Already up to date." ]];
     then
-        ./emsdk install latest
-        ./emsdk activate latest
+        ~/Tools/emsdk/emsdk install latest
+        ~/Tools/emsdk/emsdk activate latest
     fi
     cd ~
+    echo ''
 
     # Esp-Idf
     echo '-------------------------'
     echo '------- ESP-IDF ---------'
     echo '-------------------------'
     cd ~/Tools/esp-idf
-    git pull
-    if [ $? != 0 ];
+    pull=$(git pull)
+    echo $pull
+    if [[ $pull != "Already up to date." ]];
     then
-        ./install.sh
+        sh ~/Tools/esp-idf/install.sh
     fi
     cd ~
+    echo ''
 
-    # Esp-Idf
+    # POETRY
     echo '-------------------------'
     echo '------- POETRY ----------'
     echo '-------------------------'

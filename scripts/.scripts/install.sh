@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # This file contains most things that I run while installing the main fedora-kde
 # install
-function full_first_install(){
+function full-first-install(){
     ###############################################################################
     ###  INITIAL REMOVAL                                                        ###
     ###############################################################################
@@ -28,7 +28,7 @@ function full_first_install(){
 
     ###### RUST INSTALL #########
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
+    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86-64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
     chmod +x ~/.local/bin/rust-analyzer
     sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 
@@ -42,9 +42,9 @@ function full_first_install(){
     ###### ZSH ######
     sudo dnf install -y zsh
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-    git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH-CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    git clone https://github.com/zsh-users/zsh-completions ${ZSH-CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+    git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH-CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
     ##### VIDEO DRIVERS ######
     sudo dnf install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-libGLw mesa-libEGL \
@@ -63,7 +63,7 @@ function full_first_install(){
 
     ##### BRAVE BROWSER ######
     sudo dnf install dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86-64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
 
@@ -101,7 +101,7 @@ function full_first_install(){
     sudo npm install -g pyright
 }
 
-function first_cleanup_kde(){
+function first-cleanup_kde(){
     sudo dnf autoremove -y \
         \*akonadi* \
         dnfdragora \
@@ -123,15 +123,15 @@ function first_cleanup_kde(){
         plasma-browser-integration plasma-discover
 }
 
-function setup_dnf(){
+function setup-dnf(){
     ## Fixing DNF
-    max_parallel_downloads=20
+    max-parallel_downloads=20
     defaultyes=True
 
     exclude=plasma-browser-integration
 }
 
-function first_cleanup_gnome(){
+function first-cleanup_gnome(){
     sudo dnf autoremove -y \
         gnome-tour \
         gnome-contacts \
@@ -140,13 +140,13 @@ function first_cleanup_gnome(){
         gnome-boxes
 }
 
-function add_rpmfusion(){
+function add-rpmfusion(){
     sudo dnf install -y \
         https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
         https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 }
 
-function main_packages(){
+function main-packages(){
     sudo dnf install -y \
         cmake \
         ninja-build \
@@ -178,30 +178,30 @@ function main_packages(){
     sudo usermod -aG kvm,libvirt,lp,dialout $USER
 }
 
-function install_oh_my_zsh(){
+function install-oh_my_zsh(){
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH-CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        git clone https://github.com/zsh-users/zsh-completions ${ZSH-CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH-CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 }
 
-function install_rust(){
+function install-rust(){
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
+    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86-64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
     chmod +x ~/.local/bin/rust-analyzer
     sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     source $HOME/.cargo/env
     rustup component add rust-src
 }
 
-function install_brave(){
+function install-brave(){
     sudo dnf install dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86-64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
 }
 
-function install_kitty(){
+function install-kitty(){
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
     # your PATH)
@@ -212,11 +212,11 @@ function install_kitty(){
     sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty.desktop
 }
 
-function install_flathub(){
+function install-flathub(){
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
-function install_flatpak_packages(){
+function install-flatpak_packages(){
     flatpak install com.discordapp.Discord com.github.tchx84.Flatseal com.jgraph.drawio.desktop \
         com.obsproject.Studio com.spotify.Client org.blender.Blender org.gtk.Gtk3theme.Arc-Dark \
         org.gtk.Gtk3theme.Arc-Dark-solid org.kde.KStyle.Adwaita org.libreoffice.LibreOffice \
@@ -224,7 +224,7 @@ function install_flatpak_packages(){
         org.signal.Signal org.videolan.VLC
 }
 
-function install_neovim(){
+function install-neovim(){
     mkdir -p /Tools/AppImages
     wget -P ~/Tools/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
     chmod u+x ~/Tools/AppImages/nvim.appimage
@@ -232,22 +232,22 @@ function install_neovim(){
     sudo chown $USER:$USER /usr/local/bin/nvim
 }
 
-function install_vscode(){
+function install-vscode(){
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf install code
 }
 
-function install_pythontools(){
+function install-pythontools(){
     sudo dnf install python3-devel python3-wheel python3-virtualenv
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 }
 
-function install_podman(){
+function install-podman(){
     sudo dnf install podman podman-compose podman-docker buildah
 }
 
-function install_docker(){
+function install-docker(){
     sudo dnf config-manager \
     --add-repo \
     https://download.docker.com/linux/fedora/docker-ce.repo
@@ -259,19 +259,19 @@ function install_docker(){
     sudo systemctl enable containerd.service
 }
 
-function install_npm(){
+function install-npm(){
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     nvm install 'lts/*'
     nvm use default
     sudo npm install -g pyright
 }
 
-function grub_update(){
+function grub-update(){
     sudo grub2-mkconfig -o /etc/grub2.cfg
     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 }
 
-function install_flutter(){
+function install-flutter(){
     sudo dnf install gtk3-devel -y
     mkdir -p ~/Tools
     cd ~/Tools
@@ -279,7 +279,7 @@ function install_flutter(){
     flutter doctor
 }
 
-function install_espIdf(){
+function install-espIdf(){
     sudo yum -y update && sudo yum install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     mkdir -p ~/Tools
     cd ~/Tools
@@ -288,7 +288,7 @@ function install_espIdf(){
     sh install.sh
 }
 
-function install_emscripten(){
+function install-emscripten(){
     mkdir -p ~/Tools
     cd ~/Tools
     # Get the emsdk repo
@@ -303,6 +303,6 @@ function install_emscripten(){
     ./emsdk activate latest
 }
 
-function install_heroku(){
+function install-heroku(){
     curl https://cli-assets.heroku.com/install.sh | sh
 }
