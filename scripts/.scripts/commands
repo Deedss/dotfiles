@@ -34,11 +34,12 @@ function update-tools(){
     echo '-------------------------'
     cd ~/Tools/emsdk
     pull=$(git pull)
-    echo $pull
     if [[ $pull != "Already up to date." ]];
     then
         ~/Tools/emsdk/emsdk install latest
         ~/Tools/emsdk/emsdk activate latest
+    else
+        echo $pull
     fi
     cd ~
     echo ''
@@ -49,10 +50,11 @@ function update-tools(){
     echo '-------------------------'
     cd ~/Tools/esp-idf
     pull=$(git pull)
-    echo $pull
     if [[ $pull != "Already up to date." ]];
     then
         sh ~/Tools/esp-idf/install.sh
+    else
+        echo $pull
     fi
     cd ~
     echo ''
