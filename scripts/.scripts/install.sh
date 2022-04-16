@@ -122,6 +122,7 @@ function main-packages(){
     install-espIdf()
     install-emscripten()
 }
+
 ###############################################################################
 ##### BRAVE BROWSER                                                      ######
 ###############################################################################
@@ -226,18 +227,6 @@ function install-npm(){
 }
 
 ###############################################################################
-###### FLUTTER AND DART                                                 #######
-###############################################################################
-function install-flutter(){
-    echo "Install Flutter and Dart"
-    sudo dnf install gtk3-devel -y
-    mkdir -p ~/Tools
-    cd ~/Tools
-    git clone https://github.com/flutter/flutter.git -b stable
-    flutter doctor
-}
-
-###############################################################################
 ###### ESP-IDF Framework                                                #######
 ###############################################################################
 function install-espIdf(){
@@ -267,6 +256,18 @@ function install-emscripten(){
     ./emsdk install latest
     # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
     ./emsdk activate latest
+}
+
+###############################################################################
+###### FLUTTER AND DART                                                 #######
+###############################################################################
+function install-flutter(){
+    echo "Install Flutter and Dart"
+    sudo dnf install gtk3-devel -y
+    mkdir -p ~/Tools
+    cd ~/Tools
+    git clone https://github.com/flutter/flutter.git -b stable
+    flutter doctor
 }
 
 ###############################################################################
