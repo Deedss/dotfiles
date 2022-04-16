@@ -21,8 +21,8 @@ source "$HOME/.cargo/env"
 
 # Android
 export ANDROID_HOME=$HOME/Tools/Android/Sdk
-alias fastboot='sudo $ANDROID_HOME/platform-tools/fastboot'
-alias adb='sudo $ANDROID_HOME/platform-tools/adb'
+# alias fastboot='sudo $ANDROID_HOME/platform-tools/fastboot'
+# alias adb='sudo $ANDROID_HOME/platform-tools/adb'
 
 # Flutter
 export PATH=$PATH:$HOME/Tools/flutter/bin
