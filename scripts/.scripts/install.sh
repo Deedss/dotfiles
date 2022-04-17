@@ -24,7 +24,11 @@ function first-cleanup_kde(){
         kcharselect \
         kde-spectacle \
         firefox \
-        plasma-browser-integration plasma-discover
+        plasma-browser-integration \
+        plasma-discover
+
+    install-rpmfusion()
+    install-flathub()
 }
 
 ###############################################################################
@@ -43,7 +47,7 @@ function first-cleanup_gnome(){
 ###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
-function add-rpmfusion(){
+function install-rpmfusion(){
     echo "Add RPM Fusion to repositories"
     sudo dnf install -y \
         https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
@@ -61,7 +65,7 @@ function install-flathub(){
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
-function install-flatpak_packages(){
+function install-flatpak-packages(){
     echo "Install flatpak applications"
     flatpak install \
     com.github.tchx84.Flatseal \
@@ -109,12 +113,13 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi
     
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts 
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate
 
     install-brave()
     install-neovim()
     install-vscode()
     install-podman()
+    install-flatpak-packages()
     install-oh_my_zsh()
     install-rust()
     install-pythontools()
