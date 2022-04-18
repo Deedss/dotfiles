@@ -79,26 +79,13 @@ opt.synmaxcol = 500            -- max column for syntax highlight
 -- Colorscheme
 -----------------------------------------------------------
 opt.termguicolors = true      -- enable 24-bit RGB colors
--- cmd [[set background=dark]]
--- cmd [[colorscheme base16-gruvbox-dark-hard]]
--- opt.background = "dark"
+opt.background = "dark"
 require('onedarkpro').load()
-local colors = require("onedarkpro").get_colors("onedark")
--- g.material_style = "darker"
--- cmd [[colorscheme material]]
+
 -----------------------------------------------------------
 -- Tabline and BufferLine
 -----------------------------------------------------------
-require("bufferline").setup{
-    options = {
-        show_buffer_icons = false,
-        show_close_icon = false,
-        show_buffer_close_icons = false,
-        numbers = function(opts)
-            return string.format('[%s]', opts.id)
-        end
-    }
-}
+require("bufferline").setup{}
 require('lualine').setup {}
 
 -----------------------------------------------------------

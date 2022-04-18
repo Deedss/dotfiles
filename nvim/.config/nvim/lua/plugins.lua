@@ -14,9 +14,7 @@ require('packer').startup(function()
     use 'wbthomason/packer.nvim'
 
     -- Color Schemes
-    use 'RRethy/nvim-base16'
     use 'olimorris/onedarkpro.nvim'
-    use 'marko-cerovac/material.nvim'
 
     -- Telescope
     use {
@@ -24,13 +22,6 @@ require('packer').startup(function()
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-
-    -- -- NVim-Tree
-    -- use {
-    --     'kyazdani42/nvim-tree.lua',
-    --     requires = 'kyazdani42/nvim-web-devicons',
-    --     config = function() require'nvim-tree'.setup {} end
-    -- }
 
     -- Toggleterm
     use {"akinsho/toggleterm.nvim"}
@@ -45,11 +36,6 @@ require('packer').startup(function()
     use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
 
      -- TEXT MANIUPLATION
-    use 'tpope/vim-fugitive' -- Git commands in nvim
-    use 'tpope/vim-rhubarb' -- Fugitive-companion to interact with github
-    use 'tpope/vim-commentary' -- "gc" to comment visual regions/lines
-    use "godlygeek/tabular" -- Quickly align text by pattern
-    -- use 'tpope/vim-surround'
     use {
       "ur4ltz/surround.nvim",
       config = function()
@@ -65,16 +51,12 @@ require('packer').startup(function()
     use "hrsh7th/cmp-path"
     use "onsails/lspkind-nvim"
 
-    -- Snippets
-    use "rafamadriz/friendly-snippets"
-    use "L3MON4D3/LuaSnip"
-
     -- Interface
     use {
       'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
-    use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+    use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
 
     -- Nvim Debug Adapter Protocol
     use "mfussenegger/nvim-dap"
