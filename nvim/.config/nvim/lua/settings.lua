@@ -85,7 +85,16 @@ require('onedarkpro').load()
 -----------------------------------------------------------
 -- Tabline and BufferLine
 -----------------------------------------------------------
-require("bufferline").setup{}
+require("bufferline").setup{
+        options = {
+        show_buffer_icons = false,
+        show_close_icon = false,
+        show_buffer_close_icons = false,
+        numbers = function(opts)
+            return string.format('[%s]', opts.id)
+        end
+    },
+}
 require('lualine').setup {}
 
 -----------------------------------------------------------
@@ -107,7 +116,7 @@ cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
 -- Terminal
 -----------------------------------------------------------
 -- open a terminal pane on the right using :Term
-cmd [[command Term :botright vsplit term://$SHELL]]
+cmd [[command Term :terminal]]
 
 -- Terminal visual tweaks
 --- enter insert mode when switching to terminal

@@ -34,3 +34,7 @@ require "nvim-cmp"
 
 --nvim-toggletree
 require "toggle_term"
+
+--nvim-autopairs
+require "nvim-autopairs"
+
