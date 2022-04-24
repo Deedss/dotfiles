@@ -42,6 +42,12 @@ require('packer').startup(function()
         require"surround".setup {mappings_style = "surround"}
       end
     }
+    use {
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    }
 
     -- Nvim Completions
     use 'hrsh7th/nvim-cmp'              -- Autocompletion plugin
