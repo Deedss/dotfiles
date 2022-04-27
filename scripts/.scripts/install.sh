@@ -26,9 +26,6 @@ function first-cleanup_kde(){
         firefox \
         plasma-browser-integration \
         plasma-discover
-
-    install-rpmfusion()
-    install-flathub()
 }
 
 ###############################################################################
@@ -68,9 +65,10 @@ function install-flathub(){
 function install-flatpak-packages(){
     echo "Install flatpak applications"
     flatpak install \
-    com.github.tchx84.Flatseal \
+    com.github.tchx84.Flatseal
 
     ##### INTERNET #####
+    flatpak install \
     com.discordapp.Discord \
     org.mozilla.Thunderbird \
     org.mozilla.firefox \
@@ -80,6 +78,7 @@ function install-flatpak-packages(){
     org.remmina.Remmina \
     
     ##### MUSIC & GRAPHICS #####
+    flatpak install \
     com.spotify.Client \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
@@ -87,6 +86,7 @@ function install-flatpak-packages(){
     org.videolan.VLC \
     
     ##### THEMES ######
+    flatpak install \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid \
     org.kde.KStyle.Adwaita 
@@ -113,19 +113,8 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi
     
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate zsh
 
-    install-brave()
-    install-neovim()
-    install-vscode()
-    install-podman()
-    install-flatpak-packages()
-    install-oh_my_zsh()
-    install-rust()
-    install-pythontools()
-    install-npm()
-    install-espIdf()
-    install-emscripten()
 }
 
 ###############################################################################
@@ -134,7 +123,7 @@ function main-packages(){
 function install-brave(){
     echo "Install brave browser"
     sudo dnf install dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86-64/
+    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
 }
