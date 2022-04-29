@@ -21,7 +21,6 @@
 # sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
 # locale-gen
 # echo "LANG=en_US.UTF-8" >> /etc/locale.conf
-# echo "KEYMAP=de_CH-latin1" >> /etc/vconsole.conf
 # echo "yogaslim" >> /etc/hostname
 # echo "127.0.0.1 localhost" >> /etc/hosts
 # echo "::1       localhost" >> /etc/hosts
