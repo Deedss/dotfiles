@@ -76,7 +76,7 @@ function install-flatpak-packages(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    
+
     ##### MUSIC & GRAPHICS #####
     flatpak install \
     com.spotify.Client \
@@ -84,12 +84,12 @@ function install-flatpak-packages(){
     com.jgraph.drawio.desktop \
     org.blender.Blender \
     org.videolan.VLC \
-    
+
     ##### THEMES ######
     flatpak install \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid \
-    org.kde.KStyle.Adwaita 
+    org.kde.KStyle.Adwaita
 }
 
 ###############################################################################
@@ -111,7 +111,7 @@ function main-packages(){
     sudo dnf install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-libGLw mesa-libEGL \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi
-    
+
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate zsh
 
@@ -187,7 +187,7 @@ function install-oh_my_zsh(){
 
 ###############################################################################
 ###### RUST INSTALL                                                   #########
-###############################################################################   
+###############################################################################
 function install-rust(){
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
@@ -217,7 +217,7 @@ function install-npm(){
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     nvm install 'lts/*'
     nvm use default
-    sudo npm install -g pyright
+    npm install -g pyright --user
 }
 
 ###############################################################################
