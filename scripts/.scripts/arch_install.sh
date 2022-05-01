@@ -2,6 +2,11 @@
 ###############################################################################
 ##### INSTALLATION GUIDE FOR MY ARCH INSTALL                             ######
 ###############################################################################
+##### NETWORKING #####
+#  ip a
+#  iwctl => station <device_name> connect <network>
+#  prompted to enter password
+
 
 ##### SETUP PARTITIONS #####
 #
@@ -12,6 +17,7 @@
 ##### GENERATE FSTAB #####
 # genfstab -U /mnt >> /mnt/etc/fstab
 # arch-chroot /mnt
+
 
 ###############################################################################
 ##### INITIAL SETUP OF LOCALE                                             #####
@@ -38,6 +44,41 @@
 ##### SYSTEMD-BOOT                                                        #####
 ###############################################################################
 
+
+
+###############################################################################
+##### INSTALL BASE KDE DESKTOP                                           ######
+###############################################################################
+function install-base-kde(){
+    ### Desktop Environment
+    sudo pacman -S mesa-utils xf86-input-libinput xorg-xdpyinfo xorg-server \
+    xorg-xinit xorg-xinput xorg-xkill xorg-xrandr xf86-video-amdgpu xf86-video-ati \
+    dialogusb_modeswitch amd-ucode pkgfile accountsservice bash-completion \
+    xdg-user-dirs xdg-utils efitools ntp cantarell-fonts noto-fonts \
+    ttf-liberation ttf-opensans hwdetect power-profiles-daemon upower \
+    grub-tools duf git vi wget 
+
+    ### KDE packages
+    sudo pacman -S ark audiocd-kio breeze-gtk dolphin gwenview kcalc kate \
+    kde-gtk-config khotkeys kinfocenter kinit kio-fuse konsole kscreen \
+    kwallet-pam okular plasma-desktop plasma-disks plasma-nm plasma-pa \
+    powerdevil print-manager sddm-kcm solid spectacle xsettingsd
+
+    ### Audio
+    sudo pacman -S alsa-firmware alsa-plugins alsa-utils pavucontrol \
+    pipewire-pulse pipewire-media-session pipewire-alsa pipewire-jack
+
+    ### Networking
+    sudo pacman -S networkmanager firewalld
+
+    ### Bluetooth
+    sudo pacman -S bluez bluez-utils
+
+    ### Printer
+    sudo pacman -S cups cups-filters cups-pdf foomatic-db foomatic-db-engine foomatic-db-gutenprint-ppds \
+    foomatic-db-nonfree foomatic-db-nonfree-ppds foomatic-db-ppds ghostscript gsfonts \
+    gutenprint splix system-config-printer hplip python-pyqt5 python-reportlab xsane
+}
 
 ###############################################################################
 ##### INSTALL PARU HELPER                                                ######
