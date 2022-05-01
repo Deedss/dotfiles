@@ -4,7 +4,7 @@
 ###############################################################################
 ###  INITIAL REMOVAL KDE                                                    ###
 ###############################################################################
-function first-cleanup_kde(){
+function first-cleanup-kde(){
     echo "Perform initial cleanup of Fedora KDE"
     sudo dnf autoremove -y \
         \*akonadi* \
@@ -48,7 +48,7 @@ function first-cleanup_kde(){
 ###############################################################################
 ###  INITIAL REMOVAL GNOME                                                  ###
 ###############################################################################
-function first-cleanup_gnome(){
+function first-cleanup-gnome(){
     echo "Perform initial cleanup of Fedora Gnome"
     sudo dnf autoremove -y \
         gnome-tour \
