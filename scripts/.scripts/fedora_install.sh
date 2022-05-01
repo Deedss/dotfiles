@@ -26,6 +26,23 @@ function first-cleanup_kde(){
         firefox \
         plasma-browser-integration \
         plasma-discover
+
+    ### Packages on kde spin =>> not on minimal install
+    sudo dnf autoremove -y \
+        elisa-player \
+        dragon \
+        mediawriter \
+        kmahjongg \
+        kmines \
+        kpat \
+        ksudoku \
+        kamoso \
+        krdc \
+        libreoffice-* \
+        kdeconnectd \
+        krfb \
+        kolourpaint-* \
+        konversation
 }
 
 ###############################################################################
