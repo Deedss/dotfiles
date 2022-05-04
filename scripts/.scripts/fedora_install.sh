@@ -146,7 +146,7 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts zsh
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts zsh util-linux-user
 
 }
 
