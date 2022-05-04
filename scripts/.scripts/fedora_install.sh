@@ -43,6 +43,11 @@ function first-cleanup-kde(){
         krfb \
         kolourpaint-* \
         konversation
+
+    ### Install packages that are kde specific
+    sudo dnf install -y \
+        kate \
+        ark
 }
 
 ###############################################################################
@@ -141,7 +146,7 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate zsh
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts zsh
 
 }
 
