@@ -8,6 +8,10 @@ function update(){
     echo '--------- DNF -----------'
     echo '-------------------------'
     sudo dnf update --refresh
+    #     echo '-------------------------'
+    #     echo '--------- APT -----------'
+    #     echo '-------------------------'
+    #     sudo apt update && sudo apt upgrade
     echo ''
 
     echo '-------------------------'
