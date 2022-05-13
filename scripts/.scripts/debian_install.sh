@@ -49,7 +49,7 @@ function install-flatpak-packages(){
 function main-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo apt install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo apt install -y cmake ninja-build clang llvm clang-tools
 
     ###### VIRTUALIZATION ########
     sudo apt install -y virt-manager
@@ -59,12 +59,14 @@ function main-packages(){
     sudo apt install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo apt install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-libGLw mesa-libEGL \
-        mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi
+    sudo apt install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-va-drivers \
+        libvdpau1 libvdpau-va-gl1 libva2 libva-x11-2 libva-wayland2 libva-drm2 \
+        libva-glx2 gstreamer1.0-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo apt install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate zsh
+    sudo apt install -y openssl zstd git power-profiles-daemon openjdk-11-jdk stow \
+        ark kate zsh libncurses5 libncurses5-dev libncurses6 libncurses-dev dolphin \
+        fonts-roboto fonts-ubuntu fonts-jetbrains-mono
 
 }
 
