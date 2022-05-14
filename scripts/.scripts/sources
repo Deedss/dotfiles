@@ -40,4 +40,4 @@ alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
 
 # JAVA_HOME
 # export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-1.fc36.x86_64/bin/java
-export JAVA_HOME='/usr/lib/jvm/java/bin/java'
+# export JAVA_HOME='/usr/lib/jvm/java/bin/java'
