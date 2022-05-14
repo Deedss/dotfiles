@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 # This file contains most things that I run while installing the main fedora-kde
 # install
+###############################################################################
+###  INITIAL REMOVAL KDE                                                    ###
+###############################################################################
+function first-cleanup-debian-kde(){
+    sudo apt autoremove \
+        konqueror \
+        kwrite \
+        kdeconnect \
+        termit
+}
 
 ###############################################################################
 ##### FLATPAKS                                                           ######
@@ -30,7 +40,6 @@ function install-flatpak-packages(){
 
     ##### MUSIC & GRAPHICS #####
     flatpak install \
-    com.spotify.Client \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
@@ -71,19 +80,35 @@ function main-packages(){
     ##### OTHER PACKAGES ######
     sudo apt install -y openssl zstd git power-profiles-daemon openjdk-11-jdk stow \
         ark kate zsh libncurses5 libncurses5-dev libncurses6 libncurses-dev dolphin \
-        fonts-roboto fonts-ubuntu fonts-jetbrains-mono
+        fonts-roboto fonts-ubuntu fonts-jetbrains-mono libssl-dev
 
+}
+
+function install-arc-theme(){
+    sudo apt install arc-theme
+    wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
 }
 
 ###############################################################################
 ##### BRAVE BROWSER                                                      ######
 ###############################################################################
 function install_brave(){
+    echo "Install brave browser"
     sudo apt install apt-transport-https curl
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     sudo apt update
     sudo apt install brave-browser
+}
+
+##############################################################################
+##### SPOTIFY                                                       ##########
+##############################################################################
+function install_spotify(){
+    echo "Install spotify client"
+    curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt-get update && sudo apt-get install spotify-client
 }
 
 ###############################################################################
@@ -102,6 +127,7 @@ function install-neovim(){
 ##### VSCODE                                                            #######
 ###############################################################################
 function install_vscode(){
+    "Install vscode for linux"
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
     sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
@@ -123,6 +149,7 @@ function install-podman(){
 ###### OH-MY-ZSH                                                         ######
 ###############################################################################
 function install_oh_my_zsh(){
+    "Install Oh-My-Zsh"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
         git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
@@ -146,6 +173,7 @@ function install-rust(){
 ###### KITTY                                                            #######
 ###############################################################################
 function install_kitty(){
+    echo "Install kitty appimage"
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
     # your PATH)
@@ -183,7 +211,8 @@ function install-npm(){
 ###############################################################################
 function install-espIdf(){
     echo "Install ESP-IDF"
-    sudo yum -y update && sudo yum install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    sudo apt-get install git wget flex bison gperf python3 python3-pip python3-setuptools \
+        cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
     mkdir -p ~/Tools
     cd ~/Tools
     git clone --recursive https://github.com/espressif/esp-idf.git
