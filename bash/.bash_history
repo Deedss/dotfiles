@@ -1067,3 +1067,7 @@ grub_update
 install_neovim 
 sudo dnf install arc-kde arc-theme
 reboot
+sudo apt install --install-recommends virtualbox
+sudo apt install python3.10
+sudo apt install python3.10-minimal
+exit
