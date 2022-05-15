@@ -57,6 +57,17 @@ function install-flatpak-packages(){
 ###############################################################################
 ## CONCAT /sbin:/usr/sbin:/usr/local/sbin to etc/profile
 
+##############################################################################
+#### KDE DESKTOP                                                        ######
+##############################################################################
+function install-kde-desktop(){
+    echo "Install kde desktop"
+    sudo apt -y install plasma-desktop plasma-workspace plasma-nm dolphin \
+        kdialog kfind keditbookmarks konsole kate ark kcalc kde-spectacle \
+        udisks2 upower kwin-x11 sddm xserver-xorg
+}
+
+
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
