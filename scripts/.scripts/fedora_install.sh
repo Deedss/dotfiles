@@ -146,8 +146,8 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon java-11-openjdk \
-        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
+        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty
 
 }
 
@@ -156,10 +156,10 @@ function main-packages(){
 ###############################################################################
 function install-brave(){
     echo "Install brave browser"
-    sudo dnf install dnf-plugins-core
+    sudo dnf install -y dnf-plugins-core
     sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf install brave-browser
+    sudo dnf -y install brave-browser
 }
 
 ###############################################################################
@@ -181,7 +181,7 @@ function install-vscode(){
     echo "Install Visual Studio Code"
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    sudo dnf install code
+    sudo dnf -y install code
 }
 
 ###############################################################################
@@ -189,7 +189,7 @@ function install-vscode(){
 ###############################################################################
 function install-podman(){
     echo "Install podman and buildah"
-    sudo dnf install podman podman-compose podman-docker buildah
+    sudo dnf install -y podman podman-compose podman-docker buildah
 }
 
 ###############################################################################
@@ -214,9 +214,9 @@ function install-docker(){
 function install-oh_my_zsh(){
     echo "Install OH-MY-ZSH"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH-CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        git clone https://github.com/zsh-users/zsh-completions ${ZSH-CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH-CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 }
 
 ###############################################################################
@@ -237,7 +237,7 @@ function install-rust(){
 ###############################################################################
 function install-pythontools(){
     echo "Install Python-Devel"
-    sudo dnf install python3-devel python3-wheel python3-virtualenv
+    sudo dnf -y install python3-devel python3-wheel python3-virtualenv
 
     echo "Install Poetry"
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
@@ -259,7 +259,7 @@ function install-npm(){
 ###############################################################################
 function install-espIdf(){
     echo "Install ESP-IDF"
-    sudo yum -y update && sudo yum install git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     mkdir -p ~/Tools
     cd ~/Tools
     git clone --recursive https://github.com/espressif/esp-idf.git
