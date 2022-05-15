@@ -25,11 +25,11 @@ function install-flathub(){
 ###############################################################################
 function install-flatpak-packages(){
     echo "Install flatpak applications"
-    flatpak install \
+    flatpak -y install \
     com.github.tchx84.Flatseal
 
     ##### INTERNET #####
-    flatpak install \
+    flatpak -y install \
     com.discordapp.Discord \
     org.mozilla.Thunderbird \
     org.mozilla.firefox \
@@ -39,14 +39,14 @@ function install-flatpak-packages(){
     org.remmina.Remmina \
 
     ##### MUSIC & GRAPHICS #####
-    flatpak install \
+    flatpak -y install \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
     org.videolan.VLC \
 
     ##### THEMES ######
-    flatpak install \
+    flatpak -y install \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid \
     org.kde.KStyle.Adwaita
@@ -57,6 +57,39 @@ function install-flatpak-packages(){
 ###############################################################################
 ## CONCAT /sbin:/usr/sbin:/usr/local/sbin to etc/profile
 
+
+#############################################################################
+##### NETWORKING                                                        #####
+#############################################################################
+# sudo ip link set wlp1s0 down
+# sudo ip link set wlp1s0 up
+# sudo wpa_supplicant -B -i wlp1s0 -c <(wpa_passphrase "SSID" "PASS")
+# sudo dhclient wlp1s0
+
+#############################################################################
+##### APT PINNING							#####
+#############################################################################
+function setup-apt-pinning(){
+    echo "deb http://deb.debian.org/debian bullseye-backports main non-free contrib" | sudo tee -a /etc/apt/sources.list
+
+    echo "deb http://deb.debian.org/debian/ testing main non-free contrib" | sudo tee -a /etc/apt/sources.list
+    echo "deb-src http://deb.debian.org/debian/ testing main non-free contrib" | sudo tee -a /etc/apt/sources.list
+    echo "deb http://deb.debian.org/debian/ unstable main non-free contrib" | sudo tee -a /etc/apt/sources.list
+    echo "deb-src http://deb.debian.org/debian/ unstable main non-free contrib" | sudo tee -a /etc/apt/sources.list
+
+	echo "Package: *" | sudo tee -a /etc/apt/preferences.d/99preferences
+    echo "Pin: release a=unstable" | sudo tee -a /etc/apt/preferences.d/99preferences
+    echo "Pin-Priority: 50" | sudo tee -a /etc/apt/preferences.d/99preferences
+
+    echo "Package: *" | sudo tee -a /etc/apt/preferences.d/99preferences
+    echo "Pin: release a=testing" | sudo tee -a /etc/apt/preferences.d/99preferences
+    echo "Pin-Priority:100" | sudo tee -a /etc/apt/preferences.d/99preferences
+
+    sudo apt install fasttrack-archive-keyring
+    echo "deb https://fasttrack.debian.net/debian-fasttrack/ bullseye-fasttrack main contrib" | sudo tee -a /etc/apt/sources.list
+    echo "deb https://fasttrack.debian.net/debian-fasttrack/ bullseye-backports-staging main contrib" | sudo tee -a /etc/apt/sources.list
+}
+
 ##############################################################################
 #### KDE DESKTOP                                                        ######
 ##############################################################################
@@ -64,7 +97,7 @@ function install-kde-desktop(){
     echo "Install kde desktop"
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm dolphin \
         kdialog kfind keditbookmarks konsole kate ark kcalc kde-spectacle \
-        udisks2 upower kwin-x11 sddm xserver-xorg
+        udisks2 upower kwin-x11 sddm xserver-xorg gwenview
 }
 
 
@@ -77,8 +110,8 @@ function main-packages(){
     sudo apt install -y cmake ninja-build clang llvm clang-tools
 
     ###### VIRTUALIZATION ########
-    sudo apt install -y virt-manager
-    sudo usermod -aG kvm,libvirt,lp,dialout $USER
+#     sudo apt install -y virt-manager
+#     sudo usermod -aG kvm,libvirt,lp,dialout $USER
 
     ###### NETWORKING ######
     sudo apt install -y wireshark nmap curl wget
@@ -96,16 +129,16 @@ function main-packages(){
 }
 
 function install-arc-theme(){
-    sudo apt install arc-theme
+    sudo apt -y install arc-theme papirus-icon-theme
     wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
 }
 
 ###############################################################################
 ##### BRAVE BROWSER                                                      ######
 ###############################################################################
-function install_brave(){
+function install-brave(){
     echo "Install brave browser"
-    sudo apt install apt-transport-https curl
+    sudo apt -y install apt-transport-https curl
     sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
     echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg arch=amd64] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
     sudo apt update
@@ -115,7 +148,7 @@ function install_brave(){
 ##############################################################################
 ##### SPOTIFY                                                       ##########
 ##############################################################################
-function install_spotify(){
+function install-spotify(){
     echo "Install spotify client"
     curl -sS https://download.spotify.com/debian/pubkey_5E3C45D7B312C643.gpg | sudo apt-key add -
     echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
@@ -137,7 +170,7 @@ function install-neovim(){
 ###############################################################################
 ##### VSCODE                                                            #######
 ###############################################################################
-function install_vscode(){
+function install-vscode(){
     "Install vscode for linux"
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
@@ -159,7 +192,7 @@ function install-podman(){
 ###############################################################################
 ###### OH-MY-ZSH                                                         ######
 ###############################################################################
-function install_oh_my_zsh(){
+function install-oh-my-zsh(){
     "Install Oh-My-Zsh"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -183,7 +216,7 @@ function install-rust(){
 ###############################################################################
 ###### KITTY                                                            #######
 ###############################################################################
-function install_kitty(){
+function install-kitty(){
     echo "Install kitty appimage"
     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
     # Create a symbolic link to add kitty to PATH (assuming ~/.local/bin is in
@@ -203,7 +236,7 @@ function install-pythontools(){
     sudo apt install python3-dev python3-wheel python3-venv
 
     echo "Install Poetry"
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3 -
 }
 
 ###############################################################################
@@ -255,8 +288,7 @@ function install-emscripten(){
 ###############################################################################
 function install-flutter(){
     echo "Install Flutter and Dart"
-    sudo apt
- install gtk3-devel -y
+    sudo apt install gtk3-devel -y
     mkdir -p ~/Tools
     cd ~/Tools
     git clone https://github.com/flutter/flutter.git -b stable
