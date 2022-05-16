@@ -1071,3 +1071,5 @@ sudo apt install --install-recommends virtualbox
 sudo apt install python3.10
 sudo apt install python3.10-minimal
 exit
+eixt
+exit

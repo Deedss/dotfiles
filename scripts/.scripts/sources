@@ -2,6 +2,8 @@
 alias balanced='powerprofilesctl set balanced'
 alias power-saver='powerprofilesctl set power-saver'
 alias chrome='brave-browser-stable'
+alias reboot='systemctl reboot'
+alias shutdown='systemctl poweroff'
 
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
@@ -39,5 +41,5 @@ alias getIdf='. $HOME/Tools/esp-idf/export.sh'
 alias getEmsdk='source $HOME/Tools/emsdk/emsdk_env.sh'
 
 # JAVA_HOME
-# export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-1.fc36.x86_64/bin/java
-# export JAVA_HOME='/usr/lib/jvm/java/bin/java'
+# export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-1.fc36.x86_64/bin/java'
+export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-11.0.15.0.10-1.fc36.x86_64/bin/java'
