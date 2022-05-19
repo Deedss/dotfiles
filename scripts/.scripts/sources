@@ -5,6 +5,9 @@ alias chrome='brave-browser-stable'
 alias reboot='systemctl reboot'
 alias shutdown='systemctl poweroff'
 
+## Environment Variables
+export LIBVIRT_DEFAULT_URI='qemu:///system'
+
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
 source "$HOME/.scripts/commands"
