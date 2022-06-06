@@ -122,9 +122,9 @@ function main-packages(){
         libva-glx2 gstreamer1.0-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo apt install -y openssl zstd git power-profiles-daemon openjdk-11-jdk stow \
+    sudo apt install -y openssl zstd git openjdk-11-jdk stow \
         ark kate zsh libncurses5 libncurses5-dev libncurses6 libncurses-dev dolphin \
-        fonts-roboto fonts-ubuntu fonts-jetbrains-mono libssl-dev
+        fonts-roboto fonts-jetbrains-mono libssl-dev
 
 }
 
