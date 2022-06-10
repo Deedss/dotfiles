@@ -64,7 +64,7 @@ function update-tools(){
     echo '------- ESP-IDF ---------'
     echo '-------------------------'
     cd ~/Tools/esp-idf
-    pull=$(git pull --recurse-submodules)
+    pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
     then
         sh ~/Tools/esp-idf/install.sh
