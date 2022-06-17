@@ -17,7 +17,7 @@ function update(){
     echo '-------------------------'
     echo '------- Flatpak ---------'
     echo '-------------------------'
-    flatpak update
+    flatpak update -y
 }
 
 ###############################################################################
@@ -67,6 +67,7 @@ function update-tools(){
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
     then
+        git pull --recurse-submodules
         sh ~/Tools/esp-idf/install.sh
     else
         echo $pull
