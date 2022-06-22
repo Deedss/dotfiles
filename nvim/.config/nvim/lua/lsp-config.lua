@@ -50,6 +50,7 @@ local servers = {
         cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
     },
     cmake = true,
+    robotframework_ls = true,
 }
 
 local setup_server = function(server, config)
