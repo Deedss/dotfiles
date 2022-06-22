@@ -1073,3 +1073,33 @@ sudo apt install python3.10-minimal
 exit
 eixt
 exit
+cd ~
+git --version
+git clone git@github.com:Deedss/dotfiles.git .dotfiles
+cd .dotfiles/
+stow git
+stow fonts
+stow kitty
+stow scripts
+stow vim
+stow kdessh
+stow nvim
+stow starship
+stow bash
+stow zsh
+exit
+sudo nano /etc/dnf/dnf.conf 
+source fedora_install.sh 
+first-setup-dnf 
+cat /etc/dnf/dnf.conf 
+main-packages 
+sudo dnf install arc-kde arc-theme-
+sudo dnf install arc-kde arc-theme
+install-brave && install-neovim && install-vscode && install-podman && install-oh_my_zsh && install-rust && install-pythontools && install-emscripten && install-espIdf && install-flatpak-packages 
+exit
+ cd /home/gertjan
+ clear
+ cd /
+ cd /home/gertjan
+ cd '/run/media/gertjan/Extreme SSD'
+ cd /
