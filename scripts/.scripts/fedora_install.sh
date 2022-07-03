@@ -47,20 +47,8 @@ function first-cleanup-kde(){
     ### Install packages that are kde specific
     sudo dnf install -y \
         kate \
-        ark
-}
-
-###############################################################################
-###  INITIAL REMOVAL GNOME                                                  ###
-###############################################################################
-function first-cleanup-gnome(){
-    echo "Perform initial cleanup of Fedora Gnome"
-    sudo dnf autoremove -y \
-        gnome-tour \
-        gnome-contacts \
-        gnome-maps \
-        gnome-weather \
-        gnome-boxes
+        ark \
+        yakuake
 }
 
 ###############################################################################
@@ -109,6 +97,7 @@ function install-flatpak-packages(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
+    org.telegram.desktop
 
     ##### MUSIC & GRAPHICS #####
     flatpak install \
@@ -116,7 +105,7 @@ function install-flatpak-packages(){
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
-    org.videolan.VLC \
+    org.videolan.VLC
 
     ##### THEMES ######
     flatpak install \
@@ -225,6 +214,7 @@ function install-oh_my_zsh(){
 function install-rust(){
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    mkdir -p $HOME/.local/bin
     curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86-64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
     chmod +x ~/.local/bin/rust-analyzer
     sh -c "$(curl -fsSL https://starship.rs/install.sh)"

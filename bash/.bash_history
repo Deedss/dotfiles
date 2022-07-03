@@ -1103,3 +1103,20 @@ exit
  cd /home/gertjan
  cd '/run/media/gertjan/Extreme SSD'
  cd /
+cd .dotfiles
+cd ~
+cd /home/gertjan/
+cd .dotfiles/
+stow bash
+stow git
+stow kitty
+stow script
+stow scripts
+stow vim
+stow zsh
+stow kdessh
+stow nvim
+stow starship
+exit
+sudo dnf install arc-theme arc-kde -y
+reboot
