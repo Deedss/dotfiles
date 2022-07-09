@@ -92,3 +92,13 @@ function tar-zstd(){
     echo '-------------------------'
     tar -I 'zstd' -cvf $filename.tar.zst $1
 }
+
+###############################################################################
+####### START PODMAN ROOTLESS                                           #######
+###############################################################################
+function podman-socket(){
+    systemctl --user enable podman.socket
+    systemctl --user start podman.socket
+    systemctl --user status podman.socket
+    export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
+}
