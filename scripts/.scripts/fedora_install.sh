@@ -46,9 +46,19 @@ function first-cleanup-kde(){
 
     ### Install packages that are kde specific
     sudo dnf install -y \
-        kate \
         ark \
         yakuake
+}
+
+###############################################################################
+##### INITIAL CLEANUP GNOME                                             #######
+###############################################################################
+function cleanup-gnome(){
+    echo "Perform initial cleanup of Fedora GNOME"
+    sudo dnf autoremove -y \
+        gnome-software \
+        gnome-disk-utility \
+        gnome-tour
 }
 
 ###############################################################################

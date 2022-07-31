@@ -1120,3 +1120,19 @@ stow starship
 exit
 sudo dnf install arc-theme arc-kde -y
 reboot
+exit
+cd .dotfiles/
+ll
+stow zsh
+stow bash
+stow nvim
+stow scripts
+stow starship
+stow vim
+stow kitty
+stow git
+sudo dnf install neovim
+exit
+ll
+grub-update 
+reboot
