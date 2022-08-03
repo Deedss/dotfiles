@@ -47,12 +47,12 @@ function update-tools(){
     echo '-------------------------'
     echo '----- EMSCRIPTEN --------'
     echo '-------------------------'
-    cd ~/Tools/emsdk
+    cd ~/Software/emsdk
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
     then
-        ~/Tools/emsdk/emsdk install latest
-        ~/Tools/emsdk/emsdk activate latest
+        ~/Software/emsdk/emsdk install latest
+        ~/Software/emsdk/emsdk activate latest
     else
         echo $pull
     fi
@@ -63,12 +63,12 @@ function update-tools(){
     echo '-------------------------'
     echo '------- ESP-IDF ---------'
     echo '-------------------------'
-    cd ~/Tools/esp-idf
+    cd ~/Software/esp-idf
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
     then
         git pull --recurse-submodules
-        sh ~/Tools/esp-idf/install.sh
+        sh ~/Software/esp-idf/install.sh
     else
         echo $pull
     fi

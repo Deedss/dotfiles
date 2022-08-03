@@ -200,8 +200,8 @@ function install-npm(){
 function install-espIdf(){
     echo "Install ESP-IDF"
     sudo pacman -S --needed gcc git make flex bison gperf python-pip cmake ninja ccache dfu-util libusb
-    mkdir -p ~/Tools
-    cd ~/Tools
+    mkdir -p ~/Software
+    cd ~/Software
     git clone --recursive https://github.com/espressif/esp-idf.git
     cd esp-idf
     sh install.sh
@@ -212,8 +212,8 @@ function install-espIdf(){
 ###############################################################################
 function install-emscripten(){
     echo "Install Emscripten WebAssembly"
-    mkdir -p ~/Tools
-    cd ~/Tools
+    mkdir -p ~/Software
+    cd ~/Software
     # Get the emsdk repo
     git clone https://github.com/emscripten-core/emsdk.git
     # Enter that directory
@@ -232,8 +232,8 @@ function install-emscripten(){
 function install-flutter(){
     echo "Install Flutter and Dart"
     sudo pacman --needed -S gtk3
-    mkdir -p ~/Tools
-    cd ~/Tools
+    mkdir -p ~/Software
+    cd ~/Software
     git clone https://github.com/flutter/flutter.git -b stable
     flutter doctor
 }

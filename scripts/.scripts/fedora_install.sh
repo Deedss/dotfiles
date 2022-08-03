@@ -166,10 +166,10 @@ function install-brave(){
 ###############################################################################
 function install-neovim(){
     echo "Install Neovim Appimage"
-    mkdir -p /Tools/AppImages
-    wget -P ~/Tools/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-    chmod u+x ~/Tools/AppImages/nvim.appimage
-    sudo cp ~/Tools/AppImages/nvim.appimage /usr/local/bin/nvim
+    mkdir -p /Software/AppImages
+    wget -P ~/Software/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
+    chmod u+x ~/Software/AppImages/nvim.appimage
+    sudo cp ~/Software/AppImages/nvim.appimage /usr/local/bin/nvim
     sudo chown $USER:$USER /usr/local/bin/nvim
 }
 
@@ -260,8 +260,8 @@ function install-npm(){
 function install-espIdf(){
     echo "Install ESP-IDF"
     sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
-    mkdir -p ~/Tools
-    cd ~/Tools
+    mkdir -p ~/Software
+    cd ~/Software
     git clone --recursive https://github.com/espressif/esp-idf.git
     cd esp-idf
     sh install.sh
@@ -272,8 +272,8 @@ function install-espIdf(){
 ###############################################################################
 function install-emscripten(){
     echo "Install Emscripten WebAssembly"
-    mkdir -p ~/Tools
-    cd ~/Tools
+    mkdir -p ~/Software
+    cd ~/Software
     # Get the emsdk repo
     git clone https://github.com/emscripten-core/emsdk.git
     # Enter that directory
@@ -292,8 +292,8 @@ function install-emscripten(){
 function install-flutter(){
     echo "Install Flutter and Dart"
     sudo dnf install gtk3-devel -y
-    mkdir -p ~/Tools
-    cd ~/Tools
+    mkdir -p ~/Software
+    cd ~/Software
     git clone https://github.com/flutter/flutter.git -b stable
     flutter doctor
 }
