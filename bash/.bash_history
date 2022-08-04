@@ -1136,3 +1136,43 @@ exit
 ll
 grub-update 
 reboot
+cd ../
+ll
+sudo dnf install neovim -y
+nvim scripts/.scripts/fedora_install.sh 
+git status
+git add .
+stow bash
+stow git/
+stow kdessh
+stow kitty
+stow nvim
+stow scripts
+stow starship
+stow vim
+stow zsh
+exit
+nano scripts/.scripts/fedora_install.sh 
+exit
+sudo yum install zlib.i686 ncurses-libs.i686 bzip2-libs.i686
+exit
+cd .dotfiles/scripts/.scripts/
+source fedora_install.sh 
+main-packages && install-brave && install-flatpak-packages && install-vscode && install-rust && install-pythontools && install-podman && install-oh_my_zsh && install-espIdf && install-emscripten 
+exit
+ll
+nvim
+exit
+ll
+exit
+chsh zsh
+rm -rf .oh-my-zsh/
+exit
+source .scripts/fedora_install.sh 
+install-oh_my_zsh 
+exit
+ll
+exit
+reboot
+stow zsh
+exit

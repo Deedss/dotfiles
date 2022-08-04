@@ -240,7 +240,7 @@ function install-pythontools(){
     sudo dnf -y install python3-devel python3-wheel python3-virtualenv
 
     echo "Install Poetry"
-    curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+    curl -sSL https://install.python-poetry.org | python -
 }
 
 ###############################################################################
