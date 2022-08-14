@@ -76,6 +76,7 @@ plugins=(
     colored-man-pages
     command-not-found
     common-aliases
+    dotnet
     git
     npm
     nvm
