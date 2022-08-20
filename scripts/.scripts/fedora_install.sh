@@ -104,7 +104,8 @@ function install-flathub(){
 function install-flatpak-packages(){
     echo "Install flatpak applications"
     flatpak install \
-    com.github.tchx84.Flatseal
+    com.github.tchx84.Flatseal \
+    com.mattjakeman.ExtensionManager
 
     ##### INTERNET #####
     flatpak install \
@@ -127,9 +128,9 @@ function install-flatpak-packages(){
 
     ##### THEMES ######
     flatpak install \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid \
     org.kde.KStyle.Adwaita
+    # org.gtk.Gtk3theme.Arc-Dark \
+    # org.gtk.Gtk3theme.Arc-Dark-solid \
 }
 
 ###############################################################################
