@@ -57,8 +57,16 @@ function cleanup-gnome(){
     echo "Perform initial cleanup of Fedora GNOME"
     sudo dnf autoremove -y \
         gnome-software \
-        gnome-disk-utility \
-        gnome-tour
+        gnome-tour \
+        gnome-boxes \
+        firefox \
+        libreoffice-* \
+        gnome-weather \
+        gnome-remote-desktop \
+        gnome-connections \
+        gnome-maps \
+        dnfdragora \
+        mediawriter
 }
 
 ###############################################################################

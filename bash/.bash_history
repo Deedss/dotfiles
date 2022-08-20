@@ -1176,3 +1176,29 @@ exit
 reboot
 stow zsh
 exit
+tar -I zstd -xvf BraveSoftware.tar.zst 
+tar -I zstd -xvf Capgemini.tar.zst 
+tar -I zstd -xvf .ssh.tar.zst 
+tar -I zstd -xvf .dotfiles.tar.zst 
+cd .dotfiles/
+stow git 
+stow nvim
+stow vim
+stow bash
+stow scripts/
+stow zsh
+stow kitty
+stow starship
+stow zsh
+exit
+source fedora_install.sh 
+nano fedora_install.sh 
+cleanup-gnome 
+nano fedora_install.sh 
+sudo dnf remove mediawriter-5.0.2-1.fc36.x86_64 
+install-flathub && install-rpmfusion && first-setup-dnf 
+sudo dnf remove gnome-video-effects-0.5.0-7.fc36.noarch 
+sudo dnf remove gnome-initial-setup-42.2-1.fc36.x86_64 
+main-packages && install-brave && install-rust && install-vscode && install-podman && install-pythontools && install-emscripten && install-espIdf 
+install-oh_my_zsh 
+reboot
