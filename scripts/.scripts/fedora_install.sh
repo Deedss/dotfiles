@@ -51,17 +51,6 @@ function first-cleanup-kde(){
 }
 
 ###############################################################################
-##### INITIAL CLEANUP GNOME                                             #######
-###############################################################################
-function cleanup-gnome(){
-    echo "Perform initial cleanup of Fedora GNOME"
-    sudo dnf autoremove -y \
-        gnome-software \
-        gnome-disk-utility \
-        gnome-tour
-}
-
-###############################################################################
 ##### FIRST SETUP DNF                                                   #######
 ###############################################################################
 function first-setup-dnf(){
@@ -146,8 +135,16 @@ function main-packages(){
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
-        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty
+        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty neovim autojump-zsh
 
+}
+
+###############################################################################
+##### BRAVE BROWSER                                                      ######
+###############################################################################
+function install-arc-theme(){
+    echo "Install arc theme"
+    sudo dnf -y install arc-theme arc-kde
 }
 
 ###############################################################################
