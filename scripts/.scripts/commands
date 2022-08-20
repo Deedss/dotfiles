@@ -85,12 +85,13 @@ function update-tools(){
 ###############################################################################
 ####### BACKUP                                                           ######
 ###############################################################################
-function tar-zstd(){
+function tar-pack(){
     filename=$(basename $1)
-    echo '-------------------------'
-    echo $filename 'BACKUP'
-    echo '-------------------------'
-    tar -I 'zstd' -cvf $filename.tar.zst $1
+    tar --zstd -cvf $filename.tar.zst $1
+}
+
+function tar-unpack(){
+    tar --zstd -xvf $1
 }
 
 ###############################################################################
