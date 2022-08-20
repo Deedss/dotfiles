@@ -66,7 +66,8 @@ function cleanup-gnome(){
         gnome-connections \
         gnome-maps \
         dnfdragora \
-        mediawriter
+        mediawriter \
+        totem
 }
 
 ###############################################################################
