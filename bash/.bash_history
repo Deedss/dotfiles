@@ -1176,33 +1176,3 @@ exit
 reboot
 stow zsh
 exit
-cd ../../
-l
-ll
-stow bash
-stow git
-stow kitty
-stow kdessh/
-stow nvim
-stow scripts/
-stow starship/
-stow vim
-exit
-mkdir -p ~/Software/Android/Sdk
-exit
-cd .dotfiles/
-ll
-cd scripts/.scripts/
-ll
-source fedora_install.sh 
-install-flathub && install-rpmfusion 
-main-packages 
-sudo dnf install autojump-zsh-22.5.3-8.fc36.noarch arc-kde arc-theme -y
-first-setup-dnf 
-install-brave && install-vscode && install-pythontools && install-podman && install-rust && install-emscripten && install-espIdf 
-cd
-ll
-install-oh_my_zsh 
-cd .dotfiles/
-stow zsh/
-exit

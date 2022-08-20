@@ -51,6 +51,7 @@ function first-cleanup-kde(){
 }
 
 ###############################################################################
+>>>>>>> 47740c79b243499fb2b05bddf6d2b167d08fb5bc
 ##### FIRST SETUP DNF                                                   #######
 ###############################################################################
 function first-setup-dnf(){
@@ -85,7 +86,8 @@ function install-flathub(){
 function install-flatpak-packages(){
     echo "Install flatpak applications"
     flatpak install \
-    com.github.tchx84.Flatseal
+    com.github.tchx84.Flatseal \
+    com.mattjakeman.ExtensionManager
 
     ##### INTERNET #####
     flatpak install \
@@ -108,9 +110,9 @@ function install-flatpak-packages(){
 
     ##### THEMES ######
     flatpak install \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid \
     org.kde.KStyle.Adwaita
+    # org.gtk.Gtk3theme.Arc-Dark \
+    # org.gtk.Gtk3theme.Arc-Dark-solid \
 }
 
 ###############################################################################
