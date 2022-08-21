@@ -1176,3 +1176,23 @@ exit
 reboot
 stow zsh
 exit
+git add .
+git commit -m "update"
+git pull
+code .
+git pull
+git add .
+git commit -m "update" && git push
+exit
+ cd /home/gertjan
+ clear
+ cd '/run/media/gertjan/Extreme SSD'
+rm -rf .dotfiles/
+ cd /home/gertjan
+ cd '/run/media/gertjan/Extreme SSD'
+ cd /home/gertjan
+ cd /home/gertjan/Pictures
+ cd /home/gertjan
+ cd '/run/media/gertjan/Extreme SSD'
+ cd /home/gertjan
+ cd /
