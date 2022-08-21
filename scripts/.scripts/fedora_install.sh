@@ -207,7 +207,7 @@ function install-docker(){
 ###############################################################################
 ###### OH-MY-ZSH                                                         ######
 ###############################################################################
-function install-oh_my_zsh(){
+function install-oh-my-zsh(){
     echo "Install OH-MY-ZSH"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
@@ -238,6 +238,9 @@ function install-pythontools(){
 
     echo "Install Poetry"
     curl -sSL https://install.python-poetry.org | python -
+
+    echo "installing language servers"
+    pip install python-lsp-server cmake-language-server
 }
 
 ###############################################################################

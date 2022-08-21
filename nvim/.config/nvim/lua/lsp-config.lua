@@ -31,7 +31,8 @@ end
 local servers = {
     vimls = true,
     dartls = true,
-    pyright = true,
+    -- pyright = true,
+    pylsp = true,
     rust_analyzer = true,
     clangd = {
         cmd = {
