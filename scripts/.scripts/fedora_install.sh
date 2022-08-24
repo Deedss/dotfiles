@@ -25,7 +25,8 @@ function first-cleanup-kde(){
         kde-spectacle \
         firefox \
         plasma-browser-integration \
-        plasma-discover
+        plasma-discover \
+        plasma-drkonqi
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
