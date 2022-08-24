@@ -26,6 +26,9 @@ require "lsp-config"
 -- Treesitter
 require "treesitter"
 
+--nvim-autopairs
+require "nvim-pairs"
+
 -- nvim-cmp
 require "nvim-cmp"
 
@@ -35,6 +38,4 @@ require "nvim-cmp"
 --nvim-toggletree
 require "toggle_term"
 
---nvim-autopairs
-require "nvim-pairs"
 
