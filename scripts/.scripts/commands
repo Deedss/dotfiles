@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 ###############################################################################
 ##### SYSTEM UPDATE                                                     #######
 ###############################################################################
@@ -92,14 +91,4 @@ function tar-pack(){
 
 function tar-unpack(){
     tar --zstd -xvf $1
-}
-
-###############################################################################
-####### START PODMAN ROOTLESS                                           #######
-###############################################################################
-function podman-socket(){
-    systemctl --user enable podman.socket
-    systemctl --user start podman.socket
-    systemctl --user status podman.socket
-    export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 }

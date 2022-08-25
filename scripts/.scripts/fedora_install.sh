@@ -61,7 +61,6 @@ function first-setup-dnf(){
     echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
 }
 
-
 ###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
@@ -137,7 +136,6 @@ function main-packages(){
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
         ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty neovim autojump-zsh
-
 }
 
 ###############################################################################
@@ -187,6 +185,14 @@ function install-vscode(){
 function install-podman(){
     echo "Install podman and buildah"
     sudo dnf install -y podman podman-compose podman-docker buildah
+
+    ###############################################################################
+    ####### START PODMAN ROOTLESS                                           #######
+    ###############################################################################
+    systemctl --user enable podman.socket
+    systemctl --user start podman.socket
+    systemctl --user status podman.socket
+    export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 }
 
 ###############################################################################
@@ -252,7 +258,6 @@ function install-npm(){
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     nvm install 'lts/*'
     nvm use default
-    npm install -g pyright --user
 }
 
 ###############################################################################
@@ -285,24 +290,4 @@ function install-emscripten(){
     ./emsdk install latest
     # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
     ./emsdk activate latest
-}
-
-###############################################################################
-###### FLUTTER AND DART                                                 #######
-###############################################################################
-function install-flutter(){
-    echo "Install Flutter and Dart"
-    sudo dnf install gtk3-devel -y
-    mkdir -p ~/Software
-    cd ~/Software
-    git clone https://github.com/flutter/flutter.git -b stable
-    flutter doctor
-}
-
-###############################################################################
-###### Heroku CLI                                                       #######
-###############################################################################
-function install-heroku(){
-    echo "Install Heroku Cli"
-    curl https://cli-assets.heroku.com/install.sh | sh
 }
