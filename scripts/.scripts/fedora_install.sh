@@ -135,7 +135,8 @@ function main-packages(){
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
-        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty neovim autojump-zsh
+        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty neovim autojump-zsh \
+        starship
 }
 
 ###############################################################################
@@ -231,7 +232,6 @@ function install-rust(){
     mkdir -p $HOME/.local/bin
     curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86-64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
     chmod +x ~/.local/bin/rust-analyzer
-    sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     source $HOME/.cargo/env
     rustup component add rust-src
 }
