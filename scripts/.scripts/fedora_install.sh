@@ -291,3 +291,15 @@ function install-emscripten(){
     # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
     ./emsdk activate latest
 }
+
+###############################################################################
+###### FLUTTER AND DART                                                 #######
+###############################################################################
+function install-flutter(){
+    echo "Install Flutter and Dart"
+    sudo dnf install gtk3-devel -y
+    mkdir -p ~/Software
+    cd ~/Software
+    git clone https://github.com/flutter/flutter.git -b stable
+    flutter doctor
+}
