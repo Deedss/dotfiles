@@ -84,6 +84,7 @@ plugins=(
     poetry
     python
     rust
+    toolbox
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting

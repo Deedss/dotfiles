@@ -1196,3 +1196,65 @@ rm -rf .dotfiles/
  cd '/run/media/gertjan/Extreme SSD'
  cd /home/gertjan
  cd /
+ll
+exit
+toolbox enter e2studio
+ll
+sudo apt update
+toolbox enter -c e2studio
+ll
+exit
+toolbox enter e2studio 
+ll
+uname -r
+toolbox enter e2studio 
+exit
+toolbox rmi --all
+toolbox rmi --all --force
+toolbox rm e2studio 
+toolbox rm e2studio --force 
+toolbox list
+exit
+toolbox enter e2studio
+exit
+toolbox rmi --all
+toolbox rm e2studio 
+toolbox rm e2studio --force 
+exit
+echo $SHELL
+ll
+rusttup update
+update
+exit
+ll
+$SHELL
+exit
+ll
+echo $SHELL
+exit
+sudo chsh gertjan
+exit
+ll
+uname -r
+sudo dnf install git
+cd Downloads/
+ll
+./setup_fsp_v4_0_0_e2s_v2022-07.appimage 
+sudo dnf install flatpak
+sudo dnf install fuse
+./setup_fsp_v4_0_0_e2s_v2022-07.appimage 
+sudo dnf install libfuse
+./setup_fsp_v4_0_0_e2s_v2022-07.appimage --appimage-extract
+ll
+cd squashfs-root/
+ll
+chmod +x com.renesas.ra.e2studio.installer.desktop 
+./com.renesas.ra.e2studio.installer.desktop 
+cd ../
+ll
+rm -rf squashfs-root/
+ll
+./setup_fsp_v4_0_0_e2s_v2022-07.appimage 
+exit
+qemu-img --help
+exit
