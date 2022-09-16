@@ -4,7 +4,7 @@
 ###############################################################################
 ###  INITIAL REMOVAL KDE                                                    ###
 ###############################################################################
-function first-cleanup-kde(){
+function cleanup-kde(){
     echo "Perform initial cleanup of Fedora KDE"
     sudo dnf autoremove -y \
         \*akonadi* \
@@ -49,6 +49,18 @@ function first-cleanup-kde(){
     sudo dnf install -y \
         ark \
         yakuake
+}
+
+###############################################################################
+###  INITIAL REMOVAL GNOME                                                  ###
+###############################################################################
+function cleanup-gnome(){
+    sudo dnf autoremove -y \
+        gnome-tour \
+        gnome-boxes \
+        libreoffice-* \
+        gnome-weather \
+        gnome-maps
 }
 
 ###############################################################################
