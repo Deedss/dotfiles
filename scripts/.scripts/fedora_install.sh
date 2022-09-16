@@ -60,7 +60,10 @@ function cleanup-gnome(){
         gnome-boxes \
         libreoffice-* \
         gnome-weather \
-        gnome-maps
+        gnome-maps \
+        totem \
+        mediawriter \
+        gnome-connections
 }
 
 ###############################################################################
