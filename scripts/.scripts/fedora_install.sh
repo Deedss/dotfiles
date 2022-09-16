@@ -63,7 +63,8 @@ function cleanup-gnome(){
         gnome-maps \
         totem \
         mediawriter \
-        gnome-connections
+        gnome-connections \
+        gnome-software
 }
 
 ###############################################################################
