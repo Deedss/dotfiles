@@ -1258,3 +1258,12 @@ ll
 exit
 qemu-img --help
 exit
+ll
+cd Downloads/
+ll
+./e2studio_installer-2022-07_linux_host.run 
+sudo dnf install fuse
+sudo dnf install flatpak -y
+./e2studio_installer-2022-07_linux_host.run 
+sudo dnf install gtk3
+exit
