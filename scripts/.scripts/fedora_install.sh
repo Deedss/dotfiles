@@ -64,8 +64,11 @@ function cleanup-gnome(){
         totem \
         mediawriter \
         gnome-connections \
-        gnome-software
+        gnome-software \
+        firefox
 }
+
+
 
 ###############################################################################
 ##### FIRST SETUP DNF                                                   #######
@@ -106,7 +109,7 @@ function install-flatpak-packages(){
     ##### INTERNET #####
     flatpak install \
     com.discordapp.Discord \
-    org.mozilla.Thunderbird \
+    org.gnome.Evolution \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
@@ -124,9 +127,9 @@ function install-flatpak-packages(){
 
     ##### THEMES ######
     flatpak install \
-    org.kde.KStyle.Adwaita \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
+    org.kde.KStyle.Adwaita
+    # org.gtk.Gtk3theme.Arc-Dark \
+    # org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
@@ -151,7 +154,7 @@ function main-packages(){
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
-        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core kitty neovim autojump-zsh \
+        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
         starship
 }
 

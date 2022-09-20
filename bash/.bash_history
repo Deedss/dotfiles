@@ -1267,3 +1267,7 @@ sudo dnf install flatpak -y
 ./e2studio_installer-2022-07_linux_host.run 
 sudo dnf install gtk3
 exit
+if [ "$XDG_CURRENT_DESKTOP" = "" ]; then   desktop=$(echo "$XDG_DATA_DIRS" | sed 's/.*\(xfce\|kde\|gnome\).*/\1/'); else   desktop=$XDG_CURRENT_DESKTOP; fi
+desktop=${desktop,,}  # convert to lower case
+echo "$desktop"
+exit
