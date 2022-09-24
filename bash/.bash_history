@@ -1271,3 +1271,23 @@ if [ "$XDG_CURRENT_DESKTOP" = "" ]; then   desktop=$(echo "$XDG_DATA_DIRS" | sed
 desktop=${desktop,,}  # convert to lower case
 echo "$desktop"
 exit
+cd 
+cd .dotfiles/
+ll
+stow bash
+stow zsh
+stow git
+stow kdessh
+stow fonts
+sotw nvim
+stow nvim
+stow kitty
+stow starship
+stow scripts
+stow vim
+exit
+sudo dnf remove yakuake-22.08.0-2.fc36.x86_64 
+exit
+source .dotfiles/scripts/.scripts/fedora_install.sh 
+main-packages && install-arc-theme && install-brave && install-vscode && install-rust && install-podman && install-pythontools && install-oh-my-zsh && install-espIdf && install-emscripten && install-flatpak-packages 
+exit

@@ -68,8 +68,6 @@ function cleanup-gnome(){
         firefox
 }
 
-
-
 ###############################################################################
 ##### FIRST SETUP DNF                                                   #######
 ###############################################################################
@@ -127,9 +125,9 @@ function install-flatpak-packages(){
 
     ##### THEMES ######
     flatpak install \
-    org.kde.KStyle.Adwaita
-    # org.gtk.Gtk3theme.Arc-Dark \
-    # org.gtk.Gtk3theme.Arc-Dark-solid
+    org.kde.KStyle.Adwaita \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
@@ -155,7 +153,7 @@ function main-packages(){
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
         ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
-        starship
+        starship kitty
 }
 
 ###############################################################################
