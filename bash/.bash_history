@@ -1291,3 +1291,35 @@ exit
 source .dotfiles/scripts/.scripts/fedora_install.sh 
 main-packages && install-arc-theme && install-brave && install-vscode && install-rust && install-podman && install-pythontools && install-oh-my-zsh && install-espIdf && install-emscripten && install-flatpak-packages 
 exit
+cd 
+cd .dotfiles/
+ll
+rm ~/.bash*
+stow bash
+rm ~/.zshrc ~/.zsh_history 
+stow zsh
+stow git 
+stow kdessh/
+stow kitty/
+stow nvim
+stow scripts/
+stow starship/
+stow vim
+exit
+source .dotfiles/scripts/.scripts/fedora_install.sh 
+main-packages && install-brave && install-vscode && install-rust && install-pythontools && install-podman && install-espIdf && install-emscripten && install-oh-my-zsh && install-arc-theme 
+install-flatpak-packages 
+exit
+nvim
+exit
+sudo dnf install lutris
+sudo dnf install lutris -y
+sudo dnf install vulkan-loader vulkan-loader.i686
+sudo dnf update
+sudo dnf install wine
+lutris
+lutris --help
+lutris lutris:overwatch
+exit
+toolbox rm --force overwatch 
+exit

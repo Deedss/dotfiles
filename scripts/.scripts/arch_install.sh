@@ -6,13 +6,39 @@
 #  ip a
 #  iwctl => station <device_name> connect <network>
 #  prompted to enter password
+#  check network ping google.com
+#  sync system clock: timedatectl set-ntp true
 
 
 ##### SETUP PARTITIONS #####
-#
+# fdisk /dev/vda
+# 'n' to create new partition
+# make 512MB for /boot
+# rest for filesystem
+
+##### LUKS ON LVM ######
+# cryptsetup luksFormat /dev/vda2
+# cryptsetup open /dev/vda2 luks
+# pvcreate /dev/mapper/luks
+# vgcreate vg /dev/mapper/luks
+# lvcreate -L 16G vg -n swap
+# lvcreate -L 100G vg -n root
+# lvcreate -l 100%FREE vg -n home
+# mkfs.btrfs /dev/vg/root
+# mkfs.btrfs /dev/vg/home
+# mkswap /dev/vg/swap
+# mount /dev/vg/root /mnt
+# mount --mkdir /dev/vg/home /mnt/home
+# swapon /dev/vg/swap
+# mkfs.fat -F32 /dev/vda1 (boot)
+# mount --mkdir /dev/vda1 /mnt/boot
+
+##### CONFIGURE MKINITPCIO ######
+# Add udev, keyboard, keymap, encrypt, lvm2 to hooks in /etc/mkinitpcio.conf
+
 
 ##### INSTALL BASE PACKAGES    #####
-# pacstrap /mnt base linux linux-firmware git vi amd-ucode 
+# pacstrap /mnt base linux linux-firmware git btrfs-progs lvm2 vi amd-ucode 
 
 ##### GENERATE FSTAB #####
 # genfstab -U /mnt >> /mnt/etc/fstab
@@ -49,7 +75,7 @@
 ###############################################################################
 ##### INSTALL BASE KDE DESKTOP                                           ######
 ###############################################################################
-function install-base-kde(){
+function install-kde(){
     ### Desktop Environment
     sudo pacman -S mesa-utils xf86-input-libinput xorg-xdpyinfo xorg-server \
     xorg-xinit xorg-xinput xorg-xkill xorg-xrandr xf86-video-amdgpu xf86-video-ati \
@@ -65,8 +91,7 @@ function install-base-kde(){
     powerdevil print-manager sddm-kcm solid spectacle xsettingsd
 
     ### Audio
-    sudo pacman -S alsa-firmware alsa-plugins alsa-utils pavucontrol \
-    pipewire-pulse pipewire-media-session pipewire-alsa pipewire-jack
+    sudo pacman -S pipewire wireplumber
 
     ### Networking
     sudo pacman -S networkmanager firewalld
@@ -113,7 +138,8 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo pacman -S --needed openssl zstd ncurses git power-profiles-daemon java-11-openjdk ncurses-libs stow google-roboto-fonts ark kate zsh
+    sudo pacman -S --needed openssl zstd ncurses git power-profiles-daemon java-17-openjdk \
+    ncurses-libs stow google-roboto-fonts ark kate zsh kitty starship neovim
 
 }
 
@@ -123,14 +149,6 @@ function main-packages(){
 function install-brave(){
     echo "Install brave browser"
     paru -S brave-bin
-}
-
-###############################################################################
-##### NEOVIM                                                             ######
-###############################################################################
-function install-neovim(){
-    echo "Install Neovim Appimage"
-    sudo pacman -S neovim
 }
 
 ###############################################################################
@@ -166,10 +184,9 @@ function install-oh_my_zsh(){
 function install-rust(){
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    pacman -S --needed rust-analyzer
-    sh -c "$(curl -fsSL https://starship.rs/install.sh)"
     source $HOME/.cargo/env
     rustup component add rust-src
+    pacman -S --needed rust-analyzer
 }
 
 ###############################################################################
@@ -181,18 +198,11 @@ function install-pythontools(){
 
     echo "Install Poetry"
     curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+
+    echo "installing language servers"
+    pip install python-lsp-server cmake-language-server
 }
 
-###############################################################################
-###### NODE JS                                                          #######
-###############################################################################
-function install-npm(){
-    echo "Install NVM and NPM"
-    # curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    nvm install 'lts/*'
-    nvm use default
-    npm install -g pyright --user
-}
 
 ###############################################################################
 ###### ESP-IDF Framework                                                #######
@@ -236,12 +246,4 @@ function install-flutter(){
     cd ~/Software
     git clone https://github.com/flutter/flutter.git -b stable
     flutter doctor
-}
-
-###############################################################################
-###### Heroku CLI                                                       #######
-###############################################################################
-function install-heroku(){
-    echo "Install Heroku Cli"
-    curl https://cli-assets.heroku.com/install.sh | sh
 }

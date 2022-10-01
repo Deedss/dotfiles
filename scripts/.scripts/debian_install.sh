@@ -31,19 +31,19 @@ function install-flatpak-packages(){
     ##### INTERNET #####
     flatpak -y install \
     com.discordapp.Discord \
-    org.mozilla.Thunderbird \
-    org.mozilla.firefox \
+    org.gnome.Evolution \
     org.libreoffice.LibreOffice \
-    org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
+    org.telegram.desktop 
 
     ##### MUSIC & GRAPHICS #####
-    flatpak -y install \
+    flatpak install \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
-    org.videolan.VLC \
+    org.videolan.VLC
+
 
     ##### THEMES ######
     flatpak -y install \
@@ -57,7 +57,6 @@ function install-flatpak-packages(){
 ###############################################################################
 ## CONCAT /sbin:/usr/sbin:/usr/local/sbin to etc/profile
 
-
 #############################################################################
 ##### NETWORKING                                                        #####
 #############################################################################
@@ -65,30 +64,6 @@ function install-flatpak-packages(){
 # sudo ip link set wlp1s0 up
 # sudo wpa_supplicant -B -i wlp1s0 -c <(wpa_passphrase "SSID" "PASS")
 # sudo dhclient wlp1s0
-
-#############################################################################
-##### APT PINNING							#####
-#############################################################################
-function setup-apt-pinning(){
-    echo "deb http://deb.debian.org/debian bullseye-backports main non-free contrib" | sudo tee -a /etc/apt/sources.list
-
-    echo "deb http://deb.debian.org/debian/ testing main non-free contrib" | sudo tee -a /etc/apt/sources.list
-    echo "deb-src http://deb.debian.org/debian/ testing main non-free contrib" | sudo tee -a /etc/apt/sources.list
-    echo "deb http://deb.debian.org/debian/ unstable main non-free contrib" | sudo tee -a /etc/apt/sources.list
-    echo "deb-src http://deb.debian.org/debian/ unstable main non-free contrib" | sudo tee -a /etc/apt/sources.list
-
-	echo "Package: *" | sudo tee -a /etc/apt/preferences.d/99preferences
-    echo "Pin: release a=unstable" | sudo tee -a /etc/apt/preferences.d/99preferences
-    echo "Pin-Priority: 50" | sudo tee -a /etc/apt/preferences.d/99preferences
-
-    echo "Package: *" | sudo tee -a /etc/apt/preferences.d/99preferences
-    echo "Pin: release a=testing" | sudo tee -a /etc/apt/preferences.d/99preferences
-    echo "Pin-Priority:100" | sudo tee -a /etc/apt/preferences.d/99preferences
-
-    sudo apt install fasttrack-archive-keyring
-    echo "deb https://fasttrack.debian.net/debian-fasttrack/ bullseye-fasttrack main contrib" | sudo tee -a /etc/apt/sources.list
-    echo "deb https://fasttrack.debian.net/debian-fasttrack/ bullseye-backports-staging main contrib" | sudo tee -a /etc/apt/sources.list
-}
 
 ##############################################################################
 #### KDE DESKTOP                                                        ######
@@ -110,8 +85,8 @@ function main-packages(){
     sudo apt install -y cmake ninja-build clang llvm clang-tools
 
     ###### VIRTUALIZATION ########
-#     sudo apt install -y virt-manager
-#     sudo usermod -aG kvm,libvirt,lp,dialout $USER
+    # sudo apt install -y virt-manager
+    # sudo usermod -aG kvm,libvirt,lp,dialout $USER
 
     ###### NETWORKING ######
     sudo apt install -y wireshark nmap curl wget
@@ -123,7 +98,7 @@ function main-packages(){
 
     ##### OTHER PACKAGES ######
     sudo apt install -y openssl zstd git openjdk-11-jdk stow \
-        ark kate zsh libncurses5 libncurses5-dev libncurses6 libncurses-dev dolphin \
+        ark zsh libncurses5 libncurses5-dev libncurses6 libncurses-dev dolphin \
         fonts-roboto fonts-jetbrains-mono libssl-dev
 
 }
@@ -206,6 +181,7 @@ function install-oh-my-zsh(){
 function install-rust(){
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    mkdir -p $HOME/.local/bin
     curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86-64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
     chmod +x ~/.local/bin/rust-analyzer
     sh -c "$(curl -fsSL https://starship.rs/install.sh)"
