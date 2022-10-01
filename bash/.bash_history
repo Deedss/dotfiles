@@ -1323,3 +1323,23 @@ lutris lutris:overwatch
 exit
 toolbox rm --force overwatch 
 exit
+cd 
+ll
+ll -l
+ll -a
+cd .dotfiles/
+ll
+stow git
+stow kdessh/
+stow kitty
+stow nvim
+stow starship/
+stow vim
+rm ~/.bash*
+stow bash
+rm ~/.zshrc ~/.zsh_history 
+stow zsh
+exit
+source .dotfiles/scripts/.scripts/fedora_install.sh 
+main-packages && install-vscode && install-pythontools && install-rust && install-flatpak-packages && install-arc-theme && install-espIdf && install-podman && install-oh-my-zsh && install-emscripten 
+exit
