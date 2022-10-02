@@ -148,7 +148,7 @@ function main-packages(){
     ##### VIDEO DRIVERS ######
     sudo dnf install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-libGLw mesa-libEGL \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel
+        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
