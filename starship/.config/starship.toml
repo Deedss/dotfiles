@@ -1,6 +1,6 @@
 # Username
 [username]
-format = " [$user]($style)"
+format = " [$user](bold yellow)"
 disabled = false
 show_always = true
 
