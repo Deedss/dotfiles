@@ -1343,3 +1343,7 @@ exit
 source .dotfiles/scripts/.scripts/fedora_install.sh 
 main-packages && install-vscode && install-pythontools && install-rust && install-flatpak-packages && install-arc-theme && install-espIdf && install-podman && install-oh-my-zsh && install-emscripten 
 exit
+distrobox-stop test
+distrobox-rm test 
+ll
+exit

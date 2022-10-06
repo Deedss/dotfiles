@@ -72,7 +72,6 @@ export ZSH="/home/gertjan/.oh-my-zsh"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     adb
-    autojump
     colored-man-pages
     command-not-found
     common-aliases
@@ -84,7 +83,6 @@ plugins=(
     poetry
     python
     rust
-    toolbox
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting

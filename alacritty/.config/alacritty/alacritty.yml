@@ -1,8 +1,5 @@
 font:
-  size: 6
-
-window:
-  decorations: "transparent"
+  size: 9
 
 schemes:
   # Colors (One Dark - https://github.com/atom/atom/tree/master/packages/one-dark-syntax)
