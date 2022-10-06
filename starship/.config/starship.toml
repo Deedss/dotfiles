@@ -1,3 +1,16 @@
+# Username
+[username]
+format = " [$user]($style)"
+disabled = false
+show_always = true
+
+# Hostname
+[hostname]
+ssh_only = false
+format = "[$ssh_symbol](bold blue)[@](bold)[$hostname](bold green) at "
+trim_at = ".companyname.com"
+disabled = false
+
 # Directory setttings
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style) "
