@@ -114,6 +114,10 @@ function install-flatpak-packages(){
     org.remmina.Remmina \
     org.telegram.desktop
 
+    ##### UTILITIES #####
+    flatpak install \
+    org.wezfurlong.wezterm
+
     ##### MUSIC & GRAPHICS #####
     flatpak install \
     com.spotify.Client \
