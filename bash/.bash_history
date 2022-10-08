@@ -1347,3 +1347,35 @@ distrobox-stop test
 distrobox-rm test 
 ll
 exit
+sudo dnf install starship
+sudo dnf install starship -y
+exit
+sudo dnf install ./Downloads/teamviewer_15.34.4.x86_64.rpm 
+sudo dnf remove kitty -y
+sudo dnf install wezterm
+sudo dnf install kitty
+sudo dnf remove kitty -y
+teamviwer
+teamviewer 
+ll
+teamviewer --help
+TeamViwer
+TeamViewer
+sudo dnf remove teamviwer
+sudo dnf remove teamviewer -y
+exit
+distrobox stop ubuntu-20-04 
+distrobox rmi ubuntu-20-04 
+distrobox rm ubuntu-20-04 
+ll
+distrobox create teamviewer
+distrobox enter teamviewer 
+ll
+teamviewer
+distrobox stop teamviewer 
+rm .local/share/applications/teamviewer.desktop 
+ll
+distrobox rm teamviewer 
+exit
+distrobox rm ubuntu-20-04 
+exit
