@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 
 ### CONSERVATION MODE
 _conservation-mode(){

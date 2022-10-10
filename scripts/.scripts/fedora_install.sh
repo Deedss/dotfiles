@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/sh
 # This file contains most things that I run while installing the main fedora-kde
 # install
 ###############################################################################

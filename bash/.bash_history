@@ -1379,3 +1379,21 @@ distrobox rm teamviewer
 exit
 distrobox rm ubuntu-20-04 
 exit
+distrobox list 
+exit
+distrobox create -n gaming -i archlinux
+distrobox enter gaming
+distrobox enter gaming 
+distrobox stop gaming
+distrobox-rm gaming 
+ll
+cd .local/share/app
+cd .local/share/applications/
+ll
+rm gaming-steam.desktop 
+l
+exit
+distrobox list 
+exit
+find /usr/bin/ -type f -perm -o=r -print0 | xargs -0r gawk '/^#!.*( |[/])sh/{printf "%s\0", FILENAME} {nextfile}' | xargs -0r checkbashisms
+exit

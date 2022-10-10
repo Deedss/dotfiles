@@ -1,3 +1,5 @@
+#!/bin/sh
+
 ## Personal aliases
 alias balanced='powerprofilesctl set balanced'
 alias power-saver='powerprofilesctl set power-saver'
