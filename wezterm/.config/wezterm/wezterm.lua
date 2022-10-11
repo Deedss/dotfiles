@@ -4,6 +4,8 @@ local act = wezterm.action
 return {
     font_size = 10.0,
     color_scheme = "OneDark (base16)",
+    initial_rows = 30,
+    initial_cols = 110,
 
     ---------------------------------------------
     ------- TAB BAR SETTINGS --------------------
