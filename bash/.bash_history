@@ -1397,3 +1397,6 @@ distrobox list
 exit
 find /usr/bin/ -type f -perm -o=r -print0 | xargs -0r gawk '/^#!.*( |[/])sh/{printf "%s\0", FILENAME} {nextfile}' | xargs -0r checkbashisms
 exit
+distrobox list
+distrobox list --no-color 
+exit
