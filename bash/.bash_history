@@ -1400,3 +1400,26 @@ exit
 distrobox list
 distrobox list --no-color 
 exit
+cd .dotfiles/
+ll
+stow git
+stow kdessh
+stow nvim
+stow scripts
+stow starship/
+stow vim
+stow wezterm/
+source scripts/.scripts/fedora_install.sh 
+install-oh-my-zsh 
+stow bash
+stow zsh
+exit
+source .dotfiles/scripts/.scripts/fedora_install.sh 
+cat .dotfiles/scripts/.scripts/fedora_install.sh 
+main-packages && install-brave && install-vscode && install-arc-theme && install-rust && install-flatpak-packages && install-espIdf && install-emscripten && install-pythontools && install-podman 
+exit
+sudo dnf remove alacritty-0.10.1-1.fc36.x86_64 -y
+exit
+ cd /home/gertjan
+ clear
+ cd /

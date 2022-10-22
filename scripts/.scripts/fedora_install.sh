@@ -156,7 +156,7 @@ function main-packages(){
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
         ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core neovim \
-        starship alacritty
+        starship
 }
 
 ###############################################################################
