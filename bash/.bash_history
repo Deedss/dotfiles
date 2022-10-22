@@ -1423,3 +1423,7 @@ exit
  cd /home/gertjan
  clear
  cd /
+ll
+l
+ll
+exit
