@@ -1427,3 +1427,44 @@ ll
 l
 ll
 exit
+ll
+exit
+sudo dnf install zsh starship -y
+exit
+ll
+starship --version
+exit
+sudo dnf install zsh
+exit
+ cd /home/gertjan/.dotfiles
+ clear
+stow bash
+ cd /home/gertjan
+ cd /home/gertjan/.dotfiles
+stow starship
+stow git
+stow kdessh/
+stow nvim
+stow scripts/
+stow vim
+stow zsh
+stow wezterm/
+exit
+cd Documents/
+ll
+source fedora_install.sh 
+flatpak remotes 
+flatpak remote-delete fedora
+ll
+flatpak remotes 
+main-packages && install-arc-theme && install-rust && install-oh-my-zsh && install-espIdf && install-pythontools && install-podman && install-vscode && install-emscripten && install-flatpak-packages 
+flatpak install ffmpeg-full
+exit
+nvim
+cd .dotfiles/
+sudoedit /etc/default/grub 
+grub-update 
+reboot
+exit
+ll 
+exit

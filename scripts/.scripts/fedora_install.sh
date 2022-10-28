@@ -124,7 +124,8 @@ function install-flatpak-packages(){
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
-    org.videolan.VLC
+    org.videolan.VLC \
+    org.freedesktop.Platform.ffmpeg-full
 
     ##### THEMES ######
     flatpak install \

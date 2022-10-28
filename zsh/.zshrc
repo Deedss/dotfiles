@@ -92,9 +92,6 @@ fpath=(~/.scripts $fpath);
 source ~/.scripts/sources
 source $ZSH/oh-my-zsh.sh
 
-autoload -U bashcompinit && bashcompinit
-source ~/.scripts/distrobox
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
