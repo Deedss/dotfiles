@@ -250,11 +250,9 @@ function install-oh-my-zsh(){
 function install-rust(){
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    mkdir -p $HOME/.local/bin
-    curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86-64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer
-    chmod +x ~/.local/bin/rust-analyzer
     source $HOME/.cargo/env
     rustup component add rust-src
+    rustup component add rust-analyzer
 }
 
 ###############################################################################
