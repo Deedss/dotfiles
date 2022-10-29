@@ -253,6 +253,7 @@ function install-rust(){
     source $HOME/.cargo/env
     rustup component add rust-src
     rustup component add rust-analyzer
+    ln ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer ~/.carg/bin/
 }
 
 ###############################################################################
