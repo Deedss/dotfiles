@@ -1,12 +1,6 @@
--------------------------------------------------------
--- Telescope Setup
--------------------------------------------------------
 require('telescope').setup{}
-
 require('telescope').load_extension('fzf')
---------------------------------------------------------
--- Telescope Keymaps
---------------------------------------------------------
+
 local map_tele = function(key, action)
     local mode = "n"
     local rhs = string.format("<cmd>lua require('telescope.builtin').%s()<CR>", action)

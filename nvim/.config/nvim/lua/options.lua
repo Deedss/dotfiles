@@ -1,15 +1,3 @@
------------------------------------------------------------
--- Neovim settings
------------------------------------------------------------
-
------------------------------------------------------------
--- Neovim API aliases
------------------------------------------------------------
---local map = vim.api.nvim_set_keymap  -- set global keymap
-local cmd = vim.cmd     		-- execute Vim commands
-local exec = vim.api.nvim_exec 	-- execute Vimscript
-local fn = vim.fn       		-- call Vim functions
-local g = vim.g         		-- global variables
 local opt = vim.opt         	-- global/buffer/windows-scoped options
 
 -----------------------------------------------------------
@@ -21,12 +9,7 @@ opt.swapfile = false            -- don't use swapfile
 opt.syntax = 'on'
 opt.fileencoding = 'utf-8'
 opt.updatetime = 700
-cmd [[filetype plugin on]]
 opt.signcolumn = 'yes:1'
-
-cmd [[set iskeyword+=-]]        -- treat dash separated words as a word text object"
-cmd [[set shortmess+=c]]        -- Don't pass messages to |ins-completion-menu|.
-cmd [[set inccommand=split]]    -- Make substitution work in realtime
 
 -----------------------------------------------------------
 -- Neovim UI
@@ -46,18 +29,6 @@ opt.cmdheight = 2               -- Set commandlien height
 opt.showtabline = 2             -- Always show tabs
 opt.inccommand = 'split'        -- inccommand
 opt.showmode = false            -- Don't show mode anymore
-cmd [[set whichwrap+=<,>,[,],h,l]]
-
--- remove whitespace on save
-cmd [[au BufWritePre * :%s/\s\+$//e]]
-
--- highlight on yank
-exec([[
-  augroup YankHighlight
-    autocmd!
-    autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
-  augroup end
-]], false)
 
 -----------------------------------------------------------
 -- Search
@@ -76,28 +47,6 @@ opt.lazyredraw = true           -- faster scrolling
 opt.synmaxcol = 500            -- max column for syntax highlight
 
 -----------------------------------------------------------
--- Colorscheme
------------------------------------------------------------
-opt.termguicolors = true      -- enable 24-bit RGB colors
-opt.background = "dark"
-require('onedarkpro').load()
-
------------------------------------------------------------
--- Tabline and BufferLine
------------------------------------------------------------
-require("bufferline").setup{
-        options = {
-        show_buffer_icons = false,
-        show_close_icon = false,
-        show_buffer_close_icons = false,
-        numbers = function(opts)
-            return string.format('[%s]', opts.id)
-        end
-    },
-}
-require('lualine').setup {}
-
------------------------------------------------------------
 -- Tabs, indent
 -----------------------------------------------------------
 opt.expandtab = true      -- use spaces instead of tabs
@@ -110,19 +59,3 @@ opt.smartindent = true    -- autoindent new lines
 -----------------------------------------------------------
 opt.completeopt = 'menuone,noselect'
 -- don't auto commenting new lines
-cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
-
------------------------------------------------------------
--- Terminal
------------------------------------------------------------
--- open a terminal pane on the right using :Term
-cmd [[command Term :terminal]]
-
--- Terminal visual tweaks
---- enter insert mode when switching to terminal
---- close terminal buffer on process exit
-cmd [[
-    autocmd TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
-    autocmd TermOpen * startinsert
-    autocmd BufLeave term://* stopinsert
-]]

@@ -1,41 +1,27 @@
--- Leader key -> ","
---
--- In general, it's a good idea to set this early in your config, because otherwise
--- if you have any mappings you set BEFORE doing this, they will be set to the OLD
--- leader.
-vim.g.mapleader = " "
-
--- First Load
+-- LOAD PACKER AND PLUGINS
 require "first_load"
+require "packer-config"
 
--- Plugins
-require "plugins"
+-- LOAD SETTINGS AND KEYMAPS
+require "options"
+require "keymaps"
+require "commands"
 
--- Settings
-require "settings"
-
--- Mappings
-require "my_mappings"
-
--- Telescope
-require "telescope-settings"
-
--- LSP-config
+-- LOAD LSP SETTINGS
 require "lsp-config"
+require "nvim-cmp-config"
+require "nvim-dap-config"
+require "nvim-pairs-config"
 
--- Treesitter
-require "treesitter"
+-- LOAD UI ELEMENTS
+require "colorscheme"
+require "bufferline-config"
+require "lualine-config"
 
---nvim-autopairs
-require "nvim-pairs"
+-- LOAD NEOVIM EXTENSIONS
+require "telescope-config"
+require "toggleterm-config"
 
--- nvim-cmp
-require "nvim-cmp"
-
--- nvim-dap
--- require "nvim-dap"
-
---nvim-toggletree
-require "toggle_term"
-
-
+-- LOAD REMAINING
+require "treesitter-config"
+require "nvim-tree-config"

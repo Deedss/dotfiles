@@ -31,9 +31,28 @@ require('packer').startup(function()
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
     }
+    use {
+      'nvim-tree/nvim-tree.lua',
+      requires = {
+        'nvim-tree/nvim-web-devicons', -- optional, for file icons
+      },
+    }
 
     -- LSP config
-    use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+    use {
+      "williamboman/mason.nvim",
+      "williamboman/mason-lspconfig.nvim",
+      "neovim/nvim-lspconfig",
+      'jose-elias-alvarez/null-ls.nvim'
+    }
+
+    -- Nvim Debug Adapter Protocol
+    use {
+      "mfussenegger/nvim-dap",
+      "rcarriga/nvim-dap-ui",
+      "theHamsta/nvim-dap-virtual-text",
+      "nvim-telescope/telescope-dap.nvim"
+    }
 
      -- TEXT MANIUPLATION
     use {
@@ -43,19 +62,21 @@ require('packer').startup(function()
       end
     }
     use {
-        'numToStr/Comment.nvim',
-        config = function()
-            require('Comment').setup()
-        end
+      'numToStr/Comment.nvim',
+      config = function()
+          require('Comment').setup()
+      end,
     }
 
     -- Nvim Completions
-    use 'hrsh7th/nvim-cmp'              -- Autocompletion plugin
-    use 'hrsh7th/cmp-nvim-lsp'
-    use 'hrsh7th/cmp-buffer'
-    use 'hrsh7th/cmp-nvim-lua'
-    use "hrsh7th/cmp-path"
-    use 'windwp/nvim-autopairs'
+    use {
+      'hrsh7th/nvim-cmp',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-nvim-lua',
+      "hrsh7th/cmp-path",
+      'windwp/nvim-autopairs',
+    }
 
     -- Interface
     use {
@@ -64,10 +85,6 @@ require('packer').startup(function()
     }
     use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
 
-    -- Nvim Debug Adapter Protocol
-    use "mfussenegger/nvim-dap"
-    use "rcarriga/nvim-dap-ui"
-    use "theHamsta/nvim-dap-virtual-text"
-    use "nvim-telescope/telescope-dap.nvim"
+
 end)
 
