@@ -140,7 +140,7 @@ function install-flatpak-packages(){
 function main-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb
 
     ###### VIRTUALIZATION ########
     sudo dnf install -y virt-manager
@@ -267,7 +267,7 @@ function install-pythontools(){
     curl -sSL https://install.python-poetry.org | python -
 
     echo "installing language servers"
-    pip install python-lsp-server cmake-language-server
+    pip install python-lsp-server cmake-language-server debugpy
 }
 
 ###############################################################################
