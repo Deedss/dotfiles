@@ -4,9 +4,11 @@ require("mason-lspconfig").setup()
 -- KEYMAPS
 require("lsp-config.lsp-keymaps")
 
--- SERVES
+-- SERVERS
 require('lsp-config.lsp-servers')
 
 -- NVIM CMP LSP
 require('lsp-config.nvim-cmp-config')
 
+-- RUST TOOLS
+require('lsp-config.rust-tools-config')

@@ -5,12 +5,11 @@ dap.adapters.codelldb = {
   port = "${port}",
   executable = {
     -- CHANGE THIS to your path!
-    command = '~/.local/share/nvim/mason/bin/codelldb',
+    command = vim.fn.stdpath('data') .. '/mason/packages/codelldb/codelldb',
     args = {"--port", "${port}"},
-
     -- On windows you may have to uncomment this:
     -- detached = false,
-  }
+  },
 }
 
 dap.configurations.cpp = {
@@ -28,4 +27,4 @@ dap.configurations.cpp = {
   
   -- If you want to use this for Rust and C, add something like this:
 dap.configurations.c = dap.configurations.cpp
-dap.configurations.rust = dap.configurations.cpp
+-- dap.configurations.rust = dap.configurations.cpp

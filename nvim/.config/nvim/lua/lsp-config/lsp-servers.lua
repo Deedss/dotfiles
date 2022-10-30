@@ -24,5 +24,5 @@ lsp.omnisharp.setup{
 }
 lsp.pylsp.setup{}
 lsp.robotframework_ls.setup{}
-lsp.rust_analyzer.setup{}
+-- lsp.rust_analyzer.setup{}
 lsp.vimls.setup{}
