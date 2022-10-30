@@ -2,8 +2,8 @@ local dap = require('dap')
 
 require('telescope').load_extension('dap')
 
-require('nvim-dap-configs.codelldb-config')
-require('nvim-dap-configs.debugpy-config')
+require('nvim-dap-config.codelldb-config')
+require('nvim-dap-config.debugpy-config')
 
 --------------------------------------------------------------
 -- MAPPINGS

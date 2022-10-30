@@ -1,27 +1,26 @@
 -- LOAD PACKER AND PLUGINS
-require "first_load"
-require "packer-config"
+require "core.first_load"
+require "core.packer-config"
 
 -- LOAD SETTINGS AND KEYMAPS
-require "options"
-require "keymaps"
-require "commands"
+require "core.options"
+require "core.keymaps"
+require "core.commands"
 
 -- LOAD LSP SETTINGS
-require "lsp-config"
-require "nvim-cmp-config"
-require "nvim-dap-config"
-require "nvim-pairs-config"
+require "lsp-config.lsp-config"
+
+-- LOAD NVIM-DAP
+require "nvim-dap-config.nvim-dap-config"
 
 -- LOAD UI ELEMENTS
-require "colorscheme"
-require "bufferline-config"
-require "lualine-config"
+require "ui-config.colorscheme"
+require "ui-config.bufferline-config"
+require "ui-config.lualine-config"
 
--- LOAD NEOVIM EXTENSIONS
-require "telescope-config"
-require "toggleterm-config"
-
--- LOAD REMAINING
-require "treesitter-config"
-require "nvim-tree-config"
+-- LOAD REMAINING PLUGINS
+require "plugins.nvim-autopairs-config"
+require "plugins.nvim-tree-config"
+require "plugins.telescope-config"
+require "plugins.toggleterm-config"
+require "plugins.treesitter-config"
