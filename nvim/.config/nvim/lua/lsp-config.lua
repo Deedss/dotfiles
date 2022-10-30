@@ -49,6 +49,7 @@ end
 -- Enable the following language servers
 --------------------------------------------------------------------
 local servers = {
+    bashls = true,
     vimls = true,
     dartls = true,
     pylsp = true,
