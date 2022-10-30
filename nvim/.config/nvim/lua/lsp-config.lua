@@ -53,7 +53,7 @@ local servers = {
     vimls = true,
     dartls = true,
     pylsp = true,
-    rust_analyzer = true,
+    -- rust_analyzer = true,
     clangd = {
         cmd = {
             "clangd",
