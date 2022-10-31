@@ -45,7 +45,7 @@ require('packer').startup(function()
       "neovim/nvim-lspconfig",
       'jose-elias-alvarez/null-ls.nvim'
     }
-    use 'simrat39/rust-tools.nvim'
+    -- use 'simrat39/rust-tools.nvim'
 
     -- Nvim Debug Adapter Protocol
     use {

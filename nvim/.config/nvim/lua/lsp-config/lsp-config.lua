@@ -11,4 +11,4 @@ require('lsp-config.lsp-servers')
 require('lsp-config.nvim-cmp-config')
 
 -- RUST TOOLS
-require('lsp-config.rust-tools-config')
+-- require('lsp-config.rust-tools-config')

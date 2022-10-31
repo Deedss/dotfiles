@@ -32,7 +32,7 @@ map('n', '<leader>dR', ':lua require"dap".repl.close()<CR>')
 -----------------------------------------------------------------
 ---- NVIM DPA VIRTUAL text
 -----------------------------------------------------------------
-require('nvim-dap-virtual-text')
+require('nvim-dap-virtual-text').setup()
 vim.g.dap_virtual_text = true
 
 -----------------------------------------------------------------
