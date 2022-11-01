@@ -100,11 +100,11 @@ function install-flathub(){
 ###############################################################################
 function install-flatpak-packages(){
     echo "Install flatpak applications"
-    flatpak install \
+    flatpak install -y \
     com.github.tchx84.Flatseal
 
     ##### INTERNET #####
-    flatpak install \
+    flatpak install -y \
     com.discordapp.Discord \
     org.gnome.Evolution \
     org.mozilla.firefox \
@@ -114,12 +114,12 @@ function install-flatpak-packages(){
     org.remmina.Remmina \
     org.telegram.desktop
 
-    ##### UTILITIES #####
-    flatpak install \
+    # ##### UTILITIES #####
+    flatpak install -y \
     org.wezfurlong.wezterm
 
     ##### MUSIC & GRAPHICS #####
-    flatpak install \
+    flatpak install -y \
     com.spotify.Client \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
@@ -128,7 +128,7 @@ function install-flatpak-packages(){
     org.freedesktop.Platform.ffmpeg-full
 
     ##### THEMES ######
-    flatpak install \
+    flatpak install -y \
     org.kde.KStyle.Adwaita \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
