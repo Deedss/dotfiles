@@ -9,6 +9,8 @@ alias shutdown='systemctl poweroff'
 alias vim='nvim'
 alias wezterm='flatpak run org.wezfurlong.wezterm'
 
+source ~/.scripts/wezterm.sh
+
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
