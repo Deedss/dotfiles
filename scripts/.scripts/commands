@@ -39,6 +39,13 @@ function update-tools(){
     rustup update
     echo ''
 
+    # Rust Update
+    echo '-------------------------'
+    echo '------ STARSHIP ---------'
+    echo '-------------------------'
+    curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
+    echo ''
+
     # Emscripten update
     echo '-------------------------'
     echo '----- EMSCRIPTEN --------'
