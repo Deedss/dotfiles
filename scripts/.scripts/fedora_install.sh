@@ -217,22 +217,6 @@ function install-podman(){
 }
 
 ###############################################################################
-###### DOCKER                                                           #######
-###############################################################################
-function install-docker(){
-    echo "Install docker and add docker repo"
-    sudo dnf config-manager \
-    --add-repo \
-    https://download.docker.com/linux/fedora/docker-ce.repo
-
-    sudo dnf install docker-ce docker-ce-cli containerd.io
-
-    sudo usermod -aG docker $USER
-    sudo systemctl enable docker.service
-    sudo systemctl enable containerd.service
-}
-
-###############################################################################
 ###### OH-MY-ZSH                                                         ######
 ###############################################################################
 function install-oh-my-zsh(){
@@ -262,9 +246,6 @@ function install-rust(){
 function install-pythontools(){
     echo "Install Python-Devel"
     sudo dnf -y install python3-devel python3-wheel python3-virtualenv
-
-    echo "Install Poetry"
-    curl -sSL https://install.python-poetry.org | python -
 
     echo "installing language servers"
     pip install python-lsp-server cmake-language-server debugpy

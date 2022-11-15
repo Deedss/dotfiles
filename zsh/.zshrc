@@ -80,7 +80,6 @@ plugins=(
     npm
     nvm
     pip
-    poetry
     python
     rust
     zsh-autosuggestions
