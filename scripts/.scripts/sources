@@ -1,15 +1,10 @@
 #!/bin/sh
 
 ## Personal aliases
-alias balanced='powerprofilesctl set balanced'
-alias power-saver='powerprofilesctl set power-saver'
 alias chrome='brave-browser-stable'
 alias reboot='systemctl reboot'
 alias shutdown='systemctl poweroff'
 alias vim='nvim'
-alias wezterm='flatpak run org.wezfurlong.wezterm'
-
-source ~/.scripts/wezterm.sh
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI='qemu:///system'
@@ -17,8 +12,6 @@ export LIBVIRT_DEFAULT_URI='qemu:///system'
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
 source "$HOME/.scripts/commands"
-# source "$HOME/.scripts/bash_completions"
-# source "$HOME/.scripts/zsh_completions"
 
 # Set Editor to NVIM
 export EDITOR='nvim'
