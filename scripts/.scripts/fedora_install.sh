@@ -115,8 +115,6 @@ function install-flatpak-packages(){
     org.telegram.desktop
 
     # ##### UTILITIES #####
-    flatpak install -y \
-        org.wezfurlong.wezterm
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -267,6 +265,9 @@ function install-pythontools(){
 
     echo "installing language servers"
     pip install python-lsp-server cmake-language-server debugpy
+
+    echo "Installing Poetry"
+    curl -sSL https://install.python-poetry.org | python3 -
 }
 
 ###############################################################################

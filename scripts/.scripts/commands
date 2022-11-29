@@ -77,6 +77,18 @@ function update-tools(){
     fi
     cd ~
     echo ''
+
+    # Poetry
+    echo '-------------------------'
+    echo '------- POETRY  ---------'
+    echo '-------------------------'
+    poetry self update
+
+    # Update Kitty Terminal
+    echo '-------------------------'
+    echo '------ KITTY ------------'
+    echo '-------------------------'
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n   
 }
 
 ###############################################################################
