@@ -115,6 +115,8 @@ function install-flatpak-packages(){
     org.telegram.desktop
 
     # ##### UTILITIES #####
+    flatpak install -y \
+        org.wezfurlong.wezterm
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \

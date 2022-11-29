@@ -77,12 +77,6 @@ function update-tools(){
     fi
     cd ~
     echo ''
-
-    # Update Kitty Terminal
-    echo '-------------------------'
-    echo '------ KITTY ------------'
-    echo '-------------------------'
-    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
 }
 
 ###############################################################################
