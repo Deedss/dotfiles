@@ -263,6 +263,9 @@ function install-pythontools(){
     echo "Install Python-Devel"
     sudo dnf -y install python3-devel python3-wheel python3-virtualenv
 
+    echo "Installing python formatter"
+    pip install black
+
     echo "installing language servers"
     pip install python-lsp-server cmake-language-server debugpy
 
