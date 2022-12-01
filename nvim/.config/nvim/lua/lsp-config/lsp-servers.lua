@@ -18,11 +18,5 @@ lsp.clangd.setup{
     },
 }
 lsp.cmake.setup{}
-lsp.dartls.setup{}
-lsp.omnisharp.setup{
-    cmd = { omnisharp_bin, "--languageserver" , "--hostPID", tostring(vim.fn.getpid()) },
-}
 lsp.pylsp.setup{}
-lsp.robotframework_ls.setup{}
 lsp.rust_analyzer.setup{}
-lsp.vimls.setup{}
