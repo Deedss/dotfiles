@@ -84,6 +84,7 @@ require('packer').startup(function()
       'hoob3rt/lualine.nvim',
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
     }
+    use 'feline-nvim/feline.nvim'
     use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
 
 

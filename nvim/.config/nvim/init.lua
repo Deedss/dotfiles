@@ -17,6 +17,7 @@ require "nvim-dap-config.nvim-dap-config"
 require "ui-config.colorscheme"
 require "ui-config.bufferline-config"
 require "ui-config.lualine-config"
+-- require "ui-config.feline-config"
 
 -- LOAD REMAINING PLUGINS
 require "plugins.nvim-autopairs-config"
