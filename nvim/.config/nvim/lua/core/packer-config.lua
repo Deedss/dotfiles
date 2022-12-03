@@ -78,15 +78,16 @@ require('packer').startup(function()
       "hrsh7th/cmp-path",
       'windwp/nvim-autopairs',
     }
+    use { 'L3MON4D3/LuaSnip' }
+    use { 'saadparwaiz1/cmp_luasnip'}
 
     -- Interface
+    use 'nvim-tree/nvim-web-devicons'
     use {
       'hoob3rt/lualine.nvim',
-      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+      requires = {'nvim-tree/nvim-web-devicons', opt = true}
     }
-    use 'feline-nvim/feline.nvim'
-    use {'akinsho/bufferline.nvim', tag = "*", requires = 'kyazdani42/nvim-web-devicons'}
-
+    use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
 
 end)
 

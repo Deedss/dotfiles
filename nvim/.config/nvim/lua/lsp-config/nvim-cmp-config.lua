@@ -21,6 +21,7 @@ local cmp = require("cmp")
 cmp.setup {
   snippet = {
     expand = function(args)
+      require'luasnip'.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -50,6 +51,7 @@ cmp.setup {
     end, { "i", "s" }),
   },
   sources = {
+    { name = 'luasnip' },
     { name = 'nvim_lsp' },
     { name = 'nvim_lua' },
     { name = 'buffer', keyword_length = 5 },
