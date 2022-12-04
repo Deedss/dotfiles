@@ -56,5 +56,5 @@ opt.smartindent = true    -- autoindent new lines
 -----------------------------------------------------------
 -- Autocompletion
 -----------------------------------------------------------
-opt.completeopt = 'menuone,noselect'
+opt.completeopt = 'menu,menuone,noselect'
 -- don't auto commenting new lines
