@@ -148,10 +148,12 @@ function main-packages(){
     sudo dnf install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers-freeworld \
-        mesa-vdpau-drivers-freeworld mesa-libGLw mesa-libEGL \
+    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
+        mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
+    sudo dnf swap mesa-va-drivers mesa-va-drivers-freeworld
+    sudo dnf swap mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon \

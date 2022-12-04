@@ -1468,3 +1468,6 @@ reboot
 exit
 ll 
 exit
+rm ~/.zsh_history 
+stow zsh
+exit
