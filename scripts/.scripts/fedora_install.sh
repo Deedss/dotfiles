@@ -154,8 +154,8 @@ function main-packages(){
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon jetbrains-mono-fonts \
-        ncurses-libs stow google-roboto-fonts zsh util-linux-user redhat-lsb-core neovim
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon \
+        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim
 }
 
 ###############################################################################
