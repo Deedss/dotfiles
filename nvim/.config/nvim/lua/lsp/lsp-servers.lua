@@ -3,7 +3,6 @@
 --------------------------------------------------------------------
 local lsp = require 'lspconfig'
 
-lsp.bashls.setup{}
 lsp.clangd.setup{
     cmd = {
         "clangd",

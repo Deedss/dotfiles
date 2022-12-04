@@ -1,5 +1,4 @@
 require('telescope').setup{}
-require('telescope').load_extension('fzf')
 
 local map_tele = function(key, action)
     local mode = "n"
@@ -17,7 +16,6 @@ end
 map_tele("<space>fb", "buffers")
 map_tele("<space>fi", "find_files")
 map_tele("<space>fh", "help_tags")
-map_tele("<space>ff", "current_buffer_fuzzy_find")
 map_tele("<space>gp", "grep_prompt")
 
 -- Git

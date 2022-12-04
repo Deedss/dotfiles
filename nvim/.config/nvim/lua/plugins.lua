@@ -21,7 +21,6 @@ require('packer').startup(function()
         'nvim-telescope/telescope.nvim',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
-    use {'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     -- Toggleterm
     use {"akinsho/toggleterm.nvim"}
@@ -43,9 +42,7 @@ require('packer').startup(function()
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
-      'jose-elias-alvarez/null-ls.nvim'
     }
-    -- use 'simrat39/rust-tools.nvim'
 
     -- Nvim Debug Adapter Protocol
     use {
@@ -82,12 +79,9 @@ require('packer').startup(function()
     use { 'saadparwaiz1/cmp_luasnip'}
 
     -- Interface
-    use 'nvim-tree/nvim-web-devicons'
     use {
       'hoob3rt/lualine.nvim',
       requires = {'nvim-tree/nvim-web-devicons', opt = true}
     }
-    use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
-
 end)
 
