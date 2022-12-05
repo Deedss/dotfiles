@@ -22,7 +22,6 @@ opt.splitright = true           -- vertical split to the right
 opt.splitbelow = true           -- Horizontal split to the bottom
 opt.linebreak = true            -- wrap on word boundary
 opt.wrap = false
-opt.title = true                -- set a title
 opt.cursorline = true           -- Enable highlighting of the current line
 opt.cmdheight = 2               -- Set commandlien height
 opt.showtabline = 2             -- Always show tabs

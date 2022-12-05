@@ -42,6 +42,7 @@ require('packer').startup(function()
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
+      "jose-elias-alvarez/null-ls.nvim"
     }
 
     -- Nvim Debug Adapter Protocol
@@ -77,10 +78,17 @@ require('packer').startup(function()
     use 'saadparwaiz1/cmp_luasnip'
     use 'windwp/nvim-autopairs'
 
+    use {
+      "folke/trouble.nvim",
+      requires = "nvim-tree/nvim-web-devicons",
+    }
+
     -- Interface
     use {
       'hoob3rt/lualine.nvim',
       requires = {'nvim-tree/nvim-web-devicons', opt = true}
     }
+    use 'nvim-tree/nvim-web-devicons'
+    use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
 end)
 

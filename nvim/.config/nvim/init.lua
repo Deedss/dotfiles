@@ -14,8 +14,10 @@ require "plugin.nvim-tree-config"
 require "plugin.telescope-config"
 require "plugin.toggleterm-config"
 require "plugin.treesitter-config"
+require "plugin.trouble-config"
 
 -- LOAD LSP-config
 require "lsp.lsp-keymaps"
 require "lsp.lsp-servers"
 require "lsp.nvim-cmp-config"
+require "lsp.null-ls"
