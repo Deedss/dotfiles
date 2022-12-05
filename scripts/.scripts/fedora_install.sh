@@ -240,6 +240,7 @@ function install-rust(){
     rustup component add rust-src
     rustup component add rust-analyzer
     ln ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer ~/.cargo/bin/
+    mkdir -p ~/.local/bin
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
 }
 
