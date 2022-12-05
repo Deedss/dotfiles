@@ -157,7 +157,7 @@ function main-packages(){
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon \
-        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim
+        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh
 }
 
 ###############################################################################
