@@ -65,6 +65,9 @@ function cleanup-gnome(){
         gnome-connections \
         gnome-software \
         firefox
+
+    sudo dnf install -y \
+        adwaita-gtk2-theme
 }
 
 ###############################################################################
