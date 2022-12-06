@@ -161,7 +161,7 @@ function main-packages(){
     sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon \
+    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh
 }
 

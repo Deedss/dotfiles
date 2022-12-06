@@ -17,7 +17,6 @@ require "plugin.treesitter-config"
 require "plugin.trouble-config"
 
 -- LOAD LSP-config
-require "lsp.lsp-keymaps"
-require "lsp.lsp-servers"
+require "lsp.lsp"
 require "lsp.nvim-cmp-config"
 require "lsp.null-ls"
