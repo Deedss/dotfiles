@@ -50,7 +50,7 @@ require'bufferline'.setup {
     -- Enable/disable icons
     -- if set to 'numbers', will show buffer index in the tabline
     -- if set to 'both', will show buffer index and icons in the tabline
-    icons = 'both',
+    icons = 'buffer_number_with_icon',
   
     -- If set, the icon color will follow its corresponding buffer
     -- highlight group. By default, the Buffer*Icon group is linked to the
@@ -71,10 +71,10 @@ require'bufferline'.setup {
     insert_at_start = false,
   
     -- Sets the maximum padding width with which to surround each tab
-    maximum_padding = 2,
+    maximum_padding = 4,
   
     -- Sets the minimum padding width with which to surround each tab
-    minimum_padding = 2,
+    minimum_padding = 1,
   
     -- Sets the maximum buffer name length.
     maximum_length = 30,
