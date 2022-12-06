@@ -23,8 +23,8 @@ opt.splitbelow = true           -- Horizontal split to the bottom
 opt.linebreak = true            -- wrap on word boundary
 opt.wrap = false
 opt.cursorline = true           -- Enable highlighting of the current line
-opt.cmdheight = 2               -- Set commandlien height
-opt.showtabline = 2             -- Always show tabs
+opt.cmdheight = 1               -- Set commandlien height
+opt.showtabline = 1             -- Always show tabs
 opt.inccommand = 'split'        -- inccommand
 opt.showmode = false            -- Don't show mode anymore
 

@@ -1,23 +1,13 @@
 require('telescope').setup{}
 
-local map_tele = function(key, action)
-    local mode = "n"
-    local rhs = string.format("<cmd>lua require('telescope.builtin').%s()<CR>", action)
-
-    local map_options = {
-        noremap = true,
-        silent = true,
-    }
-
-    vim.api.nvim_set_keymap(mode, key, rhs, map_options)
-end
+local builtin = require('telescope.builtin')
 
 -- Nvim
-map_tele("<space>fb", "buffers")
-map_tele("<space>fi", "find_files")
-map_tele("<space>fh", "help_tags")
-map_tele("<space>gp", "grep_prompt")
+vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
+vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
+vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
+vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
 
 -- Git
-map_tele("<space>gs", "git_status")
-map_tele("<space>gc", "git_commits")
+vim.keymap.set('n', '<leader>gs', builtin.git_status, {})
+vim.keymap.set('n', '<leader>gc', builtin.git_commits, {})
