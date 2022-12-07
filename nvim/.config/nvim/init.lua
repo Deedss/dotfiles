@@ -20,3 +20,6 @@ require "plugin.trouble-config"
 require "lsp.lsp"
 require "lsp.nvim-cmp-config"
 require "lsp.null-ls"
+
+-- LOAD DAP config
+require "dap.dap"
