@@ -17,6 +17,7 @@ require "plugin.treesitter-config"
 require "plugin.trouble-config"
 
 -- LOAD LSP-config
+require "lsp.mason"
 require "lsp.lsp"
 require "lsp.nvim-cmp-config"
 require "lsp.null-ls"
