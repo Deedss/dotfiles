@@ -19,20 +19,3 @@ exec([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=700}
   augroup end
 ]], false)
-
-cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
-
------------------------------------------------------------
--- Terminal
------------------------------------------------------------
--- open a terminal pane on the right using :Term
-cmd [[command Term :terminal]]
-
--- Terminal visual tweaks
---- enter insert mode when switching to terminal
---- close terminal buffer on process exit
-cmd [[
-    autocmd TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
-    autocmd TermOpen * startinsert
-    autocmd BufLeave term://* stopinsert
-]]
