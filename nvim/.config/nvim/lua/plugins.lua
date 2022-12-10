@@ -25,6 +25,7 @@ require('packer').startup(function()
     use {"akinsho/toggleterm.nvim"}
 
     -- Treesitter
+    use "danymat/neogen"
     use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate'
