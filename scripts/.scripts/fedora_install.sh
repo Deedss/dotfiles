@@ -96,6 +96,8 @@ function install-rpmfusion(){
 function install-flathub(){
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    sudo flatpak remote-delete fedora
+    sudo flatpak remote-modify flathub --enable
 }
 
 ###############################################################################
