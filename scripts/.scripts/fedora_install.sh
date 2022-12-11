@@ -6,7 +6,7 @@
 ###############################################################################
 function install-gnome(){
     echo "Perform Installation for Fedora Gnome"
-    ### Set the correct DNF settings
+    ### Set the correct DNF Settings
     setup-dnf
 
     ### Clean up GNOME packages
@@ -24,6 +24,7 @@ function install-gnome(){
     install-rust
     install-oh-my-zsh
     install-podman
+    install-espidf
 
     ## Install for Gnome specific
     sudo dnf install -y \
@@ -69,6 +70,7 @@ function install-kde(){
     install-rust
     install-oh-my-zsh
     install-podman
+    install-espidf
     install-arc-theme
 
     ##### FLATPAKS

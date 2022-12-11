@@ -4,7 +4,6 @@ null_ls.setup({
     sources = {
         -- Completions
         null_ls.builtins.completion.luasnip,
-        null_ls.builtins.completion.spell,
         null_ls.builtins.completion.tags,
 
         -- Diagnostics
