@@ -2,78 +2,89 @@
 # This file contains most things that I run while installing the main fedora-kde
 # install
 ###############################################################################
-###  INITIAL REMOVAL KDE                                                    ###
+###  INSTALLATION GNOME                                                     ###
 ###############################################################################
-function cleanup-kde(){
-    echo "Perform initial cleanup of Fedora KDE"
+function install-gnome(){
+    echo "Perform Installation for Fedora Gnome"
+    ### Set the correct DNF settings
+    setup-dnf
+
+    ### Clean up GNOME packages
     sudo dnf autoremove -y \
-        \*akonadi* \
-        dnfdragora \
-        kwrite \
-        kmag \
-        kmouth \
-        kmousetool \
-        kget \
-        kruler \
-        kcolorchooser \
-        gnome-disk-utility \
-        ibus-libpinyin \
-        ibus-libzhuyin \
-        ibus-cangjie-* \
-        ibus-hangul \
-        kcharselect \
-        kde-spectacle \
-        firefox \
-        plasma-browser-integration \
-        plasma-discover \
-        plasma-drkonqi
+        gnome-tour gnome-boxes libreoffice-* \
+        gnome-weather gnome-maps totem mediawriter \
+        gnome-connections gnome-software firefox gnome-terminal
+
+    ### Generic Setup
+    install-rpmfusion
+    default-packages
+    install-brave
+    install-vscode
+    install-pythontools
+    install-rust
+    install-oh-my-zsh
+    install-podman
+
+    ## Install for Gnome specific
+    sudo dnf install -y \
+        adwaita-gtk2-theme evolution evolution-ews \
+        gnome-console
+
+    ##### FLATPAKS
+    install-flatpak
+}
+
+###############################################################################
+###  INSTALLATION KDE                                                       ###
+###############################################################################
+function install-kde(){
+    echo "Perform Installation for Fedora KDE"
+    ### Set the correct DNF settings
+    setup-dnf
+
+    ### Clean up KDE packages
+    sudo dnf autoremove -y \
+        \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
+        kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
+        ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
+        kde-spectacle firefox plasma-browser-integration \
+        plasma-discover plasma-drkonqi
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
-        elisa-player \
-        dragon \
-        mediawriter \
-        kmahjongg \
-        kmines \
-        kpat \
-        ksudoku \
-        kamoso \
-        krdc \
-        libreoffice-* \
-        kdeconnectd \
-        krfb \
-        kolourpaint-* \
-        konversation
+        elisa-player dragon mediawriter kmahjongg \
+        kmines kpat ksudoku kamoso krdc libreoffice-* \
+        kdeconnectd krfb kolourpaint-* konversation
 
     ### Install packages that are kde specific
     sudo dnf install -y \
         ark
+
+    ### Generic Setup
+    install-rpmfusion
+    default-packages
+    install-brave
+    install-vscode
+    install-pythontools
+    install-rust
+    install-oh-my-zsh
+    install-podman
+    install-arc-theme
+
+    ##### FLATPAKS
+    install-flatpak
+    
+    flatpak install -y \
+    org.wezfurlong.wezterm  \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid \
+    org.gnome.Evolution 
 }
 
 ###############################################################################
-###  INITIAL REMOVAL GNOME                                                  ###
+##### SETUP DNF                                                         #######
 ###############################################################################
-function cleanup-gnome(){
-    sudo dnf autoremove -y \
-        gnome-tour \
-        gnome-boxes \
-        libreoffice-* \
-        gnome-weather \
-        gnome-maps \
-        totem \
-        mediawriter \
-        gnome-connections \
-        gnome-software \
-        firefox
-
-    sudo dnf install -y \
-        adwaita-gtk2-theme
-}
-
-###############################################################################
-##### FIRST SETUP DNF                                                   #######
-###############################################################################
-function first-setup-dnf(){
+function setup-dnf(){
     echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
@@ -93,17 +104,12 @@ function install-rpmfusion(){
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
-function install-flathub(){
+function install-flatpak(){
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete fedora
     sudo flatpak remote-modify flathub --enable
-}
 
-###############################################################################
-##### FLATPAKS                                                           ######
-###############################################################################
-function install-flatpak-packages(){
     echo "Install flatpak applications"
     flatpak install -y \
     com.github.tchx84.Flatseal
@@ -111,17 +117,12 @@ function install-flatpak-packages(){
     ##### INTERNET #####
     flatpak install -y \
     com.discordapp.Discord \
-    org.gnome.Evolution \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
     org.telegram.desktop
-
-    # ##### UTILITIES #####
-    flatpak install -y \
-        org.wezfurlong.wezterm
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -134,18 +135,16 @@ function install-flatpak-packages(){
 
     ##### THEMES ######
     flatpak install -y \
-    org.kde.KStyle.Adwaita \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
+    org.kde.KStyle.Adwaita
 }
 
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
-function main-packages(){
+function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
 
     ###### VIRTUALIZATION ########
     sudo dnf install -y virt-manager
