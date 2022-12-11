@@ -73,12 +73,12 @@ function install-kde(){
 
     ##### FLATPAKS
     install-flatpak
-    
+
     flatpak install -y \
     org.wezfurlong.wezterm  \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid \
-    org.gnome.Evolution 
+    org.gnome.Evolution
 }
 
 ###############################################################################
@@ -317,4 +317,13 @@ function install-flutter(){
     cd ~/Software
     git clone https://github.com/flutter/flutter.git -b stable
     flutter doctor
+}
+
+###############################################################################
+###### INSTALL IWD                                                      #######
+###############################################################################
+function install-iwd(){
+    sudo dnf install -y iwd
+    echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
+    sudo systemctl mask wpa_supplicant
 }
