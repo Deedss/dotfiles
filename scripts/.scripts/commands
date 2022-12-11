@@ -46,22 +46,22 @@ function update-tools(){
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
     echo ''
 
-    # Emscripten update
-    echo '-------------------------'
-    echo '----- EMSCRIPTEN --------'
-    echo '-------------------------'
-    cd ~/Software/emsdk
-    pull=$(git pull)
-    if [[ $pull != "Already up to date." ]];
-    then
-        ~/Software/emsdk/emsdk install latest
-        ~/Software/emsdk/emsdk activate latest
-    else
-        echo $pull
-    fi
-    cd ~
-    echo ''
-
+    # # Emscripten update
+    # echo '-------------------------'
+    # echo '----- EMSCRIPTEN --------'
+    # echo '-------------------------'
+    # cd ~/Software/emsdk
+    # pull=$(git pull)
+    # if [[ $pull != "Already up to date." ]];
+    # then
+    #     ~/Software/emsdk/emsdk install latest
+    #     ~/Software/emsdk/emsdk activate latest
+    # else
+    #     echo $pull
+    # fi
+    # cd ~
+    # echo ''
+    #
     # Esp-Idf
     echo '-------------------------'
     echo '------- ESP-IDF ---------'
