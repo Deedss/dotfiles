@@ -13,7 +13,8 @@ function install-gnome(){
     sudo dnf autoremove -y \
         gnome-tour gnome-boxes libreoffice-* \
         gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox gnome-terminal
+        gnome-connections gnome-software firefox gnome-terminal \
+        gnome-calendar
 
     ### Generic Setup
     install-rpmfusion
