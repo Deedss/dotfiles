@@ -1471,3 +1471,10 @@ exit
 rm ~/.zsh_history 
 stow zsh
 exit
+stow zsh
+stow nvim
+stow git
+stow starship/
+ll
+stow scripts/
+exit

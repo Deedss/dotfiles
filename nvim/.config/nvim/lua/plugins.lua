@@ -15,6 +15,8 @@ require('packer').startup(function()
 
     -- Color Schemes
     use 'olimorris/onedarkpro.nvim'
+    use ({ 'projekt0n/github-nvim-theme' })
+
 
     -- Telescope
     use {

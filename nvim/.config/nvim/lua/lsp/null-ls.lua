@@ -8,6 +8,7 @@ null_ls.setup({
         null_ls.builtins.completion.tags,
 
         -- Diagnostics
+        null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.cpplint,
 
         -- Formatting
