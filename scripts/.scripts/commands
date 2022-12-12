@@ -32,20 +32,32 @@ function grub-update(){
 ##### UPDATE MAJOR TOOLS                                                #######
 ###############################################################################
 function update-tools(){
+    __update-rust
+    __update-starship
+    __update-emscripten
+    __update-espIdf
+    __update-poetry
+}
+
+function __update-rust(){
     # Rust Update
     echo '-------------------------'
     echo '-------- RUST -----------'
     echo '-------------------------'
     rustup update
     echo ''
+}
 
+function __update-starship(){
     # Rust Update
     echo '-------------------------'
     echo '------ STARSHIP ---------'
     echo '-------------------------'
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
     echo ''
+}
 
+function __update-emscripten(){
     if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
     then
         # # Emscripten update
@@ -64,7 +76,9 @@ function update-tools(){
         cd ~
         echo ''
     fi
+}
 
+function __update-espIdf(){
     # Esp-Idf
     echo '-------------------------'
     echo '------- ESP-IDF ---------'
@@ -80,10 +94,13 @@ function update-tools(){
     fi
     cd ~
     echo ''
+}
 
+function __update-poetry(){
     # Poetry
     echo '-------------------------'
     echo '------- POETRY  ---------'
     echo '-------------------------'
     poetry self update
+    echo ''
 }
