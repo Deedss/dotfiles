@@ -49,6 +49,10 @@ function clean-kde(){
         kmines kpat ksudoku kamoso krdc libreoffice-* \
         kdeconnectd krfb kolourpaint-* konversation
 
+    ### Excess gnome packages
+    sudo dnf autoremove -y \
+        gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
+
     ### Install packages that are kde specific
     sudo dnf install -y \
         ark
