@@ -71,7 +71,8 @@ function install-kde(){
     install-rust
     install-oh-my-zsh
     install-podman
-    install-espidf
+    install-espIdf
+    install-emscripten
     install-arc-theme
 
     ##### FLATPAKS
