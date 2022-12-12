@@ -9,7 +9,33 @@ function install-kde(){
     ### Set the correct DNF settings
     setup-dnf
 
-    ### Clean up KDE packages
+    ### Clean up kde
+    clean-kde
+
+    ### Generic Setup
+    install-rpmfusion
+    default-packages
+    install-brave
+    install-vscode
+    install-pythontools
+    install-rust
+    install-oh-my-zsh
+    install-podman
+    install-espIdf
+    install-emscripten
+
+    ### THEME
+    install-arc-theme
+
+    ##### FLATPAKS
+    install-flatpak
+}
+
+###############################################################################
+###  CLEAN UP KDE                                                           ###
+###############################################################################
+function clean-kde(){
+    #### Clean up KDE packages
     sudo dnf autoremove -y \
         \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
@@ -26,23 +52,6 @@ function install-kde(){
     ### Install packages that are kde specific
     sudo dnf install -y \
         ark
-
-    ### Generic Setup
-    install-rpmfusion
-    default-packages
-    install-brave
-    install-vscode
-    install-pythontools
-    install-rust
-    install-oh-my-zsh
-    install-podman
-    install-espIdf
-    install-emscripten
-    install-arc-theme
-
-    ##### FLATPAKS
-    install-flatpak
-
 }
 
 ###############################################################################
