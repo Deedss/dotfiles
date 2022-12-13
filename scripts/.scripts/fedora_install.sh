@@ -125,6 +125,8 @@ function install-rpmfusion(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
+    sudo dnf install flatpak -y
+
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete fedora
@@ -155,7 +157,7 @@ function install-flatpak(){
 
     ##### THEMES ######
     flatpak install -y \
-    org.kde.KStyle.Adwaita 
+    org.kde.KStyle.Adwaita
 
     ### KDE SPECIFIC
     if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
