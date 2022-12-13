@@ -36,7 +36,7 @@ function clean-gnome(){
         gnome-tour gnome-boxes libreoffice-* \
         gnome-weather gnome-maps totem mediawriter \
         gnome-connections gnome-software firefox gnome-terminal \
-        gnome-calendar
+        gnome-calendar gnome-initial-setup gnome-contacts
 
     ## Install for Gnome specific
     sudo dnf install -y \
@@ -72,13 +72,6 @@ function install-kde(){
 
     ##### FLATPAKS
     install-flatpak
-
-    ##### KDE #####
-    flatpak install -y \
-    org.wezfurlong.wezterm \
-    org.gnome.Evolution \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
@@ -163,6 +156,17 @@ function install-flatpak(){
     ##### THEMES ######
     flatpak install -y \
     org.kde.KStyle.Adwaita 
+
+    ### KDE SPECIFIC
+    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
+    then
+        ##### KDE #####
+        flatpak install -y \
+            org.wezfurlong.wezterm \
+            org.gnome.Evolution \
+            org.gtk.Gtk3theme.Arc-Dark \
+            org.gtk.Gtk3theme.Arc-Dark-solid
+    fi
 }
 
 ###############################################################################
