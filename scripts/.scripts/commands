@@ -7,10 +7,6 @@ function update(){
     echo '--------- DNF -----------'
     echo '-------------------------'
     sudo dnf update --refresh
-    #     echo '-------------------------'
-    #     echo '--------- APT -----------'
-    #     echo '-------------------------'
-    #     sudo apt update && sudo apt upgrade
     echo ''
 
     echo '-------------------------'
@@ -58,24 +54,21 @@ function __update-starship(){
 }
 
 function __update-emscripten(){
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
+    # # Emscripten update
+    echo '-------------------------'
+    echo '----- EMSCRIPTEN --------'
+    echo '-------------------------'
+    cd ~/Software/emsdk
+    pull=$(git pull)
+    if [[ $pull != "Already up to date." ]];
     then
-        # # Emscripten update
-        echo '-------------------------'
-        echo '----- EMSCRIPTEN --------'
-        echo '-------------------------'
-        cd ~/Software/emsdk
-        pull=$(git pull)
-        if [[ $pull != "Already up to date." ]];
-        then
-            ~/Software/emsdk/emsdk install latest
-            ~/Software/emsdk/emsdk activate latest
-        else
-            echo $pull
-        fi
-        cd ~
-        echo ''
+        ~/Software/emsdk/emsdk install latest
+        ~/Software/emsdk/emsdk activate latest
+    else
+        echo $pull
     fi
+    cd ~
+    echo ''
 }
 
 function __update-espIdf(){

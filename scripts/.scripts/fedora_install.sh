@@ -2,49 +2,6 @@
 # This file contains most things that I run while installing the main fedora-kde
 # install
 ###############################################################################
-###  INSTALLATION GNOME                                                     ###
-###############################################################################
-function install-gnome(){
-    echo "Perform Installation for Fedora Gnome"
-    ### Set the correct DNF Settings
-    setup-dnf
-
-    ### Clean up GNOME
-    clean-gnome
-
-    ### Generic Setup
-    install-rpmfusion
-    default-packages
-    install-brave
-    install-vscode
-    install-pythontools
-    install-rust
-    install-oh-my-zsh
-    install-podman
-    install-espIdf
-
-    ##### FLATPAKS
-    install-flatpak
-}
-
-###############################################################################
-###  CLEAN UP GNOME                                                         ###
-###############################################################################
-function clean-gnome(){
-    ### Clean up GNOME packages
-    sudo dnf autoremove -y \
-        gnome-tour gnome-boxes libreoffice-* \
-        gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox gnome-terminal \
-        gnome-calendar gnome-initial-setup gnome-contacts
-
-    ## Install for Gnome specific
-    sudo dnf install -y \
-        adwaita-gtk2-theme evolution evolution-ews \
-        gnome-console
-}
-
-###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-kde(){
@@ -84,7 +41,7 @@ function clean-kde(){
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
-        plasma-discover plasma-drkonqi
+        plasma-discover plasma-drkonqi okular
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
@@ -98,7 +55,7 @@ function clean-kde(){
 
     ### Install packages that are kde specific
     sudo dnf install -y \
-        ark
+        ark flatpak
 }
 
 ###############################################################################
@@ -125,7 +82,6 @@ function install-rpmfusion(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo dnf install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -142,9 +98,15 @@ function install-flatpak(){
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
+    org.gnome.Evolution \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
     org.telegram.desktop
+
+    ##### UTILITIES #####
+    flatpak install -y \
+    org.wezfurlong.wezterm \
+    org.kde.okular
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -157,18 +119,9 @@ function install-flatpak(){
 
     ##### THEMES ######
     flatpak install -y \
-    org.kde.KStyle.Adwaita
-
-    ### KDE SPECIFIC
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
-    then
-        ##### KDE #####
-        flatpak install -y \
-            org.wezfurlong.wezterm \
-            org.gnome.Evolution \
-            org.gtk.Gtk3theme.Arc-Dark \
-            org.gtk.Gtk3theme.Arc-Dark-solid
-    fi
+    org.kde.KStyle.Adwaita \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
