@@ -54,21 +54,24 @@ function __update-starship(){
 }
 
 function __update-emscripten(){
-    # # Emscripten update
-    echo '-------------------------'
-    echo '----- EMSCRIPTEN --------'
-    echo '-------------------------'
-    cd ~/Software/emsdk
-    pull=$(git pull)
-    if [[ $pull != "Already up to date." ]];
+    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
     then
-        ~/Software/emsdk/emsdk install latest
-        ~/Software/emsdk/emsdk activate latest
-    else
-        echo $pull
+        # # Emscripten update
+        echo '-------------------------'
+        echo '----- EMSCRIPTEN --------'
+        echo '-------------------------'
+        cd ~/Software/emsdk
+        pull=$(git pull)
+        if [[ $pull != "Already up to date." ]];
+        then
+            ~/Software/emsdk/emsdk install latest
+            ~/Software/emsdk/emsdk activate latest
+        else
+            echo $pull
+        fi
+        cd ~
+        echo ''
     fi
-    cd ~
-    echo ''
 }
 
 function __update-espIdf(){
