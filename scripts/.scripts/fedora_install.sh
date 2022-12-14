@@ -41,7 +41,7 @@ function clean-kde(){
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
-        plasma-discover plasma-drkonqi okular
+        plasma-discover plasma-drkonqi okular gwenview kcalc
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
@@ -106,7 +106,9 @@ function install-flatpak(){
     ##### UTILITIES #####
     flatpak install -y \
     org.wezfurlong.wezterm \
-    org.kde.okular
+    org.kde.okular \
+    org.kde.gwenview \
+    org.kde.kcalc
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
