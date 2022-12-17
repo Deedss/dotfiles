@@ -41,7 +41,7 @@ function clean-kde(){
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
-        plasma-discover plasma-drkonqi okular gwenview kcalc
+        plasma-discover plasma-drkonqi
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
@@ -55,7 +55,7 @@ function clean-kde(){
 
     ### Install packages that are kde specific
     sudo dnf install -y \
-        ark flatpak
+        ark
 }
 
 ###############################################################################
@@ -82,6 +82,7 @@ function install-rpmfusion(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
+    sudo dnf install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -105,10 +106,7 @@ function install-flatpak(){
 
     ##### UTILITIES #####
     flatpak install -y \
-    org.wezfurlong.wezterm \
-    org.kde.okular \
-    org.kde.gwenview \
-    org.kde.kcalc
+    org.wezfurlong.wezterm
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \

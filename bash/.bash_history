@@ -1014,3 +1014,5 @@ toolbox list
 toolbox rmi registry.fedoraproject.org/fedora-toolbox:36
 toolbox list
 exit
+ll
+exit
