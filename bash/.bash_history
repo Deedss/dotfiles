@@ -1016,3 +1016,5 @@ toolbox list
 exit
 ll
 exit
+stow zsh
+exit
