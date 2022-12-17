@@ -9,6 +9,7 @@ require("mason-lspconfig").setup()
 ---- rust-analyzer
 ---- clangd
 ---- cmake-language-server
+---- bash-language-server
 
 -- DAP
 ---- debugpy

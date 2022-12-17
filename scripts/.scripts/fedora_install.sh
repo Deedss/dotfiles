@@ -260,6 +260,7 @@ function install-pythontools(){
 function install-npm(){
     echo "Install NVM and NPM"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    source ~/.zshrc
     nvm install 'lts/*'
     nvm use default
 }

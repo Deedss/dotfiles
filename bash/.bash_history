@@ -1002,3 +1002,15 @@ ll
 sudo nano /etc/default/grub 
 grub-update 
 exit
+sudo dnf install zsh
+exit
+toolbox list
+toolbox rm dev
+toolbox stop dev
+podman stop dev 
+toolbox rm dev
+ll
+toolbox list
+toolbox rmi registry.fedoraproject.org/fedora-toolbox:36
+toolbox list
+exit
