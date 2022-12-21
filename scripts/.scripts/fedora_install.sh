@@ -320,10 +320,12 @@ function install-iwd(){
 ###### INSTALL ANDROID                                                  #######
 ###############################################################################
 function install-android(){
+    mkdir -p ~/Software/Android/Sdk
     cd /tmp
     wget https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip
     unzip "commandlinetools-linux*"
     cd /tmp/cmdline-tools/bin
+    export ANDROID_HOME=$HOME/Software/Android/Sdk
     ./sdkmanager --sdk_root="$ANDROID_HOME" \
         "cmdline-tools;latest" \
         "platform-tools" \
