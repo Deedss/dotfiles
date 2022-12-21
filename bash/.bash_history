@@ -1018,3 +1018,13 @@ ll
 exit
 stow zsh
 exit
+stow zsh
+stow starship/
+stow vim
+stow scripts/
+stow qtcreator/
+stow nvim
+stow kdessh/
+stow git
+stow bash
+exi

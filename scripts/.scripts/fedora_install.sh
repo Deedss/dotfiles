@@ -315,3 +315,22 @@ function install-iwd(){
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
 }
+
+###############################################################################
+###### INSTALL ANDROID                                                  #######
+###############################################################################
+function install-android(){
+    cd /tmp
+    wget https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip
+    unzip "commandlinetools-linux*"
+    cd /tmp/cmdline-tools/bin
+    ./sdkmanager --sdk_root="$ANDROID_HOME" \
+        "cmdline-tools;latest" \
+        "platform-tools" \
+        "emulator" \
+        "patcher;v4" \
+        "build-tools;33.0.1" \
+        "platforms;android-33" \
+        "system-images;android-33;google_apis;x86_64"
+    ./avdmanager create avd -n "Pixel_6_API_33" -d "pixel_6" -k "system-images;android-33;google_apis;x86_64"
+}
