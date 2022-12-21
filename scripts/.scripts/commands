@@ -33,6 +33,7 @@ function update-tools(){
     __update-emscripten
     __update-espIdf
     __update-poetry
+    __update-android-udev
 }
 
 function __update-rust(){
@@ -95,5 +96,17 @@ function __update-poetry(){
     echo '------- POETRY  ---------'
     echo '-------------------------'
     poetry self update
+    echo ''
+}
+
+function __update-android-udev(){
+    # Android Udev Rules
+    # https://github.com/M0Rf30/android-udev-rules
+    echo '-------------------------'
+    echo '------- ANDROID ---------'
+    echo '-------------------------'
+    cd ~/Software/android-udev-rules
+    git pull
+    cd ~
     echo ''
 }

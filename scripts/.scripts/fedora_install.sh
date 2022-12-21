@@ -335,4 +335,23 @@ function install-android(){
         "platforms;android-33" \
         "system-images;android-33;google_apis;x86_64"
     ./avdmanager create avd -n "Pixel_6_API_33" -d "pixel_6" -k "system-images;android-33;google_apis;x86_64"
+
+    # Install Udev Rules
+    cd ~/Software
+    # Clone this repository
+    git clone https://github.com/M0Rf30/android-udev-rules.git
+    cd android-udev-rules
+    # create a sym-link to the rules file
+    sudo ln -sf "$PWD"/51-android.rules /etc/udev/rules.d/51-android.rules
+    # Change file permissions
+    sudo chmod a+r /etc/udev/rules.d/51-android.rules
+    # Add the adbusers group if it's doesn't already exist
+    sudo cp android-udev.conf /usr/lib/sysusers.d/
+    sudo systemd-sysusers
+    # Add your user to the adbusers group
+    sudo gpasswd -a $(whoami) adbusers
+    # Restart UDEV
+    sudo udevadm control --reload-rules
+    sudo systemctl restart systemd-udevd.service
+    cd ~
 }
