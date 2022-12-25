@@ -67,7 +67,7 @@ lsp.rust_analyzer.setup{
     capabilities = capabilities,
 }
 
--- lsp.bashls.setup{
---     on_attach = on_attach,
---     capabilities = capabilities,
--- }
+lsp.bashls.setup{
+    on_attach = on_attach,
+    capabilities = capabilities,
+}

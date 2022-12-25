@@ -15,8 +15,6 @@ require('packer').startup(function()
 
     -- Color Schemes
     use 'olimorris/onedarkpro.nvim'
-    use ({ 'projekt0n/github-nvim-theme' })
-
 
     -- Telescope
     use {
@@ -55,7 +53,7 @@ require('packer').startup(function()
       "nvim-telescope/telescope-dap.nvim"
     }
 
-     -- TEXT MANIUPLATION
+     -- TEXT MANIPULATION
     use {
       "ur4ltz/surround.nvim",
       config = function()
