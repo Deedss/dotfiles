@@ -21,8 +21,8 @@ require('packer').startup(function()
       'nvim-telescope/telescope.nvim', tag = '0.1.0',
       requires = { {'nvim-lua/plenary.nvim'} }
     }
-    -- Toggleterm
-    use {"akinsho/toggleterm.nvim"}
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
+
 
     -- Treesitter
     use "danymat/neogen"
@@ -43,6 +43,13 @@ require('packer').startup(function()
       "williamboman/mason-lspconfig.nvim",
       "neovim/nvim-lspconfig",
       "jose-elias-alvarez/null-ls.nvim"
+    }
+    -- Useful status updates for LSP
+    use {
+      'j-hui/fidget.nvim',
+      config = function()
+        require('fidget').setup()
+      end,
     }
 
     -- Nvim Debug Adapter Protocol

@@ -12,7 +12,6 @@ require "user-interface"
 require "plugin.nvim-autopairs-config"
 require "plugin.nvim-tree-config"
 require "plugin.telescope-config"
-require "plugin.toggleterm-config"
 require "plugin.treesitter-config"
 require "plugin.trouble-config"
 
