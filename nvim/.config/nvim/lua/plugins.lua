@@ -13,29 +13,14 @@ require('packer').startup(function()
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- Color Schemes
-    use 'olimorris/onedarkpro.nvim'
-
     -- Telescope
-    use {
-      'nvim-telescope/telescope.nvim', tag = '0.1.0',
-      requires = { {'nvim-lua/plenary.nvim'} }
-    }
+    use { 'nvim-telescope/telescope.nvim', tag = '0.1.0', requires = {{ 'nvim-lua/plenary.nvim' }}}
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make', cond = vim.fn.executable 'make' == 1 }
 
-
     -- Treesitter
+    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use 'nvim-tree/nvim-tree.lua'
     use "danymat/neogen"
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate'
-    }
-    use {
-      'nvim-tree/nvim-tree.lua',
-      requires = {
-        'nvim-tree/nvim-web-devicons', -- optional, for file icons
-      },
-    }
 
     -- LSP config
     use {
@@ -83,19 +68,23 @@ require('packer').startup(function()
     use 'hrsh7th/cmp-nvim-lua'
     use 'L3MON4D3/LuaSnip'
     use 'saadparwaiz1/cmp_luasnip'
-    use 'windwp/nvim-autopairs'
-
     use {
-      "folke/trouble.nvim",
-      requires = "nvim-tree/nvim-web-devicons",
+      'windwp/nvim-autopairs',
+      config = function()
+        require('nvim-autopairs').setup{}
+      end,
     }
 
     -- Interface
-    use {
-      'hoob3rt/lualine.nvim',
-      requires = {'nvim-tree/nvim-web-devicons', opt = true}
-    }
+    use 'olimorris/onedarkpro.nvim'
     use 'nvim-tree/nvim-web-devicons'
-    use {'romgrk/barbar.nvim', wants = 'nvim-web-devicons'}
+    use {
+      "folke/trouble.nvim",
+      config = function()
+        require("trouble").setup {}
+      end
+    }
+    use 'hoob3rt/lualine.nvim' 
+    use 'romgrk/barbar.nvim' 
 end)
 

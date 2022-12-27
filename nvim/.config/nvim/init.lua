@@ -9,11 +9,9 @@ require "commands"
 require "user-interface"
 
 -- LOAD PLUGINS
-require "plugin.nvim-autopairs-config"
 require "plugin.nvim-tree-config"
 require "plugin.telescope-config"
 require "plugin.treesitter-config"
-require "plugin.trouble-config"
 
 -- LOAD LSP-config
 require "lsp.mason"
