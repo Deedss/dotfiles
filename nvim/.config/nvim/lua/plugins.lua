@@ -19,7 +19,6 @@ require('packer').startup(function()
 
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
-    use 'nvim-tree/nvim-tree.lua'
     use "danymat/neogen"
 
     -- LSP config
@@ -84,7 +83,7 @@ require('packer').startup(function()
         require("trouble").setup {}
       end
     }
-    use 'hoob3rt/lualine.nvim' 
-    use 'romgrk/barbar.nvim' 
+    use 'hoob3rt/lualine.nvim'
+    use 'romgrk/barbar.nvim'
 end)
 
