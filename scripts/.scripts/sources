@@ -23,6 +23,10 @@ source "$HOME/.cargo/env"
 
 # Android
 export ANDROID_HOME=$HOME/Software/Android/Sdk
+export ANDROID_SDK_ROOT=$HOME/Software/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/emulator
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Flutter
 export PATH=$PATH:$HOME/Software/flutter/bin
