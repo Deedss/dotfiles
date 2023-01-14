@@ -30,10 +30,10 @@ function grub-update(){
 function update-tools(){
     __update-rust
     __update-starship
-    __update-emscripten
+    # __update-emscripten
     __update-espIdf
     __update-poetry
-    __update-android-udev
+    # __update-android-udev
 }
 
 function __update-rust(){
@@ -55,24 +55,21 @@ function __update-starship(){
 }
 
 function __update-emscripten(){
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
+    # # Emscripten update
+    echo '-------------------------'
+    echo '----- EMSCRIPTEN --------'
+    echo '-------------------------'
+    cd ~/Software/emsdk
+    pull=$(git pull)
+    if [[ $pull != "Already up to date." ]];
     then
-        # # Emscripten update
-        echo '-------------------------'
-        echo '----- EMSCRIPTEN --------'
-        echo '-------------------------'
-        cd ~/Software/emsdk
-        pull=$(git pull)
-        if [[ $pull != "Already up to date." ]];
-        then
-            ~/Software/emsdk/emsdk install latest
-            ~/Software/emsdk/emsdk activate latest
-        else
-            echo $pull
-        fi
-        cd ~
-        echo ''
+        ~/Software/emsdk/emsdk install latest
+        ~/Software/emsdk/emsdk activate latest
+    else
+        echo $pull
     fi
+    cd ~
+    echo ''
 }
 
 function __update-espIdf(){
