@@ -35,13 +35,12 @@ function clean-gnome(){
     sudo dnf autoremove -y \
         gnome-tour gnome-boxes libreoffice-* \
         gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox gnome-terminal \
+        gnome-connections gnome-software firefox \
         gnome-calendar gnome-initial-setup gnome-contacts
 
     ## Install for Gnome specific
     sudo dnf install -y \
-        adwaita-gtk2-theme evolution evolution-ews \
-        gnome-console
+        adwaita-gtk2-theme evolution evolution-ews
 }
 
 ###############################################################################
