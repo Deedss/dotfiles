@@ -1028,3 +1028,6 @@ stow kdessh/
 stow git
 stow bash
 exi
+git status
+stow zsh
+exit
