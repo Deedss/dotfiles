@@ -320,20 +320,6 @@ function install-iwd(){
 ###############################################################################
 function install-android(){
     mkdir -p ~/Software/Android/Sdk
-    cd /tmp
-    wget https://dl.google.com/android/repository/commandlinetools-linux-9123335_latest.zip
-    unzip "commandlinetools-linux*"
-    cd /tmp/cmdline-tools/bin
-    export ANDROID_HOME=$HOME/Software/Android/Sdk
-    ./sdkmanager --sdk_root="$ANDROID_HOME" \
-        "cmdline-tools;latest" \
-        "platform-tools" \
-        "emulator" \
-        "patcher;v4" \
-        "build-tools;33.0.1" \
-        "platforms;android-33" \
-        "system-images;android-33;google_apis;x86_64"
-    ./avdmanager create avd -n "Pixel_6_API_33" -d "pixel_6" -k "system-images;android-33;google_apis;x86_64"
 
     # Install Udev Rules
     cd ~/Software
