@@ -105,7 +105,7 @@ function __update-android-udev(){
     echo '-------------------------'
     echo '------- ANDROID ---------'
     echo '-------------------------'
-    cd ~/Software/android-udev-rules
+    cd ~/Software/Android/android-udev-rules
     git pull
     cd ~
     echo ''

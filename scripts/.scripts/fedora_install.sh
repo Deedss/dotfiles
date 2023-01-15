@@ -152,7 +152,9 @@ function install-flatpak(){
     com.jgraph.drawio.desktop \
     org.blender.Blender \
     org.videolan.VLC \
-    org.freedesktop.Platform.ffmpeg-full
+    org.freedesktop.Platform.ffmpeg-full \
+    org.gtk.Gtk3theme.Adwaita-dark \
+    org.gtk.Gtk3theme.adw-gtk3-dark
 
     ##### KDE #####
     if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
@@ -367,7 +369,7 @@ function install-android(){
     mkdir -p ~/Software/Android/Sdk
 
     # Install Udev Rules
-    cd ~/Software
+    cd ~/Software/Android
     # Clone this repository
     git clone https://github.com/M0Rf30/android-udev-rules.git
     cd android-udev-rules
