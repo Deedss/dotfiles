@@ -2,48 +2,6 @@
 # This file contains most things that I run while installing the main fedora-kde
 # install
 ###############################################################################
-###  INSTALLATION GNOME                                                     ###
-###############################################################################
-function install-gnome(){
-    echo "Perform Installation for Fedora Gnome"
-    ### Set the correct DNF Settings
-    setup-dnf
-
-    ### Clean up GNOME
-    clean-gnome
-
-    ### Generic Setup
-    install-rpmfusion
-    default-packages
-    install-brave
-    install-vscode
-    install-pythontools
-    install-rust
-    install-oh-my-zsh
-    install-podman
-    install-espIdf
-
-    ##### FLATPAKS
-    install-flatpak
-}
-
-###############################################################################
-###  CLEAN UP GNOME                                                         ###
-###############################################################################
-function clean-gnome(){
-    ### Clean up GNOME packages
-    sudo dnf autoremove -y \
-        gnome-tour gnome-boxes libreoffice-* \
-        gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox \
-        gnome-calendar gnome-initial-setup gnome-contacts
-
-    ## Install for Gnome specific
-    sudo dnf install -y \
-        adwaita-gtk2-theme evolution evolution-ews
-}
-
-###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-kde(){
@@ -92,8 +50,8 @@ function clean-kde(){
         kdeconnectd krfb kolourpaint-* konversation
 
     ### Excess gnome packages
-#     sudo dnf autoremove -y \
-#         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
+    sudo dnf autoremove -y \
+        gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 
     ### Install packages that are kde specific
     sudo dnf install -y \
@@ -152,22 +110,17 @@ function install-flatpak(){
     com.jgraph.drawio.desktop \
     org.blender.Blender \
     org.videolan.VLC \
-    org.freedesktop.Platform.ffmpeg-full \
-    org.gtk.Gtk3theme.Adwaita-dark \
-    org.gtk.Gtk3theme.adw-gtk3-dark
+    org.freedesktop.Platform.ffmpeg-full
 
     ##### KDE #####
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
-    then
-        flatpak install -y \
-        org.wezfurlong.wezterm \
-        org.kde.okular \
-        org.kde.gwenview \
-        org.kde.kcalc \
-        org.gnome.Evolution \
-        org.gtk.Gtk3theme.Arc-Dark \
-        org.gtk.Gtk3theme.Arc-Dark-solid
-    fi
+    flatpak install -y \
+    org.wezfurlong.wezterm \
+    org.kde.okular \
+    org.kde.gwenview \
+    org.kde.kcalc \
+    org.gnome.Evolution \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################

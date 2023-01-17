@@ -30,7 +30,7 @@ function grub-update(){
 function update-tools(){
     __update-rust
     __update-starship
-    # __update-emscripten
+    __update-emscripten
     __update-espIdf
     __update-poetry
     __update-android-udev
