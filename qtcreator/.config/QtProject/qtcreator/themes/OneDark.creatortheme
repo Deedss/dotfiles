@@ -99,6 +99,9 @@ DSstateSeparatorColor=splitter
 DSstateBackgroundColor=normalBackground
 DSstatePreviewOutline=splitter
 
+DSstatePanelBackground=normalBackground
+DSstateHighlight=selectedBackground
+
 DSchangedStateText=message
 
 DS3DAxisXColor=error
