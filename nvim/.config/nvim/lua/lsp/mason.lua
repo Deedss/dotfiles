@@ -18,6 +18,7 @@ require("mason-lspconfig").setup()
 -- Linter
 ---- codespell
 ---- cpplint
+---- shellcheck
 
 -- Formatter
 ---- rustfmt

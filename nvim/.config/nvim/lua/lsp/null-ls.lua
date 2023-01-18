@@ -9,6 +9,7 @@ null_ls.setup({
         -- Diagnostics
         null_ls.builtins.diagnostics.codespell,
         null_ls.builtins.diagnostics.cpplint,
+        null_ls.builtins.diagnostics.shellcheck,
 
         -- Formatting
         null_ls.builtins.formatting.black,

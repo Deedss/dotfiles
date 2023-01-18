@@ -1031,3 +1031,10 @@ exi
 git status
 stow zsh
 exit
+git restore .
+rm ~/.zsh_history 
+stow zsh
+ll
+cd 
+ll
+exit
