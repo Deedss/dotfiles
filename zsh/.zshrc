@@ -76,6 +76,7 @@ plugins=(
     colored-man-pages
     command-not-found
     common-aliases
+    docker
     dotnet
     git
     npm
@@ -84,6 +85,7 @@ plugins=(
     poetry
     python
     rust
+    toolbox
     zsh-autosuggestions
     zsh-completions
     zsh-syntax-highlighting

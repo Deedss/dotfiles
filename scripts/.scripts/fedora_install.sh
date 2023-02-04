@@ -206,7 +206,6 @@ function install-podman(){
     systemctl --user enable podman.socket
     systemctl --user start podman.socket
     systemctl --user status podman.socket
-    export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 }
 
 ###############################################################################

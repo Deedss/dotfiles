@@ -3,9 +3,15 @@
 ## Personal aliases
 alias chrome='brave-browser-stable'
 alias vim='nvim'
+alias docker='podman'
+alias docker-compose='podman-compose'
+alias wezterm='flatpak run org.wezfurlong.wezterm'
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI='qemu:///system'
+
+## TERM
+export TERM=konsole
 
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
@@ -41,3 +47,4 @@ alias getEmsdk='source $HOME/Software/emsdk/emsdk_env.sh'
 # JAVA_HOME
 # export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-1.fc36.x86_64/bin/java'
 # export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-11.0.15.0.10-1.fc36.x86_64/bin/java'
+#

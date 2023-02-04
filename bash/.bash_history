@@ -1038,3 +1038,12 @@ ll
 cd 
 ll
 exit
+toolbox rmi -f dev
+podman ps
+podman sotp -a
+podman stop -a
+podman rmi registry.fedoraproject.org/fedora-toolbox:37 
+toolbox rmi dev
+toolbox rm dev
+podman rmi registry.fedoraproject.org/fedora-toolbox:37 registry.fedoraproject.org/fedora-toolbox:37 
+exit
