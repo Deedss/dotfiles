@@ -10,9 +10,6 @@ alias wezterm='flatpak run org.wezfurlong.wezterm'
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
-## TERM
-export TERM=konsole
-
 # Custom scripts autocomplete
 export PATH=$PATH:$HOME/.scripts
 source "$HOME/.scripts/commands"

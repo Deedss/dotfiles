@@ -110,3 +110,15 @@ function __update-android-udev(){
     cd ~
     echo ''
 }
+
+###############################################################################
+####### BACKUP                                                           ######
+###############################################################################
+function tar-pack(){
+    filename=$(basename $1)
+    tar --zstd -cvf $filename.tar.zst $1
+}
+
+function tar-unpack(){
+    tar --zstd -xvf $1
+}
