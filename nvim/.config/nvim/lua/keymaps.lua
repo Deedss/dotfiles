@@ -24,4 +24,5 @@ map("n", "g*", "g*zz", { silent = true })
 map("n", "H", "^")
 map("n", "L", "$")
 
-
+-- Terminal stuffs
+map("t", "<Esc>", "<C-\\><C-n>")
