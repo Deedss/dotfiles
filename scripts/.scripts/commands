@@ -6,7 +6,7 @@ function update(){
     echo '-------------------------'
     echo '--------- DNF -----------'
     echo '-------------------------'
-    doas dnf update --refresh
+    sudo dnf update --refresh
     echo ''
 
     echo '-------------------------'
@@ -20,8 +20,8 @@ function update(){
 ###############################################################################
 function grub-update(){
     echo "Update grub"
-    doas grub2-mkconfig -o /etc/grub2.cfg
-    doas grub2-mkconfig -o /etc/grub2-efi.cfg
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+    sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 }
 
 ###############################################################################

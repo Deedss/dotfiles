@@ -2,48 +2,6 @@
 # This file contains most things that I run while installing the main fedora-kde
 # install
 ###############################################################################
-###  INSTALLATION GNOME                                                     ###
-###############################################################################
-function install-gnome(){
-    echo "Perform Installation for Fedora Gnome"
-    ### Set the correct DNF Settings
-    setup-dnf
-
-    ### Clean up GNOME
-    clean-gnome
-
-    ### Generic Setup
-    install-rpmfusion
-    default-packages
-    install-brave
-    install-vscode
-    install-pythontools
-    install-rust
-    install-oh-my-zsh
-    install-podman
-    install-espIdf
-
-    ##### FLATPAKS
-    install-flatpak
-}
-
-###############################################################################
-###  CLEAN UP GNOME                                                         ###
-###############################################################################
-function clean-gnome(){
-    ### Clean up GNOME packages
-    sudo dnf autoremove -y \
-        gnome-tour gnome-boxes libreoffice-* \
-        gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox \
-        gnome-calendar gnome-initial-setup gnome-contacts
-
-    ## Install for Gnome specific
-    sudo dnf install -y \
-        adwaita-gtk2-theme evolution evolution-ews
-}
-
-###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-kde(){
