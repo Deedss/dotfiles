@@ -7,22 +7,14 @@ function install-kde(){
     ### Clean up kde
     clean-kde
 
-    ### Make a container
-    toolbox create dev
-
     ### Generic Setup
     install-rpmfusion
-    install-vscode
-    install-pythontools
+    install-layered-packages
     install-rust
     install-oh-my-zsh
-    install-podman
 
     # install-espIdf
-    install-emscripten
-
-    ### THEME
-    install-arc-theme
+    # install-emscripten
 
     ##### FLATPAKS
     install-flatpak
@@ -93,6 +85,23 @@ function install-flatpak(){
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
 
+}
+
+###############################################################################
+##### LAYERED PACKAGES                                                   ######
+###############################################################################
+function install-layered-packages(){
+    echo "Install layered packages"
+    rpm-ostree neovim virt-manager stow zsh autojump-zsh \
+        openssl util-linux-user ripgrep redhat-lsb-core
+    sudo usermod -aG kvm,libvirt,lp,dialout $USER
+
+    echo "Install arc theme"
+    rpm-ostree install arc-theme arc-kde
+
+    echo "Install Visual Studio Code"
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    rpm-ostree -y install code
 }
 
 ###############################################################################
@@ -179,4 +188,21 @@ function install-emscripten(){
     ./emsdk install latest
     # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
     ./emsdk activate latest
+}
+
+###############################################################################
+###  INSTALL DEVELOPMENT TOOLS                                              ###
+###############################################################################
+function install-development-packages(){
+    echo "Install a selection of development tools"
+    ###### CMAKE / CLANG #########
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
+
+    ###### NETWORKING ######
+    sudo dnf install -y wireshark nmap curl wget
+
+    ##### OTHER PACKAGES ######
+    sudo dnf install -y openssl zstd ncurses git ripgrep \
+        ncurses-libs zsh util-linux-user redhat-lsb-core autojump-zsh \
+        java-17-openjdk
 }
