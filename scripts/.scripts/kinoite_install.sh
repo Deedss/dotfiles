@@ -102,6 +102,12 @@ function install-layered-packages(){
     echo "Install Visual Studio Code"
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     rpm-ostree -y install code
+
+    echo "Install Brave Browser"
+    echo "[brave-browser-rpm-release.s3.brave.com_x86_64_] \n
+    name=created by dnf config-manager from https://brave-browser-rpm-release.s3.brave.com/x86_64/ \n
+    baseurl=https://brave-browser-rpm-release.s3.brave.com/x86_64/ \n
+    enabled=1" > /etc/yum.repos.d/brave-browser-rpm-release.s3.brave.com_x86_64_.repo
 }
 
 ###############################################################################
