@@ -1047,3 +1047,5 @@ toolbox rmi dev
 toolbox rm dev
 podman rmi registry.fedoraproject.org/fedora-toolbox:37 registry.fedoraproject.org/fedora-toolbox:37 
 exit
+nvim .zshrc 
+exit

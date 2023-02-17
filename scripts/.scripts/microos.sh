@@ -33,21 +33,8 @@ function install-kde(){
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
 function clean-kde(){
-    rpm-ostree override remove \
-        firefox firefox-langpacks \
-        gwenview gwenview-libs \
-        okular kwrite kmag kmousetool \
-        plasma-discover plasma-discover-notifier plasma-discover-flatpak
-}
-
-###############################################################################
-###  ADD RPM FUSION / FLATPAK                                               ###
-###############################################################################
-function install-rpmfusion(){
-    echo "Add RPM Fusion to repositories"
-    sudo rpm-ostree install \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+    sudo transactional-update pkg remove -y \
+        discover kate 
 }
 
 ###############################################################################
@@ -65,9 +52,7 @@ function install-flatpak(){
 
     ##### INTERNET #####
     flatpak install -y \
-    com.brave.Browser \
     com.discordapp.Discord \
-    org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
@@ -88,12 +73,42 @@ function install-flatpak(){
     org.wezfurlong.wezterm \
     org.kde.okular \
     org.kde.gwenview \
-    org.kde.kcalc \
+    org.kde.kcalc \ 
     org.gnome.Evolution \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
 
 }
+
+###############################################################################
+##### DEFAULT PACKAGES                                                   ######
+###############################################################################
+function default-packages() {
+    sudo transactional-update pkg install -y \
+        pam_kwallet system-group-wheel
+}
+
+###############################################################################
+##### BRAVE BROWSER                                                      ######
+###############################################################################
+function install-arc-theme(){
+    echo "Install arc theme"
+    sudo transactional-update pkg install -y \
+        arc-icon-theme metatheme-arc-common \
+        gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc
+}
+
+###############################################################################
+##### BRAVE BROWSER                                                      ######
+###############################################################################
+function install-brave(){
+    echo "Install brave browser"
+    sudo zypper install curl
+    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    sudo zypper addrepo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    sudo zypper install brave-browser -y
+}
+
 
 ###############################################################################
 ###### OH-MY-ZSH                                                         ######
