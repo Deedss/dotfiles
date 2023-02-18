@@ -29,16 +29,6 @@ function clean-kde(){
 }
 
 ###############################################################################
-###  ADD RPM FUSION / FLATPAK                                               ###
-###############################################################################
-function install-rpmfusion(){
-    echo "Add RPM Fusion to repositories"
-    sudo rpm-ostree install \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-}
-
-###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
@@ -85,7 +75,7 @@ function install-layered-packages(){
     echo "Install layered packages"
     sudo transactional-update pkg install \
     neovim virt-manager stow zsh autojump-zsh \
-        openssl ripgrep \  
+        openssl ripgrep system-group-wheel pam_kwallet \  
         gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc \
         arc-icon-theme metatheme-arc-common
 
