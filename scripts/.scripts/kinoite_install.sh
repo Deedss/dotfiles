@@ -29,7 +29,7 @@ function clean-kde(){
         firefox firefox-langpacks \
         gwenview gwenview-libs okular kwrite kmag kmousetool \
         kde-connect kdeconnectd kde-connect-libs \
-        plasma-discover plasma-discover-notifier plasma-discover-flatpak
+        plasma-discover plasma-discover-notifier plasma-discover-flatpak plasma-discover-rpm-ostree
 }
 
 ###############################################################################
@@ -92,7 +92,7 @@ function install-flatpak(){
 ###############################################################################
 function install-layered-packages(){
     echo "Install layered packages"
-    rpm-ostree neovim virt-manager stow zsh autojump-zsh distrobox \
+    rpm-ostree install neovim virt-manager stow zsh autojump-zsh distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core 
     sudo usermod -aG kvm,libvirt,lp,dialout $USER
 
