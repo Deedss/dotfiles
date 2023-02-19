@@ -98,7 +98,7 @@ function install-layered-packages(){
     rpm-ostree install neovim virt-manager stow zsh autojump-zsh distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         cmake ninja-build clang llvm clang-tools-extra lldb \
-        podman-compose podman-docker
+        podman-compose podman-docker ksshaskpass
 
     sudo usermod -aG libvirt $USER
 
@@ -169,7 +169,7 @@ function install-npm(){
 function install-espIdf(){
     echo "Install ESP-IDF"
     sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
-    
+
     mkdir -p ~/Software
     cd ~/Software
     git clone --recursive https://github.com/espressif/esp-idf.git
