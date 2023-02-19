@@ -1049,3 +1049,12 @@ podman rmi registry.fedoraproject.org/fedora-toolbox:37 registry.fedoraproject.o
 exit
 nvim .zshrc 
 exit
+rpm-ostree install --apply-live g++
+rpm -qa | grep podman
+rpm -qa | grep ssh
+ssh --version
+ssh version
+ssh -version
+ssh -v
+ssh --help
+exit
