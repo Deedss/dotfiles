@@ -36,6 +36,16 @@ function clean-kde(){
 }
 
 ###############################################################################
+##### SETUP DNF                                                         #######
+###############################################################################
+function setup-dnf(){
+    echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
+    echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
+    echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
+    echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
+}
+
+###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
 function install-rpmfusion(){
@@ -96,13 +106,13 @@ function install-flatpak(){
 ###############################################################################
 function install-layered-packages(){
     echo "Install layered packages"
-    rpm-ostree install --apply-live neovim virt-manager stow zsh autojump autojump-zsh distrobox \
+    rpm-ostree install neovim virt-manager stow fish distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
-        cmake ninja-build clang llvm clang-tools-extra lldb \
+        cmake ninja-build clang llvm clang-tools-extra lldb gdb \
         podman-compose podman-docker ksshaskpass wireshark
 
-    sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
-    sudo usermod -aG libvirt $USER
+#     sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
+#     sudo usermod -aG libvirt $USER
 
     echo "Install arc theme"
     rpm-ostree install arc-theme arc-kde

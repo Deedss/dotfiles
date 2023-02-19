@@ -1,81 +1,3 @@
-'
-git commit - m "upd"
-git status
-git push
-git statsu
-git status
-git commit -m "update"
-git push
-exit
-git add .
-git commit -m "remove some stuff"
-git push
-cd NO
-cd NoteCmd/
-ll
-python -d note.py 
-pdb note.py
-python
-python note.py 
-python -d note.py 
-pdb note.py 
-python -m pdb note.py 
-exit
-cd Dev/LearningPython/
-nvim NoteCmd/note.py 
-exit
-cd NoteCmd/
-ll
-python -m pdb note.py 
-exit
-cd .config/nvim/
-nvim lua/plugins.lua 
-nvim
-nvim lua/nvim-dap.lua 
-nvim
-exit
-nvim 
-exit
-full_update 
-cd Dev/LearningPython/
-cd NoteCmd/
-ll
-nvim note.py 
-exit
-cd Dev/LearningPython/
-nvim 
-cd NoteCmd/
-nvim note.py 
-cd ~/.config/nvim/
-cd lua/
-nvim nvim-dap.lua 
-nivm
-nvim
-nvim nvim-dap.lua 
-exit
-cd Dev/LearningPython/NoteCmd/
-ll
-nvim note.py 
-ll
-exit
-cd .dot
-cd .dotfiles/
-ll
-git status
-git add .
-git commit -m "initial setup of nvim-dap"
-git push
-exit
-ll
-python --version
-pip install
-pip help
-sudo dnf install bash-copmletions
-sudo dnf install bash-completions
-sudo dnf search bash-completion
-sudo dnf install bash-completion
-exit
-pip --help
 $ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ll
@@ -1057,4 +979,88 @@ ssh version
 ssh -version
 ssh -v
 ssh --help
+exit
+cd .dotfiles/
+ll
+stow bash
+stow gi
+stow git/
+stow kdessh/
+stow konsole/
+stow nvim
+stow scripts/
+stow starship/
+stow wezterm/
+stow zsh
+exit
+source .dotfiles/scripts/.scripts/kinoite_install.sh 
+ll
+install-oh-my-zsh && install-flatpak 
+flatpak install org.gtk.Gtk3theme.Arc-Dark
+exit
+flatpak remote-delete fedora-testing 
+ll
+xit
+exit
+grep -E '^libvirt:' /usr/lib/group >> /etc/group
+sudo -s
+cat /etc/gr
+cat /etc/group
+exit
+distrobox enter dev
+exit
+cd .dotfiles/
+ll
+stow git
+stow kdessh/
+stow konsole/
+stow nvim
+stow scripts/
+stow starship/
+stow wezterm/
+rm ~/.bash*
+stow bash
+exit
+ll
+exit
+ll
+exit
+distrobox create --name development --image fedora-toolbox:37 --no-entry 
+distrobox enter development 
+exit
+ll
+souce .scripts/kinoite_install.sh 
+ll
+source .scripts/kinoite_install.sh 
+ll
+install-development-packages 
+ll
+exit
+podman logs -f development 
+distrobox enter development 
+ll
+exit
+ll
+l
+ll
+sudo dnf install sqlite
+sudo dnf install podman podman-compose podman-docker buildah
+sudo dnf install gcc gdb binutils
+ll
+exit
+distrobox enter development 
+exit
+sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
+sudo -s
+ll
+sudo usermod -aG libvirt gertjan 
+exit
+sudo dnf install fish
+ll
+fish
+sudo dnf autoremove zsh-5.9-2.fc37.x86_64 autojump-zsh-22.5.3-10.fc37.noarch 
+exit
+distrobox enter development 
+exit
+exi
 exit
