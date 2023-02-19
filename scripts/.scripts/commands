@@ -4,9 +4,9 @@
 ###############################################################################
 function update(){
     echo '-------------------------'
-    echo '--------- DNF -----------'
+    echo '------ RPM-OSTREE -------'
     echo '-------------------------'
-    sudo dnf update --refresh
+    rpm-ostree upgrade
     echo ''
 
     echo '-------------------------'
@@ -116,9 +116,9 @@ function __update-android-udev(){
 ###############################################################################
 function tar-pack(){
     filename=$(basename $1)
-    tar --zstd -cvf $filename.tar.zst $1
+    tar -cvf $filename.tar.gz $1
 }
 
 function tar-unpack(){
-    tar --zstd -xvf $1
+    tar -xvf $1
 }
