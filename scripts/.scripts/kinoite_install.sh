@@ -67,7 +67,8 @@ function install-flatpak(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop
+    org.telegram.desktop \
+    com.valvesoftware.Steam
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -95,11 +96,12 @@ function install-flatpak(){
 ###############################################################################
 function install-layered-packages(){
     echo "Install layered packages"
-    rpm-ostree install neovim virt-manager stow zsh autojump-zsh distrobox \
+    rpm-ostree install --apply-live neovim virt-manager stow zsh autojump autojump-zsh distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         cmake ninja-build clang llvm clang-tools-extra lldb \
-        podman-compose podman-docker ksshaskpass
+        podman-compose podman-docker ksshaskpass wireshark
 
+    sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
     sudo usermod -aG libvirt $USER
 
     echo "Install arc theme"
@@ -200,12 +202,23 @@ function install-emscripten(){
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
 function install-development-packages(){
+    echo "Add RPM Fusion to repositories"
+    sudo dnf install -y \
+        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
     echo "Install a selection of development tools"
     ###### CMAKE / CLANG #########
     sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
 
+    ##### VIDEO DRIVERS ######
+    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
+        mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
+        mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
+        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
+
     ###### NETWORKING ######
-    sudo dnf install -y wireshark nmap curl wget
+    sudo dnf install -y nmap curl wget
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git ripgrep \
