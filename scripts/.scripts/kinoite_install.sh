@@ -95,10 +95,10 @@ function install-flatpak(){
 ###############################################################################
 function install-layered-packages(){
     echo "Install layered packages"
-    rpm-ostree install --apply-live neovim virt-manager stow zsh autojump-zsh distrobox \
-        openssl util-linux-user ripgrep redhat-lsb-core git curl wget zstd \
+    rpm-ostree install neovim virt-manager stow zsh autojump-zsh distrobox \
+        openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         cmake ninja-build clang llvm clang-tools-extra lldb \
-        podman podman-compose podman-docker buildah
+        podman-compose podman-docker
 
     sudo usermod -aG libvirt $USER
 
