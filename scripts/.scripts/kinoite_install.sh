@@ -18,6 +18,9 @@ function install-kde(){
 
     ##### FLATPAKS
     install-flatpak
+
+    ### Network
+    install-iwd
 }
 
 
@@ -93,8 +96,11 @@ function install-flatpak(){
 function install-layered-packages(){
     echo "Install layered packages"
     rpm-ostree install neovim virt-manager stow zsh autojump-zsh distrobox \
-        openssl util-linux-user ripgrep redhat-lsb-core 
-    sudo usermod -aG kvm,libvirt,lp,dialout $USER
+        openssl util-linux-user ripgrep redhat-lsb-core git curl wget \
+        cmake ninja-build clang llvm clang-tools-extra lldb \
+        podman podman-compose podman-docker buildah
+
+    sudo usermod -aG libvirt $USER
 
     echo "Install arc theme"
     rpm-ostree install arc-theme arc-kde
@@ -205,4 +211,13 @@ function install-development-packages(){
     sudo dnf install -y openssl zstd ncurses git ripgrep \
         ncurses-libs zsh util-linux-user redhat-lsb-core autojump-zsh \
         java-17-openjdk
+}
+
+###############################################################################
+###### INSTALL IWD                                                      #######
+###############################################################################
+function install-iwd(){
+    rpm-ostree install iwd
+    echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
+    sudo systemctl mask wpa_supplicant
 }
