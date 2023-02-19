@@ -106,7 +106,7 @@ function install-flatpak(){
 ###############################################################################
 function install-layered-packages(){
     echo "Install layered packages"
-    rpm-ostree install neovim virt-manager stow fish distrobox \
+    rpm-ostree install neovim virt-manager stow distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         cmake ninja-build clang llvm clang-tools-extra lldb gdb \
         podman-compose podman-docker ksshaskpass wireshark
