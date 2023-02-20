@@ -1,7 +1,7 @@
 #!/bin/sh
 
 ## Personal aliases
-alias chrome='flatpak run com.brave.Browser'
+alias chrome='brave-browser-stable'
 alias vim='nvim'
 alias docker='podman'
 alias docker-compose='podman-compose'
@@ -30,7 +30,7 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 # Flutter
 export PATH=$PATH:$HOME/Software/flutter/bin
-export CHROME_EXECUTABLE='flatpak run com.brave.Browser'
+export CHROME_EXECUTABLE=brave-browser-stable
 
 # Go
 export PATH=$PATH:/usr/local/go/bin

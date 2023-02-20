@@ -11,7 +11,7 @@ function install-kde(){
     install-rpmfusion
     install-layered-packages
     install-rust
-    install-oh-my-zsh
+    # install-oh-my-zsh
 
     # install-espIdf
     # install-emscripten
@@ -74,8 +74,8 @@ function install-flatpak(){
 function install-layered-packages(){
     echo "Install layered packages"
     sudo transactional-update pkg install \
-    neovim virt-manager stow zsh autojump-zsh \
-        openssl ripgrep system-group-wheel pam_kwallet \  
+        neovim virt-manager stow openssl ripgrep \
+        system-group-wheel pam_kwallet \  
         gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc \
         arc-icon-theme metatheme-arc-common
 

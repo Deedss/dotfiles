@@ -1064,3 +1064,41 @@ distrobox enter development
 exit
 exi
 exit
+cd .dotfiles/
+ll
+git status
+git add scripts/.scripts/kinoite_install.sh 
+git commit -m "update to kinoite, no fish/zsh"
+git push
+git restore .
+exit
+rpm-ostree uninstall fish
+exit
+podman images
+podman rmi docker.io/library/alpine:3.16.3 
+podman image pruen
+podman image prune 
+exit
+systemctl --user status podman.socket 
+exit
+rpm -qa | zsh
+exit
+ll
+exit
+systemctl --user status podman.s
+systemctl --user status podman.socket 
+sudo systemctl disable podman.socket 
+sudo systemctl stop podman.socket 
+systemctl --user status podman.socket 
+exit
+ll
+sudo systemctl restart sddm.service 
+rpm-ostree upgrade
+exit
+cd .dotfiles/
+ll
+git status
+exi
+exit
+code .dotfiles/
+exit
