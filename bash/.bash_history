@@ -1102,3 +1102,26 @@ exi
 exit
 code .dotfiles/
 exit
+ cd /home/gertjan/.dotfiles
+ clear
+stow bash
+stow zsh
+stow git
+stow kdessh/
+stow konsole/
+stow nvim
+stow scripts/
+stow starship/
+stow wezterm/
+exit
+ll
+c
+cd
+ll
+sudoedit /etc/default/grub 
+grub-update 
+nvim
+exit
+source .dotfiles/scripts/.scripts/fedora_install.sh 
+install-kde 
+exit

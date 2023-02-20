@@ -6,7 +6,7 @@ function update(){
     echo '-------------------------'
     echo '------ RPM-OSTREE -------'
     echo '-------------------------'
-    rpm-ostree upgrade
+    sudo dnf update --refresh
     echo ''
 
     echo '-------------------------'
