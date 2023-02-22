@@ -4,7 +4,7 @@
 ###############################################################################
 function update(){
     echo '-------------------------'
-    echo '------ RPM-OSTREE -------'
+    echo '---------- DNF ----------'
     echo '-------------------------'
     sudo dnf update --refresh
     echo ''
@@ -116,9 +116,9 @@ function __update-android-udev(){
 ###############################################################################
 function tar-pack(){
     filename=$(basename $1)
-    tar -cvf $filename.tar.gz $1
+    tar --zstd -cvf $filename.tar.zst $1
 }
 
 function tar-unpack(){
-    tar -xvf $1
+    tar --zstd -xvf $1
 }
