@@ -41,7 +41,8 @@ function clean-kde(){
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
-        plasma-discover plasma-drkonqi okular gwenview kcalc
+        plasma-discover plasma-drkonqi okular gwenview kcalc \
+        plasma-welcome
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
