@@ -76,6 +76,7 @@ require('packer').startup(function()
 
     -- Interface
     use 'olimorris/onedarkpro.nvim'
+    use ({ 'projekt0n/github-nvim-theme', tag = 'v0.0.7' })
     use 'nvim-tree/nvim-web-devicons'
     use {
       "folke/trouble.nvim",
