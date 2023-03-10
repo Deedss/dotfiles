@@ -3,7 +3,8 @@ local act = wezterm.action
 
 return {
     font_size = 10.0,
-    color_scheme = "OneDark (base16)",
+    -- color_scheme = "OneDark (base16)",
+    
     initial_rows = 30,
     initial_cols = 110,
 
@@ -15,6 +16,19 @@ return {
 
     -- Tab bar colour schemes
     colors = {
+        -- # GitHub Dimmed
+        -- [colors]
+        foreground = "#adbac7",
+        background = "#22272e",
+        cursor_bg = "#6cb6ff",
+        cursor_border = "#6cb6ff",
+        cursor_fg = "#101216",
+        selection_bg = "#264466",
+        selection_fg = "#ffffff",
+
+        ansi = {"#545d68","#f47067","#57ab5a","#c69026","#539bf5","#b083f0","#39c5cf","#909dab"}
+        ,
+        brights = {"#636e7b","#ff938a","#6bc46d","#daaa3f","#6cb6ff","#dcbdfb","#56d4dd","#cdd9e5"},
         tab_bar = {
             background = '#282c34',
             active_tab = {
