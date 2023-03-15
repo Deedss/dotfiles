@@ -33,7 +33,11 @@ export PATH=$PATH:$HOME/Software/flutter/bin
 export CHROME_EXECUTABLE=brave-browser-stable
 
 # Go
-export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/Software/go/bin
+export GOPATH=$HOME/Software/go
+
+# Bazel
+export PATH=$PATH:$HOME/Software/bazel
 
 # Espressif
 alias getIdf='. $HOME/Software/esp-idf/export.sh'

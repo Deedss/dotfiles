@@ -1,6 +1,8 @@
 #!/bin/sh
 # This file contains most things that I run while installing the main fedora-kde
 # install
+source ./tools_install.sh
+
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
@@ -192,21 +194,6 @@ function install-vscode(){
 }
 
 ###############################################################################
-###### PODMAN                                                           #######
-###############################################################################
-function install-podman(){
-    echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah
-
-    ###############################################################################
-    ####### START PODMAN ROOTLESS                                           #######
-    ###############################################################################
-    systemctl --user enable podman.socket
-    systemctl --user start podman.socket
-    systemctl --user status podman.socket
-}
-
-###############################################################################
 ###### OH-MY-ZSH                                                         ######
 ###############################################################################
 function install-oh-my-zsh(){
@@ -218,122 +205,10 @@ function install-oh-my-zsh(){
 }
 
 ###############################################################################
-###### RUST INSTALL                                                   #########
-###############################################################################
-function install-rust(){
-    echo "Install rust and rust-analyzer"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    source $HOME/.cargo/env
-    rustup component add rust-src
-    rustup component add rust-analyzer
-    ln -s ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer ~/.cargo/bin/
-    mkdir -p ~/.local/bin
-    curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
-}
-
-###############################################################################
-###### PYTHON                                                           #######
-###############################################################################
-function install-pythontools(){
-    echo "Install Python-Devel"
-    sudo dnf -y install python3-devel python3-wheel python3-virtualenv
-
-    echo "Installing python formatter"
-    pip install black
-
-    echo "installing language servers"
-    pip install python-lsp-server cmake-language-server debugpy pynvim
-
-    echo "Installing Poetry"
-    curl -sSL https://install.python-poetry.org | python3 -
-}
-
-###############################################################################
-###### NODE JS                                                          #######
-###############################################################################
-function install-npm(){
-    echo "Install NVM and NPM"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source ~/.zshrc
-    nvm install 'lts/*'
-    nvm use default
-}
-
-###############################################################################
-###### ESP-IDF Framework                                                #######
-###############################################################################
-function install-espIdf(){
-    echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
-    mkdir -p ~/Software
-    cd ~/Software
-    git clone --recursive https://github.com/espressif/esp-idf.git
-    cd esp-idf
-    sh install.sh
-}
-
-###############################################################################
-###### Emscripten Framework                                             #######
-###############################################################################
-function install-emscripten(){
-    echo "Install Emscripten WebAssembly"
-    mkdir -p ~/Software
-    cd ~/Software
-    # Get the emsdk repo
-    git clone https://github.com/emscripten-core/emsdk.git
-    # Enter that directory
-    cd emsdk
-    # Fetch the latest version of the emsdk (not needed the first time you clone)
-    git pull
-    # Download and install the latest SDK tools.
-    ./emsdk install latest
-    # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
-    ./emsdk activate latest
-}
-
-###############################################################################
-###### FLUTTER AND DART                                                 #######
-###############################################################################
-function install-flutter(){
-    echo "Install Flutter and Dart"
-    sudo dnf install gtk3-devel -y
-    mkdir -p ~/Software
-    cd ~/Software
-    git clone https://github.com/flutter/flutter.git -b stable
-    flutter doctor
-}
-
-###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
 function install-iwd(){
     sudo dnf install -y iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
-}
-
-###############################################################################
-###### INSTALL ANDROID                                                  #######
-###############################################################################
-function install-android(){
-    mkdir -p ~/Software/Android/Sdk
-
-    # Install Udev Rules
-    cd ~/Software/Android
-    # Clone this repository
-    git clone https://github.com/M0Rf30/android-udev-rules.git
-    cd android-udev-rules
-    # create a sym-link to the rules file
-    sudo ln -sf "$PWD"/51-android.rules /etc/udev/rules.d/51-android.rules
-    # Change file permissions
-    sudo chmod a+r /etc/udev/rules.d/51-android.rules
-    # Add the adbusers group if it's doesn't already exist
-    sudo cp android-udev.conf /usr/lib/sysusers.d/
-    sudo systemd-sysusers
-    # Add your user to the adbusers group
-    sudo gpasswd -a $(whoami) adbusers
-    # Restart UDEV
-    sudo udevadm control --reload-rules
-    sudo systemctl restart systemd-udevd.service
-    cd ~
 }
