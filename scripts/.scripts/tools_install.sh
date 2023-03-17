@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ###############################################################################
 ###### PODMAN                                                           #######
 ###############################################################################
@@ -20,7 +20,7 @@ function install-podman(){
 function install-rust(){
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-    source $HOME/.cargo/env
+    source "$HOME"/.cargo/env
     rustup component add rust-src
     rustup component add rust-analyzer
     ln -s ~/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/bin/rust-analyzer ~/.cargo/bin/
@@ -51,7 +51,7 @@ function install-pythontools(){
 function install-npm(){
     echo "Install NVM and NPM"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source ~/.zshrc
+    source "$HOME"/.zshrc
     nvm install 'lts/*'
     nvm use default
 }
@@ -63,9 +63,9 @@ function install-espIdf(){
     echo "Install ESP-IDF"
     sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     mkdir -p ~/Software
-    cd ~/Software
+    cd ~/Software || exit
     git clone --recursive https://github.com/espressif/esp-idf.git
-    cd esp-idf
+    cd esp-idf || exit
     sh install.sh
 }
 
@@ -75,11 +75,11 @@ function install-espIdf(){
 function install-emscripten(){
     echo "Install Emscripten WebAssembly"
     mkdir -p ~/Software
-    cd ~/Software
+    cd ~/Software || exit
     # Get the emsdk repo
     git clone https://github.com/emscripten-core/emsdk.git
     # Enter that directory
-    cd emsdk
+    cd emsdk || exit
     # Fetch the latest version of the emsdk (not needed the first time you clone)
     git pull
     # Download and install the latest SDK tools.
@@ -95,7 +95,7 @@ function install-flutter(){
     echo "Install Flutter and Dart"
     sudo dnf install gtk3-devel -y
     mkdir -p ~/Software
-    cd ~/Software
+    cd ~/Software || exit
     git clone https://github.com/flutter/flutter.git -b stable
     flutter doctor
 }
@@ -107,10 +107,10 @@ function install-android(){
     mkdir -p ~/Software/Android/Sdk
 
     # Install Udev Rules
-    cd ~/Software/Android
+    cd ~/Software/Android || exit
     # Clone this repository
     git clone https://github.com/M0Rf30/android-udev-rules.git
-    cd android-udev-rules
+    cd android-udev-rules || exit
     # create a sym-link to the rules file
     sudo ln -sf "$PWD"/51-android.rules /etc/udev/rules.d/51-android.rules
     # Change file permissions
@@ -119,11 +119,11 @@ function install-android(){
     sudo cp android-udev.conf /usr/lib/sysusers.d/
     sudo systemd-sysusers
     # Add your user to the adbusers group
-    sudo gpasswd -a $(whoami) adbusers
+    sudo gpasswd -a "$(whoami)" adbusers
     # Restart UDEV
     sudo udevadm control --reload-rules
     sudo systemctl restart systemd-udevd.service
-    cd ~
+    cd ~ || exit
 }
 
 ###############################################################################
@@ -131,7 +131,7 @@ function install-android(){
 ###############################################################################
 function install-go(){
     # Check if ~/Software/go already exists and remove it if it does
-    if [ -d "~/Software/go" ]; then
+    if [ -d "$HOME/Software/go" ]; then
         echo "Removing existing ~/Software/go directory"
         rm -rf ~/Software/go
     fi
@@ -150,7 +150,7 @@ function install-go(){
     # Check if the Go tarball already exists
     if [ -f "$TARBALL_PATH" ]; then
         echo "Removing existing Go tarball: $TARBALL_PATH"
-        rm $TARBALL_PATH
+        rm "$TARBALL_PATH"
     fi
     
     # Download the Go binary tarball
@@ -164,37 +164,8 @@ function install-go(){
 ###### INSTALL BAZEL                                                    #######
 ###############################################################################
 function install-bazel(){
-    # Set the directory where Bazelisk will be installed
-    INSTALL_DIR=~/Software/bazel
-
-    # Create the directory if it doesn't exist
-    mkdir -p $INSTALL_DIR
-
-    # Set the Bazel version to install
-    BAZEL_VERSION=""
-
-    # Check if a Bazel version was specified
-    if [ -n "$BAZEL_VERSION" ]; then
-        # Download the specified version of Bazel from GitHub
-        curl -L -o $INSTALL_DIR/bazel https://github.com/bazelbuild/bazel/releases/download/$BAZEL_VERSION/bazel-$BAZEL_VERSION-linux-x86_64
-
-        # Make the downloaded binary executable
-        chmod +x $INSTALL_DIR/bazel
-    else
-        # Download the latest version of Bazelisk from GitHub
-        curl -L -o $INSTALL_DIR/bazelisk https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64
-
-        # Make the downloaded binary executable
-        chmod +x $INSTALL_DIR/bazelisk
-    fi
-
-    # Check if GOPATH is set
-    if [ -z "$GOPATH" ]; then
-        echo "GOPATH is not set, setting it to ~/Software/go"
-        export GOPATH=~/Software/go
-    fi
-
     # Tools for bazel
+    go install github.com/bazelbuild/bazelisk@latest
     go install github.com/bazelbuild/buildtools/buildifier@latest
     go install github.com/bazelbuild/buildtools/buildozer@latest
     go install github.com/bazelbuild/buildtools/unused_deps@latest

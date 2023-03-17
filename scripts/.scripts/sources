@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 ## Personal aliases
 alias chrome='brave-browser-stable'
@@ -11,7 +11,7 @@ alias wezterm='flatpak run org.wezfurlong.wezterm'
 export LIBVIRT_DEFAULT_URI='qemu:///system'
 
 # Custom scripts autocomplete
-export PATH=$PATH:$HOME/.scripts
+export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 
 # Set Editor to NVIM
@@ -19,25 +19,22 @@ export EDITOR='nvim'
 export VISUAL='nvim'
 
 # add Local to PATH
-export PATH=$PATH:$HOME/.local/bin
+export PATH="$PATH":"$HOME"/.local/bin
 
 # Rust
 source "$HOME/.cargo/env"
 
 # Android
-export ANDROID_HOME=$HOME/Software/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/platform-tools
+export ANDROID_HOME="$HOME"/Software/Android/Sdk
+export PATH="$PATH":"$ANDROID_HOME"/platform-tools
 
 # Flutter
-export PATH=$PATH:$HOME/Software/flutter/bin
+export PATH="$PATH":"$HOME"/Software/flutter/bin
 export CHROME_EXECUTABLE=brave-browser-stable
 
 # Go
-export PATH=$PATH:$HOME/Software/go/bin
-export GOPATH=$HOME/Software/go
-
-# Bazel
-export PATH=$PATH:$HOME/Software/bazel
+export PATH="$PATH":"$HOME"/Software/go/bin
+export GOPATH="$HOME"/Software/go
 
 # Espressif
 alias getIdf='. $HOME/Software/esp-idf/export.sh'
@@ -48,4 +45,3 @@ alias getEmsdk='source $HOME/Software/emsdk/emsdk_env.sh'
 # JAVA_HOME
 # export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-1.fc36.x86_64/bin/java'
 # export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-11.0.15.0.10-1.fc36.x86_64/bin/java'
-#

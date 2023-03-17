@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # This file contains most things that I run while installing the main fedora-kde
 # install
 source ./tools_install.sh
@@ -9,7 +9,7 @@ source ./tools_install.sh
 function install-kde(){
     echo "Perform Installation for Fedora KDE"
     ### Set the correct DNF settings
-    setup-dnf
+    setup-zdnf
 
     ### Clean up kde
     clean-kde
@@ -77,8 +77,8 @@ function setup-dnf(){
 function install-rpmfusion(){
     echo "Add RPM Fusion to repositories"
     sudo dnf install -y \
-        https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-        https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 }
 
 ###############################################################################
@@ -133,7 +133,7 @@ function default-packages(){
 
     ###### VIRTUALIZATION ########
     sudo dnf install -y virt-manager
-    sudo usermod -aG kvm,libvirt,lp,dialout $USER
+    sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
     ###### NETWORKING ######
     sudo dnf install -y wireshark nmap curl wget
@@ -180,7 +180,7 @@ function install-neovim(){
     wget -P ~/Software/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
     chmod u+x ~/Software/AppImages/nvim.appimage
     sudo cp ~/Software/AppImages/nvim.appimage /usr/local/bin/nvim
-    sudo chown $USER:$USER /usr/local/bin/nvim
+    sudo chown "$USER":"$USER" /usr/local/bin/nvim
 }
 
 ###############################################################################
@@ -199,9 +199,9 @@ function install-vscode(){
 function install-oh-my-zsh(){
     echo "Install OH-MY-ZSH"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-        git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
-        git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
+        git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}"/plugins/zsh-completions
+        git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 }
 
 ###############################################################################
