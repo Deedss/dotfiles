@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 ###############################################################################
 ##### SYSTEM UPDATE                                                     #######
 ###############################################################################
@@ -59,7 +59,7 @@ function __update-emscripten(){
     echo '-------------------------'
     echo '----- EMSCRIPTEN --------'
     echo '-------------------------'
-    cd ~/Software/emsdk
+    cd ~/Software/emsdk || exit
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
     then
@@ -68,7 +68,7 @@ function __update-emscripten(){
     else
         echo $pull
     fi
-    cd ~
+    cd ~ || exit
     echo ''
 }
 
@@ -77,16 +77,16 @@ function __update-espIdf(){
     echo '-------------------------'
     echo '------- ESP-IDF ---------'
     echo '-------------------------'
-    cd ~/Software/esp-idf
+    cd ~/Software/esp-idf || exit
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
     then
         git pull --recurse-submodules
         sh ~/Software/esp-idf/install.sh
     else
-        echo $pull
+        echo "$pull"
     fi
-    cd ~
+    cd ~ || exit
     echo ''
 }
 
@@ -105,9 +105,9 @@ function __update-android-udev(){
     echo '-------------------------'
     echo '------- ANDROID ---------'
     echo '-------------------------'
-    cd ~/Software/Android/android-udev-rules
+    cd ~/Software/Android/android-udev-rules || exit
     git pull
-    cd ~
+    cd ~ || exit
     echo ''
 }
 
@@ -115,10 +115,10 @@ function __update-android-udev(){
 ####### BACKUP                                                           ######
 ###############################################################################
 function tar-pack(){
-    filename=$(basename $1)
-    tar --zstd -cvf $filename.tar.zst $1
+    filename=$(basename "$1")
+    tar --zstd -cvf "$filename".tar.zst "$1"
 }
 
 function tar-unpack(){
-    tar --zstd -xvf $1
+    tar --zstd -xvf "$1"
 }
