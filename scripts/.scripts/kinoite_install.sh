@@ -1,6 +1,4 @@
 #!/bin/bash
-# This file contains most things that I run while installing the main fedora-kde
-# install
 . tools_install.sh
 
 ###############################################################################
@@ -8,57 +6,34 @@
 ###############################################################################
 function install-kde(){
     echo "Perform Installation for Fedora KDE"
-    ### Set the correct DNF settings
-    setup-zdnf
-
     ### Clean up kde
     clean-kde
 
     ### Generic Setup
     install-rpmfusion
-    default-packages
-    install-brave
-    install-vscode
-    install-pythontools
-    install-rust
+    install-layered-packages
     install-oh-my-zsh
-    install-podman
-    install-espIdf
-    install-emscripten
 
-    ### THEME
-    install-arc-theme
+    # install-espIdf
+    # install-emscripten
 
     ##### FLATPAKS
     install-flatpak
+
+    ### Network
+    install-iwd
 }
+
 
 ###############################################################################
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
 function clean-kde(){
-    #### Clean up KDE packages
-    sudo dnf autoremove -y \
-        \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
-        kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
-        ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
-        kde-spectacle firefox plasma-browser-integration \
-        plasma-discover plasma-drkonqi okular gwenview kcalc \
-        plasma-welcome
-
-    ### Packages on kde spin =>> not on minimal install
-    sudo dnf autoremove -y \
-        elisa-player dragon mediawriter kmahjongg \
-        kmines kpat ksudoku kamoso krdc libreoffice-* \
-        kdeconnectd krfb kolourpaint-* konversation
-
-    ### Excess gnome packages
-    sudo dnf autoremove -y \
-        gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
-
-    ### Install packages that are kde specific
-    sudo dnf install -y \
-        ark
+    rpm-ostree override remove \
+        firefox firefox-langpacks \
+        gwenview gwenview-libs okular kwrite kmag kmousetool \
+        kde-connect kdeconnectd kde-connect-libs \
+        plasma-discover plasma-discover-notifier plasma-discover-flatpak plasma-discover-rpm-ostree
 }
 
 ###############################################################################
@@ -76,7 +51,7 @@ function setup-dnf(){
 ###############################################################################
 function install-rpmfusion(){
     echo "Add RPM Fusion to repositories"
-    sudo dnf install -y \
+    sudo rpm-ostree install \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
         "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 }
@@ -85,23 +60,26 @@ function install-rpmfusion(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo dnf install flatpak -y
-
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete fedora
     sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
+    flatpak install -y \
+    com.github.tchx84.Flatseal
+
     ##### INTERNET #####
     flatpak install -y \
+    com.brave.Browser \
     com.discordapp.Discord \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop
+    org.telegram.desktop \
+    com.valvesoftware.Steam
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -121,76 +99,28 @@ function install-flatpak(){
     org.gnome.Evolution \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
+
 }
 
 ###############################################################################
-###  INSTALL DEVELOPMENT TOOLS                                              ###
+##### LAYERED PACKAGES                                                   ######
 ###############################################################################
-function default-packages(){
-    echo "Install a selection of used applications"
-    ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
+function install-layered-packages(){
+    echo "Install layered packages"
+    rpm-ostree install neovim virt-manager stow distrobox \
+        openssl util-linux-user ripgrep redhat-lsb-core git zstd \
+        cmake ninja-build clang llvm clang-tools-extra lldb gdb \
+        podman-compose podman-docker ksshaskpass wireshark
 
-    ###### VIRTUALIZATION ########
-    sudo dnf install -y virt-manager
-    sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
+#     sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
+#     sudo usermod -aG libvirt $USER
 
-    ###### NETWORKING ######
-    sudo dnf install -y wireshark nmap curl wget
-
-    ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
-        mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
-        mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
-    sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
-
-    ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
-        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
-        java-17-openjdk
-}
-
-###############################################################################
-##### BRAVE BROWSER                                                      ######
-###############################################################################
-function install-arc-theme(){
     echo "Install arc theme"
-    sudo dnf -y install arc-theme arc-kde
-}
+    rpm-ostree install arc-theme arc-kde
 
-###############################################################################
-##### BRAVE BROWSER                                                      ######
-###############################################################################
-function install-brave(){
-    echo "Install brave browser"
-    sudo dnf install -y dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf -y install brave-browser
-}
-
-###############################################################################
-##### NEOVIM                                                             ######
-###############################################################################
-function install-neovim(){
-    echo "Install Neovim Appimage"
-    mkdir -p /Software/AppImages
-    wget -P ~/Software/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-    chmod u+x ~/Software/AppImages/nvim.appimage
-    sudo cp ~/Software/AppImages/nvim.appimage /usr/local/bin/nvim
-    sudo chown "$USER":"$USER" /usr/local/bin/nvim
-}
-
-###############################################################################
-##### VSCODE                                                            #######
-###############################################################################
-function install-vscode(){
     echo "Install Visual Studio Code"
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    sudo dnf -y install code
+    rpm-ostree -y install code
 }
 
 ###############################################################################
@@ -205,10 +135,32 @@ function install-oh-my-zsh(){
 }
 
 ###############################################################################
+###  INSTALL DEVELOPMENT TOOLS                                              ###
+###############################################################################
+function install-development-packages(){
+    echo "Add RPM Fusion to repositories"
+    sudo dnf install -y \
+        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+
+    echo "Install a selection of development tools"
+    ###### CMAKE / CLANG #########
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
+
+    ###### NETWORKING ######
+    sudo dnf install -y nmap curl wget
+
+    ##### OTHER PACKAGES ######
+    sudo dnf install -y openssl zstd ncurses git ripgrep \
+        ncurses-libs zsh util-linux-user redhat-lsb-core autojump-zsh \
+        java-17-openjdk
+}
+
+###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
 function install-iwd(){
-    sudo dnf install -y iwd
+    rpm-ostree install iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
 }

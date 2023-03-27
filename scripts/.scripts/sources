@@ -35,6 +35,7 @@ export CHROME_EXECUTABLE=brave-browser-stable
 # Go
 export PATH="$PATH":"$HOME"/Software/go/bin
 export GOPATH="$HOME"/Software/go
+alias bazel='bazelisk'
 
 # Espressif
 alias getIdf='. $HOME/Software/esp-idf/export.sh'
@@ -43,5 +44,5 @@ alias getIdf='. $HOME/Software/esp-idf/export.sh'
 alias getEmsdk='source $HOME/Software/emsdk/emsdk_env.sh'
 
 # JAVA_HOME
-# export JAVA_HOME='/usr/lib/jvm/java-17-openjdk-17.0.3.0.7-1.fc36.x86_64/bin/java'
-# export JAVA_HOME='/usr/lib/jvm/java-11-openjdk-11.0.15.0.10-1.fc36.x86_64/bin/java'
+JAVA_HOME="$(dirname "$(dirname "$(realpath "$(which javac)")")")"
+export JAVA_HOME
