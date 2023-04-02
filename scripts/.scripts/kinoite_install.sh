@@ -113,7 +113,10 @@ function install-layered-packages(){
     rpm-ostree install neovim virt-manager stow distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         podman-compose podman-docker ksshaskpass wireshark \
-        rsms-inter-fonts
+        rsms-inter-fonts jetbrains-mono-fonts
+
+#     sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
+#     sudo usermod -aG libvirt $USER
 
     echo "Install arc theme"
     rpm-ostree install arc-theme arc-kde
