@@ -1,7 +1,7 @@
 #!/bin/bash
-# This file contains most things that I run while installing the main fedora-kde
-# install
-. tools_install.sh
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+. "$SCRIPTPATH"/tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###

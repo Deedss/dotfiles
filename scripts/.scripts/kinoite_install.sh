@@ -1,5 +1,7 @@
 #!/bin/bash
-. tools_install.sh
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+. "$SCRIPTPATH"/tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
@@ -33,7 +35,8 @@ function clean-kde(){
         firefox firefox-langpacks \
         gwenview gwenview-libs okular kwrite kmag kmousetool \
         kde-connect kdeconnectd kde-connect-libs \
-        plasma-discover plasma-discover-notifier plasma-discover-flatpak plasma-discover-rpm-ostree
+        plasma-discover plasma-discover-notifier plasma-discover-flatpak plasma-discover-rpm-ostree \
+        plasma-welcome
 }
 
 ###############################################################################
@@ -109,11 +112,8 @@ function install-layered-packages(){
     echo "Install layered packages"
     rpm-ostree install neovim virt-manager stow distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
-        cmake ninja-build clang llvm clang-tools-extra lldb gdb \
-        podman-compose podman-docker ksshaskpass wireshark
-
-#     sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
-#     sudo usermod -aG libvirt $USER
+        podman-compose podman-docker ksshaskpass wireshark \
+        rsms-inter-fonts
 
     echo "Install arc theme"
     rpm-ostree install arc-theme arc-kde
