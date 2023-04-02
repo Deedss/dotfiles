@@ -170,3 +170,36 @@ function install-bazel(){
     go install github.com/bazelbuild/buildtools/buildozer@latest
     go install github.com/bazelbuild/buildtools/unused_deps@latest
 }
+
+###############################################################################
+###### DEVELOPMENT CONTTAINER                                           #######
+###############################################################################
+function install-development-container(){
+    CONTAINER_NAME="development"
+    IMAGE_NAME="fedora-toolbox:37"
+
+    distrobox create -n "$CONTAINER_NAME" -i "$IMAGE_NAME" --no-entry
+    distrobox enter "$CONTAINER_NAME"
+}
+
+###############################################################################
+###  INSTALL DEVELOPMENT TOOLS                                              ###
+###############################################################################
+function install-development-container-packages(){
+    echo "Add RPM Fusion to repositories"
+    sudo dnf install -y \
+        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
+        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+
+    echo "Install a selection of development tools"
+    ###### CMAKE / CLANG #########
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
+
+    ###### NETWORKING ######
+    sudo dnf install -y nmap curl wget
+
+    ##### OTHER PACKAGES ######
+    sudo dnf install -y openssl zstd ncurses git ripgrep \
+        ncurses-libs zsh util-linux-user redhat-lsb-core autojump-zsh \
+        java-17-openjdk
+}

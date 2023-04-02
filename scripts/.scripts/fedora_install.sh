@@ -1,7 +1,6 @@
 #!/bin/bash
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
-. "$SCRIPTPATH"/tools_install.sh
+SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
+. "$SCRIPT_PATH"/tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
@@ -169,18 +168,6 @@ function install-brave(){
     sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf -y install brave-browser
-}
-
-###############################################################################
-##### NEOVIM                                                             ######
-###############################################################################
-function install-neovim(){
-    echo "Install Neovim Appimage"
-    mkdir -p /Software/AppImages
-    wget -P ~/Software/AppImages/ https://github.com/neovim/neovim/releases/download/stable/nvim.appimage
-    chmod u+x ~/Software/AppImages/nvim.appimage
-    sudo cp ~/Software/AppImages/nvim.appimage /usr/local/bin/nvim
-    sudo chown "$USER":"$USER" /usr/local/bin/nvim
 }
 
 ###############################################################################

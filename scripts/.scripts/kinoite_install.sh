@@ -1,7 +1,6 @@
 #!/bin/bash
-SCRIPT=$(readlink -f "$0")
-SCRIPTPATH=$(dirname "$SCRIPT")
-. "$SCRIPTPATH"/tools_install.sh
+SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
+. "$SCRIPT_PATH"/tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
@@ -14,7 +13,7 @@ function install-kde(){
     ### Generic Setup
     install-rpmfusion
     install-layered-packages
-    install-oh-my-zsh
+    # install-oh-my-zsh
 
     # install-espIdf
     # install-emscripten
@@ -113,7 +112,7 @@ function install-layered-packages(){
     rpm-ostree install neovim virt-manager stow distrobox \
         openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         podman-compose podman-docker ksshaskpass wireshark \
-        rsms-inter-fonts jetbrains-mono-fonts
+        rsms-inter-fonts jetbrains-mono-fonts zsh
 
 #     sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
 #     sudo usermod -aG libvirt $USER
@@ -122,7 +121,8 @@ function install-layered-packages(){
     rpm-ostree install arc-theme arc-kde
 
     echo "Install Visual Studio Code"
-    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    vscode_repo="https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc"
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=$vscode_repo" > /etc/yum.repos.d/vscode.repo'
     rpm-ostree -y install code
 }
 
@@ -135,28 +135,6 @@ function install-oh-my-zsh(){
         git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
         git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}"/plugins/zsh-completions
         git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
-}
-
-###############################################################################
-###  INSTALL DEVELOPMENT TOOLS                                              ###
-###############################################################################
-function install-development-packages(){
-    echo "Add RPM Fusion to repositories"
-    sudo dnf install -y \
-        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-
-    echo "Install a selection of development tools"
-    ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
-
-    ###### NETWORKING ######
-    sudo dnf install -y nmap curl wget
-
-    ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git ripgrep \
-        ncurses-libs zsh util-linux-user redhat-lsb-core autojump-zsh \
-        java-17-openjdk
 }
 
 ###############################################################################
