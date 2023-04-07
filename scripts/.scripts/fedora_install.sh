@@ -109,7 +109,8 @@ function install-flatpak(){
     com.jgraph.drawio.desktop \
     org.blender.Blender \
     org.videolan.VLC \
-    org.freedesktop.Platform.ffmpeg-full
+    org.freedesktop.Platform.ffmpeg-full \
+    io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
     flatpak install -y \

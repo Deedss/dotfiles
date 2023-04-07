@@ -1,5 +1,5 @@
 local cmd = vim.cmd     		-- execute Vim commands
-local exec = vim.api.nvim_exec 
+local exec = vim.api.nvim_exec
 
 cmd [[filetype plugin on]]
 
@@ -11,6 +11,9 @@ cmd [[set whichwrap+=<,>,[,],h,l]]
 
 -- remove whitespace on save
 cmd [[au BufWritePre * :%s/\s\+$//e]]
+
+vim.cmd[[autocmd BufEnter * set formatoptions-=cro]]
+vim.cmd[[autocmd BufEnter * setlocal formatoptions-=cro]]
 
 -- highlight on yank
 exec([[

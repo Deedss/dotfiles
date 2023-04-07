@@ -66,7 +66,7 @@ function __update-emscripten(){
         ~/Software/emsdk/emsdk install latest
         ~/Software/emsdk/emsdk activate latest
     else
-        echo $pull
+        echo "$pull"
     fi
     cd ~ || exit
     echo ''

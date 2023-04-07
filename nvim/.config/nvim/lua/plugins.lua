@@ -20,6 +20,7 @@ require('packer').startup(function()
     -- Treesitter
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
     use "danymat/neogen"
+    use "github/copilot.vim"
 
     -- LSP config
     use {
