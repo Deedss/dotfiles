@@ -60,3 +60,5 @@ require'nvim-treesitter.configs'.setup {
     },
   },
 }
+
+require("nvim-surround").setup {}
