@@ -29,7 +29,7 @@ require('packer').startup(function()
       "kylechui/nvim-surround",
       tag = "*", -- Use for stability; omit to use `main` branch for the latest features
   })
-    use "github/copilot.vim"
+    -- use "github/copilot.vim"
 
     -- LSP config
     use {
