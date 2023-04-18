@@ -22,7 +22,7 @@ function install-kde(){
     install-rust
     install-oh-my-zsh
     install-podman
-    install-espIdf
+    #install-espIdf
     install-emscripten
 
     ### THEME
