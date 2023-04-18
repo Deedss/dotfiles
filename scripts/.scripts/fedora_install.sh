@@ -8,7 +8,7 @@ SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
 function install-kde(){
     echo "Perform Installation for Fedora KDE"
     ### Set the correct DNF settings
-    setup-zdnf
+    setup-dnf
 
     ### Clean up kde
     clean-kde
