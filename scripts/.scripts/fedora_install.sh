@@ -1,6 +1,5 @@
 #!/bin/bash
-SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
-. "$SCRIPT_PATH"/tools_install.sh
+source tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
@@ -22,7 +21,7 @@ function install-kde(){
     install-rust
     install-oh-my-zsh
     install-podman
-    install-espIdf
+    #install-espIdf
     install-emscripten
 
     ### THEME
@@ -129,7 +128,7 @@ function install-flatpak(){
 function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb rust-lldb meson
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
 
     ###### VIRTUALIZATION ########
     sudo dnf install -y virt-manager
@@ -149,7 +148,7 @@ function default-packages(){
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
-        java-17-openjdk rsms-inter-fonts jetbrains-mono-fonts
+        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
 }
 
 ###############################################################################

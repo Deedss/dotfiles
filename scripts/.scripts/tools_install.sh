@@ -5,13 +5,6 @@
 function install-podman(){
     echo "Install podman and buildah"
     sudo dnf install -y podman podman-compose podman-docker buildah
-
-    ###############################################################################
-    ####### START PODMAN ROOTLESS                                           #######
-    ###############################################################################
-    systemctl --user enable podman.socket
-    systemctl --user start podman.socket
-    systemctl --user status podman.socket
 }
 
 ###############################################################################
@@ -140,6 +133,7 @@ function install-go(){
     GO_VERSION=1.20.2
     GO_PARENT_FOLDER=~/Software
     GO_INSTALL_LOCATION=${GO_PARENT_FOLDER}/go
+    mkdir -p ${GO_INSTALL_LOCATION}
 
     # Set the filename of the Go tarball
     TARBALL_FILENAME=go${GO_VERSION}.linux-amd64.tar.gz
@@ -152,10 +146,10 @@ function install-go(){
         echo "Removing existing Go tarball: $TARBALL_PATH"
         rm "$TARBALL_PATH"
     fi
-    
+
     # Download the Go binary tarball
     wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz -P ~/Downloads
-    
+
     # Extract the tarball and move it to directory of choice
     tar -C ${GO_INSTALL_LOCATION} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
 }
