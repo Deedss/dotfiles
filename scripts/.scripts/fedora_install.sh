@@ -1,5 +1,5 @@
 #!/bin/bash
-source tools_install.sh
+source ./tools_install.sh
 
 function install-gnome(){
     echo "Perform Installation for Fedora KDE"
