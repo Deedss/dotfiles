@@ -132,8 +132,6 @@ function install-go(){
     # Specify the version of Go to install
     GO_VERSION=1.20.2
     GO_PARENT_FOLDER=~/Software
-    GO_INSTALL_LOCATION=${GO_PARENT_FOLDER}/go
-    mkdir -p ${GO_INSTALL_LOCATION}
 
     # Set the filename of the Go tarball
     TARBALL_FILENAME=go${GO_VERSION}.linux-amd64.tar.gz
@@ -151,7 +149,9 @@ function install-go(){
     wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz -P ~/Downloads
 
     # Extract the tarball and move it to directory of choice
-    tar -C ${GO_INSTALL_LOCATION} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
+    tar -C ${GO_PARENT_FOLDER} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
+
+    rm "~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz"
 }
 
 ###############################################################################
