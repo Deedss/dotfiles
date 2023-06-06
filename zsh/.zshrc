@@ -78,12 +78,14 @@ plugins=(
     common-aliases
     docker
     dotnet
+    fd
     git
     npm
     nvm
     pip
     poetry
     python
+    ripgrep
     rust
     toolbox
     zsh-autosuggestions
