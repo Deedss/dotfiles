@@ -68,9 +68,6 @@ function install-flatpak(){
     sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
-    flatpak install -y \
-    com.github.tchx84.Flatseal
-
     ##### INTERNET #####
     flatpak install -y \
     com.brave.Browser \
