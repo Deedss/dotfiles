@@ -143,8 +143,8 @@ function default-packages(){
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
-    sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+    # sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
+    # sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
