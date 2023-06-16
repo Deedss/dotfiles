@@ -70,15 +70,15 @@ function install-flatpak(){
     echo "Install flatpak applications"
     ##### INTERNET #####
     flatpak install -y \
-    com.brave.Browser \
     com.discordapp.Discord \
+    com.brave.Browser \
+    org.mozilla.Thunderbird \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop \
-    com.valvesoftware.Steam
+    org.telegram.desktop
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -87,15 +87,16 @@ function install-flatpak(){
     com.jgraph.drawio.desktop \
     org.blender.Blender \
     org.videolan.VLC \
-    org.freedesktop.Platform.ffmpeg-full
+    org.freedesktop.Platform.ffmpeg-full \
+    io.podman_desktop.PodmanDesktop
 
-    ##### KDE #####
     flatpak install -y \
     org.wezfurlong.wezterm \
     org.kde.okular \
+    org.kde.dolphin \
+    org.kde.ark \
     org.kde.gwenview \
     org.kde.kcalc \
-    org.gnome.Evolution \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
 

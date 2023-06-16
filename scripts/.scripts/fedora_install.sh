@@ -53,10 +53,6 @@ function clean-kde(){
     ### Excess gnome packages
     sudo dnf autoremove -y \
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
-
-    ### Install packages that are kde specific
-    sudo dnf install -y \
-        ark
 }
 
 ###############################################################################
@@ -95,6 +91,7 @@ function install-flatpak(){
     flatpak install -y \
     com.discordapp.Discord \
     com.brave.Browser \
+    org.mozilla.Thunderbird \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
@@ -115,12 +112,12 @@ function install-flatpak(){
     flatpak install -y \
     org.wezfurlong.wezterm \
     org.kde.okular \
+    org.kde.dolphin \
+    org.kde.ark \
     org.kde.gwenview \
     org.kde.kcalc \
-    org.gnome.Evolution \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
-
 }
 
 ###############################################################################
