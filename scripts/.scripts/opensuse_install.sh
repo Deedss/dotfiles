@@ -6,8 +6,8 @@ source ./tools_install.sh
 ###############################################################################
 function install-kde(){
     echo "Perform Installation for Fedora KDE"
-    ### Set the correct DNF settings
-    setup-dnf
+    ### Set the correct zypper settings
+    setup-zypper
 
     ### Clean up kde
     clean-kde
@@ -36,8 +36,8 @@ function install-kde(){
 ###############################################################################
 function clean-kde(){
     #### Clean up KDE packages
-    sudo dnf autoremove -y \
-        \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
+    sudo zypper autoremove -y \
+        \*akonadi* zypperdragora kwrite kmag kmouth kmousetool \
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
@@ -45,24 +45,24 @@ function clean-kde(){
         plasma-welcome
 
     ### Packages on kde spin =>> not on minimal install
-    sudo dnf autoremove -y \
+    sudo zypper autoremove -y \
         elisa-player dragon mediawriter kmahjongg \
         kmines kpat ksudoku kamoso krdc libreoffice-* \
         kdeconnectd krfb kolourpaint-* konversation
 
     ### Excess gnome packages
-    sudo dnf autoremove -y \
+    sudo zypper autoremove -y \
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 }
 
 ###############################################################################
-##### SETUP DNF                                                         #######
+##### SETUP zypper                                                         #######
 ###############################################################################
-function setup-dnf(){
-    echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
-    echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
-    echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
-    echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
+function setup-zypper(){
+    echo "fastestmirror=1" | sudo tee -a /etc/zypper/zypper.conf
+    echo "defaultyes=1" | sudo tee -a /etc/zypper/zypper.conf
+    echo "deltarpm=0" | sudo tee -a /etc/zypper/zypper.conf
+    echo "max_parallel_downloads=20" | sudo tee -a /etc/zypper/zypper.conf
 }
 
 ###############################################################################
@@ -70,7 +70,7 @@ function setup-dnf(){
 ###############################################################################
 function install-rpmfusion(){
     echo "Add RPM Fusion to repositories"
-    sudo dnf install -y \
+    sudo zypper install -y \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
         "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 }
@@ -79,7 +79,7 @@ function install-rpmfusion(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo dnf install flatpak -y
+    sudo zypper install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -126,25 +126,25 @@ function install-flatpak(){
 function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo zypper install -y cmake ninja-build clang llvm clang-tools-extra
 
     ###### VIRTUALIZATION ########
-    sudo dnf install -y virt-manager
+    sudo zypper install -y virt-manager
     sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
     ###### NETWORKING ######
-    sudo dnf install -y wireshark nmap curl wget
+    sudo zypper install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
+    sudo zypper install -y mesa-vulkan-drivers mesa-va-drivers \
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
-    # sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    # sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+    # sudo zypper swap -y mesa-va-drivers mesa-va-drivers-freeworld
+    # sudo zypper swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
+    sudo zypper install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
 }
@@ -154,7 +154,7 @@ function default-packages(){
 ###############################################################################
 function install-arc-theme(){
     echo "Install arc theme"
-    sudo dnf -y install arc-theme arc-kde
+    sudo zypper -y install arc-theme arc-kde
 }
 
 ###############################################################################
@@ -162,10 +162,10 @@ function install-arc-theme(){
 ###############################################################################
 function install-brave(){
     echo "Install brave browser"
-    sudo dnf install -y dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
+    sudo zypper install -y zypper-plugins-core
+    sudo zypper config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf -y install brave-browser
+    sudo zypper -y install brave-browser
 }
 
 ###############################################################################
@@ -175,7 +175,7 @@ function install-vscode(){
     echo "Install Visual Studio Code"
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    sudo dnf -y install code
+    sudo zypper -y install code
 }
 
 ###############################################################################
@@ -194,7 +194,7 @@ function install-oh-my-zsh(){
 ###### INSTALL IWD                                                      #######
 ###############################################################################
 function install-iwd(){
-    sudo dnf install -y iwd
+    sudo zypper install -y iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
 }
@@ -204,7 +204,7 @@ function install-iwd(){
 ###############################################################################
 function install-flutter(){
     echo "Install Flutter and Dart"
-    sudo dnf install gtk3-devel -y
+    sudo zypper install gtk3-devel -y
     mkdir -p ~/Software
     cd ~/Software || exit
     git clone https://github.com/flutter/flutter.git -b stable
@@ -216,7 +216,7 @@ function install-flutter(){
 ###############################################################################
 function install-espIdf(){
     echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    sudo zypper install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     mkdir -p ~/Software
     cd ~/Software || exit
     git clone --recursive https://github.com/espressif/esp-idf.git
@@ -229,7 +229,7 @@ function install-espIdf(){
 ###############################################################################
 function install-pythontools(){
     echo "Install Python-Devel"
-    sudo dnf -y install python3-devel python3-wheel python3-virtualenv
+    sudo zypper -y install python3-devel python3-wheel python3-virtualenv
 
     echo "Installing python formatter"
     pip install black
@@ -246,5 +246,5 @@ function install-pythontools(){
 ###############################################################################
 function install-podman(){
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah
+    sudo zypper install -y podman podman-compose podman-docker buildah
 }

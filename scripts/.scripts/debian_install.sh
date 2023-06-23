@@ -5,17 +5,12 @@ source ./tools_install.sh
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-kde(){
-    echo "Perform Installation for Fedora KDE"
-    ### Set the correct DNF settings
-    setup-dnf
-
-    ### Clean up kde
-    clean-kde
+    echo "Perform Installation for Debian KDE"
+    install-kde-desktop
 
     ### Generic Setup
-    install-rpmfusion
     default-packages
-    # install-brave
+    install-brave
     install-vscode
     install-pythontools
     install-rust
@@ -31,66 +26,30 @@ function install-kde(){
     install-flatpak
 }
 
-###############################################################################
-###  CLEAN UP KDE                                                           ###
-###############################################################################
-function clean-kde(){
-    #### Clean up KDE packages
-    sudo dnf autoremove -y \
-        \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
-        kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
-        ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
-        kde-spectacle firefox plasma-browser-integration \
-        plasma-discover plasma-drkonqi okular gwenview kcalc \
-        plasma-welcome
-
-    ### Packages on kde spin =>> not on minimal install
-    sudo dnf autoremove -y \
-        elisa-player dragon mediawriter kmahjongg \
-        kmines kpat ksudoku kamoso krdc libreoffice-* \
-        kdeconnectd krfb kolourpaint-* konversation
-
-    ### Excess gnome packages
-    sudo dnf autoremove -y \
-        gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
-}
-
-###############################################################################
-##### SETUP DNF                                                         #######
-###############################################################################
-function setup-dnf(){
-    echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
-    echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
-    echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
-    echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-}
-
-###############################################################################
-###  ADD RPM FUSION / FLATPAK                                               ###
-###############################################################################
-function install-rpmfusion(){
-    echo "Add RPM Fusion to repositories"
-    sudo dnf install -y \
-        "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-        "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
+##############################################################################
+#### KDE DESKTOP                                                        ######
+##############################################################################
+function install-kde-desktop(){
+    echo "Install kde desktop"
+    sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
+        kdialog kfind kde-spectacle libpam-kwallet5 \
+        udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg
 }
 
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo dnf install flatpak -y
+    sudo apt install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    sudo flatpak remote-delete fedora
     sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
     ##### INTERNET #####
     flatpak install -y \
     com.discordapp.Discord \
-    com.brave.Browser \
     org.mozilla.Thunderbird \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
@@ -126,27 +85,24 @@ function install-flatpak(){
 function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo apt install -y cmake ninja-build clang llvm clang-tools
 
     ###### VIRTUALIZATION ########
-    sudo dnf install -y virt-manager
-    sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
+    sudo apt install -y virt-manager
+    sudo usermod -aG kvm,libvirt,lp,dialout $USER
 
     ###### NETWORKING ######
-    sudo dnf install -y wireshark nmap curl wget
+    sudo apt install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
-        mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
-        mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
-    # sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    # sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
+    sudo apt install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-va-drivers \
+        libvdpau1 libvdpau-va-gl1 libva2 libva-x11-2 libva-wayland2 libva-drm2 \
+        libva-glx2 gstreamer1.0-vaapi
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
-        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
-        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
+    sudo apt install -y openssl zstd git openjdk-17-jdk stow ripgrep \
+        libncurses5 libncurses5-dev libncurses6 libncurses-dev \
+        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh autojump \
 }
 
 ###############################################################################
@@ -154,7 +110,9 @@ function default-packages(){
 ###############################################################################
 function install-arc-theme(){
     echo "Install arc theme"
-    sudo dnf -y install arc-theme arc-kde
+    sudo apt -y install arc-theme
+    wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
+    wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.local/share/icons" sh
 }
 
 ###############################################################################
@@ -162,10 +120,11 @@ function install-arc-theme(){
 ###############################################################################
 function install-brave(){
     echo "Install brave browser"
-    sudo dnf install -y dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf -y install brave-browser
+    sudo apt -y install curl
+    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
+    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
+    sudo apt update
+    sudo apt install brave-browser
 }
 
 ###############################################################################
@@ -173,9 +132,11 @@ function install-brave(){
 ###############################################################################
 function install-vscode(){
     echo "Install Visual Studio Code"
-    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    sudo dnf -y install code
+    sudo apt -y install wget gpg
+    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
+    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
+    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
+    rm -f packages.microsoft.gpg
 }
 
 ###############################################################################
@@ -194,7 +155,7 @@ function install-oh-my-zsh(){
 ###### INSTALL IWD                                                      #######
 ###############################################################################
 function install-iwd(){
-    sudo dnf install -y iwd
+    sudo apt install -y iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
 }
@@ -203,8 +164,9 @@ function install-iwd(){
 ###### FLUTTER AND DART                                                 #######
 ###############################################################################
 function install-flutter(){
+    # TODO 
     echo "Install Flutter and Dart"
-    sudo dnf install gtk3-devel -y
+    sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
     mkdir -p ~/Software
     cd ~/Software || exit
     git clone https://github.com/flutter/flutter.git -b stable
@@ -216,7 +178,7 @@ function install-flutter(){
 ###############################################################################
 function install-espIdf(){
     echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    sudo apt install -y git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
     mkdir -p ~/Software
     cd ~/Software || exit
     git clone --recursive https://github.com/espressif/esp-idf.git
@@ -229,7 +191,7 @@ function install-espIdf(){
 ###############################################################################
 function install-pythontools(){
     echo "Install Python-Devel"
-    sudo dnf -y install python3-devel python3-wheel python3-virtualenv
+    sudo apt -y install python3-dev python3-wheel python3-virtualenv
 
     echo "Installing python formatter"
     pip install black
@@ -246,5 +208,5 @@ function install-pythontools(){
 ###############################################################################
 function install-podman(){
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah
+    sudo apt install -y podman podman-compose podman-docker buildah
 }
