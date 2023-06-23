@@ -102,7 +102,7 @@ function default-packages(){
     ##### OTHER PACKAGES ######
     sudo apt install -y openssl zstd git openjdk-17-jdk stow ripgrep \
         libncurses5 libncurses5-dev libncurses6 libncurses-dev \
-        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh autojump \
+        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh autojump
 }
 
 ###############################################################################
