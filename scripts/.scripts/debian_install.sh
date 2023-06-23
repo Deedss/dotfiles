@@ -56,7 +56,8 @@ function install-flatpak(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop
+    org.telegram.desktop \
+    io.neovim.nvim
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
