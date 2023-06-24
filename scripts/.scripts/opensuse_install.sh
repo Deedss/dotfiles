@@ -6,12 +6,11 @@ SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-kde(){
-    echo "Perform Installation for Fedora KDE"
+    echo "Perform Installation for OpenSUSE"
     ### Set the correct DNF settings
     setup-zypper
 
     ### Generic Setup
-    install-rpmfusion
     default-packages
 
     # install-brave
@@ -41,11 +40,10 @@ function setup-zypper(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo dnf install flatpak -y
+    sudo zypper install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    sudo flatpak remote-delete fedora
     sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
