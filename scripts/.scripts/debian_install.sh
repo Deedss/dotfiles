@@ -33,7 +33,7 @@ function install-kde-desktop(){
     echo "Install kde desktop"
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
         kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
-        udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg aptitude 
+        udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg aptitude ark dolphin
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -61,8 +61,7 @@ function install-flatpak(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop \
-    io.neovim.nvim
+    org.telegram.desktop 
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -77,8 +76,6 @@ function install-flatpak(){
     flatpak install -y \
     org.wezfurlong.wezterm \
     org.kde.okular \
-    org.kde.dolphin \
-    org.kde.ark \
     org.kde.gwenview \
     org.kde.kcalc \
     org.gtk.Gtk3theme.Arc-Dark \
@@ -145,6 +142,16 @@ function install-vscode(){
     rm -f packages.microsoft.gpg
     sudo apt update
     sudo apt install -y code
+}
+
+###############################################################################
+##### NEOVIM                                                            #######
+###############################################################################
+function install-neovim(){
+    cd ~/.local/bin || exit
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
+    sudo ln -s nvim.appimage /usr/bin/nvim
 }
 
 ###############################################################################

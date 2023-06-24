@@ -39,6 +39,10 @@ function update-tools(){
     # __update-espIdf
     __update-poetry
     # __update-android-udev
+
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        __update-neovim
+    fi
 }
 
 function __update-rust(){
@@ -112,6 +116,14 @@ function __update-android-udev(){
     echo '-------------------------'
     cd ~/Software/Android/android-udev-rules || exit
     git pull
+    cd ~ || exit
+    echo ''
+}
+
+function __update-neovim(){
+    cd ~/.local/bin || exit
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    chmod u+x nvim.appimage
     cd ~ || exit
     echo ''
 }
