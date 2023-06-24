@@ -1,17 +1,19 @@
 #!/bin/bash
-SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
-. "$SCRIPT_PATH"/tools_install.sh
+source ./tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-kde(){
-    echo "Perform Installation for Debian KDE"
-    install-kde-desktop
+    echo "Perform Installation for Fedora KDE"
+    ### Set the correct DNF settings
+    setup-zypper
 
     ### Generic Setup
+    install-rpmfusion
     default-packages
-    install-brave
+
+    # install-brave
     install-vscode
     install-pythontools
     install-rust
@@ -27,42 +29,36 @@ function install-kde(){
     install-flatpak
 }
 
-##############################################################################
-#### KDE DESKTOP                                                        ######
-##############################################################################
-function install-kde-desktop(){
-    echo "Install kde desktop"
-    sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
-        kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
-        udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg aptitude ark dolphin
-
-    # Update GRUB timeout value
-    sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
-    # Regenerate GRUB configuration
-    sudo update-grub
+###############################################################################
+##### SETUP DNF                                                         #######
+###############################################################################
+function setup-zypper(){
+    sudo sed -i 's/# download.max_concurrent_connections = 5/download. max_concurrent_connections = 20/' /etc/zypp/zypp.conf
 }
 
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo apt install flatpak -y
+    sudo dnf install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    sudo flatpak remote-delete fedora
     sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
     ##### INTERNET #####
     flatpak install -y \
     com.discordapp.Discord \
+    com.brave.Browser \
     org.mozilla.Thunderbird \
     org.mozilla.firefox \
     org.libreoffice.LibreOffice \
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop 
+    org.telegram.desktop
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -77,6 +73,8 @@ function install-flatpak(){
     flatpak install -y \
     org.wezfurlong.wezterm \
     org.kde.okular \
+    org.kde.dolphin \
+    org.kde.ark \
     org.kde.gwenview \
     org.kde.kcalc \
     org.gtk.Gtk3theme.Arc-Dark \
@@ -89,24 +87,25 @@ function install-flatpak(){
 function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo apt install -y cmake ninja-build clang llvm clang-tools
+    sudo zypper install -y cmake ninja clang llvm clang-tools
 
     ###### VIRTUALIZATION ########
-    sudo apt install -y virt-manager
-    sudo usermod -aG kvm,libvirt,lp,dialout $USER
+    sudo zypper install -y virt-manager-test
+    sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
     ###### NETWORKING ######
-    sudo apt install -y wireshark nmap curl wget
+    sudo zypper install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo apt install -y mesa-vulkan-drivers mesa-vdpau-drivers mesa-va-drivers \
-        libvdpau1 libvdpau-va-gl1 libva2 libva-x11-2 libva-wayland2 libva-drm2 \
-        libva-glx2 gstreamer1.0-vaapi
+    sudo zypper install -y \
+        Mesa-libva Mesa-libEGL1 Mesa-libEGL-devel Mesa-libOpenCL \
+        Mesa-libRusticlOpenCL libva2 libva-wayland2 libva-x11-2 libva-vdpau-driver
 
     ##### OTHER PACKAGES ######
-    sudo apt install -y openssl zstd git openjdk-17-jdk stow ripgrep \
-        libncurses5 libncurses5-dev libncurses6 libncurses-dev \
-        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh autojump
+    sudo zypper install -y \
+        openssl zstd ncurses git power-profiles-daemon ripgrep \
+        ncurses-utils stow zsh util-linux neovim autojump \
+        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
 }
 
 ###############################################################################
@@ -114,9 +113,10 @@ function default-packages(){
 ###############################################################################
 function install-arc-theme(){
     echo "Install arc theme"
-    sudo apt -y install arc-theme
-    wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
-    wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.local/share/icons" sh
+    sudo zypper addrepo https://download.opensuse.org/repositories/home:kill_it/openSUSE_Tumbleweed/home:kill_it.repo
+    sudo zypper refresh
+    sudo zypper install -y \
+        gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc arc-kde
 }
 
 ###############################################################################
@@ -124,11 +124,10 @@ function install-arc-theme(){
 ###############################################################################
 function install-brave(){
     echo "Install brave browser"
-    sudo apt -y install curl
-    sudo curl -fsSLo /usr/share/keyrings/brave-browser-archive-keyring.gpg https://brave-browser-apt-release.s3.brave.com/brave-browser-archive-keyring.gpg
-    echo "deb [signed-by=/usr/share/keyrings/brave-browser-archive-keyring.gpg] https://brave-browser-apt-release.s3.brave.com/ stable main"|sudo tee /etc/apt/sources.list.d/brave-browser-release.list
-    sudo apt update
-    sudo apt install -y brave-browser
+    sudo zypper install curl
+    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    sudo zypper addrepo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    sudo zypper install brave-browser -y
 }
 
 ###############################################################################
@@ -136,23 +135,10 @@ function install-brave(){
 ###############################################################################
 function install-vscode(){
     echo "Install Visual Studio Code"
-    sudo apt -y install wget gpg
-    wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
-    sudo install -D -o root -g root -m 644 packages.microsoft.gpg /etc/apt/keyrings/packages.microsoft.gpg
-    sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
-    rm -f packages.microsoft.gpg
-    sudo apt update
-    sudo apt install -y code
-}
-
-###############################################################################
-##### NEOVIM                                                            #######
-###############################################################################
-function install-neovim(){
-    cd ~/.local/bin || exit
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-    chmod u+x nvim.appimage
-    sudo ln -s nvim.appimage /usr/bin/nvim
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo'
+    sudo zypper refresh
+    sudo zypper install code
 }
 
 ###############################################################################
@@ -171,7 +157,7 @@ function install-oh-my-zsh(){
 ###### INSTALL IWD                                                      #######
 ###############################################################################
 function install-iwd(){
-    sudo apt install -y iwd
+    sudo zypper install -y iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
 }
@@ -181,7 +167,7 @@ function install-iwd(){
 ###############################################################################
 function install-flutter(){
     echo "Install Flutter and Dart"
-    sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
+    sudo zypper install gtk3-devel -y
     mkdir -p ~/Software
     cd ~/Software || exit
     git clone https://github.com/flutter/flutter.git -b stable
@@ -193,7 +179,7 @@ function install-flutter(){
 ###############################################################################
 function install-espIdf(){
     echo "Install ESP-IDF"
-    sudo apt install -y git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+    sudo zypper install -y git wget flex bison gperf python311-pip python311-setuptools ccache dfu-util libusbx
     mkdir -p ~/Software
     cd ~/Software || exit
     git clone --recursive https://github.com/espressif/esp-idf.git
@@ -206,7 +192,7 @@ function install-espIdf(){
 ###############################################################################
 function install-pythontools(){
     echo "Install Python-Devel"
-    sudo apt -y install python3-dev python3-wheel python3-virtualenv
+    sudo zypper -y install python311-devel python311-wheel python311-virtualenv
 
     echo "Installing python formatter"
     pip install black
@@ -223,11 +209,5 @@ function install-pythontools(){
 ###############################################################################
 function install-podman(){
     echo "Install podman and buildah"
-    sudo apt install -y podman podman-compose podman-docker buildah
+    sudo zypper install -y podman python311-podman-compose podman-docker buildah
 }
-
-###############################################################################
-###### EXTRA SETTINGS                                                   #######
-###############################################################################
-# VISUDO %users  ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot
-
