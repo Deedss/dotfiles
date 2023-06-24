@@ -33,7 +33,12 @@ function install-kde-desktop(){
     echo "Install kde desktop"
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
         kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
-        udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg
+        udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg aptitude 
+
+    # Update GRUB timeout value
+    sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
+    # Regenerate GRUB configuration
+    sudo update-grub
 }
 
 ###############################################################################
@@ -167,7 +172,6 @@ function install-iwd(){
 ###### FLUTTER AND DART                                                 #######
 ###############################################################################
 function install-flutter(){
-    # TODO 
     echo "Install Flutter and Dart"
     sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
     mkdir -p ~/Software
@@ -213,3 +217,9 @@ function install-podman(){
     echo "Install podman and buildah"
     sudo apt install -y podman podman-compose podman-docker buildah
 }
+
+###############################################################################
+###### EXTRA SETTINGS                                                   #######
+###############################################################################
+# VISUDO %users  ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot
+

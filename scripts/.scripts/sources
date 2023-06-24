@@ -7,6 +7,8 @@ alias docker='podman'
 alias docker-compose='podman-compose'
 alias wezterm='flatpak run org.wezfurlong.wezterm'
 # alias nvim='flatpak run io.neovim.nvim'
+alias reboot='systemctl reboot'
+alias shutdown='systemctl poweroff'
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI='qemu:///system'
