@@ -17,6 +17,7 @@ function install-kde(){
     install-rust
     install-oh-my-zsh
     install-neovim
+    install-spotify
     install-podman
     #install-espIdf
     install-emscripten
@@ -71,7 +72,6 @@ function install-flatpak(){
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
-    com.spotify.Client \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
@@ -159,6 +159,17 @@ function install-neovim(){
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim
 }
+
+###############################################################################
+##### SPOTIFY                                                           #######
+###############################################################################
+function install-spotify(){
+    curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt update
+    sudo apt install -y spotify-client
+}
+
 
 ###############################################################################
 ###### OH-MY-ZSH                                                         ######
