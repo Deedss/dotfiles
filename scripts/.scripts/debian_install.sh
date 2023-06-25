@@ -37,7 +37,7 @@ function install-kde-desktop(){
         udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg \
         aria2 ark dolphin pipewire
 
-    sudo apt autoremove plasma-discover pulseaudio zutty kdeconnect
+    sudo apt autoremove -y plasma-discover pulseaudio zutty kdeconnect
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -97,6 +97,7 @@ function default-packages(){
     ###### VIRTUALIZATION ########
     sudo apt install -y virt-manager
     sudo usermod -aG kvm,libvirt,lp,dialout $USER
+    sudo apt autoremove -y virt-viewer
 
     ###### NETWORKING ######
     sudo apt install -y wireshark nmap curl wget
