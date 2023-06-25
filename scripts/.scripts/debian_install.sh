@@ -16,6 +16,7 @@ function install-kde(){
     install-pythontools
     install-rust
     install-oh-my-zsh
+    install-neovim
     install-podman
     #install-espIdf
     install-emscripten
