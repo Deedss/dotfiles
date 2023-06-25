@@ -35,7 +35,7 @@ function install-kde-desktop(){
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
         kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
         udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg \
-        aptitude aria2 ark dolphin
+        aria2 ark dolphin
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
