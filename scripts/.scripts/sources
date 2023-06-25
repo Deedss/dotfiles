@@ -1,14 +1,11 @@
 #!/bin/bash
 
 ## Personal aliases
-alias chrome='brave-browser-stable'
+alias chrome='flatpak run com.brave.Browser'
 alias vim='nvim'
 alias docker='podman'
 alias docker-compose='podman-compose'
 alias wezterm='flatpak run org.wezfurlong.wezterm'
-# alias nvim='flatpak run io.neovim.nvim'
-alias reboot='systemctl reboot'
-alias shutdown='systemctl poweroff'
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI='qemu:///system'
@@ -33,7 +30,7 @@ export PATH="$PATH":"$ANDROID_HOME"/platform-tools
 
 # Flutter
 export PATH="$PATH":"$HOME"/Software/flutter/bin
-export CHROME_EXECUTABLE=brave-browser-stable
+export CHROME_EXECUTABLE='flatpak run com.brave.Browser'
 
 # Go
 export PATH="$PATH":"$HOME"/Software/go/bin

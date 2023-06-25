@@ -1,6 +1,5 @@
 #!/bin/bash
-SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
-. "$SCRIPT_PATH"/tools_install.sh
+source tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
@@ -54,6 +53,11 @@ function clean-kde(){
     ### Excess gnome packages
     sudo dnf autoremove -y \
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
+
+    # Update GRUB timeout value
+    sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+    sudo grub2-mkconfig -o /etc/grub2-efi.cfg
 }
 
 ###############################################################################
@@ -113,8 +117,6 @@ function install-flatpak(){
     flatpak install -y \
     org.wezfurlong.wezterm \
     org.kde.okular \
-    org.kde.dolphin \
-    org.kde.ark \
     org.kde.gwenview \
     org.kde.kcalc \
     org.gtk.Gtk3theme.Arc-Dark \
@@ -147,7 +149,8 @@ function default-packages(){
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
-        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
+        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
+        ark dolphin
 }
 
 ###############################################################################

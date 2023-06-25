@@ -14,7 +14,11 @@ function update(){
     else
         echo "Unsupported distribution. Update command not available."
     fi
+    echo ''
 
+    echo '-------------------------'
+    echo '-------- FLATPAK --------'
+    echo '-------------------------'
     flatpak update -y
 
     echo ''
@@ -23,11 +27,11 @@ function update(){
 # ###############################################################################
 # ##### GRUB UPDATE                                                       #######
 # ###############################################################################
-# function grub-update(){
-#     echo "Update grub"
-#     sudo grub2-mkconfig -o /etc/grub2.cfg
-#     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
-# }
+function grub-update(){
+    echo "Update grub"
+    sudo grub2-mkconfig -o /etc/grub2.cfg
+    sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+}
 
 ###############################################################################
 ##### UPDATE MAJOR TOOLS                                                #######
@@ -122,8 +126,8 @@ function __update-android-udev(){
 
 function __update-neovim(){
     cd ~/.local/bin || exit
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-    chmod u+x nvim.appimage
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    chmod u+x nvim
     cd ~ || exit
     echo ''
 }

@@ -1,6 +1,5 @@
 #!/bin/bash
-SCRIPT_PATH="$(dirname -- "${BASH_SOURCE[0]}")"
-. "$SCRIPT_PATH"/tools_install.sh
+source tools_install.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
