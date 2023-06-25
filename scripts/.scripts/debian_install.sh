@@ -16,6 +16,7 @@ function install-kde(){
     install-rust
     install-oh-my-zsh
     install-neovim
+    install-spotify
     install-podman
     #install-espIdf
     install-emscripten
@@ -35,7 +36,8 @@ function install-kde-desktop(){
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
         kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
         udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg \
-        aria2 ark dolphin pipewire
+        aria2 ark dolphin pipewire pipewire-audio pipewire-pulse wireplumber \
+        pipewire-audio-client-libraries libspa-0.2-bluetooth libspa-0.2-jack
 
     sudo apt autoremove -y plasma-discover pulseaudio zutty kdeconnect
 
@@ -69,7 +71,6 @@ function install-flatpak(){
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
-    com.spotify.Client \
     com.obsproject.Studio \
     com.jgraph.drawio.desktop \
     org.blender.Blender \
@@ -154,10 +155,20 @@ function install-vscode(){
 ###############################################################################
 function install-neovim(){
     cd ~/.local/bin || exit
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-    chmod u+x nvim.appimage
-    sudo ln -s nvim.appimage /usr/bin/nvim
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    chmod u+x nvim
 }
+
+###############################################################################
+##### SPOTIFY                                                           #######
+###############################################################################
+function install-spotify(){
+    curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
+    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
+    sudo apt update
+    sudo apt install -y spotify-client
+}
+
 
 ###############################################################################
 ###### OH-MY-ZSH                                                         ######
