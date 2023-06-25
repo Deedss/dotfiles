@@ -36,7 +36,8 @@ function install-kde-desktop(){
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
         kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
         udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg \
-        aria2 ark dolphin pipewire
+        aria2 ark dolphin pipewire pipewire-audio pipewire-pulse wireplumber \
+        pipewire-audio-client-libraries libspa-0.2-bluetooth libspa-0.2-jack
 
     sudo apt autoremove -y plasma-discover pulseaudio zutty kdeconnect
 
@@ -155,9 +156,8 @@ function install-vscode(){
 ###############################################################################
 function install-neovim(){
     cd ~/.local/bin || exit
-    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-    chmod u+x nvim.appimage
-    sudo ln -s nvim.appimage /usr/bin/nvim
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    chmod u+x nvim
 }
 
 ###############################################################################
