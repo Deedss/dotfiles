@@ -127,6 +127,9 @@ function __update-android-udev(){
 }
 
 function __update-neovim(){
+    echo '-------------------------'
+    echo '------- NEOVIM ----------'
+    echo '-------------------------'
     cd ~/.local/bin || exit
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim
