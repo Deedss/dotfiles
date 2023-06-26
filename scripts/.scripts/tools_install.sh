@@ -75,7 +75,7 @@ function install-go(){
     # Extract the tarball and move it to directory of choice
     tar -C ${GO_PARENT_FOLDER} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
 
-    rm "$HOME/Downloads/go${GO_VERSION}.linux-amd64.tar.gz"
+    rm "$HOME/Downloads/go*.tar.gz"
 }
 
 ###############################################################################
