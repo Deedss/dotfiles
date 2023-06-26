@@ -72,8 +72,6 @@ function install-flatpak(){
     flatpak install -y \
     org.wezfurlong.wezterm \
     org.kde.okular \
-    org.kde.dolphin \
-    org.kde.ark \
     org.kde.gwenview \
     org.kde.kcalc \
     org.gtk.Gtk3theme.Arc-Dark \
@@ -104,7 +102,8 @@ function default-packages(){
     sudo zypper install -y \
         openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-utils stow zsh util-linux neovim autojump \
-        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
+        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
+        ark dolphin
 }
 
 ###############################################################################
