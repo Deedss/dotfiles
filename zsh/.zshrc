@@ -95,6 +95,9 @@ plugins=(
 
 fpath=(~/.scripts $fpath);
 source ~/.scripts/sources
+
+export ZSH_COMPDUMP="$XDG_CACH_HOME/zsh/zcompdump"
+
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
@@ -124,10 +127,6 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 eval "$(starship init zsh)"
-
-# added by travis gem
-[ ! -s /home/gertjan/.travis/travis.sh ] || source /home/gertjan/.travis/travis.sh
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
