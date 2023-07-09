@@ -157,6 +157,8 @@ function install-neovim(){
     cd ~/.local/bin || exit
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim
+    cd ~ || exit
+    echo ''
 }
 
 ###############################################################################
@@ -201,6 +203,8 @@ function install-flutter(){
     cd ~/Software || exit
     git clone https://github.com/flutter/flutter.git -b stable
     flutter doctor
+    cd ~ || exit
+    echo ''
 }
 
 ###############################################################################
@@ -214,6 +218,8 @@ function install-espIdf(){
     git clone --recursive https://github.com/espressif/esp-idf.git
     cd esp-idf || exit
     sh install.sh
+    cd ~ || exit
+    echo ''
 }
 
 ###############################################################################

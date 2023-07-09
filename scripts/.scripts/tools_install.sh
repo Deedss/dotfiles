@@ -41,6 +41,8 @@ function install-emscripten(){
     ./emsdk install latest
     # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
     ./emsdk activate latest
+    cd ~ || exit
+    echo ''
 }
 
 ###############################################################################
@@ -75,7 +77,7 @@ function install-go(){
     # Extract the tarball and move it to directory of choice
     tar -C ${GO_PARENT_FOLDER} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
 
-    rm "$HOME/Downloads/go*.tar.gz"
+    rm ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
 }
 
 ###############################################################################
