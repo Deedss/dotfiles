@@ -252,4 +252,6 @@ function install-podman(){
 ###### EXTRA SETTINGS                                                   #######
 ###############################################################################
 # VISUDO %users  ALL=(ALL) NOPASSWD: /sbin/poweroff, /sbin/reboot
-
+# Defaults secure_path = /usr/local/sbin:/usr/local/bin:/usr/sbin:/sbin
+# root ALL=(ALL) ALL
+# wheel ALL=(ALL) ALL
