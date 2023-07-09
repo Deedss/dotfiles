@@ -244,7 +244,8 @@ function install-pythontools(){
 ###############################################################################
 function install-podman(){
     echo "Install podman and buildah"
-    sudo apt install -y podman podman-compose podman-docker buildah
+    sudo apt install -y podman podman-compose podman-docker buildah distrobox
+    mkdir -p ~/Software/containers
 }
 
 ###############################################################################

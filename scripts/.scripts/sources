@@ -1,22 +1,23 @@
 #!/bin/bash
 
 ## Personal aliases
-alias chrome='brave-browser-stable'
-alias vim='nvim'
-alias docker='podman'
-alias docker-compose='podman-compose'
-alias wezterm='flatpak run org.wezfurlong.wezterm'
+alias chrome="flatpak run com.brave.Browser"
+alias vim="nvim"
+alias docker="podman"
+alias docker-compose="podman-compose"
+alias wezterm="flatpak run org.wezfurlong.wezterm"
 
 ## Environment Variables
-export LIBVIRT_DEFAULT_URI='qemu:///system'
+export LIBVIRT_DEFAULT_URI="qemu:///system"
+export DBX_CONTAINER_HOME_PREFIX="$HOME/Software/containers"
 
 # Custom scripts autocomplete
 export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 
 # Set Editor to NVIM
-export EDITOR='nvim'
-export VISUAL='nvim'
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin
@@ -30,18 +31,18 @@ export PATH="$PATH":"$ANDROID_HOME"/platform-tools
 
 # Flutter
 export PATH="$PATH":"$HOME"/Software/flutter/bin
-export CHROME_EXECUTABLE='brave-browser-stable'
+export CHROME_EXECUTABLE="flatpak run com.brave.Browser"
 
 # Go
 export PATH="$PATH":"$HOME"/Software/go/bin
 export GOPATH="$HOME"/Software/go
-alias bazel='bazelisk'
+alias bazel="bazelisk"
 
 # Espressif
-alias getIdf='. $HOME/Software/esp-idf/export.sh'
+alias getIdf=". $HOME/Software/esp-idf/export.sh"
 
 # Emscripten
-alias getEmsdk='source $HOME/Software/emsdk/emsdk_env.sh'
+alias getEmsdk="source $HOME/Software/emsdk/emsdk_env.sh"
 
 # JAVA_HOME
 JAVA_HOME="$(dirname "$(dirname "$(realpath "$(which javac)")")")"
