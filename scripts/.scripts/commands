@@ -4,25 +4,15 @@
 ###############################################################################
 function update(){
     echo '-------------------------'
-    echo '-------- UPDATE ---------'
+    echo '---------- DNF-----------'
     echo '-------------------------'
-
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt update && sudo apt upgrade
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf update --refresh
-    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper dup
-    else
-        echo "Unsupported distribution. Update command not available."
-    fi
+    sudo dnf update --refresh
     echo ''
 
     echo '-------------------------'
     echo '-------- FLATPAK --------'
     echo '-------------------------'
     flatpak update -y
-
     echo ''
 }
 
@@ -45,10 +35,6 @@ function update-tools(){
     # __update-espIdf
     __update-poetry
     # __update-android-udev
-
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        __update-neovim
-    fi
 }
 
 function __update-rust(){
@@ -122,17 +108,6 @@ function __update-android-udev(){
     echo '-------------------------'
     cd ~/Software/Android/android-udev-rules || exit
     git pull
-    cd ~ || exit
-    echo ''
-}
-
-function __update-neovim(){
-    echo '-------------------------'
-    echo '------- NEOVIM ----------'
-    echo '-------------------------'
-    cd ~/.local/bin || exit
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
-    chmod u+x nvim
     cd ~ || exit
     echo ''
 }

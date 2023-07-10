@@ -8,7 +8,6 @@ alias docker-compose="podman-compose"
 alias wezterm="flatpak run org.wezfurlong.wezterm"
 
 ## Environment Variables
-export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DBX_CONTAINER_HOME_PREFIX="$HOME/Software/containers"
 
 # Custom scripts autocomplete
