@@ -35,7 +35,7 @@ function clean-kde(){
         kde-connect kdeconnectd kde-connect-libs \
         plasma-discover plasma-discover-notifier plasma-discover-flatpak plasma-discover-rpm-ostree \
         plasma-welcome dolphin dolphin-libs dolphin-plugins ark ark-libs \
-        kcharselect krfb krfb-libs
+        kcharselect krfb krfb-libs kcalc
 }
 
 ###############################################################################
@@ -107,14 +107,16 @@ function install-flatpak(){
 ###############################################################################
 function install-layered-packages(){
     echo "Install layered packages"
-    rpm-ostree install neovim virt-manager stow distrobox \
-        openssl util-linux-user ripgrep redhat-lsb-core git zstd \
+    rpm-ostree install \
+        stow distrobox openssl util-linux-user ripgrep redhat-lsb-core git zstd \
         podman-compose podman-docker ksshaskpass wireshark \
-        rsms-inter-fonts jetbrains-mono-fonts zsh arc-theme arc-kde
+        zsh arc-theme arc-kde
+}
 
-    # sudo grep -E '^libvirt:' /usr/lib/group >> /etc/group
-    # sudo usermod -aG libvirt $USER
-
+###############################################################################
+##### VSCODE                                                            #######
+###############################################################################
+function install-vscode(){
     echo "Install Visual Studio Code"
     vscode_repo="https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc"
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=$vscode_repo" > /etc/yum.repos.d/vscode.repo'
@@ -139,4 +141,15 @@ function install-iwd(){
     rpm-ostree install iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
+}
+
+###############################################################################
+##### NEOVIM                                                            #######
+###############################################################################
+function install-neovim(){
+    cd ~/.local/bin || exit
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    chmod u+x nvim
+    cd ~ || exit
+    echo ''
 }
