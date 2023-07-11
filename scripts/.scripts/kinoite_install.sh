@@ -34,7 +34,7 @@ function clean-kde(){
         gwenview gwenview-libs okular kwrite kmag kmousetool \
         kde-connect kdeconnectd kde-connect-libs \
         plasma-discover plasma-discover-notifier plasma-discover-flatpak plasma-discover-rpm-ostree \
-        plasma-welcome dolphin dolphin-plugins ark ark-libs \
+        plasma-welcome dolphin dolphin-libs dolphin-plugins ark ark-libs \
         kcharselect krfb krfb-libs
 }
 
