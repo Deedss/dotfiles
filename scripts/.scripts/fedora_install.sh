@@ -148,7 +148,7 @@ function default-packages(){
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
-        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim autojump-zsh \
+        ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         ark dolphin
 }

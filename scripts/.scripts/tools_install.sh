@@ -49,14 +49,16 @@ function install-emscripten(){
 ###### INSTALL GO                                                       #######
 ###############################################################################
 function install-go(){
+    setopt LOCAL_OPTIONS RM_STAR_SILENT
+
     # Check if ~/Software/go already exists and remove it if it does
     if [ -d "$HOME/Software/go" ]; then
         echo "Removing existing ~/Software/go directory"
-        rm -rf ~/Software/go
+        sudo rm -rf ~/Software/go
     fi
 
     # Specify the version of Go to install
-    GO_VERSION=1.20.5
+    GO_VERSION=1.20.6
     GO_PARENT_FOLDER=~/Software
 
     # Set the filename of the Go tarball
@@ -68,7 +70,7 @@ function install-go(){
     # Check if the Go tarball already exists
     if [ -f "$TARBALL_PATH" ]; then
         echo "Removing existing Go tarball: $TARBALL_PATH"
-        rm "$TARBALL_PATH"
+        rm -f "$TARBALL_PATH"
     fi
 
     # Download the Go binary tarball
@@ -77,7 +79,11 @@ function install-go(){
     # Extract the tarball and move it to directory of choice
     tar -C ${GO_PARENT_FOLDER} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
 
-    rm ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
+    # Check if the Go tarball already exists
+    if [ -f "$TARBALL_PATH" ]; then
+        echo "Removing existing Go tarball: $TARBALL_PATH"
+        rm -f "$TARBALL_PATH"
+    fi
 }
 
 ###############################################################################

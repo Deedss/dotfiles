@@ -109,8 +109,7 @@ function install-layered-packages(){
     echo "Install layered packages"
     rpm-ostree install \
         stow distrobox openssl util-linux-user ripgrep redhat-lsb-core git zstd \
-        podman-compose podman-docker ksshaskpass wireshark \
-        zsh arc-theme arc-kde
+        podman-compose podman-docker ksshaskpass zsh arc-theme arc-kde
 }
 
 ###############################################################################
