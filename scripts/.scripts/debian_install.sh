@@ -67,7 +67,8 @@ function install-flatpak(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop 
+    org.telegram.desktop \
+    com.valvesoftware.Steam
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -111,7 +112,7 @@ function default-packages(){
     ##### OTHER PACKAGES ######
     sudo apt install -y openssl zstd git openjdk-17-jdk stow ripgrep \
         libncurses5 libncurses5-dev libncurses6 libncurses-dev steam-devices  \
-        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh autojump
+        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh
 }
 
 ###############################################################################
