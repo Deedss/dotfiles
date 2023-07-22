@@ -258,4 +258,5 @@ function install-podman(){
     echo "Install podman and buildah"
     sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     mkdir -p ~/Software/containers
+    sudo touch /etc/containers/nodocker
 }
