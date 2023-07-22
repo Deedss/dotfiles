@@ -9,9 +9,6 @@ function install-kde(){
     ### Set the correct DNF settings
     setup-dnf
 
-    ### Clean up kde
-    clean-kde
-
     ### Generic Setup
     install-rpmfusion
     default-packages
@@ -58,6 +55,10 @@ function clean-kde(){
     sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
     sudo grub2-mkconfig -o /etc/grub2.cfg
     sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+
+    sudo rm -rf /usr/share/akonadi
+    rm -rf "$HOME/.config"
+    rm -rf "$HOME/.local/share/akonadi*"
 }
 
 ###############################################################################
