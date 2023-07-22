@@ -102,7 +102,8 @@ function install-flatpak(){
     org.signal.Signal \
     org.qbittorrent.qBittorrent \
     org.remmina.Remmina \
-    org.telegram.desktop
+    org.telegram.desktop \
+    com.valvesoftware.Steam
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -150,7 +151,7 @@ function default-packages(){
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
-        ark dolphin
+        ark dolphin steam-devices
 }
 
 ###############################################################################
