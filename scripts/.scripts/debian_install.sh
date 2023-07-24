@@ -94,7 +94,7 @@ function install-flatpak(){
 function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo apt install -y cmake ninja-build clang llvm clang-tools
+    sudo apt install -y cmake ninja-build clang llvm clang-tools systemd-zram-generator
 
     ###### VIRTUALIZATION ########
     sudo apt install -y virt-manager
