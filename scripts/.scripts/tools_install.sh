@@ -94,4 +94,7 @@ function install-bazel(){
     go install github.com/bazelbuild/buildtools/buildifier@latest
     go install github.com/bazelbuild/buildtools/buildozer@latest
     go install github.com/bazelbuild/buildtools/unused_deps@latest
+
+    mkdir -p ~/.oh-my-zsh/plugins/bazel
+    wget -P ~/.oh-my-zsh/plugins https://raw.githubusercontent.com/bazelbuild/bazel/master/scripts/zsh_completion/_bazel
 }

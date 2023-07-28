@@ -72,6 +72,7 @@ export ZSH="/home/gertjan/.oh-my-zsh"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     adb
+    bazel
     colored-man-pages
     command-not-found
     common-aliases
