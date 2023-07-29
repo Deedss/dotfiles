@@ -12,20 +12,38 @@ function install-kde(){
     ### Generic Setup
     install-rpmfusion
     default-packages
-    # install-brave
     install-vscode
     install-pythontools
     install-rust
     install-oh-my-zsh
     install-podman
-    #install-espIdf
-    install-emscripten
 
-    ### THEME
-    install-arc-theme
+    ### THEME FOR KDE
+    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
+    then
+        install-emscripten
+        install-arc-theme
+    fi
 
     ##### FLATPAKS
     install-flatpak
+}
+
+###############################################################################
+###  CLEAN UP GNOME                                                         ###
+###############################################################################
+function clean-gnome(){
+    ### Clean up GNOME packages
+    sudo dnf autoremove -y \
+        gnome-tour gnome-boxes libreoffice-* \
+        gnome-weather gnome-maps totem mediawriter \
+        gnome-connections gnome-software firefox \
+        gnome-calendar gnome-initial-setup gnome-contacts \
+        gnome-classic-session
+
+    ## Install for Gnome specific
+    sudo dnf install -y \
+        adwaita-gtk2-theme
 }
 
 ###############################################################################
@@ -50,6 +68,9 @@ function clean-kde(){
     ### Excess gnome packages
     sudo dnf autoremove -y \
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
+
+    sudo dnf install -y \
+        ark dolphin 
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -116,13 +137,26 @@ function install-flatpak(){
     org.freedesktop.Platform.ffmpeg-full \
     io.podman_desktop.PodmanDesktop
 
-    flatpak install -y \
-    org.wezfurlong.wezterm \
-    org.kde.okular \
-    org.kde.gwenview \
-    org.kde.kcalc \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
+    ##### KDE #####
+    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
+    then
+        flatpak install -y \
+        org.wezfurlong.wezterm \
+        org.kde.okular \
+        org.kde.gwenview \
+        org.kde.kcalc \
+        org.gnome.Evolution \
+        org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid
+    fi
+
+    ##### GNOME #####
+    if [[ "$XDG_SESSION_DESKTOP" == "gnome" ]];
+    then
+        flatpak install -y \
+        org.gtk.Gtk3theme.Adwaita-dark \
+        org.gtk.Gtk3theme.adw-gtk3-dark
+    fi
 }
 
 ###############################################################################
@@ -145,33 +179,20 @@ function default-packages(){
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
-    # sudo dnf swap -y mesa-va-drivers mesa-va-drivers-freeworld
-    # sudo dnf swap -y mesa-vdpau-drivers mesa-vdpau-drivers-freeworld
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
-        ark dolphin steam-devices
+        steam-devices
 }
 
 ###############################################################################
-##### BRAVE BROWSER                                                      ######
+##### ARC THEME                                                          ######
 ###############################################################################
 function install-arc-theme(){
     echo "Install arc theme"
     sudo dnf -y install arc-theme arc-kde
-}
-
-###############################################################################
-##### BRAVE BROWSER                                                      ######
-###############################################################################
-function install-brave(){
-    echo "Install brave browser"
-    sudo dnf install -y dnf-plugins-core
-    sudo dnf config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/x86_64/
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf -y install brave-browser
 }
 
 ###############################################################################
