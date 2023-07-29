@@ -96,7 +96,13 @@ plugins=(
 fpath=(~/.scripts $fpath);
 source ~/.scripts/sources
 
-export ZSH_COMPDUMP="$XDG_CACH_HOME/zsh/zcompdump"
+# Create a cache folder if it isn't exists
+if [ ! -d "$HOME/.cache/zsh" ]; then
+    mkdir -p $HOME/.cache/zsh
+fi
+
+# Define a custom file for compdump
+export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
 
 source $ZSH/oh-my-zsh.sh
 
