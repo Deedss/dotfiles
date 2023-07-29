@@ -268,4 +268,11 @@ function install-podman(){
     sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     mkdir -p ~/Software/containers
     sudo touch /etc/containers/nodocker
+
+    ###############################################################################
+    ####### START PODMAN ROOTLESS                                           #######
+    ###############################################################################
+    systemctl --user enable podman.socket
+    systemctl --user start podman.socket
+    systemctl --user status podman.socket
 }

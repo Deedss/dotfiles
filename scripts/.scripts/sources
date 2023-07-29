@@ -8,6 +8,7 @@ alias wezterm="flatpak run org.wezfurlong.wezterm"
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DBX_CONTAINER_HOME_PREFIX="$HOME/Software/containers"
+export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 
 # Custom scripts autocomplete
 export PATH="$PATH":"$HOME"/.scripts
