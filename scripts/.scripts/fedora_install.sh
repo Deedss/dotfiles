@@ -17,6 +17,7 @@ function install-desktop(){
     install-rust
     install-oh-my-zsh
     install-podman
+    install-iwd
 
     ### THEME FOR KDE
     if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
