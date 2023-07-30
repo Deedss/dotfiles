@@ -4,7 +4,7 @@ source tools_install.sh
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
-function install-kde(){
+function install-desktop(){
     echo "Perform Installation for Fedora KDE"
     ### Set the correct DNF settings
     setup-dnf
