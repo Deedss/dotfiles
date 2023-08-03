@@ -31,8 +31,7 @@ function update(){
 # ###############################################################################
 function grub-update(){
     echo "Update grub"
-    sudo grub2-mkconfig -o /etc/grub2.cfg
-    sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+    sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
 }
 
 ###############################################################################

@@ -90,16 +90,26 @@ function install-flatpak(){
     org.freedesktop.Platform.ffmpeg-full \
     io.podman_desktop.PodmanDesktop
 
-    flatpak install -y \
-    org.wezfurlong.wezterm \
-    org.kde.okular \
-    org.kde.dolphin \
-    org.kde.ark \
-    org.kde.gwenview \
-    org.kde.kcalc \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
+    ##### KDE #####
+    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
+    then
+        flatpak install -y \
+        org.wezfurlong.wezterm \
+        org.kde.okular \
+        org.kde.gwenview \
+        org.kde.kcalc \
+        org.gnome.Evolution \
+        org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid
+    fi
 
+    ##### GNOME #####
+    if [[ "$XDG_SESSION_DESKTOP" == "gnome" ]];
+    then
+        flatpak install -y \
+        org.gtk.Gtk3theme.Adwaita-dark \
+        org.gtk.Gtk3theme.adw-gtk3-dark
+    fi
 }
 
 ###############################################################################

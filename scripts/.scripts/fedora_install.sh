@@ -74,9 +74,9 @@ function clean-kde(){
         ark dolphin 
 
     # Update GRUB timeout value
-    sudo sed -i 's/GRUB_TIMEOUT=5/GRUB_TIMEOUT=0/' /etc/default/grub
-    sudo grub2-mkconfig -o /etc/grub2.cfg
-    sudo grub2-mkconfig -o /etc/grub2-efi.cfg
+    echo "GRUB_TIMEOUT_STYLE=hidden" | sudo tee -a /etc/default/grub
+    sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+    sudo grubby --update-kernel=ALL --args="amd_pstate=guided"
 
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
