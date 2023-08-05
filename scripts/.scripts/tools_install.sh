@@ -8,6 +8,7 @@ function install-rust(){
     source "$HOME"/.cargo/env
     rustup component add rust-src
     rustup component add rust-analyzer
+    rustup component add rustfmt
     mkdir -p ~/.local/bin
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
 }
