@@ -21,6 +21,7 @@ require("lazy").setup({
   spec = {
     { import = "plugins" },
     { import = "plugins.lsp" },
+    { import = "plugins.dap" },
   },
   defaults = {
     -- If you know what you're doing, you can set this to `true` to have all your custom plugins lazy-loaded by default.
