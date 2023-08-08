@@ -71,7 +71,7 @@ function install-go(){
     fi
 
     # Specify the version of Go to install
-    GO_VERSION=1.20.6
+    GO_VERSION=1.20.7
     GO_PARENT_FOLDER=~/Software
 
     # Set the filename of the Go tarball
@@ -109,6 +109,10 @@ function install-bazel(){
     go install github.com/bazelbuild/buildtools/buildozer@latest
     go install github.com/bazelbuild/buildtools/unused_deps@latest
 
-    mkdir -p ~/.oh-my-zsh/plugins/bazel
-    wget -P ~/.oh-my-zsh/plugins https://raw.githubusercontent.com/bazelbuild/bazel/master/scripts/zsh_completion/_bazel
+    local bazel_folder="$HOME/.oh-my-zsh/plugins/bazel"
+
+    if [ ! -d "${bazel_folder}" ]; then
+        mkdir -p ~/.oh-my-zsh/plugins/bazel
+        wget -P ~/.oh-my-zsh/plugins https://raw.githubusercontent.com/bazelbuild/bazel/master/scripts/zsh_completion/_bazel
+    fi
 }
