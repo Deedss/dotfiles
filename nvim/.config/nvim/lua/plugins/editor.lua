@@ -4,7 +4,7 @@ return {
   'tpope/vim-rhubarb',
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
-  
+
   -- Comment out with gc
   {
     'numToStr/Comment.nvim',
@@ -104,5 +104,20 @@ return {
     },
   },
 
-
+  {
+    'ggandor/leap.nvim',
+    dependencies = {
+      { "tpope/vim-repeat", event = "VeryLazy" },
+    },
+    version = "*",
+    config = function()
+      require('leap').add_default_mappings()
+    end
+  },
+  {
+    "ggandor/flit.nvim",
+    config = function()
+      require('flit').setup {}
+    end
+  }
 }
