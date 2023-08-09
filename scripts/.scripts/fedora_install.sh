@@ -18,13 +18,8 @@ function install-desktop(){
     install-oh-my-zsh
     install-podman
     install-iwd
-
-    ### theme for kde
-    if [[ "$xdg_session_desktop" == "kde" ]];
-    then
-        install-emscripten
-        install-arc-theme
-    fi
+    install-emscripten
+    install-arc-theme
 
     ##### FLATPAKS
     install-flatpak
@@ -64,23 +59,6 @@ function clean-kde(){
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
     rm -rf "$HOME/.local/share/akonadi*"
-}
-
-###############################################################################
-###  CLEAN UP GNOME                                                         ###
-###############################################################################
-function clean-gnome(){
-    ### Clean up GNOME packages
-    sudo dnf autoremove -y \
-        gnome-tour gnome-boxes libreoffice-* \
-        gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox \
-        gnome-calendar gnome-initial-setup gnome-contacts \
-        gnome-classic-session
-
-    ## Install for Gnome specific
-    sudo dnf install -y \
-        adwaita-gtk2-theme
 }
 
 ###############################################################################
@@ -138,27 +116,14 @@ function install-flatpak(){
     org.freedesktop.Platform.ffmpeg-full \
     io.podman_desktop.PodmanDesktop
 
-    ##### KDE #####
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
-    then
-        flatpak install -y \
-        org.wezfurlong.wezterm \
-        org.kde.okular \
-        org.kde.gwenview \
-        org.kde.kcalc \
-        org.gnome.Evolution \
-        org.gtk.Gtk3theme.Arc-Dark \
-        org.gtk.Gtk3theme.Arc-Dark-solid
-    fi
-
-    ##### GNOME #####
-    if [[ "$XDG_SESSION_DESKTOP" == "gnome" ]];
-    then
-        flatpak install -y \
-        org.gtk.Gtk3theme.Adwaita-dark \
-        org.gtk.Gtk3theme.adw-gtk3-dark
-    fi
-
+    flatpak install -y \
+    org.wezfurlong.wezterm \
+    org.kde.okular \
+    org.kde.gwenview \
+    org.kde.kcalc \
+    org.gnome.Evolution \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
