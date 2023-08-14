@@ -26,14 +26,6 @@ function update(){
     echo ''
 }
 
-# ###############################################################################
-# ##### GRUB UPDATE                                                       #######
-# ###############################################################################
-function grub-update(){
-    echo "Update grub"
-    sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-}
-
 ###############################################################################
 ##### UPDATE MAJOR TOOLS                                                #######
 ###############################################################################
@@ -42,8 +34,6 @@ function update-tools(){
     __update-starship
     __update-emscripten
     # __update-espIdf
-    __update-poetry
-    # __update-android-udev
 
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
         __update-neovim
@@ -100,27 +90,6 @@ function __update-espIdf(){
     else
         echo "$pull"
     fi
-    cd ~ || exit
-    echo ''
-}
-
-function __update-poetry(){
-    # Poetry
-    echo '-------------------------'
-    echo '------- POETRY  ---------'
-    echo '-------------------------'
-    poetry self update
-    echo ''
-}
-
-function __update-android-udev(){
-    # Android Udev Rules
-    # https://github.com/M0Rf30/android-udev-rules
-    echo '-------------------------'
-    echo '------- ANDROID ---------'
-    echo '-------------------------'
-    cd ~/Software/Android/android-udev-rules || exit
-    git pull
     cd ~ || exit
     echo ''
 }

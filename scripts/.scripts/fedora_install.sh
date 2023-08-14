@@ -258,9 +258,6 @@ function install-pythontools(){
 
     echo "installing language servers"
     pip install python-lsp-server cmake-language-server debugpy pynvim
-
-    echo "Installing Poetry"
-    curl -sSL https://install.python-poetry.org | python3 -
 }
 
 ###############################################################################
