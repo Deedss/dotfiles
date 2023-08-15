@@ -18,13 +18,8 @@ function install-desktop(){
     install-oh-my-zsh
     install-podman
     install-iwd
-    
-    ### theme for kde
-    if [[ "$xdg_session_desktop" == "kde" ]];
-    then
-        install-emscripten
-        install-arc-theme
-    fi
+    install-emscripten
+    install-arc-theme
 
     ##### FLATPAKS
     install-flatpak
@@ -64,23 +59,6 @@ function clean-kde(){
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
     rm -rf "$HOME/.local/share/akonadi*"
-}
-
-###############################################################################
-###  CLEAN UP GNOME                                                         ###
-###############################################################################
-function clean-gnome(){
-    ### Clean up GNOME packages
-    sudo dnf autoremove -y \
-        gnome-tour gnome-boxes libreoffice-* \
-        gnome-weather gnome-maps totem mediawriter \
-        gnome-connections gnome-software firefox \
-        gnome-calendar gnome-initial-setup gnome-contacts \
-        gnome-classic-session
-
-    ## Install for Gnome specific
-    sudo dnf install -y \
-        adwaita-gtk2-theme
 }
 
 ###############################################################################
@@ -139,27 +117,14 @@ function install-flatpak(){
     io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
-    then
-        flatpak install -y \
-        org.wezfurlong.wezterm \
-        org.kde.okular \
-        org.kde.gwenview \
-        org.kde.kcalc \
-        org.gnome.Evolution \
-        org.gtk.Gtk3theme.Arc-Dark \
-        org.gtk.Gtk3theme.Arc-Dark-solid
-    fi
-
-    ##### GNOME #####
-    if [[ "$XDG_SESSION_DESKTOP" == "gnome" ]];
-    then
-        flatpak install -y \
-        org.gtk.Gtk3theme.Adwaita-dark \
-        org.gtk.Gtk3theme.adw-gtk3-dark
-    fi
-
-
+    flatpak install -y \
+    org.wezfurlong.wezterm \
+    org.kde.okular \
+    org.kde.gwenview \
+    org.kde.kcalc \
+    org.gnome.Evolution \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
@@ -184,10 +149,11 @@ function default-packages(){
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git power-profiles-daemon ripgrep \
+    sudo dnf install -y openssl zstd ncurses git ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core neovim \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         steam-devices
+
 }
 
 ###############################################################################
@@ -196,6 +162,18 @@ function default-packages(){
 function install-arc-theme(){
     echo "Install arc theme"
     sudo dnf -y install arc-theme arc-kde
+}
+
+###############################################################################
+##### ARC THEME                                                          ######
+###############################################################################
+function install-tlp(){
+    echo "Install TLP and powertop"
+    sudo dnf -y autoremove power-profiles-daemon
+    sudo dnf -y install tlp tlp-rdw powertop
+
+    sudo systemctl enable tlp.service
+    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
 }
 
 ###############################################################################
