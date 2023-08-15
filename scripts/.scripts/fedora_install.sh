@@ -49,7 +49,7 @@ function clean-kde(){
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 
     sudo dnf install -y \
-        ark dolphin 
+        ark dolphin kate
 
     # Update GRUB timeout value
     echo "GRUB_TIMEOUT_STYLE=hidden" | sudo tee -a /etc/default/grub
