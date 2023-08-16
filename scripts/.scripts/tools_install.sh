@@ -116,3 +116,19 @@ function install-bazel(){
         wget -P ~/.oh-my-zsh/plugins https://raw.githubusercontent.com/bazelbuild/bazel/master/scripts/zsh_completion/_bazel
     fi
 }
+
+###############################################################################
+##### HELIX                                                             #######
+###############################################################################
+function install-helix(){
+    cd ~/.local/bin || exit
+
+    DOWNLOAD_URL=$(curl -s "https://api.github.com/repos/helix-editor/helix/releases/latest" | jq -r '.assets[] | select(.name | endswith("-x86_64.AppImage")).browser_download_url')
+
+    if [ "$DOWNLOAD_URL" ]; then
+        curl -L -o helix "$DOWNLOAD_URL" && chmod +x helix
+    fi
+    
+    cd ~ || exit
+    echo ''
+}

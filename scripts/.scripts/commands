@@ -11,8 +11,6 @@ function update(){
         sudo apt update && sudo apt upgrade
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf update --refresh
-    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper dup
     else
         echo "Unsupported distribution. Update command not available."
     fi
@@ -34,10 +32,7 @@ function update-tools(){
     __update-starship
     __update-emscripten
     # __update-espIdf
-
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        __update-neovim
-    fi
+    __update_helix
 }
 
 function __update-rust(){
@@ -94,13 +89,15 @@ function __update-espIdf(){
     echo ''
 }
 
-function __update-neovim(){
+function __update_helix(){
     echo '-------------------------'
-    echo '------- NEOVIM ----------'
+    echo '-------- HELIX ----------'
     echo '-------------------------'
     cd ~/.local/bin || exit
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
-    chmod u+x nvim
+    DOWNLOAD_URL=$(curl -s "https://api.github.com/repos/helix-editor/helix/releases/latest" | jq -r '.assets[] | select(.name | endswith("-x86_64.AppImage")).browser_download_url')
+    if [ "$DOWNLOAD_URL" ]; then
+        curl -L -o helix "$DOWNLOAD_URL" && chmod +x helix
+    fi
     cd ~ || exit
     echo ''
 }
