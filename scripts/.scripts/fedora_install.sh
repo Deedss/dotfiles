@@ -164,17 +164,6 @@ function install-arc-theme(){
     sudo dnf -y install arc-theme arc-kde
 }
 
-###############################################################################
-##### ARC THEME                                                          ######
-###############################################################################
-function install-tlp(){
-    echo "Install TLP and powertop"
-    sudo dnf -y autoremove power-profiles-daemon
-    sudo dnf -y install tlp tlp-rdw powertop
-
-    sudo systemctl enable tlp.service
-    sudo systemctl mask systemd-rfkill.service systemd-rfkill.socket
-}
 
 ###############################################################################
 ##### VSCODE                                                            #######

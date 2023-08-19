@@ -127,20 +127,3 @@ function install-vscode(){
     sudo zypper refresh
     sudo zypper install code
 }
-
-###############################################################################
-###### PYTHON                                                           #######
-###############################################################################
-function install-pythontools(){
-    echo "Install Python-Devel"
-    sudo zypper -y install python311-devel python311-wheel python311-virtualenv
-
-    echo "Installing python formatter"
-    pip install black
-
-    echo "installing language servers"
-    pip install python-lsp-server cmake-language-server debugpy pynvim
-
-    echo "Installing Poetry"
-    curl -sSL https://install.python-poetry.org | python3 -
-}
