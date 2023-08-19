@@ -87,7 +87,7 @@ function default-packages(){
     sudo zypper install -y cmake ninja clang llvm clang-tools
 
     ###### VIRTUALIZATION ########
-    sudo zypper install -y virt-manager-test
+    sudo zypper install -y virt-manager
     sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
     ###### NETWORKING ######
@@ -100,7 +100,7 @@ function default-packages(){
 
     ##### OTHER PACKAGES ######
     sudo zypper install -y \
-        openssl zstd ncurses git tlp tlp-rdw powertop ripgrep \
+        openssl zstd ncurses git ripgrep \
         ncurses-utils stow zsh util-linux helix autojump \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         ark dolphin
