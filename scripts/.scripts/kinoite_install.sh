@@ -91,25 +91,14 @@ function install-flatpak(){
     io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
-    if [[ "$XDG_SESSION_DESKTOP" == "KDE" ]];
-    then
-        flatpak install -y \
-        org.wezfurlong.wezterm \
-        org.kde.okular \
-        org.kde.gwenview \
-        org.kde.kcalc \
-        org.gnome.Evolution \
-        org.gtk.Gtk3theme.Arc-Dark \
-        org.gtk.Gtk3theme.Arc-Dark-solid
-    fi
-
-    ##### GNOME #####
-    if [[ "$XDG_SESSION_DESKTOP" == "gnome" ]];
-    then
-        flatpak install -y \
-        org.gtk.Gtk3theme.Adwaita-dark \
-        org.gtk.Gtk3theme.adw-gtk3-dark
-    fi
+    flatpak install -y \
+    org.wezfurlong.wezterm \
+    org.kde.okular \
+    org.kde.gwenview \
+    org.kde.kcalc \
+    org.gnome.Evolution \
+    org.gtk.Gtk3theme.Arc-Dark \
+    org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
@@ -130,17 +119,6 @@ function install-vscode(){
     vscode_repo="https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc"
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=$vscode_repo" > /etc/yum.repos.d/vscode.repo'
     rpm-ostree -y install code
-}
-
-###############################################################################
-###### OH-MY-ZSH                                                         ######
-###############################################################################
-function install-oh-my-zsh(){
-    echo "Install OH-MY-ZSH"
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-        git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-syntax-highlighting
-        git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:=~/.oh-my-zsh/custom}"/plugins/zsh-completions
-        git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
 }
 
 ###############################################################################

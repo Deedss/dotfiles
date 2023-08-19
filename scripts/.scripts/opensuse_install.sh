@@ -100,14 +100,14 @@ function default-packages(){
 
     ##### OTHER PACKAGES ######
     sudo zypper install -y \
-        openssl zstd ncurses git power-profiles-daemon ripgrep \
-        ncurses-utils stow zsh util-linux neovim autojump \
+        openssl zstd ncurses git tlp tlp-rdw powertop ripgrep \
+        ncurses-utils stow zsh util-linux helix autojump \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         ark dolphin
 }
 
 ###############################################################################
-##### BRAVE BROWSER                                                      ######
+##### ARC_THEME                                                          ######
 ###############################################################################
 function install-arc-theme(){
     echo "Install arc theme"
@@ -115,17 +115,6 @@ function install-arc-theme(){
     sudo zypper refresh
     sudo zypper install -y \
         gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc arc-kde
-}
-
-###############################################################################
-##### BRAVE BROWSER                                                      ######
-###############################################################################
-function install-brave(){
-    echo "Install brave browser"
-    sudo zypper install curl
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo zypper addrepo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-    sudo zypper install brave-browser -y
 }
 
 ###############################################################################
@@ -137,56 +126,6 @@ function install-vscode(){
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/zypp/repos.d/vscode.repo'
     sudo zypper refresh
     sudo zypper install code
-}
-
-###############################################################################
-###### OH-MY-ZSH                                                         ######
-###############################################################################
-function install-oh-my-zsh(){
-    echo "Install OH-MY-ZSH"
-    sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-    git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}/plugins/zsh-completions"
-    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    git clone https://github.com/zsh-users/zsh-autosuggestions "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-
-}
-
-###############################################################################
-###### INSTALL IWD                                                      #######
-###############################################################################
-function install-iwd(){
-    sudo zypper install -y iwd
-    echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
-    sudo systemctl mask wpa_supplicant
-}
-
-###############################################################################
-###### FLUTTER AND DART                                                 #######
-###############################################################################
-function install-flutter(){
-    echo "Install Flutter and Dart"
-    sudo zypper install gtk3-devel -y
-    mkdir -p ~/Software
-    cd ~/Software || exit
-    git clone https://github.com/flutter/flutter.git -b stable
-    flutter doctor
-    cd ~ || exit
-    echo ''
-}
-
-###############################################################################
-###### ESP-IDF Framework                                                #######
-###############################################################################
-function install-espIdf(){
-    echo "Install ESP-IDF"
-    sudo zypper install -y git wget flex bison gperf python311-pip python311-setuptools ccache dfu-util libusbx
-    mkdir -p ~/Software
-    cd ~/Software || exit
-    git clone --recursive https://github.com/espressif/esp-idf.git
-    cd esp-idf || exit
-    sh install.sh
-    cd ~ || exit
-    echo ''
 }
 
 ###############################################################################
@@ -204,12 +143,4 @@ function install-pythontools(){
 
     echo "Installing Poetry"
     curl -sSL https://install.python-poetry.org | python3 -
-}
-
-###############################################################################
-###### PODMAN                                                           #######
-###############################################################################
-function install-podman(){
-    echo "Install podman and buildah"
-    sudo zypper install -y podman python311-podman-compose podman-docker buildah
 }
