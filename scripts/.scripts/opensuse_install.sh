@@ -101,9 +101,8 @@ function default-packages(){
     ##### OTHER PACKAGES ######
     sudo zypper install -y \
         openssl zstd ncurses git ripgrep zsh lsb-release \
-        ncurses-utils stow zsh util-linux helix autojump \
-        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
-        ark dolphin
+        ncurses-utils stow zsh util-linux helix ark dolphin \
+        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts
 }
 
 ###############################################################################
