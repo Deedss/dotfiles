@@ -2,7 +2,6 @@
 
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
-alias vim="nvim"
 alias wezterm="flatpak run org.wezfurlong.wezterm"
 
 ## Environment Variables
@@ -15,8 +14,8 @@ export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 
 # Set Editor to NVIM
-export EDITOR="helix"
-export VISUAL="helix"
+export EDITOR="$HOME/.local/bin/helix"
+export VISUAL="$HOME/.local/bin/helix"
 alias hx='helix'
 
 # add Local to PATH
