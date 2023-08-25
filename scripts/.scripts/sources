@@ -14,8 +14,8 @@ export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 
 # Set Editor to NVIM
-export EDITOR="nvim"
-export VISUAL="nvim"
+export EDITOR="$HOME/.local/bin/nvim"
+export VISUAL="$HOME/.local/bin/nvim"
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin
