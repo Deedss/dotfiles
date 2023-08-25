@@ -32,7 +32,7 @@ function update-tools(){
     __update-starship
     __update-emscripten
     # __update-espIdf
-    __update_helix
+    # __update_helix
 }
 
 function __update-rust(){
@@ -85,6 +85,17 @@ function __update-espIdf(){
     else
         echo "$pull"
     fi
+    cd ~ || exit
+    echo ''
+}
+
+function __update-neovim(){
+    echo '-------------------------'
+    echo '------- NEOVIM ----------'
+    echo '-------------------------'
+    cd ~/.local/bin || exit
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    chmod u+x nvim
     cd ~ || exit
     echo ''
 }
