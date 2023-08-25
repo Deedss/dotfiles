@@ -14,9 +14,8 @@ export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 
 # Set Editor to NVIM
-export EDITOR="$HOME/.local/bin/helix"
-export VISUAL="$HOME/.local/bin/helix"
-alias hx='helix'
+export EDITOR="nvim"
+export VISUAL="nvim"
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin
