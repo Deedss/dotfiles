@@ -118,23 +118,6 @@ function install-bazel(){
 }
 
 ###############################################################################
-##### HELIX                                                             #######
-###############################################################################
-function install-helix(){
-    cd ~/.local/bin || exit
-
-    DOWNLOAD_URL=$(curl -s "https://api.github.com/repos/helix-editor/helix/releases/latest" | jq -r '.assets[] | select(.name | endswith("-x86_64.AppImage")).browser_download_url')
-
-    if [ "$DOWNLOAD_URL" ]; then
-        curl -L -o helix "$DOWNLOAD_URL" && chmod +x helix
-    fi
-    
-    cd ~ || exit
-    echo ''
-}
-
-
-###############################################################################
 ###### FLUTTER AND DART                                                 #######
 ###############################################################################
 function install-flutter(){
@@ -224,4 +207,15 @@ function install-pythontools(){
 
     echo "Installing python packages"
     pip install black install python-lsp-server cmake-language-server debugpy pynvim
+}
+
+###############################################################################
+##### NEOVIM                                                            #######
+###############################################################################
+function install-neovim(){
+    cd ~/.local/bin || exit
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    chmod u+x nvim
+    cd ~ || exit
+    echo ''
 }
