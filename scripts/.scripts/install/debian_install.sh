@@ -38,7 +38,7 @@ function install-kde-desktop(){
         udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg \
         aria2 ark dolphin pipewire pipewire-audio pipewire-pulse wireplumber \
         pipewire-audio-client-libraries libspa-0.2-bluetooth libspa-0.2-jack jq \
-        ripgrep
+        ripgrep wl-clipboard
 
     sudo apt autoremove -y plasma-discover pulseaudio zutty kdeconnect
 
