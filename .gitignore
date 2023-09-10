@@ -1,2 +1,3 @@
 README.md
 .vscode
+nvim/.config/nvim/lazy-lock.json

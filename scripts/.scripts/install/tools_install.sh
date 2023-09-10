@@ -182,7 +182,6 @@ function install-podman(){
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     fi
-    mkdir -p ~/Software/containers
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
