@@ -187,7 +187,7 @@ function default-packages(){
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard
 }
-[]
+
 ###############################################################################
 ##### ARC THEME                                                          ######
 ###############################################################################
