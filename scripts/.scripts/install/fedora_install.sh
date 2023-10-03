@@ -158,7 +158,7 @@ function install-flatpak(){
         org.gtk.Gtk3theme.Adwaita-dark \
         org.gtk.Gtk3theme.adw-gtk3-dark
     fi
-
+}
 
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
