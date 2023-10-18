@@ -20,7 +20,8 @@ function install-desktop(){
     install-iwd
     install-emscripten
     install-arc-theme
-    install-neovim
+    # install-neovim
+    install-helix
 
     ##### FLATPAKS
     install-flatpak

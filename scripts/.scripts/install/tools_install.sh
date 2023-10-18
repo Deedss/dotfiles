@@ -212,9 +212,24 @@ function install-pythontools(){
 ##### NEOVIM                                                            #######
 ###############################################################################
 function install-neovim(){
+    echo "Install Neovim"
     cd ~/.local/bin || exit
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim
+    cd ~ || exit
+    echo ''
+}
+
+###############################################################################
+##### HELIX                                                             #######
+###############################################################################
+function install-helix(){
+    echo "Install Helix"
+    cd ~/.local/bin || exit
+    DOWNLOAD_URL=$(curl -s "https://api.github.com/repos/helix-editor/helix/releases/latest" | jq -r '.assets[] | select(.name | endswith("-x86_64.AppImage")).browser_download_url')
+    if [ "$DOWNLOAD_URL" ]; then
+        curl -L -o helix "$DOWNLOAD_URL" && chmod +x helix
+    fi
     cd ~ || exit
     echo ''
 }
