@@ -8,6 +8,7 @@ return {
     ensure_installed = {
       -- DAP
       "codelldb",
+      "debugpy",
 
       -- Linters
       "cmakelint",
@@ -20,7 +21,6 @@ return {
       -- Format
       "black",
       "clang-format",
-      "fixjson",
       "markdownlint",
       "yamlfmt"
     },

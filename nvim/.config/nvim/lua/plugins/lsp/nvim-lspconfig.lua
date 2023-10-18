@@ -117,7 +117,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local servers = {
   bashls = {},
   clangd = {},
-  cmake = {},
+  neocmake = {},
   dockerls = {},
   jsonls = {},
   lua_ls = {},
