@@ -13,8 +13,8 @@ export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 
 # Set Editor to NVIM
-export EDITOR="$HOME/.local/bin/helix"
-export VISUAL="$HOME/.local/bin/helix"
+export EDITOR="$HOME/.local/bin/nvim"
+export VISUAL="$HOME/.local/bin/nvim"
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin
