@@ -61,7 +61,6 @@ return {
     dependencies = {
       { "williamboman/mason.nvim", config = true },
       "williamboman/mason-lspconfig.nvim",
-      "jose-elias-alvarez/null-ls.nvim"
     },
     config = function()
       -- nvim-cmp supports additional completion capabilities, so broadcast that to servers

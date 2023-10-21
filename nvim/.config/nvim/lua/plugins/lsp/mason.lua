@@ -1,29 +1,10 @@
 -- cmdline tools and lsp servers
 return {
   "williamboman/mason.nvim",
-  cmd = "Mason",
-  keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
-  build = ":MasonUpdate",
-  opts = {
-    ensure_installed = {
-      -- DAP
-      "codelldb",
-      "debugpy",
+  config = function ()
+    local mason = require("mason")
 
-      -- Linters
-      "cmakelint",
-      "cpplint",
-      "jsonlint",
-      "markdownlint",
-      "pylint",
-      "yamllint",
-
-      -- Format
-      "black",
-      "clang-format",
-      "prettier",
-      "stylua",
-    },
-    automatic_installation = true
-  },
+    mason.setup({})
+  end
+  -- MasonInstall codelldb debugpy cmakelint cpplint jsonlint markdownlint pylint yamllint black clang-format prettier stylua
 }
