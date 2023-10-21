@@ -6,8 +6,8 @@ return {
     local lint = require("lint")
 
     lint.linters_by_ft = {
-      c = { "clang-tidy" },
-      cpp = { "clang-tidy" },
+      c = { "cpplint" },
+      cpp = { "cpplint" },
       cmake = { "cmakelint" },
       json = { "jsonlint" },
       markdown = { "markdownlint" },
