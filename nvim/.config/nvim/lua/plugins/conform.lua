@@ -12,7 +12,7 @@ return {
         lua = { "stylua" },
         c = { "clang-format" },
         cpp = { "clang-format" },
-        rust = { "rust-fmt" },
+        rust = { "rustfmt" },
         yaml = { "prettier" },
         markdown = { "prettier" }
       },
