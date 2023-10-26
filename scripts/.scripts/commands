@@ -100,6 +100,19 @@ function __update-neovim(){
     echo ''
 }
 
+function __update_helix(){
+    echo '-------------------------'
+    echo '-------- HELIX ----------'
+    echo '-------------------------'
+    cd ~/.local/bin || exit
+    DOWNLOAD_URL=$(curl -s "https://api.github.com/repos/helix-editor/helix/releases/latest" | jq -r '.assets[] | select(.name | endswith("-x86_64.AppImage")).browser_download_url')
+    if [ "$DOWNLOAD_URL" ]; then
+        curl -L -o helix "$DOWNLOAD_URL" && chmod +x helix
+    fi
+    cd ~ || exit
+    echo ''
+}
+
 ###############################################################################
 ####### BACKUP                                                           ######
 ###############################################################################
