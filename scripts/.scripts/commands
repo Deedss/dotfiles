@@ -11,8 +11,6 @@ function update(){
         sudo apt update && sudo apt upgrade
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf update --refresh
-    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper update
     else
         echo "Unsupported distribution. Update command not available."
     fi
