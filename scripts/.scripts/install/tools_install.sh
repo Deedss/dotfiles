@@ -126,6 +126,8 @@ function install-flutter(){
         sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install gtk3-devel -y
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install gtk3-devel -y
     fi
 
     mkdir -p ~/Software
@@ -145,6 +147,8 @@ function install-iwd(){
         sudo apt install -y iwd
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y iwd
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y iwd
     fi
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
@@ -161,6 +165,8 @@ function install-espIdf(){
             cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y git wget flex bison gperf python311-pip python311-setuptools ccache dfu-util libusbx
     fi
 
     mkdir -p ~/Software
@@ -181,6 +187,8 @@ function install-podman(){
         sudo apt install -y podman podman-compose podman-docker buildah distrobox
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y podman python311-podman-compose podman-docker buildah
     fi
     sudo touch /etc/containers/nodocker
 
@@ -202,7 +210,10 @@ function install-pythontools(){
         sudo apt -y install python3-dev python3-wheel python3-virtualenv
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf -y install python3-devel python3-wheel python3-virtualenv
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper -y install python311-devel python311-wheel python311-virtualenv
     fi
+
 
     echo "Installing python packages"
     pip install black install python-lsp-server cmake-language-server debugpy pynvim
