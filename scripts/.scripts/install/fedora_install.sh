@@ -5,7 +5,7 @@ source tools_install.sh
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-desktop(){
-    echo "Perform Installation for Fedora KDE"
+    echo "Perform Installation for Fedora"
     ### Set the correct DNF settings
     setup-dnf
 
@@ -18,7 +18,6 @@ function install-desktop(){
     install-oh-my-zsh
     install-podman
     install-iwd
-    install-emscripten
     install-neovim
 
     ### theme for kde
@@ -59,7 +58,7 @@ function clean-kde(){
         ark dolphin 
 
     # Update GRUB timeout value
-    echo "GRUB_TIMEOUT_STYLE=hidden" | sudo tee -a /etc/default/grub
+    sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
     sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
     sudo grubby --update-kernel=ALL --args="amd_pstate=guided"
 
@@ -82,7 +81,7 @@ function clean-gnome(){
 
     ## Install for Gnome specific
     sudo dnf install -y \
-        adwaita-gtk2-theme
+        adwaita-gtk2-theme gnome-menus
 }
 
 ###############################################################################
