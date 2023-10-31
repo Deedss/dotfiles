@@ -60,7 +60,6 @@ function clean-kde(){
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
     sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-    sudo grubby --update-kernel=ALL --args="amd_pstate=guided"
 
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
