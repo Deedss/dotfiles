@@ -146,7 +146,6 @@ function install-flatpak(){
         org.kde.okular \
         org.kde.gwenview \
         org.kde.kcalc \
-        org.gnome.Evolution \
         org.gtk.Gtk3theme.Arc-Dark \
         org.gtk.Gtk3theme.Arc-Dark-solid
     fi
