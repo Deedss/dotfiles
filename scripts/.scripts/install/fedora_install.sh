@@ -19,8 +19,16 @@ function install-desktop(){
     install-podman
     install-iwd
     install-neovim
+
+    ### theme for kde
     install-emscripten
     install-arc-theme
+
+    ### KDE config
+    kde-configuration
+
+    ### UDEV
+    setup-udev-rules
 
     ##### FLATPAKS
     install-flatpak
@@ -124,7 +132,6 @@ function install-flatpak(){
     org.kde.kcalc \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
-
 }
 
 ###############################################################################

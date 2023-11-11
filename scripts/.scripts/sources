@@ -17,6 +17,7 @@ export EDITOR="$HOME/.local/bin/nvim"
 export VISUAL="$HOME/.local/bin/nvim"
 # export EDITOR="$HOME/.local/bin/helix"
 # export VISUAL="$HOME/.local/bin/helix"
+alias hx='helix'
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin

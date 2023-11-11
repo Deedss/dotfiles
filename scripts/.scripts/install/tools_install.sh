@@ -71,7 +71,7 @@ function install-go(){
     fi
 
     # Specify the version of Go to install
-    GO_VERSION=1.21.0
+    GO_VERSION=1.21.4
     GO_PARENT_FOLDER=~/Software
 
     # Set the filename of the Go tarball
@@ -199,9 +199,9 @@ function install-podman(){
 function install-pythontools(){
     echo "Install Python-Devel"
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt -y install python3-dev python3-wheel python3-virtualenv
+        sudo apt -y install python3-dev python3-wheel python3-virtualenv 
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf -y install python3-devel python3-wheel python3-virtualenv
+        sudo dnf -y install python3-devel python3-wheel python3-virtualenv python3-pygments
     fi
 
 
@@ -239,6 +239,16 @@ function install-helix(){
 ##### KDE CONFIG                                                        ######
 ##############################################################################
 function kde-configuration(){
+    echo "KDE configuration"
     # Have Meta key open Overview
     kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,Overview"
+}
+
+##############################################################################
+##### UDEV RULES                                                        ######
+##############################################################################
+function setup-udev-rules(){
+    echo "Setup UDEV rules"
+    export USER_GID=`id -g`; sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
+    export USER_GID=`id -g`; sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/92-viia.rules && udevadm control --reload && udevadm trigger' 
 }

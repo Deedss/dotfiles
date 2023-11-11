@@ -33,6 +33,7 @@ function update-tools(){
     __update-emscripten
     # __update-espIdf
     __update-neovim
+    __update_helix
 }
 
 function __update-rust(){
