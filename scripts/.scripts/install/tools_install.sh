@@ -236,15 +236,6 @@ function install-helix(){
 }
 
 ##############################################################################
-##### KDE CONFIG                                                        ######
-##############################################################################
-function kde-configuration(){
-    echo "KDE configuration"
-    # Have Meta key open Overview
-    kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/kwin,org.kde.kglobalaccel.Component,invokeShortcut,Overview"
-}
-
-##############################################################################
 ##### UDEV RULES                                                        ######
 ##############################################################################
 function setup-udev-rules(){

@@ -24,9 +24,6 @@ function install-desktop(){
     install-emscripten
     install-arc-theme
 
-    ### KDE config
-    kde-configuration
-
     ### UDEV
     setup-udev-rules
 
