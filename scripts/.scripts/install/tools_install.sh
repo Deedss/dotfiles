@@ -9,6 +9,9 @@ function install-rust(){
     rustup component add rust-src
     rustup component add rust-analyzer
     rustup component add rustfmt
+
+    cargo install neocmakelsp
+
     mkdir -p ~/.local/bin
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
 }
@@ -206,7 +209,7 @@ function install-pythontools(){
 
 
     echo "Installing python packages"
-    pip install black install python-lsp-server cmake-language-server debugpy pynvim
+    pip install black install python-lsp-server debugpy pynvim
 }
 
 ###############################################################################

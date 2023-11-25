@@ -43,7 +43,7 @@ function install-virtual-machine(){
 
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb
 
     ##### VIDEO DRIVERS ######
     sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
