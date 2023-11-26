@@ -24,8 +24,8 @@ function install-desktop(){
     install-emscripten
     install-arc-theme
 
-    ### UDEV
-    setup-udev-rules
+    ### Fix default configs
+    fix-config
 
     ##### FLATPAKS
     install-flatpak
