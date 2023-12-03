@@ -15,9 +15,20 @@ return {
         require('telescope').load_extension('fzf')
       end,
     },
+    {
+      'nvim-telescope/telescope-ui-select.nvim',
+      config = function()
+        require("telescope").load_extension("ui-select")
+      end
+    }
   },
   config = function()
     require('telescope').setup({
+      ["ui-select"] = {
+        require("telescope.themes").get_dropdown {
+          -- even more opts
+        },
+      },
       defaults = {
         mappings = {
           i = {
@@ -29,16 +40,16 @@ return {
     })
   end,
   keys = {
-    { '<leader>?', '<cmd>Telescope oldfiles<cr>', desc = 'Telescope: Find recently opened files' },
-    { '<leader><space>', '<cmd>Telescope buffers<cr>', desc = 'Telescope: Current Buffers' },
-    { "<leader>fs", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = 'Telescope: Current buffer fuzzy find' },
-    { '<leader>fd', '<cmd>Telescope diagnostics<cr>', desc = 'Telescope: Diagnostics' },
-    { '<leader>ff', '<cmd>Telescope find_files<cr>', desc = 'Telescope: Find Files' },
-    { '<leader>fg', '<cmd>Telescope live_grep<cr>', desc = 'Telescope: Live Grep' },
-    { '<leader>fh', '<cmd>Telescope help_tags<cr>', desc = 'Telescope: Help Tags' },
+    { '<leader>?',       '<cmd>Telescope oldfiles<cr>',                  desc = 'Telescope: Find recently opened files' },
+    { '<leader><space>', '<cmd>Telescope buffers<cr>',                   desc = 'Telescope: Current Buffers' },
+    { "<leader>fs",      "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = 'Telescope: Current buffer fuzzy find' },
+    { '<leader>fd',      '<cmd>Telescope diagnostics<cr>',               desc = 'Telescope: Diagnostics' },
+    { '<leader>ff',      '<cmd>Telescope find_files<cr>',                desc = 'Telescope: Find Files' },
+    { '<leader>fg',      '<cmd>Telescope live_grep<cr>',                 desc = 'Telescope: Live Grep' },
+    { '<leader>fh',      '<cmd>Telescope help_tags<cr>',                 desc = 'Telescope: Help Tags' },
 
     -- GIT
-    { '<leader>gf', '<cmd>Telescope git_files<cr>', desc = 'Telescope: Git Files' },
-    { '<leader>gs', '<cmd>Telescope git_status<cr>', desc = 'Telescope: Git Status' },
+    { '<leader>gf',      '<cmd>Telescope git_files<cr>',                 desc = 'Telescope: Git Files' },
+    { '<leader>gs',      '<cmd>Telescope git_status<cr>',                desc = 'Telescope: Git Status' },
   }
 }
