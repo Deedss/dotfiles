@@ -3,6 +3,7 @@
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
 alias wezterm="flatpak run org.wezfurlong.wezterm"
+alias rm='rm -i'
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"
