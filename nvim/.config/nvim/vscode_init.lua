@@ -63,37 +63,28 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- Lsp Config Mappings
 vim.cmd [[
-  nnoremap [d <Cmd>lua require('vscode-neovim').action('editor.action.marker.prev')<CR>
-  nnoremap ]d <Cmd>lua require('vscode-neovim').action('editor.action.marker.next')<CR>
-  nnoremap gD <Cmd>lua require('vscode-neovim').action('editor.action.revealDeclaration')<CR>
-  nnoremap gd <Cmd>lua require('vscode-neovim').action('editor.action.revealDefinition')<CR>
-  nnoremap K <Cmd>lua require('vscode-neovim').action('editor.action.showHover')<CR>
-  nnoremap gi <Cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>
-  nnoremap <space>D <Cmd>lua require('vscode-neovim').action('editor.action.goToTypeDefinition')<CR>
-  nnoremap <space>rn <Cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>
-  nnoremap <space>ca <Cmd>lua require('vscode-neovim').action('editor.action.quickFix')<CR>
-  vnoremap <space>ca <Cmd>lua require('vscode-neovim').action('editor.action.quickFix')<CR>
-  nnoremap gr <Cmd>lua require('vscode-neovim').action('editor.action.goToReferences')<CR>
-  nnoremap <space>f <Cmd>lua require('vscode-neovim').action('editor.action.formatDocument')<CR>
-  nnoremap <space>ds <Cmd>lua require('vscode-neovim').action('workbench.action.gotoSymbol')<CR>
-  nnoremap <space>ws <Cmd>lua require('vscode-neovim').action('workbench.action.showAllSymbols')<CR>
+  nnoremap [d         <Cmd>lua require('vscode-neovim').action('editor.action.marker.prev')<CR>
+  nnoremap ]d         <Cmd>lua require('vscode-neovim').action('editor.action.marker.next')<CR>
+  nnoremap gD         <Cmd>lua require('vscode-neovim').action('editor.action.revealDeclaration')<CR>
+  nnoremap gd         <Cmd>lua require('vscode-neovim').action('editor.action.revealDefinition')<CR>
+  nnoremap K          <Cmd>lua require('vscode-neovim').action('editor.action.showHover')<CR>
+  nnoremap gi         <Cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>
+  nnoremap <space>D   <Cmd>lua require('vscode-neovim').action('editor.action.goToTypeDefinition')<CR>
+  nnoremap <space>rn  <Cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>
+  nnoremap <space>ca  <Cmd>lua require('vscode-neovim').action('editor.action.quickFix')<CR>
+  vnoremap <space>ca  <Cmd>lua require('vscode-neovim').action('editor.action.quickFix')<CR>
+  nnoremap gr         <Cmd>lua require('vscode-neovim').action('editor.action.goToReferences')<CR>
+  nnoremap <space>f   <Cmd>lua require('vscode-neovim').action('editor.action.formatDocument')<CR>
+  nnoremap <space>ds  <Cmd>lua require('vscode-neovim').action('workbench.action.gotoSymbol')<CR>
+  nnoremap <space>ws  <Cmd>lua require('vscode-neovim').action('workbench.action.showAllSymbols')<CR>
 ]]
 
 -- Telescope mappings
 vim.cmd [[
-  nnoremap <leader>? <Cmd>lua require('vscode-neovim').action('e)
-
-
-]]
---[[
-{ '<leader>?',       '<cmd>Telescope oldfiles<cr>',
-{ '<leader><space>', '<cmd>Telescope buffers<cr>',
-{ "<leader>fs",      "<cmd>Telescope current_buffer_fuzzy_find<cr>",
-{ '<leader>fd',      '<cmd>Telescope diagnostics<cr>',
-{ '<leader>ff',      '<cmd>Telescope find_files<cr>',
-{ '<leader>fg',      '<cmd>Telescope live_grep<cr>',
-{ '<leader>fh',      '<cmd>Telescope help_tags<cr>',
--- GIT
-{ '<leader>gf',      '<cmd>Telescope git_files<cr>',
-{ '<leader>gs',      '<cmd>Telescope git_status<cr>',
+  nnoremap <space>?       <Cmd>lua require('vscode-neovim').action('workbench.action.openRecent')<CR>
+  nnoremap <space><space> <Cmd>lua require('vscode-neovim').action('workbench.action.quickOpen')<CR>
+  nnoremap <space>fd      <Cmd>lua require('vscode-neovim').action('workbench.action.problems.focus')<CR>
+  nnoremap <space>ff      <Cmd>lua require('vscode-neovim').action('workbench.action.quickOpen')<CR>
+  nnoremap <space>gf      <Cmd>lua require('vscode-neovim').action('git.revealInExplorer')<CR>
+  nnoremap <space>gs      <Cmd>lua require('vscode-neovim').action('git.viewChanges')<CR>
 ]]
