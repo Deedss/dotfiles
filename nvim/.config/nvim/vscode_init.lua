@@ -23,38 +23,9 @@ require("lazy").setup({
     -- have outdated releases, which may break your Neovim install.
     version = false, -- always use the latest git commit
   },
-  -- Comment out with gc
-  {
-    'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-  },
-  {
-    "kylechui/nvim-surround",
-    event = "VeryLazy",
-    config = function()
-      require("nvim-surround").setup({})
-    end
-  },
-  {
-    'ggandor/leap.nvim',
-    dependencies = {
-      { "tpope/vim-repeat", event = "VeryLazy" },
-    },
-    config = function()
-      require('leap').add_default_mappings()
-    end
-  },
-  {
-    "ggandor/flit.nvim",
-    config = function()
-      require('flit').setup {}
-    end
-  },
+  require("plugins.nvim-surround"),
+  require("plugins.treesitter"),
 })
-
-require("plugins.treesitter")
 
 local function map(mode, lhs, rhs, opts)
   local options = { noremap = true }
@@ -89,3 +60,40 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- Lsp Config Mappings
+vim.cmd [[
+  nnoremap [d <Cmd>lua require('vscode-neovim').action('editor.action.marker.prev')<CR>
+  nnoremap ]d <Cmd>lua require('vscode-neovim').action('editor.action.marker.next')<CR>
+  nnoremap gD <Cmd>lua require('vscode-neovim').action('editor.action.revealDeclaration')<CR>
+  nnoremap gd <Cmd>lua require('vscode-neovim').action('editor.action.revealDefinition')<CR>
+  nnoremap K <Cmd>lua require('vscode-neovim').action('editor.action.showHover')<CR>
+  nnoremap gi <Cmd>lua require('vscode-neovim').action('editor.action.goToImplementation')<CR>
+  nnoremap <space>D <Cmd>lua require('vscode-neovim').action('editor.action.goToTypeDefinition')<CR>
+  nnoremap <space>rn <Cmd>lua require('vscode-neovim').action('editor.action.rename')<CR>
+  nnoremap <space>ca <Cmd>lua require('vscode-neovim').action('editor.action.quickFix')<CR>
+  vnoremap <space>ca <Cmd>lua require('vscode-neovim').action('editor.action.quickFix')<CR>
+  nnoremap gr <Cmd>lua require('vscode-neovim').action('editor.action.goToReferences')<CR>
+  nnoremap <space>f <Cmd>lua require('vscode-neovim').action('editor.action.formatDocument')<CR>
+  nnoremap <space>ds <Cmd>lua require('vscode-neovim').action('workbench.action.gotoSymbol')<CR>
+  nnoremap <space>ws <Cmd>lua require('vscode-neovim').action('workbench.action.showAllSymbols')<CR>
+]]
+
+-- Telescope mappings
+vim.cmd [[
+  nnoremap <leader>? <Cmd>lua require('vscode-neovim').action('e)
+
+
+]]
+--[[
+{ '<leader>?',       '<cmd>Telescope oldfiles<cr>',
+{ '<leader><space>', '<cmd>Telescope buffers<cr>',
+{ "<leader>fs",      "<cmd>Telescope current_buffer_fuzzy_find<cr>",
+{ '<leader>fd',      '<cmd>Telescope diagnostics<cr>',
+{ '<leader>ff',      '<cmd>Telescope find_files<cr>',
+{ '<leader>fg',      '<cmd>Telescope live_grep<cr>',
+{ '<leader>fh',      '<cmd>Telescope help_tags<cr>',
+-- GIT
+{ '<leader>gf',      '<cmd>Telescope git_files<cr>',
+{ '<leader>gs',      '<cmd>Telescope git_status<cr>',
+]]
