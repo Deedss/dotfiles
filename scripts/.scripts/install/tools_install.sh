@@ -224,20 +224,6 @@ function install-neovim(){
     echo ''
 }
 
-###############################################################################
-##### HELIX                                                             #######
-###############################################################################
-function install-helix(){
-    echo "Install Helix"
-    cd ~/.local/bin || exit
-    DOWNLOAD_URL=$(curl -s "https://api.github.com/repos/helix-editor/helix/releases/latest" | jq -r '.assets[] | select(.name | endswith("-x86_64.AppImage")).browser_download_url')
-    if [ "$DOWNLOAD_URL" ]; then
-        curl -L -o helix "$DOWNLOAD_URL" && chmod +x helix
-    fi
-    cd ~ || exit
-    echo ''
-}
-
 ##############################################################################
 ##### UDEV RULES                                                        ######
 ##############################################################################
