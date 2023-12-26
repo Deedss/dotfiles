@@ -23,6 +23,7 @@ require("lazy").setup({
     -- have outdated releases, which may break your Neovim install.
     version = false, -- always use the latest git commit
   },
+  require("plugins.comment"),
   require("plugins.nvim-surround"),
   require("plugins.treesitter"),
 })
