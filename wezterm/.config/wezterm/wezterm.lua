@@ -1,3 +1,6 @@
+local wezterm = require("wezterm")
+local act = wezterm.action
+
 return {
 	font_size = 10.0,
 	-- color_scheme = "OneDark (base16)",
@@ -46,6 +49,43 @@ return {
 				bg_color = "#282c34",
 				fg_color = "#a0a0a0",
 			},
+		},
+	},
+	-----------------------------------------
+	-------- KEY MAPPINGS -------------------
+	-----------------------------------------
+	keys = {
+		-- vertical split
+		{
+			key = "Enter",
+			mods = "CTRL|SHIFT|ALT",
+			action = act.SplitVertical,
+		},
+		-- This will create a new split and run your default program inside it
+		{
+			key = "Enter",
+			mods = "CTRL|SHIFT",
+			action = act.SplitHorizontal,
+		},
+		{
+			key = "H",
+			mods = "CTRL|SHIFT",
+			action = act.ActivatePaneDirection("Left"),
+		},
+		{
+			key = "L",
+			mods = "CTRL|SHIFT",
+			action = act.ActivatePaneDirection("Right"),
+		},
+		{
+			key = "K",
+			mods = "CTRL|SHIFT",
+			action = act.ActivatePaneDirection("Up"),
+		},
+		{
+			key = "J",
+			mods = "CTRL|SHIFT",
+			action = act.ActivatePaneDirection("Down"),
 		},
 	},
 }
