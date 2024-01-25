@@ -1,4 +1,6 @@
 #!/bin/bash
+# Vscode native file
+export GTK_USE_PORTAL=1
 
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
