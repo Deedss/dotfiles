@@ -74,7 +74,7 @@ function install-go(){
     fi
 
     # Specify the version of Go to install
-    GO_VERSION=1.21.4
+    GO_VERSION=1.22.0
     GO_PARENT_FOLDER=~/Software
 
     # Set the filename of the Go tarball

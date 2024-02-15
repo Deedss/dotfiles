@@ -5,6 +5,7 @@ return {
 	font_size = 10.0,
 	-- color_scheme = "OneDark (base16)",
 	warn_about_missing_glyphs = false,
+	check_for_updates = false,
 
 	window_close_confirmation = "NeverPrompt",
 
