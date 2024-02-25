@@ -22,42 +22,30 @@ function update(){
     flatpak update -y
 
     echo ''
+
+    __update-rust
+    __update-starship
+    __update-emscripten
+    __update-neovim
 }
 
 ###############################################################################
 ##### UPDATE MAJOR TOOLS                                                #######
 ###############################################################################
-function update-tools(){
-    __update-rust
-    __update-starship
-    __update-emscripten
-    # __update-espIdf
-    __update-neovim
-}
-
 function __update-rust(){
     # Rust Update
-    echo '-------------------------'
-    echo '-------- RUST -----------'
-    echo '-------------------------'
     rustup update
     echo ''
 }
 
 function __update-starship(){
     # Rust Update
-    echo '-------------------------'
-    echo '------ STARSHIP ---------'
-    echo '-------------------------'
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
     echo ''
 }
 
 function __update-emscripten(){
     # # Emscripten update
-    echo '-------------------------'
-    echo '----- EMSCRIPTEN --------'
-    echo '-------------------------'
     cd ~/Software/emsdk || exit
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
@@ -73,9 +61,6 @@ function __update-emscripten(){
 
 function __update-espIdf(){
     # Esp-Idf
-    echo '-------------------------'
-    echo '------- ESP-IDF ---------'
-    echo '-------------------------'
     cd ~/Software/esp-idf || exit
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
@@ -90,11 +75,9 @@ function __update-espIdf(){
 }
 
 function __update-neovim(){
-    echo '-------------------------'
-    echo '------- NEOVIM ----------'
-    echo '-------------------------'
     cd ~/.local/bin || exit
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    sudo mv ~/.local/bin/nvim.appimage /usr/bin/nvim
     chmod u+x nvim
     cd ~ || exit
     echo ''
