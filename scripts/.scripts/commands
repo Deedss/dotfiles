@@ -34,6 +34,9 @@ function update(){
 ###############################################################################
 function __update-rust(){
     # Rust Update
+    echo '-------------------------'
+    echo '---------- RUST ---------'
+    echo '-------------------------'
     rustup update
     echo ''
 }
@@ -46,6 +49,9 @@ function __update-starship(){
 
 function __update-emscripten(){
     # # Emscripten update
+    echo '-------------------------'
+    echo '------ EMSCRIPTEN -------'
+    echo '-------------------------'
     cd ~/Software/emsdk || exit
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
@@ -61,6 +67,9 @@ function __update-emscripten(){
 
 function __update-espIdf(){
     # Esp-Idf
+    echo '-------------------------'
+    echo '-------- ESP-IDF --------'
+    echo '-------------------------'
     cd ~/Software/esp-idf || exit
     pull=$(git pull)
     if [[ $pull != "Already up to date." ]];
@@ -75,6 +84,9 @@ function __update-espIdf(){
 }
 
 function __update-neovim(){
+    echo '-------------------------'
+    echo '-------- NEOVIM ---------'
+    echo '-------------------------'
     cd ~ || exit
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim
