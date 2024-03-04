@@ -106,3 +106,20 @@ function tar-pack(){
 function tar-unpack(){
     tar --zstd -xvf "$1"
 }
+
+function backup-files() {
+    cd ~ || exit
+    ## BRAVE
+    tar-pack .var/app/com.brave.Browser/config/BraveSoftware
+    ## DOTFILES
+    tar-pack .dotfiles
+    ## PRIVATE
+    tar-pack Private
+    ## WORK
+    tar-pack Work
+    ## PROJECTS
+    tar-pack Projects
+    ## OTHERS
+    tar-pack .ssh
+    tar-pack .gitconfig
+}
