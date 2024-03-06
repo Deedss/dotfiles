@@ -91,14 +91,13 @@ return { -- LSP Configuration & Plugins
 		capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
 		local servers = {
+			bashls = {},
 			bzl = {},
 			biome = {},
 			clangd = {},
 			neocmake = {},
 			pylsp = {},
 			rust_analyzer = {},
-			yamlls = {},
-			-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 			lua_ls = {
 				settings = {
 					Lua = {
