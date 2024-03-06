@@ -95,6 +95,7 @@ return { -- LSP Configuration & Plugins
 			bzl = {},
 			biome = {},
 			clangd = {},
+			marksman = {},
 			neocmake = {},
 			pylsp = {},
 			rust_analyzer = {},
