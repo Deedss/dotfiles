@@ -24,7 +24,7 @@ function update(){
     echo ''
 
     __update-rust
-    __update-starship
+    # __update-starship
     __update-emscripten
     __update-neovim
 }

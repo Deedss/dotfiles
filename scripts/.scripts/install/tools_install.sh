@@ -10,10 +10,9 @@ function install-rust(){
     rustup component add rust-analyzer
     rustup component add rustfmt
 
-    cargo install neocmakelsp
+    cargo install neocmakelsp starship
 
     mkdir -p ~/.local/bin
-    curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
 }
 
 ###############################################################################
@@ -74,7 +73,7 @@ function install-go(){
     fi
 
     # Specify the version of Go to install
-    GO_VERSION=1.22.0
+    GO_VERSION=1.22.1
     GO_PARENT_FOLDER=~/Software
 
     # Set the filename of the Go tarball
