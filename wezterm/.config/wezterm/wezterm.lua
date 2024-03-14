@@ -1,17 +1,26 @@
 local wezterm = require("wezterm")
 local config = {}
 
+-- disable updates
 config.check_for_updates = false
+
+-- disable warnings
 config.warn_about_missing_glyphs = false
 config.window_close_confirmation = "NeverPrompt"
 
+-- initial size
 config.initial_rows = 30
 config.initial_cols = 110
 
+-- UI
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
-
 config.font_size = 10.0
+
+-- disable blinking
+config.cursor_blink_rate = 0
+config.text_blink_rate = 0
+config.text_blink_rate_rapid = 0
 
 -- Tab bar colour schemes
 config.colors = {
