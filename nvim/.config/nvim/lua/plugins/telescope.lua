@@ -36,6 +36,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
 				layout_strategy = "flex",
 				layout_config = {
 					preview_cutoff = 10,
+					horizontal = {
+						preview_width = 0.6,
+					},
+					vertical = {
+						preview_height = 0.5,
+					},
 				},
 			},
 			-- You can put your default mappings / updates / etc. in here
