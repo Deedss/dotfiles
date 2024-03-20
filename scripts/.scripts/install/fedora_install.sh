@@ -19,7 +19,6 @@ function install-desktop(){
     install-podman
     install-iwd
     install-neovim
-    install-npm
 
     ### theme for kde
     # install-emscripten
