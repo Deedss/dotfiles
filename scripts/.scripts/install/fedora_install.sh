@@ -193,7 +193,7 @@ function default-packages(){
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl zstd ncurses git ripgrep \
-        ncurses-libs stow zsh util-linux-user redhat-lsb-core \
+        ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard
 }
