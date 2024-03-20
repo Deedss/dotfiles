@@ -10,9 +10,10 @@ function install-rust(){
     rustup component add rust-analyzer
     rustup component add rustfmt
 
-    cargo install neocmakelsp starship
-
     mkdir -p ~/.local/bin
+    curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
+    curl --output ~/.local/bin/neocmakelsp https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu
+    chmod +x ~/.local/bin/neocmakelsp
 }
 
 ###############################################################################

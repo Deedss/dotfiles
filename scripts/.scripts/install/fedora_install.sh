@@ -19,9 +19,10 @@ function install-desktop(){
     install-podman
     install-iwd
     install-neovim
+    install-npm
 
     ### theme for kde
-    install-emscripten
+    # install-emscripten
     install-arc-theme
 
     ### Fix default configs
@@ -32,7 +33,7 @@ function install-desktop(){
 }
 
 ###############################################################################
-###  CLEAN UP KDE                                                           ###
+###  INSTALL VIRTUAL MACHINE                                                ###
 ###############################################################################
 function install-virtual-machine(){
     ### Set the correct DNF settings

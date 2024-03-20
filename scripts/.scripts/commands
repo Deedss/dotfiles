@@ -20,14 +20,15 @@ function update(){
     echo '-------- FLATPAK --------'
     echo '-------------------------'
     flatpak update -y
+}
 
-    echo ''
 
+function update-tools(){
     __update-rust
-    # __update-starship
     __update-emscripten
     __update-neovim
 }
+
 
 ###############################################################################
 ##### UPDATE MAJOR TOOLS                                                #######
@@ -39,12 +40,10 @@ function __update-rust(){
     echo '-------------------------'
     rustup update
     echo ''
-}
 
-function __update-starship(){
-    # Rust Update
     curl -sS https://starship.rs/install.sh | sh -s -- --bin-dir ~/.local/bin -y
-    echo ''
+    curl --output ~/.local/bin/neocmakelsp https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu
+    chmod +x ~/.local/bin/neocmakelsp
 }
 
 function __update-emscripten(){
