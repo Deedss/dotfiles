@@ -42,19 +42,9 @@ function install-npm(){
 ###############################################################################
 function install-emscripten(){
     echo "Install Emscripten WebAssembly"
-    mkdir -p ~/Software
-    cd ~/Software || exit
-    # Get the emsdk repo
-    git clone https://github.com/emscripten-core/emsdk.git
-    # Enter thjt directory
-    cd emsdk || exit
-    # Fetch the latest version of the emsdk (not needed the first time you clone)
-    git pull
-    # Download and install the latest SDK tools.
-    ./emsdk install latest
-    # Make the "latest" SDK "active" for the current user. (writes .emscripten file)
-    ./emsdk activate latest
-    cd ~ || exit
+    git clone https://github.com/emscripten-core/emsdk.git ~/Software/emsdk
+    sh ~/Software/emsdk/emsdk install latest
+    sh ~/Software/emsdk/emsdk activate latest
     echo ''
 }
 
@@ -62,8 +52,6 @@ function install-emscripten(){
 ###### INSTALL GO                                                       #######
 ###############################################################################
 function install-go(){
-    setopt LOCAL_OPTIONS RM_STAR_SILENT
-
     # Check if ~/Software/go already exists and remove it if it does
     if [ -d "$HOME/Software/go" ]; then
         echo "Removing existing ~/Software/go directory"
@@ -71,45 +59,14 @@ function install-go(){
     fi
 
     # Specify the version of Go to install
-    GO_VERSION=1.22.1
-    GO_PARENT_FOLDER=~/Software
-
-    # Set the filename of the Go tarball
-    TARBALL_FILENAME=go${GO_VERSION}.linux-amd64.tar.gz
-
-    # Set the path to the Go tarball
-    TARBALL_PATH=$(pwd)/$TARBALL_FILENAME
-
-    # Check if the Go tarball already exists
-    if [ -f "$TARBALL_PATH" ]; then
-        echo "Removing existing Go tarball: $TARBALL_PATH"
-        rm -f "$TARBALL_PATH"
-    fi
+    # Use the first argument, or default to "1.22.1" if not provided
+    GO_VERSION=${1:-1.22.1}
 
     # Download the Go binary tarball
     curl -L https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz -o /tmp/go.tar.gz
 
     # Extract the tarball and move it to directory of choice
-    tar -C ${GO_PARENT_FOLDER} -xzf /tmp/go.tar.gz
-}
-
-###############################################################################
-###### FLUTTER AND DART                                                 #######
-###############################################################################
-function install-flutter(){
-    echo "Install Flutter and Dart"
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install gtk3-devel -y
-    fi
-
-    mkdir -p ~/Software
-    cd ~/Software || exit
-    git clone https://github.com/flutter/flutter.git -b stable
-    flutter doctor
-    cd ~ || exit
-    echo ''
+    tar -C ~/Software -xzf /tmp/go.tar.gz
 }
 
 ###############################################################################
@@ -139,12 +96,8 @@ function install-espIdf(){
         sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     fi
 
-    mkdir -p ~/Software
-    cd ~/Software || exit
-    git clone --recursive https://github.com/espressif/esp-idf.git
-    cd esp-idf || exit
-    sh install.sh
-    cd ~ || exit
+    git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
+    sh ~/Software/esp-idf/install.sh
     echo ''
 }
 
@@ -180,9 +133,7 @@ function install-pythontools(){
         sudo dnf -y install python3-devel python3-wheel python3-virtualenv python3-pygments
     fi
 
-
-    echo "Installing python packages"
-    pip install black install python-lsp-server debugpy pynvim
+    pip install pynvim
 }
 
 ###############################################################################
@@ -190,12 +141,18 @@ function install-pythontools(){
 ###############################################################################
 function install-neovim(){
     echo "Install Neovim"
-    cd ~ || exit
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
-    chmod u+x nvim
-    sudo mv ~/nvim /usr/bin/nvim
-    cd ~ || exit    
+    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o /usr/bin/nvim
+    sudo chmod 755 /usr/bin/nvim
     echo ''
+}
+
+function install-lazygit(){
+    echo 'Install LazyGit'
+    LAZYGIT_VERSION=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r '.tag_name')
+    curl -L https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz -o /tmp/lazygit.tar.gz
+    tar -C /tmp/lazygit /tmp/lazygit.tar.gz
+    chmod +x /tmp/lazygit/lazygit
+    mv /tmp/lazygit/lazygit ~/.local/bin/lazygit
 }
 
 ##############################################################################

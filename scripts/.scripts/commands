@@ -79,11 +79,8 @@ function __update-neovim(){
     echo '-------------------------'
     echo '-------- NEOVIM ---------'
     echo '-------------------------'
-    cd ~ || exit
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
-    chmod u+x nvim
-    sudo mv ~/nvim /usr/bin/nvim
-    cd ~ || exit    
+    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o /usr/bin/nvim
+    sudo chmod 755 /usr/bin/nvim
     echo ''
 }
 

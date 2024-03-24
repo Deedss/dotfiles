@@ -34,13 +34,14 @@ return {
 
     -- C / C++ / RUST debug adapter
     local dap = require("dap")
+    local mason_path = vim.fn.glob(vim.fn.stdpath "data" .. "/mason/")
     if not dap.adapters["codelldb"] then
       require("dap").adapters["codelldb"] = {
         type = "server",
         host = "localhost",
         port = "${port}",
         executable = {
-          command = "$HOME/.local/share/nvim/mason/bin/codelldb",
+          command = mason_path .. "bin/codelldb",
           args = {
             "--port",
             "${port}",
@@ -59,15 +60,7 @@ return {
           end,
           cwd = "${workspaceFolder}",
           stopOnEntry = false,
-        },
-        {
-          type = "codelldb",
-          request = "attach",
-          name = "Attach to process",
-          processId = require("dap.utils").pick_process,
-          cwd = "${workspaceFolder}",
-          stopOnEntry = false,
-        },
+        }
       }
     end
   end,
