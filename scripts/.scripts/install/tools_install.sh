@@ -146,15 +146,6 @@ function install-neovim(){
     echo ''
 }
 
-function install-lazygit(){
-    echo 'Install LazyGit'
-    LAZYGIT_VERSION=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/jesseduffield/lazygit/releases/latest | jq -r '.tag_name')
-    curl -L https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz -o /tmp/lazygit.tar.gz
-    tar -C /tmp/lazygit /tmp/lazygit.tar.gz
-    chmod +x /tmp/lazygit/lazygit
-    mv /tmp/lazygit/lazygit ~/.local/bin/lazygit
-}
-
 ##############################################################################
 ##### UDEV RULES                                                        ######
 ##############################################################################
@@ -185,7 +176,7 @@ function install-language-servers(){
     # Lua
     LUA_VERSION=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/LuaLS/lua-language-server/releases/latest | jq -r '.tag_name')
     curl -L "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_VERSION}-linux-x64.tar.gz" -o /tmp/lua-language-server.tar.gz
-    tar -C ~/.local/bin/lua-language-server /tmp/lua-language-server.tar.gz
+    tar -C ~/.local/bin/lua-language-server -xzf /tmp/lua-language-server.tar.gz
 
     # Bash
     npm i -g bash-language-server
