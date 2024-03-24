@@ -99,18 +99,17 @@ function tar-unpack(){
 }
 
 function backup-files() {
+    shopt -s dotglob
     cd ~ || exit
     ## BRAVE
     tar-pack .var/app/com.brave.Browser/config/BraveSoftware
-    ## DOTFILES
     tar-pack .dotfiles
-    ## PRIVATE
     tar-pack Private
-    ## WORK
     tar-pack Work
-    ## PROJECTS
     tar-pack Projects
-    ## OTHERS
     tar-pack .ssh
     tar-pack .gitconfig
+
+    udisksctl mount --block-device /dev/sda1
+    mv ~/*.tar.zst "/run/media/$USER/Backup/Linux/"
 }

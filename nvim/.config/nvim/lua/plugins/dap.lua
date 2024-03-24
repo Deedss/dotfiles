@@ -40,7 +40,7 @@ return {
         host = "localhost",
         port = "${port}",
         executable = {
-          command = "codelldb",
+          command = "$HOME/.local/share/nvim/mason/bin/codelldb",
           args = {
             "--port",
             "${port}",
@@ -48,7 +48,7 @@ return {
         },
       }
     end
-    for _, lang in ipairs({ "c", "cpp" }) do
+    for _, lang in ipairs({ "c", "cpp", "rust" }) do
       dap.configurations[lang] = {
         {
           type = "codelldb",
@@ -58,6 +58,7 @@ return {
             return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
           end,
           cwd = "${workspaceFolder}",
+          stopOnEntry = false,
         },
         {
           type = "codelldb",
@@ -65,6 +66,7 @@ return {
           name = "Attach to process",
           processId = require("dap.utils").pick_process,
           cwd = "${workspaceFolder}",
+          stopOnEntry = false,
         },
       }
     end
