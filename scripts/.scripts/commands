@@ -35,6 +35,7 @@ function __update-rust(){
     echo '---------- RUST ---------'
     echo '-------------------------'
     rustup update
+    curl -sS https://starship.rs/install.sh | sh -s -- -y -b ~/.local/bin > /dev/null
     echo ''
 }
 

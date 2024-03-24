@@ -10,7 +10,7 @@ function install-rust(){
     rustup component add rust-analyzer
     rustup component add rustfmt
 
-    cargo install neocmakelsp starship
+    curl -sS https://starship.rs/install.sh | sh -s -- -y -b ~/.local/bin > /dev/null
 }
 
 ###############################################################################
@@ -46,7 +46,7 @@ function install-emscripten(){
     cd ~/Software || exit
     # Get the emsdk repo
     git clone https://github.com/emscripten-core/emsdk.git
-    # Enter that directory
+    # Enter thjt directory
     cd emsdk || exit
     # Fetch the latest version of the emsdk (not needed the first time you clone)
     git pull
@@ -87,34 +87,10 @@ function install-go(){
     fi
 
     # Download the Go binary tarball
-    wget https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz -P ~/Downloads
+    curl -L https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz -o /tmp/go.tar.gz
 
     # Extract the tarball and move it to directory of choice
-    tar -C ${GO_PARENT_FOLDER} -xzf ~/Downloads/go${GO_VERSION}.linux-amd64.tar.gz
-
-    # Check if the Go tarball already exists
-    if [ -f "$TARBALL_PATH" ]; then
-        echo "Removing existing Go tarball: $TARBALL_PATH"
-        rm -f "$TARBALL_PATH"
-    fi
-}
-
-###############################################################################
-###### INSTALL BAZEL                                                    #######
-###############################################################################
-function install-bazel(){
-    # Tools for bazel
-    go install github.com/bazelbuild/bazelisk@latest
-    go install github.com/bazelbuild/buildtools/buildifier@latest
-    go install github.com/bazelbuild/buildtools/buildozer@latest
-    go install github.com/bazelbuild/buildtools/unused_deps@latest
-
-    local bazel_folder="$HOME/.oh-my-zsh/plugins/bazel"
-
-    if [ ! -d "${bazel_folder}" ]; then
-        mkdir -p ~/.oh-my-zsh/plugins/bazel
-        wget -P ~/.oh-my-zsh/plugins https://raw.githubusercontent.com/bazelbuild/bazel/master/scripts/zsh_completion/_bazel
-    fi
+    tar -C ${GO_PARENT_FOLDER} -xzf /tmp/go.tar.gz
 }
 
 ###############################################################################
@@ -232,4 +208,37 @@ function fix-config(){
 
     echo "Add power support to bluetooth"
     sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
+}
+
+##############################################################################
+##### Language Servers                                                  ######
+##############################################################################
+function install-language-servers(){
+    # Python 
+    pip install black install python-lsp-server debugpy pynvim
+
+    # CMake
+    curl -L https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu -o ~/.local/bin/neocmakelsp && chmod +x ~/.local/bin/neocmakelsp
+
+    # C / C++ / Rust
+    sudo dnf install clang-extra-tools
+    curl -L https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-x86_64-linux.vsix -o /tmp/codelldb.zip
+    unzip -u /tmp/codelldb.zip -d ~/.local/bin/codelldb
+
+    # Lua
+    LUA_VERSION=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/LuaLS/lua-language-server/releases/latest | jq -r '.tag_name')
+    curl -L "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_VERSION}-linux-x64.tar.gz" -o /tmp/lua-language-server.tar.gz
+    tar -C ~/.local/bin/lua-language-server /tmp/lua-language-server.tar.gz
+
+    # Bash
+    npm i -g bash-language-server
+
+    # Markdown
+    curl -L https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux-x64 -o ~/.local/bin/marksman && chmod +x ~/.local/bin/marksman
+
+    # Json / Yaml
+    npm i --save-dev --save-exact @biomejs/biome
+
+    # Bazel
+    curl -JL https://get.bzl.io/linux_amd64/bzl -o ~/.local/bin/bzl && chmod +x ~/.local/bin/bzl
 }
