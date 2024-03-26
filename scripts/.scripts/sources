@@ -5,7 +5,7 @@ export GTK_USE_PORTAL=1
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
 alias wezterm="flatpak run org.wezfurlong.wezterm"
-alias rm='rm -i'
+alias dnf='dnf5'
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"

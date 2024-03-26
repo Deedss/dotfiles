@@ -96,8 +96,8 @@ return { -- LSP Configuration & Plugins
 
     local servers = {
       bashls = {},
-      bzl = {},
-      biome = {},
+      -- bzl = {},
+      -- biome = {},
       clangd = {},
       marksman = {},
       neocmake = {},
@@ -128,6 +128,7 @@ return { -- LSP Configuration & Plugins
       "codelldb", -- DAP C/C++/Rust
       "debugpy", -- DAP python
       -- Linters
+      "codespell",
       -- Formatters
       "black",
       "clang-format",
