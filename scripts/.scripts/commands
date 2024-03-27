@@ -97,7 +97,7 @@ function tar-unpack(){
 }
 
 function backup-files() {
-    shopt -s dotglob
+    setopt extended_glob
     cd ~ || exit
     ## BRAVE
     tar-pack .var/app/com.brave.Browser/config/BraveSoftware
@@ -110,4 +110,6 @@ function backup-files() {
 
     udisksctl mount --block-device /dev/sda1
     mv ~/*.tar.zst "/run/media/$USER/Backup/Linux/"
+    mv ~/.*.tar.zst "/run/media/$USER/Backup/Linux/"
+    unsetopt extended_glob
 }
