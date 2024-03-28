@@ -10,7 +10,7 @@ function update(){
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
         sudo apt update && sudo apt upgrade
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf5 update --refresh
+        sudo dnf update --refresh
     else
         echo "Unsupported distribution. Update command not available."
     fi

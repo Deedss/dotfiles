@@ -10,6 +10,7 @@ function install-rust(){
     rustup component add rust-analyzer
     rustup component add rustfmt
 
+    mkdir -p ~/.local/bin
     curl -sS https://starship.rs/install.sh | sh -s -- -y -b ~/.local/bin > /dev/null
 }
 
