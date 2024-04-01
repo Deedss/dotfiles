@@ -22,6 +22,13 @@ config.cursor_blink_rate = 0
 config.text_blink_rate = 0
 config.text_blink_rate_rapid = 0
 
+config.window_padding = {
+  left = 4,
+  right = 4,
+  top = 6,
+  bottom = 0,
+}
+
 -- Tab bar colour schemes
 config.colors = {
 	-- # GitHub Dimmed
