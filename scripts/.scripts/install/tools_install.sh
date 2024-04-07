@@ -11,7 +11,8 @@ function install-rust(){
     rustup component add rustfmt
 
     mkdir -p ~/.local/bin
-    curl -sS https://starship.rs/install.sh | sh -s -- -y -b ~/.local/bin > /dev/null
+    cargo install starship neocmakelsp 
+    bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
 }
 
 ###############################################################################

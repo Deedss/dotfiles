@@ -93,7 +93,6 @@ plugins=(
 )
 
 fpath=(~/.scripts $fpath);
-source ~/.scripts/sources
 
 # Create a cache folder if it isn't exists
 if [ ! -d "$HOME/.cache/zsh" ]; then
@@ -109,6 +108,8 @@ export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+
+source ~/.scripts/sources
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -141,3 +142,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
+
+eval "$(atuin init zsh)"

@@ -98,3 +98,6 @@ source $HOME/.scripts/sources
 
 eval "$(starship init bash)"
 . "$HOME/.cargo/env"
+
+[[ -f ~/.bash-preexec.sh ]] && source ~/.bash-preexec.sh
+eval "$(atuin init bash)"
