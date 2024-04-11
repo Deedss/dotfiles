@@ -2,7 +2,7 @@
 ###############################################################################
 ##### SYSTEM UPDATE                                                     #######
 ###############################################################################
-function update(){
+function update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
@@ -11,8 +11,6 @@ function update(){
         sudo apt update && sudo apt upgrade
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf update --refresh
-    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper update
     else
         echo "Unsupported distribution. Update command not available."
     fi
@@ -22,7 +20,7 @@ function update(){
     echo '-------- FLATPAK --------'
     echo '-------------------------'
     flatpak update -y
-    
+
     echo ''
     __update-rust
     __update-neovim
@@ -31,7 +29,7 @@ function update(){
 ###############################################################################
 ##### UPDATE MAJOR TOOLS                                                #######
 ###############################################################################
-function __update-rust(){
+function __update-rust() {
     # Rust Update
     echo '-------------------------'
     echo '---------- RUST ---------'
@@ -40,15 +38,14 @@ function __update-rust(){
     echo ''
 }
 
-function __update-emscripten(){
+function __update-emscripten() {
     # # Emscripten update
     echo '-------------------------'
     echo '------ EMSCRIPTEN -------'
     echo '-------------------------'
     cd ~/Software/emsdk || exit
     pull=$(git pull)
-    if [[ $pull != "Already up to date." ]];
-    then
+    if [[ $pull != "Already up to date." ]]; then
         ~/Software/emsdk/emsdk install latest
         ~/Software/emsdk/emsdk activate latest
     else
@@ -58,15 +55,14 @@ function __update-emscripten(){
     echo ''
 }
 
-function __update-espIdf(){
+function __update-espIdf() {
     # Esp-Idf
     echo '-------------------------'
     echo '-------- ESP-IDF --------'
     echo '-------------------------'
     cd ~/Software/esp-idf || exit
     pull=$(git pull)
-    if [[ $pull != "Already up to date." ]];
-    then
+    if [[ $pull != "Already up to date." ]]; then
         git pull --recurse-submodules
         sh ~/Software/esp-idf/install.sh
     else
@@ -76,7 +72,7 @@ function __update-espIdf(){
     echo ''
 }
 
-function __update-neovim(){
+function __update-neovim() {
     echo '-------------------------'
     echo '-------- NEOVIM ---------'
     echo '-------------------------'
@@ -88,12 +84,12 @@ function __update-neovim(){
 ###############################################################################
 ####### BACKUP                                                           ######
 ###############################################################################
-function tar-pack(){
+function tar-pack() {
     filename=$(basename "$1")
     tar --zstd -cvf "$filename".tar.zst "$1"
 }
 
-function tar-unpack(){
+function tar-unpack() {
     tar --zstd -xvf "$1"
 }
 
