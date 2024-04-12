@@ -27,7 +27,7 @@ vim.opt.updatetime = 250 -- Decrease update time
 vim.opt.timeoutlen = 300 -- Decrease update time
 vim.opt.signcolumn = "yes" -- Keep signcolumn on by default
 vim.opt.spelllang = "en_us" -- Set language
-vim.opt.spell = true -- Set spelling
+-- vim.opt.spell = true -- Set spelling
 
 -----------------------------------------------------------
 -- Neovim UI
