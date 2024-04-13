@@ -1,5 +1,5 @@
 #!/bin/bash
-source tools_install.sh
+source tools.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
