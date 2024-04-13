@@ -12,7 +12,6 @@ function install-rust(){
 
     mkdir -p ~/.local/bin
     cargo install starship neocmakelsp 
-    bash <(curl --proto '=https' --tlsv1.2 -sSf https://setup.atuin.sh)
 }
 
 ###############################################################################
