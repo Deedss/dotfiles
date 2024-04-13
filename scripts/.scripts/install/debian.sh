@@ -9,17 +9,14 @@ function install-kde(){
     install-kde-desktop
 
     ### Generic Setup
-    default-packages
+    install-default-packages
     install-brave
     install-vscode
     install-pythontools
     install-rust
     install-oh-my-zsh
     install-neovim
-    install-spotify
     install-podman
-    #install-espIdf
-    install-emscripten
 
     ### THEME
     install-arc-theme
@@ -38,7 +35,9 @@ function install-kde-desktop(){
         udisks2 upower kwin-x11 kwin-wayland sddm xserver-xorg \
         aria2 ark dolphin pipewire pipewire-audio pipewire-pulse wireplumber \
         pipewire-audio-client-libraries libspa-0.2-bluetooth libspa-0.2-jack jq \
-        ripgrep wl-clipboard
+        ripgrep wl-clipboard network-manager-config-connectivity-debian konsole \
+    
+    install-iwd
 
     sudo apt autoremove -y plasma-discover pulseaudio zutty kdeconnect
 
@@ -78,7 +77,8 @@ function install-flatpak(){
     org.blender.Blender \
     org.videolan.VLC \
     org.freedesktop.Platform.ffmpeg-full \
-    io.podman_desktop.PodmanDesktop
+    io.podman_desktop.PodmanDesktop \
+    com.spotify.Client
 
     flatpak install -y \
     org.wezfurlong.wezterm \
@@ -92,7 +92,7 @@ function install-flatpak(){
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
-function default-packages(){
+function install-default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
     sudo apt install -y cmake ninja-build clang llvm clang-tools systemd-zram-generator
@@ -113,7 +113,7 @@ function default-packages(){
     ##### OTHER PACKAGES ######
     sudo apt install -y openssl zstd git openjdk-17-jdk stow ripgrep \
         libncurses5 libncurses5-dev libncurses6 libncurses-dev steam-devices  \
-        fonts-roboto fonts-jetbrains-mono libssl-dev neovim zsh
+        fonts-roboto fonts-jetbrains-mono libssl-dev zsh
 }
 
 ###############################################################################
@@ -150,16 +150,6 @@ function install-vscode(){
     rm -f packages.microsoft.gpg
     sudo apt update
     sudo apt install -y code
-}
-
-###############################################################################
-##### SPOTIFY                                                           #######
-###############################################################################
-function install-spotify(){
-    curl -sS https://download.spotify.com/debian/pubkey_7A3A762FAFD4A51F.gpg | sudo gpg --dearmor --yes -o /etc/apt/trusted.gpg.d/spotify.gpg
-    echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
-    sudo apt update
-    sudo apt install -y spotify-client
 }
 
 ###############################################################################
