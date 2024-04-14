@@ -20,23 +20,23 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 -----------------------------------------------------------
 -- General
 -----------------------------------------------------------
-vim.opt.mouse = "a" -- enable mouse support
+vim.opt.mouse = "a"               -- enable mouse support
 vim.opt.clipboard = "unnamedplus" -- copy/paste to system clipboard
-vim.opt.swapfile = false -- don't use swapfile
-vim.opt.updatetime = 250 -- Decrease update time
-vim.opt.timeoutlen = 300 -- Decrease update time
-vim.opt.signcolumn = "yes" -- Keep signcolumn on by default
-vim.opt.spelllang = "en_us" -- Set language
+vim.opt.swapfile = false          -- don't use swapfile
+vim.opt.updatetime = 250          -- Decrease update time
+vim.opt.timeoutlen = 300          -- Decrease update time
+vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
+vim.opt.spelllang = "en_us"       -- Set language
 -- vim.opt.spell = true -- Set spelling
 
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
-vim.opt.splitright = true -- vertical split to the right
-vim.opt.splitbelow = true -- Horizontal split to the bottom
-vim.opt.linebreak = true -- wrap on word boundary::
-vim.opt.cursorline = true -- Enable highlighting of the current line
-vim.opt.breakindent = true -- Enable break indent
+vim.opt.splitright = true    -- vertical split to the right
+vim.opt.splitbelow = true    -- Horizontal split to the bottom
+vim.opt.linebreak = true     -- wrap on word boundary::
+vim.opt.cursorline = true    -- Enable highlighting of the current line
+vim.opt.breakindent = true   -- Enable break indent
 vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 
 -----------------------------------------------------------
@@ -44,17 +44,17 @@ vim.opt.inccommand = "split" -- Preview substitutions live, as you type!
 -----------------------------------------------------------
 -- Case-insensitive searching UNLESS \C or capital in search
 vim.opt.ignorecase = true -- ignore case letters when search
-vim.opt.smartcase = true -- ignore lowercase for the whole pattern
+vim.opt.smartcase = true  -- ignore lowercase for the whole pattern
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
 
 -----------------------------------------------------------
 -- Memory, CPU
 -----------------------------------------------------------
-vim.opt.history = 100 -- remember n lines in history
+vim.opt.history = 100     -- remember n lines in history
 vim.opt.lazyredraw = true -- faster scrolling
-vim.opt.synmaxcol = 500 -- max column for syntax highlight
-vim.opt.undofile = true -- Save undo history
+vim.opt.synmaxcol = 500   -- max column for syntax highlight
+vim.opt.undofile = true   -- Save undo history
 
 -----------------------------------------------------------
 -- Tabs, indent
@@ -64,7 +64,7 @@ vim.opt.undofile = true -- Save undo history
 --  and :help 'listchars'
 vim.opt.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
-vim.opt.expandtab = true -- use spaces instead of tabs
+vim.opt.expandtab = true   -- use spaces instead of tabs
 vim.opt.smartindent = true -- autoindent new lines
 vim.opt.autoindent = true
 
@@ -100,11 +100,11 @@ require("lazy").setup({
       opts = {},
       -- stylua: ignore
       keys = {
-        { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-        { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-        { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-        { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-        { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+        { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+        { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+        { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+        { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+        { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
       },
     },
     {
