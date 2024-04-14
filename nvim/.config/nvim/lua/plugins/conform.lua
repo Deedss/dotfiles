@@ -8,7 +8,6 @@ return { -- Autoformat
     --   lsp_fallback = true,
     -- },
     formatters_by_ft = {
-      lua = { "stylua" },
       c = { "clang-format" },
       cpp = { " clang-format" },
       python = { "black" },

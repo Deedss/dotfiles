@@ -113,8 +113,10 @@ return { -- LSP Configuration & Plugins
               -- for your neovim configuration.
               library = { vim.env.VIMRUNTIME },
             },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
+            defaultConfig = {
+              indent_style = "space",
+              indent_size = "2",
+            }
           },
         },
       },
@@ -126,7 +128,7 @@ return { -- LSP Configuration & Plugins
     vim.list_extend(ensure_installed, {
       -- DAP
       "codelldb", -- DAP C/C++/Rust
-      "debugpy", -- DAP python
+      "debugpy",  -- DAP python
       -- Linters
       "codespell",
       -- Formatters
