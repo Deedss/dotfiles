@@ -1,5 +1,7 @@
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 
+vim.keymap.set("x", "<leader>p", "\"_dP")
+
 -- Jump to start and end of the line using home row
 vim.keymap.set("n", "H", "^")
 vim.keymap.set("n", "L", "$")
