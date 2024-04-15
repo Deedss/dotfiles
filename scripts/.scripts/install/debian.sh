@@ -6,7 +6,7 @@ source tools.sh
 ###############################################################################
 function install-kde() {
     echo "Perform Installation for Debian KDE"
-    install-kde-desktop
+    # install-kde-desktop
 
     ### Generic Setup
     install-default-packages
