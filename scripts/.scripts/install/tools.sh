@@ -49,12 +49,22 @@ function install-emscripten() {
     echo ''
 }
 
+function install-bazel() {
+    curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o ~/.local/bin/bazelisk
+    cp ~/.local/bin/bazelisk ~/.local/bin/bazel
+    chmod +x ~/.local/bin/bazelisk ~/.local/bin/bazel
+}
+
 ###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
 function install-iwd() {
     echo "Install IWD for networking"
-    sudo dnf install -y iwd
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y iwd
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y iwd
+    fi
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
@@ -65,7 +75,12 @@ function install-iwd() {
 ###############################################################################
 function install-espIdf() {
     echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y git wget flex bison gperf python3 python3-pip python3-venv \
+            cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    fi
 
     git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
     sh ~/Software/esp-idf/install.sh
@@ -77,14 +92,17 @@ function install-espIdf() {
 ###############################################################################
 function install-podman() {
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y podman podman-compose podman-docker buildah distrobox
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    fi
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
     ####### START PODMAN ROOTLESS                                           #######
     ###############################################################################
-    systemctl --user enable podman.socket
-    systemctl --user start podman.socket
+    systemctl --user enable --now podman.socket
     systemctl --user status podman.socket
 }
 
@@ -93,9 +111,13 @@ function install-podman() {
 ###############################################################################
 function install-pythontools() {
     echo "Install Python-Devel"
-    sudo dnf -y install python3-devel python3-wheel python3-virtualenv python3-pygments
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt -y install python3-dev python3-wheel python3-virtualenv python3-pip pipx
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf -y install python3-devel python3-wheel python3-virtualenv python3-pygments
+    fi
 
-    pip install pynvim
+    pip install --user pynvim
 }
 
 ###############################################################################
@@ -106,12 +128,6 @@ function install-neovim() {
     sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o /usr/bin/nvim
     sudo chmod 755 /usr/bin/nvim
     echo ''
-}
-
-function install-bazel() {
-    curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o ~/.local/bin/bazelisk
-    cp ~/.local/bin/bazelisk ~/.local/bin/bazel
-    chmod +x ~/.local/bin/bazelisk ~/.local/bin/bazel
 }
 
 ##############################################################################
