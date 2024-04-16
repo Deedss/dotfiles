@@ -108,8 +108,8 @@ function install-pythontools() {
 ###############################################################################
 function install-neovim() {
     echo "Install Neovim"
-    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o /usr/bin/nvim
-    sudo chmod 755 /usr/bin/nvim
+    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o ~/.local/bin/nvim
+    chmod u+x ~/.local/bin/nvim
     echo ''
 }
 
