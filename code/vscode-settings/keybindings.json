@@ -1,0 +1,16 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  {
+    "key": "ctrl+,",
+    "command": "-workbench.action.openSettings"
+  },
+  {
+    "key": "ctrl+] d",
+    "command": "workbench.action.showErrorsWarnings"
+  },
+  {
+    "key": "escape escape",
+    "command": "workbench.action.closePanel",
+    "when": "view.terminal.visible || panelVisible"
+  },
+]

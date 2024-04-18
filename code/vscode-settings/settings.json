@@ -1,0 +1,192 @@
+{
+    // General
+    "editor.fontSize": 13,
+    "editor.inlayHints.fontSize": 13,
+    "scm.inputFontSize": 13,
+    "debug.console.fontSize": 13,
+    "markdown.preview.fontSize": 13,
+    "terminal.integrated.fontSize": 13,
+    "window.zoomLevel": -1,
+    "editor.minimap.enabled": false,
+    "window.menuBarVisibility": "toggle",
+    "telemetry.telemetryLevel": "off",
+    "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
+    "keyboard.dispatch": "keyCode",
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1,
+        "vscodevim.vim":1
+    },
+    "extensions.ignoreRecommendations": true,
+    "editor.bracketPairColorization.enabled": false,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "workbench.sideBar.location": "right",
+    "files.autoSave": "onFocusChange",
+    "editor.cursorSurroundingLines": 10,
+    "editor.renderWhitespace": "boundary",
+    "workbench.iconTheme": "vscode-icons",
+    "zenMode.fullScreen": false,
+    "terminal.integrated.commandsToSkipShell": [
+        "escape"
+    ],
+    // Devcontainers
+    "dev.containers.dockerPath": "podman",
+    "dev.containers.dockerComposePath": "podman-compose",
+
+    // CPP
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "C_Cpp.clang_format_style": "Google",
+    "C_Cpp.suggestSnippets": false,
+
+    // Lua
+    "Lua.runtime.version": "Lua 5.1",
+
+    // Cmake
+    "cmake.configureOnOpen": false,
+    "cmake.showOptionsMovedNotification": false,
+
+    // VIM
+    "vim.leader": "space",
+    "vim.useCtrlKeys": true,
+    "vim.normalModeKeyBindings": [
+        // General
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        },
+        {
+            "before": ["[","d"],
+            "commands": ["editor.action.marker.prev"]
+        },
+        {
+            "before": ["]","d"],
+            "commands": ["editor.action.marker.next"]
+        },
+        {
+            "before":["<leader>", "e"],
+            "commands": ["workbench.action.problems.focus"]
+        },
+
+
+        // Taken from Telescope
+        {
+            "before": ["<leader>","<leader>"],
+            "commands": [ "workbench.action.quickOpen" ]
+        },
+        {
+            "before": ["<leader>", "s","k"],
+            "commands": [ "workbench.action.keybindingsReference" ]
+        },
+        {
+            "before": ["<leader>", "s","f"],
+            "commands": [ "workbench.action.quickOpen" ]
+        },
+        {
+            "before": ["<leader>", "s","g"],
+            "commands": [ "workbench.action.findInFiles" ]
+        },
+        {
+            "before": ["<leader>", "s","d"],
+            "commands": [ "workbench.action.problems.focus" ]
+        }, 
+        {
+            "before": ["<leader>", "s","."],
+            "commands": ["workbench.action.openRecent"]
+        },
+        {
+            "before": ["<leader>", "/"],
+            "commands": [ "settings.action.search" ]
+        },
+
+
+        // Taken from lspconfig
+        {
+            "before": ["g","d"],
+            "commands": ["editor.action.revealDefinition"]
+        }, 
+        {
+            "before": ["g","r"],
+            "commands": ["editor.action.goToReferences"]
+        },
+        {
+            "before": ["g","I"],
+            "commands": ["editor.action.goToImplementation"]
+        },
+        {
+            "before": ["<leader>","D"],
+            "commands": ["editor.action.goToTypeDefinition"]
+        },
+        {
+            "before": ["<leader>","d","s"],
+            "commands": ["editor.action.accessibleViewGoToSymbol"]
+        },
+        {
+            "before": ["<leader>", "w","s"],
+            "commands": ["editor.action.showAllSymbols"]
+        },
+        {
+            "before": ["<leader>", "r","n"],
+            "commands": ["editor.action.rename"]
+        },
+        {
+            "before": ["<leader>", "c","a"],
+            "commands": ["editor.action.quickFix"]
+        },
+        {
+            "before": ["<leader>", "f","d"],
+            "commands": ["editor.action.formatDocument"]
+        },
+        {
+            "before": ["<leader>", "f","s"],
+            "commands": ["editor.action.formatSelection"]
+        },
+        {
+            "before": ["K"],
+            "commands": ["editor.action.showHover"]
+        },
+        {
+            "before": ["C-k"],
+            "commands": ["editor.action.peekDeclaration"]
+        },
+        {
+            "before": ["g","D"],
+            "commands": ["editor.action.revealDeclaration"]
+        }
+
+    ],
+    "vim.operatorPendingModeKeyBindings": [
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["H"],
+            "after": ["^"]
+        }
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["<leader>", "f","s"],
+            "commands": ["editor.action.formatSelection"]
+        }
+    ],
+    "vim.visualModeKeyBindingsNonRecursive": [
+        {
+            "before": [
+                "p",
+            ],
+            "after": [
+                "p",
+                "g",
+                "v",
+                "y"
+            ]
+        }
+    ],
+}
