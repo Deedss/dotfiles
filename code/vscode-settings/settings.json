@@ -18,7 +18,6 @@
     },
     "extensions.ignoreRecommendations": true,
     "editor.bracketPairColorization.enabled": false,
-    "terminal.integrated.defaultProfile.linux": "zsh",
     "workbench.colorTheme": "One Dark Pro",
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
@@ -29,8 +28,9 @@
     "workbench.iconTheme": "vscode-icons",
     "zenMode.fullScreen": false,
     "terminal.integrated.commandsToSkipShell": [
-        "escape"
+        "workbench.action.closePanel"
     ],
+
     // Devcontainers
     "dev.containers.dockerPath": "podman",
     "dev.containers.dockerComposePath": "podman-compose",
@@ -39,7 +39,8 @@
     "C_Cpp.clang_format_fallbackStyle": "Google",
     "C_Cpp.clang_format_style": "Google",
     "C_Cpp.suggestSnippets": false,
-
+    "C_Cpp.maxMemory": 16384,
+    
     // Lua
     "Lua.runtime.version": "Lua 5.1",
 
@@ -189,4 +190,7 @@
             ]
         }
     ],
+    "C_Cpp.enhancedColorization": "disabled",
+    "C_Cpp.autocompleteAddParentheses": true,
+
 }
