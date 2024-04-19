@@ -48,10 +48,17 @@
     "cmake.configureOnOpen": false,
     "cmake.showOptionsMovedNotification": false,
 
-    // VIM
+    /    // VIM
     "vim.leader": "space",
-    "vim.useCtrlKeys": true,
-    "vim.normalModeKeyBindings": [
+    // "vim.useCtrlKeys": false,
+    "vim.timeout": 500,
+    "vim.foldfix": true,
+    "vim.easymotion": true,
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "vim.useSystemClipboard": true,
+    "vim.targets.enable": true,
+        "vim.normalModeKeyBindings": [
         // General
         {
             "before": ["L"],
@@ -62,7 +69,7 @@
             "after": ["^"]
         },
         {
-            "before": ["[","d"],
+            "before": ["[", "d"],
             "commands": ["editor.action.marker.prev"]
         },
         {
@@ -73,7 +80,6 @@
             "before":["<leader>", "e"],
             "commands": ["workbench.action.problems.focus"]
         },
-
 
         // Taken from Telescope
         {
@@ -149,10 +155,6 @@
         },
         {
             "before": ["K"],
-            "commands": ["editor.action.showHover"]
-        },
-        {
-            "before": ["C-k"],
             "commands": ["editor.action.peekDeclaration"]
         },
         {
@@ -190,7 +192,7 @@
             ]
         }
     ],
-    "C_Cpp.enhancedColorization": "disabled",
-    "C_Cpp.autocompleteAddParentheses": true,
-
+    "vim.handleKeys": {
+        "<C-k>": false,
+    }
 }
