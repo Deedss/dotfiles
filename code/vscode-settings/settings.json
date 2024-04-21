@@ -27,13 +27,17 @@
     "editor.renderWhitespace": "boundary",
     "workbench.iconTheme": "vscode-icons",
     "zenMode.fullScreen": false,
-    "terminal.integrated.commandsToSkipShell": [
-        "workbench.action.closePanel"
-    ],
 
     // Devcontainers
     "dev.containers.dockerPath": "podman",
-    "dev.containers.dockerComposePath": "podman-compose",
+    "dev.containers.dockerComposePath": "podman compose",
+    "dev.containers.cacheVolume": false,
+
+    // Docker
+    "docker.environment": {
+        "docker.host": "unix:///run/user/1000/podman/podman.sock",
+    },
+    "docker.dockerPath": "podman",
 
     // CPP
     "C_Cpp.clang_format_fallbackStyle": "Google",
@@ -194,5 +198,7 @@
     ],
     "vim.handleKeys": {
         "<C-k>": false,
-    }
+    },
+    "scm.showChangesSummary": false,
+
 }
