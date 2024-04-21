@@ -64,6 +64,8 @@ function install-iwd() {
         sudo apt install -y iwd
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y iwd
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y iwd
     fi
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
@@ -80,6 +82,8 @@ function install-espIdf() {
             cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y git wget flex bison gperf python312-pip python312-setuptools ccache dfu-util libusbx
     fi
 
     git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
@@ -96,6 +100,8 @@ function install-podman() {
         sudo apt install -y podman podman-compose podman-docker buildah distrobox
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y podman python312-podman-compose podman-docker buildah
     fi
     sudo touch /etc/containers/nodocker
 
@@ -116,6 +122,9 @@ function install-pythontools() {
         pip install --break-system-packages pynvim
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf -y install python3-devel python3-wheel python3-virtualenv python3-pygments
+        pip install --user pynvim
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper -y install python312-devel python312-wheel python312-virtualenv
         pip install --user pynvim
     fi
 

@@ -48,7 +48,7 @@
     "cmake.configureOnOpen": false,
     "cmake.showOptionsMovedNotification": false,
 
-    /    // VIM
+    // VIM
     "vim.leader": "space",
     // "vim.useCtrlKeys": false,
     "vim.timeout": 500,
