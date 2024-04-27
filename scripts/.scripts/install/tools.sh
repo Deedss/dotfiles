@@ -60,7 +60,7 @@ function install-bazel() {
 ###############################################################################
 function install-iwd() {
     echo "Install IWD for networking"
-    sudo dnf install -y iwd
+    sudo dnf5 install -y iwd
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
@@ -71,7 +71,7 @@ function install-iwd() {
 ###############################################################################
 function install-espIdf() {
     echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    sudo dnf5 install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
 
     git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
     sh ~/Software/esp-idf/install.sh
@@ -83,7 +83,7 @@ function install-espIdf() {
 ###############################################################################
 function install-podman() {
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    sudo dnf5 install -y podman podman-compose podman-docker buildah distrobox
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
@@ -98,7 +98,7 @@ function install-podman() {
 ###############################################################################
 function install-pythontools() {
     echo "Install Python-Devel"
-    sudo dnf -y install python3-devel python3-wheel python3-virtualenv python3-pygments
+    sudo dnf5 -y install python3-devel python3-wheel python3-virtualenv python3-pygments
     pip install --user pynvim
 }
 
@@ -137,7 +137,7 @@ function install-language-servers() {
     curl -L https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu -o ~/.local/bin/neocmakelsp && chmod +x ~/.local/bin/neocmakelsp
 
     # C / C++ / Rust
-    sudo dnf install clang-extra-tools
+    sudo dnf5 install clang-extra-tools
     curl -L https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-x86_64-linux.vsix -o /tmp/codelldb.zip
     unzip -u /tmp/codelldb.zip -d ~/.local/bin/codelldb
 

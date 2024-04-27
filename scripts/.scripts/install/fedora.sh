@@ -43,16 +43,16 @@ function install-virtual-machine(){
 
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb
+    sudo dnf5 install -y cmake ninja-build clang llvm clang-tools-extra lldb
 
     ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
+    sudo dnf5 install -y mesa-vulkan-drivers mesa-va-drivers \
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git ripgrep \
+    sudo dnf5 install -y openssl zstd ncurses git ripgrep \
         ncurses-libs stow zsh util-linux-user redhat-lsb-core \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         wl-clipboard
@@ -63,7 +63,7 @@ function install-virtual-machine(){
     install-podman
     install-arc-theme
 
-    sudo dnf install flatpak -y
+    sudo dnf5 install flatpak -y
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete fedora
     sudo flatpak remote-modify flathub --enable
@@ -74,8 +74,10 @@ function install-virtual-machine(){
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
 function clean-kde(){
+    sudo dnf install -y dnf5
+
     #### Clean up KDE packages
-    sudo dnf autoremove -y \
+    sudo dnf5 autoremove -y \
         \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
@@ -84,16 +86,16 @@ function clean-kde(){
         plasma-welcome
 
     ### Packages on kde spin =>> not on minimal install
-    sudo dnf autoremove -y \
+    sudo dnf5 autoremove -y \
         elisa-player dragon mediawriter kmahjongg \
         kmines kpat ksudoku kamoso krdc libreoffice-* \
         kdeconnectd krfb kolourpaint-* konversation
 
     ### Excess gnome packages
-    sudo dnf autoremove -y \
+    sudo dnf5 autoremove -y \
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 
-    sudo dnf install -y \
+    sudo dnf5 install -y \
         ark dolphin 
 
     # Update GRUB timeout value
@@ -113,6 +115,7 @@ function setup-dnf(){
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
     echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
+    sudo dnf install -y dnf5
 }
 
 ###############################################################################
@@ -120,7 +123,7 @@ function setup-dnf(){
 ###############################################################################
 function install-rpmfusion(){
     echo "Add RPM Fusion to repositories"
-    sudo dnf install -y \
+    sudo dnf5 install -y \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
         "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 }
@@ -129,7 +132,7 @@ function install-rpmfusion(){
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak(){
-    sudo dnf install flatpak -y
+    sudo dnf5 install flatpak -y
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -176,23 +179,23 @@ function install-flatpak(){
 function default-packages(){
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo dnf5 install -y cmake ninja-build clang llvm clang-tools-extra
 
     ###### VIRTUALIZATION ########
-    sudo dnf install -y virt-manager
+    sudo dnf5 install -y virt-manager
     sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
     ###### NETWORKING ######
-    sudo dnf install -y wireshark nmap curl wget
+    sudo dnf5 install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
+    sudo dnf5 install -y mesa-vulkan-drivers mesa-va-drivers \
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git ripgrep \
+    sudo dnf5 install -y openssl zstd ncurses git ripgrep \
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard
@@ -203,7 +206,7 @@ function default-packages(){
 ###############################################################################
 function install-arc-theme(){
     echo "Install arc theme"
-    sudo dnf -y install arc-theme arc-kde
+    sudo dnf5 -y install arc-theme arc-kde
 }
 
 ###############################################################################
@@ -213,5 +216,5 @@ function install-vscode(){
     echo "Install Visual Studio Code"
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    sudo dnf -y install code
+    sudo dnf5 -y install code
 }
