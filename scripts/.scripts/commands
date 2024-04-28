@@ -6,7 +6,7 @@ function update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
-    sudo dnf5 update --refresh
+    sudo dnf update --refresh
     echo ''
 
     echo '-------------------------'
