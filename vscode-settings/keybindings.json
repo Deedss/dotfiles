@@ -18,7 +18,7 @@
     "command": "workbench.files.action.focusFilesExplorer",
     "when": "viewContainer.workbench.view.explorer.enabled && !editorFocus",
   },
-  { // Close files explorer 
+  { // Close files explorer
     "key": "ctrl+shift+e",
     "command": "workbench.action.toggleSidebarVisibility",
     "when": "activeViewlet == 'workbench.view.explorer' && !editorFocus",
@@ -27,6 +27,11 @@
     "key": "ctrl+w",
     "command": "workbench.action.focusFirstEditorGroup",
     "when": "sideBarFocus"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closePanel",
+    "when": "panelFocus"
   },
   {
     "key": "r",
@@ -42,5 +47,9 @@
     "key": "shift+a",
     "command": "explorer.newFolder",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  }
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
 ]

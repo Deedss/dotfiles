@@ -6,7 +6,6 @@
     "debug.console.fontSize": 13,
     "markdown.preview.fontSize": 13,
     "terminal.integrated.fontSize": 13,
-    "window.zoomLevel": -1,
     "editor.minimap.enabled": false,
     "window.menuBarVisibility": "toggle",
     "telemetry.telemetryLevel": "off",
@@ -27,6 +26,9 @@
     "editor.renderWhitespace": "boundary",
     "workbench.iconTheme": "vscode-icons",
     "zenMode.fullScreen": false,
+    "scm.showChangesSummary": false,
+    "window.restoreWindows": "none",
+    "vsicons.dontShowNewVersionMessage": true,
 
     // Devcontainers
     "dev.containers.dockerPath": "podman",
@@ -35,7 +37,7 @@
 
     // Docker
     "docker.environment": {
-        "docker.host": "unix:///run/user/1000/podman/podman.sock",
+        "docker.host": "unix:///run/user/1000/podman/podman.sock"
     },
     "docker.dockerPath": "podman",
 
@@ -43,7 +45,7 @@
     "C_Cpp.clang_format_fallbackStyle": "Google",
     "C_Cpp.clang_format_style": "Google",
     "C_Cpp.suggestSnippets": false,
-    "C_Cpp.maxMemory": 16384,
+    "C_Cpp.autocompleteAddParentheses": true,
     
     // Lua
     "Lua.runtime.version": "Lua 5.1",
@@ -51,6 +53,9 @@
     // Cmake
     "cmake.configureOnOpen": false,
     "cmake.showOptionsMovedNotification": false,
+    "cmake.showConfigureWithDebuggerNotification": false,
+    "cmake.ctestArgs": ["--extra-verbose"],
+    "cmake.configureOnEdit": false,
 
     // VIM
     "vim.leader": "space",
@@ -60,6 +65,7 @@
     "vim.easymotion": true,
     "vim.highlightedyank.enable": true,
     "vim.hlsearch": true,
+    "vim.incsearch": true,
     "vim.useSystemClipboard": true,
     "vim.targets.enable": true,
         "vim.normalModeKeyBindings": [
@@ -87,14 +93,6 @@
 
         // Taken from Telescope
         {
-            "before": ["<leader>","<leader>"],
-            "commands": [ "workbench.action.quickOpen" ]
-        },
-        {
-            "before": ["<leader>", "s","k"],
-            "commands": [ "workbench.action.keybindingsReference" ]
-        },
-        {
             "before": ["<leader>", "s","f"],
             "commands": [ "workbench.action.quickOpen" ]
         },
@@ -112,7 +110,11 @@
         },
         {
             "before": ["<leader>", "/"],
-            "commands": [ "settings.action.search" ]
+            "commands": [ "actions.find" ]
+        },
+        {
+            "before": ["<leader>", "s","/"],
+            "commands": [ "workbench.action.quickTextSearch" ]
         },
 
 
@@ -199,6 +201,5 @@
     "vim.handleKeys": {
         "<C-k>": false,
     },
-    "scm.showChangesSummary": false,
 
 }
