@@ -1,6 +1,4 @@
 -- Set <space> as the leader key
--- See `:help mapleader`
---  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
@@ -10,12 +8,35 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
 vim.keymap.set("n", "H", "^")
 vim.keymap.set("n", "L", "$")
 
--- Diagnostic keymaps
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "Go to previous [D]iagnostic message" })
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "Go to next [D]iagnostic message" })
-vim.keymap.set("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic [E]rror messages" })
-vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist, { desc = "Open diagnostic [Q]uickfix list" })
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+-----------------------------------------------------------
+-- VSCODE KEYMAPS
+-----------------------------------------------------------
+local vscode = require('vscode-neovim')
+
+-- Diagnostics
+vim.keymap.set("n", "[d", function() vscode.action('editor.action.marker.prev') end)
+vim.keymap.set("n", "]d", function() vscode.action('editor.action.marker.next') end)
+-- vim.keymap.set("n", "<leader>e", function () vscode.call('editor.action.problems.focus') end)
+
+-- Telescope
+vim.keymap.set("n", "<leader>sf", function() vscode.action("workbench.action.quickOpen") end)
+vim.keymap.set("n", "<leader>sw",
+  function() vscode.action('workbench.action.findInFiles', { args = { query = vim.fn.expand('<cword>') } }) end)
+vim.keymap.set("n", "<leader>sg", function() vscode.action("workbench.action.quickTextSearch") end)
+vim.keymap.set("n", "<leader>e", function() vscode.call('editor.action.problems.focus') end)
+vim.keymap.set("n", "<leader>s.", function() vscode.action("workbench.action.openRecent") end)
+
+-- Language Servers
+vim.keymap.set("n", "<leader>gr", function() vscode.action('editor.action.goToReferences') end)
+vim.keymap.set("n", "<leader>gD", function() vscode.action('editor.action.peekDeclaration') end)
+vim.keymap.set("n", "<leader>gI", function() vscode.action('editor.action.goToImplementation') end)
+vim.keymap.set("n", "<leader>D", function() vscode.action('editor.action.goToTypeDefinition') end)
+vim.keymap.set("n", "<leader>ds", function() vscode.action('editor.action.accessibleViewGoToSymbol') end)
+vim.keymap.set("n", "<leader>ws", function() vscode.action('editor.action.showAllSymbols') end)
+vim.keymap.set("n", "<leader>rn", function() vscode.action('editor.action.rename') end)
+vim.keymap.set("n", "<leader>ca", function() vscode.action('editor.action.quickFix') end)
+-- vim.keymap.set("n", "<leader>fd", function() vscode.call('editor.action.formatDocument') end)
+-- vim.keymap.set({ "n" , "v"}, "<leader>fs", function() vscode.action('editor.action.formatSelection') end)
 
 -----------------------------------------------------------
 -- General
@@ -26,7 +47,7 @@ vim.opt.swapfile = false          -- don't use swapfile
 vim.opt.updatetime = 250          -- Decrease update time
 vim.opt.timeoutlen = 300          -- Decrease update time
 vim.opt.signcolumn = "yes"        -- Keep signcolumn on by default
-vim.opt.spelllang = "en_us"       -- Set language
+-- vim.opt.spelllang = "en_us"       -- Set language
 -- vim.opt.spell = true -- Set spelling
 
 -----------------------------------------------------------
@@ -60,10 +81,6 @@ vim.opt.undofile = true   -- Save undo history
 -- Tabs, indent
 -----------------------------------------------------------
 -- Sets how neovim will display certain whitespace in the editor.
---  See :help 'list'
---  and :help 'listchars'
-vim.opt.list = true
-vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.expandtab = true   -- use spaces instead of tabs
 vim.opt.smartindent = true -- autoindent new lines
 vim.opt.autoindent = true
@@ -91,38 +108,12 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   {
     {
-      "numToStr/Comment.nvim",
-      opts = {},
-    },
-    {
-      "folke/flash.nvim",
-      event = "VeryLazy",
-      opts = {},
-      -- stylua: ignore
-      keys = {
-        { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-        { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-        { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
-        { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-        { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
-      },
-    },
-    {
       "windwp/nvim-autopairs",
       event = "InsertEnter",
       config = true,
       opts = {},
       -- use opts = {} for passing setup options
       -- this is equalent to setup({}) function
-    },
-    {
-      "folke/todo-comments.nvim",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-      },
-      opts = {
-        signs = false,
-      },
     },
     { -- Highlight, edit, and navigate code
       "nvim-treesitter/nvim-treesitter",

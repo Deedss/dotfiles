@@ -52,18 +52,14 @@ return { -- LSP Configuration & Plugins
           vim.lsp.buf.code_action({ context = { only = { "quickfix", "refactor", "source" } } })
         end, "[C]ode [A]ction")
 
-        -- Opens a popup that displays documentation about the word under your cursor
-        --  See `:help K` for why this keymap
-        map("K", vim.lsp.buf.hover, "Hover Documentation")
-
-        -- Show the signature of the function you're currently completing.
+        -- Opens a popup that        -- Show the signature of the function you're currently completing.
         map("<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
 
         -- WARN: This is not Goto Definition, this is Goto Declaration.
         --  For example, in C this would take you to the header
         map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
-        map("<leader>f", function()
+        map("<leader>fd", function()
           vim.lsp.buf.format({ async = true })
         end, "[F]ormat")
 
