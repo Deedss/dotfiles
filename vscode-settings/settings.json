@@ -17,7 +17,6 @@
     },
     "extensions.ignoreRecommendations": true,
     "editor.bracketPairColorization.enabled": false,
-    "workbench.colorTheme": "One Dark Pro",
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
     "workbench.sideBar.location": "right",
@@ -28,6 +27,7 @@
     "zenMode.fullScreen": false,
     "scm.showChangesSummary": false,
     "window.restoreWindows": "none",
+    
     "vsicons.dontShowNewVersionMessage": true,
 
     // Devcontainers
@@ -57,6 +57,10 @@
     "cmake.ctestArgs": ["--extra-verbose"],
     "cmake.configureOnEdit": false,
 
+    
+
+
+    
     // VIM
     "vim.leader": "space",
     // "vim.useCtrlKeys": false,
@@ -161,11 +165,11 @@
         },
         {
             "before": ["K"],
-            "commands": ["editor.action.peekDeclaration"]
+            "commands": ["editor.action.showHover"]
         },
         {
             "before": ["g","D"],
-            "commands": ["editor.action.revealDeclaration"]
+            "commands": ["editor.action.peekDeclaration"]
         }
 
     ],
@@ -201,5 +205,8 @@
     "vim.handleKeys": {
         "<C-k>": false,
     },
+    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.activityBar.location": "top",
+    "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode.lua",
 
 }
