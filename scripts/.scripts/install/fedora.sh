@@ -18,7 +18,9 @@ function install-desktop(){
     install-oh-my-zsh
     install-podman
     install-iwd
+    setup-dns
     install-neovim
+    install-wezterm
 
     ### theme for kde
     # install-emscripten
@@ -165,7 +167,6 @@ function install-flatpak(){
 
     ##### KDE #####
     flatpak install -y \
-    org.wezfurlong.wezterm \
     org.kde.okular \
     org.kde.gwenview \
     org.kde.kcalc \
@@ -217,4 +218,12 @@ function install-vscode(){
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf -y install code code-insiders
+}
+
+###############################################################################
+#### WEZTERM                                                              #####
+###############################################################################
+function install-wezterm() {
+    sudo dnf copr enable wezfurlong/wezterm-nightly
+    sudo dnf install wezterm
 }
