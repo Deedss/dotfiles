@@ -49,7 +49,10 @@ return { -- Autocompletion
         -- Accept currently selected item.
         --  Set `select` to `false` to only confirm explicitly selected items.
         --  This will auto-import if your LSP supports it.
-        ["<CR>"] = cmp.mapping.confirm({ select = false }),
+        ["<C-y>"] = cmp.mapping.confirm({
+          behavior = cmp.ConfirmBehavior.Insert,
+          select = true
+        }),
 
         -- Manually trigger a completion from nvim-cmp.
         --  Generally you don't need this, because nvim-cmp will display

@@ -4,7 +4,6 @@ export GTK_USE_PORTAL=1
 
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
-alias wezterm="flatpak run org.wezfurlong.wezterm"
 alias ls='eza'
 alias cat='bat'
 

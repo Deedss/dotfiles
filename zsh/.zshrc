@@ -143,3 +143,6 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
 eval "$(atuin init zsh)"
+
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
