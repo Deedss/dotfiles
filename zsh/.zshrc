@@ -79,6 +79,7 @@ plugins=(
     docker
     dotnet
     fd
+    fzf-tab
     git
     npm
     nvm
@@ -142,7 +143,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
-eval "$(atuin init zsh)"
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
