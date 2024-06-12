@@ -151,6 +151,9 @@ function setup-dns() {
     dns=2606:4700:4700::1111;2606:4700:4700::1001;"
 
     echo "$CONFIG_CONTENT" | sudo tee /etc/NetworkManager/conf.d/90-dns.conf > /dev/null
+
+    echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+
     sudo systemctl restart NetworkManager
 }
 
