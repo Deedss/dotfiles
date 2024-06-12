@@ -157,6 +157,15 @@ function setup-dns() {
     sudo systemctl restart NetworkManager
 }
 
+###############################################################################
+#### FZF                                                                  #####
+###############################################################################
+function install-fzf() {
+    mkdir -p ~/Software
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/Software/fzf
+    ~/Software/fzf/install --xdg --no-bash --completion --key-bindings --no-update-rc
+}
+
 ##############################################################################
 ##### Language Servers                                                  ######
 ##############################################################################
