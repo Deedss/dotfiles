@@ -23,7 +23,6 @@
     "files.autoSave": "onFocusChange",
     "editor.cursorSurroundingLines": 10,
     "editor.renderWhitespace": "boundary",
-    "workbench.iconTheme": "vscode-icons",
     "zenMode.fullScreen": false,
     "scm.showChangesSummary": false,
     "window.restoreWindows": "none",
@@ -205,8 +204,13 @@
     "vim.handleKeys": {
         "<C-k>": false,
     },
-    "workbench.colorTheme": "GitHub Dark Dimmed",
+    "workbench.colorTheme": "Catppuccin Macchiato",
     "workbench.activityBar.location": "top",
     "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode.lua",
+    "editor.quickSuggestions": {
+        "comments": "inline",
+        "strings": "inline"
+    },
+    "workbench.iconTheme": "vscode-icons",
 
 }
