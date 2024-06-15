@@ -1,5 +1,6 @@
 #!/bin/bash
-source tools.sh
+DIR=$(dirname ${BASH_SOURCE[0]:-$0})
+source $DIR/tools.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
