@@ -73,11 +73,10 @@ function clean-kde(){
 ##### SETUP DNF                                                         #######
 ###############################################################################
 function setup-dnf(){
-    echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
+    # echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
     echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-    sudo dnf install -y dnf
 }
 
 ###############################################################################
