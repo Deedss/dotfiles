@@ -119,7 +119,7 @@ function install-neovim() {
 ###############################################################################
 function install-fzf() {
     git clone https://github.com/junegunn/fzf.git ~/Software/fzf
-    sh ~/Software/fzf/install --xdg
+    sh ~/Software/fzf/install --xdg --no-update-rc --completion --key-bindings
 }
 
 ##############################################################################
@@ -142,13 +142,13 @@ function fix-config() {
 function setup-dns() {
     echo "DNS configuration."
     CONFIG_CONTENT="[main]
-    dns=none
+dns=none
 
-    [global-dns]
-    dns=1.1.1.1;1.0.0.1;
+[global-dns]
+dns=1.1.1.1;1.0.0.1;
 
-    [global-dns-ipv6]
-    dns=2606:4700:4700::1111;2606:4700:4700::1001;"
+[global-dns-ipv6]
+dns=2606:4700:4700::1111;2606:4700:4700::1001;"
 
     echo "$CONFIG_CONTENT" | sudo tee /etc/NetworkManager/conf.d/90-dns.conf > /dev/null
 
