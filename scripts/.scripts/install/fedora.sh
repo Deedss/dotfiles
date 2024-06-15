@@ -18,12 +18,11 @@ function install-desktop(){
     install-rust
     install-oh-my-zsh
     install-podman
-    setup-dns
     install-neovim
     install-wezterm
+    install-fzf
 
     ### theme for kde
-    # install-emscripten
     install-arc-theme
 
     ### Fix default configs
@@ -31,45 +30,6 @@ function install-desktop(){
 
     ##### FLATPAKS
     install-flatpak
-}
-
-###############################################################################
-###  INSTALL VIRTUAL MACHINE                                                ###
-###############################################################################
-function install-virtual-machine(){
-    ### Set the correct DNF settings
-    setup-dnf
-
-    ### Generic Setup
-    install-rpmfusion
-
-    echo "Install a selection of used applications"
-    ###### CMAKE / CLANG #########
-    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra lldb
-
-    ##### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
-        mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
-        mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
-
-    ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git ripgrep \
-        ncurses-libs stow zsh util-linux-user redhat-lsb-core \
-        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
-        wl-clipboard
-
-    install-vscode
-    install-pythontools
-    install-oh-my-zsh
-    install-podman
-    install-arc-theme
-
-    sudo dnf install flatpak -y
-    sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    sudo flatpak remote-delete fedora
-    sudo flatpak remote-modify flathub --enable
-    flatpak install -y com.brave.Browser 
 }
 
 ###############################################################################

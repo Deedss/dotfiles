@@ -134,27 +134,10 @@ function fix-config() {
 
     echo "Add power support to bluetooth"
     sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
-}
-
-###############################################################################
-#### SETUP DNS                                                            #####
-###############################################################################
-function setup-dns() {
-    echo "DNS configuration."
-    CONFIG_CONTENT="[main]
-dns=none
-
-[global-dns]
-dns=1.1.1.1;1.0.0.1;
-
-[global-dns-ipv6]
-dns=2606:4700:4700::1111;2606:4700:4700::1001;"
-
-    echo "$CONFIG_CONTENT" | sudo tee /etc/NetworkManager/conf.d/90-dns.conf > /dev/null
 
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
-
     sudo systemctl restart NetworkManager
+    sleep 5
 }
 
 ###############################################################################
