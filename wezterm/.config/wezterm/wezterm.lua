@@ -28,41 +28,42 @@ config.window_padding = {
   top = 6,
   bottom = 0,
 }
+config.color_scheme = "Catppuccin Frappe"
 
 -- Tab bar colour schemes
-config.colors = {
-	-- # GitHub Dimmed
-	-- [colors]
-	foreground = "#adbac7",
-	background = "#22272e",
-	cursor_bg = "#6cb6ff",
-	cursor_border = "#6cb6ff",
-	cursor_fg = "#101216",
-	selection_bg = "#264466",
-	selection_fg = "#ffffff",
-
-	ansi = { "#545d68", "#f47067", "#57ab5a", "#c69026", "#539bf5", "#b083f0", "#39c5cf", "#909dab" },
-	brights = { "#636e7b", "#ff938a", "#6bc46d", "#daaa3f", "#6cb6ff", "#dcbdfb", "#56d4dd", "#cdd9e5" },
-	tab_bar = {
-		background = "#282c34",
-		active_tab = {
-			bg_color = "#282c34",
-			fg_color = "#ffffff",
-			intensity = "Bold",
-			italic = true,
-		},
-		inactive_tab = {
-			bg_color = "#282c34",
-			fg_color = "#a0a0a0",
-			intensity = "Half",
-			italic = false,
-		},
-		new_tab = {
-			bg_color = "#282c34",
-			fg_color = "#a0a0a0",
-		},
-	},
-}
+-- config.colors = {
+-- 	-- # GitHub Dimmed
+-- 	-- [colors]
+-- 	foreground = "#adbac7",
+-- 	background = "#22272e",
+-- 	cursor_bg = "#6cb6ff",
+-- 	cursor_border = "#6cb6ff",
+-- 	cursor_fg = "#101216",
+-- 	selection_bg = "#264466",
+-- 	selection_fg = "#ffffff",
+--
+-- 	ansi = { "#545d68", "#f47067", "#57ab5a", "#c69026", "#539bf5", "#b083f0", "#39c5cf", "#909dab" },
+-- 	brights = { "#636e7b", "#ff938a", "#6bc46d", "#daaa3f", "#6cb6ff", "#dcbdfb", "#56d4dd", "#cdd9e5" },
+-- 	tab_bar = {
+-- 		background = "#282c34",
+-- 		active_tab = {
+-- 			bg_color = "#282c34",
+-- 			fg_color = "#ffffff",
+-- 			intensity = "Bold",
+-- 			italic = true,
+-- 		},
+-- 		inactive_tab = {
+-- 			bg_color = "#282c34",
+-- 			fg_color = "#a0a0a0",
+-- 			intensity = "Half",
+-- 			italic = false,
+-- 		},
+-- 		new_tab = {
+-- 			bg_color = "#282c34",
+-- 			fg_color = "#a0a0a0",
+-- 		},
+-- 	},
+-- }
 -----------------------------------------
 -------- KEY MAPPINGS -------------------
 -----------------------------------------
