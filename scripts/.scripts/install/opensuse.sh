@@ -75,7 +75,7 @@ function install-flatpak() {
 function default-packages() {
   echo "Install a selection of used applications"
   ###### CMAKE / CLANG #########
-  sudo zypper install -y cmake ninja-build clang llvm clang-tools-extra
+  sudo zypper install -y cmake ninja-build clang llvm clang-tools
 
   ###### VIRTUALIZATION ########
   sudo zypper install -y virt-manager
@@ -85,7 +85,7 @@ function default-packages() {
   sudo zypper install -y wireshark nmap curl wget
 
   ##### VIDEO DRIVERS ######
-  sudo zypper install -y Mesa-libva Mesa-libRusticOpenCL Mesa-libGL1 \
+  sudo zypper install -y Mesa-libva Mesa-libRusticlOpenCL Mesa-libGL1 \
   libva-utils libva-wayland2 libva-vdpau-driver libva2 libva-glx2 \
   libglvnd-devel Mesa-libEGL-devel
 
