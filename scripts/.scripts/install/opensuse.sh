@@ -92,7 +92,7 @@ function default-packages() {
   ##### OTHER PACKAGES ######
   sudo zypper install -y openssl zstd ncurses-devel git ripgrep \
     stow zsh util-linux java-21-openjdk java-21-openjdk-devel \
-    jetbrains-mono-fonts google-roboto-fonts \
+    jetbrains-mono-fonts google-roboto-fonts lsb-release \
     steam-devices wl-clipboard bat eza wezterm
 }
 
