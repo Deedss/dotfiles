@@ -30,7 +30,8 @@ function install-desktop() {
 
 function clean-kde(){
   sudo zypper -y remove \
-    akregator discover* akonadi* kmail* kontact*
+    akregator discover* akonadi* kmail* kontact* \
+    kuiviewer vlc*
 
   rm -rf .config
 }
@@ -73,9 +74,6 @@ function install-flatpak() {
 
   ##### KDE #####
   flatpak install -y \
-    org.kde.okular \
-    org.kde.gwenview \
-    org.kde.kcalc \
     org.gtk.Gtk3theme.Arc-Dark \
     org.gtk.Gtk3theme.Arc-Dark-solid
 }
