@@ -29,7 +29,10 @@ function install-desktop() {
 }
 
 function clean-kde(){
-  sudo zypper -y remove 
+  sudo zypper -y remove \
+    akregator discover* akonadi* kmail* kontact*
+
+  rm -rf .config
 }
 
 function setup-zypper(){
