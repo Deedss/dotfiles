@@ -6,12 +6,9 @@ source $DIR/tools.sh
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
 function install-desktop() {
-  echo "Perform Installation for Fedora"
-  ### Set the correct DNF settings
-  setup-dnf
+  echo "Perform Installation for OpenSUSE"
 
   ### Generic Setup
-  install-rpmfusion
   default-packages
   install-vscode
   install-pythontools
@@ -19,7 +16,6 @@ function install-desktop() {
   install-oh-my-zsh
   install-podman
   install-neovim
-  install-wezterm
   install-fzf
 
   ### theme for kde
@@ -33,71 +29,11 @@ function install-desktop() {
 }
 
 ###############################################################################
-###  CLEAN UP KDE                                                           ###
-###############################################################################
-function clean-kde() {
-  sudo dnf install -y dnf
-
-  #### Clean up KDE packages
-  sudo dnf autoremove -y \
-    \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
-    kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
-    ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
-    kde-spectacle firefox plasma-browser-integration \
-    plasma-discover plasma-drkonqi okular gwenview kcalc \
-    plasma-welcome
-
-  ### Packages on kde spin =>> not on minimal install
-  sudo dnf autoremove -y \
-    elisa-player dragon mediawriter kmahjongg \
-    kmines kpat ksudoku kamoso krdc libreoffice-* \
-    kdeconnectd krfb kolourpaint-* konversation
-
-  ### Excess gnome packages
-  sudo dnf autoremove -y \
-    gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
-
-  sudo dnf install -y \
-    ark dolphin
-
-  # Update GRUB timeout value
-  sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
-  sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
-
-  sudo rm -rf /usr/share/akonadi
-  rm -rf "$HOME/.config"
-  rm -rf "$HOME/.local/share/akonadi*"
-}
-
-###############################################################################
-##### SETUP DNF                                                         #######
-###############################################################################
-function setup-dnf() {
-  # echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
-  echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
-  echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
-  echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
-}
-
-###############################################################################
-###  ADD RPM FUSION / FLATPAK                                               ###
-###############################################################################
-function install-rpmfusion() {
-  echo "Add RPM Fusion to repositories"
-  sudo dnf install -y \
-    "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
-    "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
-}
-
-###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
 function install-flatpak() {
-  sudo dnf install flatpak -y
-
   echo "Add flathub repository"
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  sudo flatpak remote-delete fedora
   sudo flatpak remote-modify flathub --enable
 
   echo "Install flatpak applications"
@@ -180,10 +116,4 @@ function install-vscode() {
     sudo tee /etc/zypp/repos.d/vscode.repo >/dev/null
   sudo zypper refresh
   sudo zypper install code
-}
-
-###############################################################################
-#### WEZTERM                                                              #####
-###############################################################################
-function install-wezterm() {
 }

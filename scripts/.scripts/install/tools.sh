@@ -183,46 +183,46 @@ function install-fzf() {
 ##############################################################################
 ##### Language Servers                                                  ######
 ##############################################################################
-# function install-language-servers() {
-#     # Python
-#     # if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-#     #     pip install --user --break-system-packages black install python-lsp-server debugpy pynvim
-#     # elif [[ $(lsb_release -is) == "Fedora" ]]; then
-#     #     pip install --user black install python-lsp-server debugpy pynvim
-#     # elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-#     #     pip install --user black install python-lsp-server debugpy pynvim
-#     # fi
+function install-language-servers() {
+    # Python
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        pip install --user --break-system-packages black install python-lsp-server debugpy pynvim
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        pip install --user black install python-lsp-server debugpy pynvim
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        pip install --user black install python-lsp-server debugpy pynvim
+    fi
 
-#     # CMake
-#     curl -L https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu -o ~/.local/bin/neocmakelsp && chmod +x ~/.local/bin/neocmakelsp
+    # CMake
+    curl -L https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu -o ~/.local/bin/neocmakelsp && chmod +x ~/.local/bin/neocmakelsp
 
-#     # C / C++ / Rust
-#     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-#         # nothing yet
-#         sudo apt update
-#     elif [[ $(lsb_release -is) == "Fedora" ]]; then
-#         sudo dnf install -y clang-extra-tools
-#     elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-#         sudo zypper install -y clang-tools
-#     fi
+    # C / C++ / Rust
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        # nothing yet
+        sudo apt update
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y clang-extra-tools
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y clang-tools
+    fi
 
-#     curl -L https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-x86_64-linux.vsix -o /tmp/codelldb.zip
-#     unzip -u /tmp/codelldb.zip -d ~/.local/bin/codelldb
+    curl -L https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-x86_64-linux.vsix -o /tmp/codelldb.zip
+    unzip -u /tmp/codelldb.zip -d ~/.local/bin/codelldb
 
-#     # Lua
-#     LUA_VERSION=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/LuaLS/lua-language-server/releases/latest | jq -r '.tag_name')
-#     curl -L "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_VERSION}-linux-x64.tar.gz" -o /tmp/lua-language-server.tar.gz
-#     tar -C ~/.local/bin/lua-language-server -xzf /tmp/lua-language-server.tar.gz
+    # Lua
+    LUA_VERSION=$(curl -H "Accept: application/vnd.github+json" https://api.github.com/repos/LuaLS/lua-language-server/releases/latest | jq -r '.tag_name')
+    curl -L "https://github.com/LuaLS/lua-language-server/releases/latest/download/lua-language-server-${LUA_VERSION}-linux-x64.tar.gz" -o /tmp/lua-language-server.tar.gz
+    tar -C ~/.local/bin/lua-language-server -xzf /tmp/lua-language-server.tar.gz
 
-#     # Bash
-#     npm i -g bash-language-server
+    # Bash
+    npm i -g bash-language-server
 
-#     # Markdown
-#     curl -L https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux-x64 -o ~/.local/bin/marksman && chmod +x ~/.local/bin/marksman
+    # Markdown
+    curl -L https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux-x64 -o ~/.local/bin/marksman && chmod +x ~/.local/bin/marksman
 
-#     # Json / Yaml
-#     npm i --save-dev --save-exact @biomejs/biome
+    # Json / Yaml
+    npm i --save-dev --save-exact @biomejs/biome
 
-#     # Bazel
-#     curl -JL https://get.bzl.io/linux_amd64/bzl -o ~/.local/bin/bzl && chmod +x ~/.local/bin/bzl
-# }
+    # Bazel
+    curl -JL https://get.bzl.io/linux_amd64/bzl -o ~/.local/bin/bzl && chmod +x ~/.local/bin/bzl
+}
