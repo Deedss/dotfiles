@@ -66,7 +66,7 @@ function install-iwd() {
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y iwd
     elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper install -y iwd
+        sudo zypper -y install iwd
     fi
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
@@ -87,7 +87,7 @@ function install-espIdf() {
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
     elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper install -y git wget flex bison gperf python312-pip python312-setuptools ccache dfu-util libusbx
+        sudo zypper -y install git wget flex bison gperf python312-pip python312-setuptools ccache dfu-util libusbx
     fi
 
     git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
@@ -105,7 +105,7 @@ function install-podman() {
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     elif [[ $(lsb_release -is) == "openSUSE" ]]; then
-        sudo zypper install -y podman python312-podman-compose podman-remote \
+        sudo zypper -y install podman python312-podman-compose podman-remote \
             podman-docker buildah distrobox
     fi
     sudo touch /etc/containers/nodocker

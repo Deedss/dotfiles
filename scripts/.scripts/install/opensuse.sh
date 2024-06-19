@@ -7,6 +7,7 @@ source $DIR/tools.sh
 ###############################################################################
 function install-desktop() {
   echo "Perform Installation for OpenSUSE"
+  setup-zypper
 
   ### Generic Setup
   default-packages
@@ -25,6 +26,14 @@ function install-desktop() {
 
   ##### FLATPAKS
   install-flatpak
+}
+
+function clean-kde(){
+  sudo zypper -y remove 
+}
+
+function setup-zypper(){
+    sudo sed -i 's/# download.max_concurrent_connections = 5/download. max_concurrent_connections = 20/' /etc/zypp/zypp.conf
 }
 
 ###############################################################################
@@ -74,22 +83,22 @@ function install-flatpak() {
 function default-packages() {
   echo "Install a selection of used applications"
   ###### CMAKE / CLANG #########
-  sudo zypper install -y cmake ninja-build clang llvm clang-tools
+  sudo zypper -y install cmake ninja-build clang llvm clang-tools
 
   ###### VIRTUALIZATION ########
-  sudo zypper install -y virt-manager
+  sudo zypper -y install virt-manager
   sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
   ###### NETWORKING ######
-  sudo zypper install -y wireshark nmap curl wget
+  sudo zypper -y install wireshark nmap curl wget
 
   ##### VIDEO DRIVERS ######
-  sudo zypper install -y Mesa-libva Mesa-libRusticlOpenCL Mesa-libGL1 \
+  sudo zypper -y install Mesa-libva Mesa-libRusticlOpenCL Mesa-libGL1 \
   libva-utils libva-wayland2 libva-vdpau-driver libva2 libva-glx2 \
   libglvnd-devel Mesa-libEGL-devel
 
   ##### OTHER PACKAGES ######
-  sudo zypper install -y openssl zstd ncurses-devel git ripgrep \
+  sudo zypper -y install openssl zstd ncurses-devel git ripgrep \
     stow zsh util-linux java-21-openjdk java-21-openjdk-devel \
     jetbrains-mono-fonts google-roboto-fonts lsb-release \
     steam-devices wl-clipboard bat eza wezterm fzf fzf-zsh-integration
