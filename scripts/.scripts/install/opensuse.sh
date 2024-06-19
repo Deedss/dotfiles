@@ -103,7 +103,7 @@ function install-arc-theme() {
   echo "Install arc theme"
   sudo zypper addrepo https://download.opensuse.org/repositories/home:kill_it/openSUSE_Tumbleweed/home:kill_it.repo
   sudo zypper refresh
-  sudo zypper install arc-kde-* arc arc-icon-theme
+  sudo zypper -y install arc-kde-* arc arc-icon-theme
 }
 
 ###############################################################################
@@ -115,5 +115,5 @@ function install-vscode() {
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" |
     sudo tee /etc/zypp/repos.d/vscode.repo >/dev/null
   sudo zypper refresh
-  sudo zypper install code
+  sudo zypper -y install code
 }
