@@ -199,11 +199,13 @@ function install-language-servers() {
     # C / C++ / Rust
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
         # nothing yet
+        sudo apt update
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y clang-extra-tools
     elif [[ $(lsb_release -is) == "openSUSE" ]]; then
         sudo zypper install -y clang-tools
     fi
+
     curl -L https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-x86_64-linux.vsix -o /tmp/codelldb.zip
     unzip -u /tmp/codelldb.zip -d ~/.local/bin/codelldb
 
