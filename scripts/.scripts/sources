@@ -6,7 +6,8 @@ export GTK_USE_PORTAL=1
 alias chrome="flatpak run com.brave.Browser"
 alias ls='eza'
 alias cat='bat'
-alias code='code-insiders'
+alias fp='fzf --preview "bat -n --color=always {}"'
+alias fn='nvim "${fp}"'
 
 alias docker='podman'
 alias docker-compose='podman-compose'

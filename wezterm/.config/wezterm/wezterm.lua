@@ -15,7 +15,7 @@ config.initial_cols = 110
 -- UI
 config.use_fancy_tab_bar = false
 config.tab_bar_at_bottom = true
-config.font_size = 10.0
+config.font_size = 9.0
 
 -- disable blinking
 config.cursor_blink_rate = 0
