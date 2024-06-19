@@ -5,7 +5,7 @@ source $DIR/tools.sh
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
-function install-desktop(){
+function install-desktop() {
     echo "Perform Installation for Fedora"
     ### Set the correct DNF settings
     setup-dnf
@@ -35,7 +35,7 @@ function install-desktop(){
 ###############################################################################
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
-function clean-kde(){
+function clean-kde() {
     sudo dnf install -y dnf
 
     #### Clean up KDE packages
@@ -58,7 +58,7 @@ function clean-kde(){
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 
     sudo dnf install -y \
-        ark dolphin 
+        ark dolphin
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -72,7 +72,7 @@ function clean-kde(){
 ###############################################################################
 ##### SETUP DNF                                                         #######
 ###############################################################################
-function setup-dnf(){
+function setup-dnf() {
     # echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
@@ -82,7 +82,7 @@ function setup-dnf(){
 ###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
-function install-rpmfusion(){
+function install-rpmfusion() {
     echo "Add RPM Fusion to repositories"
     sudo dnf install -y \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
@@ -92,7 +92,7 @@ function install-rpmfusion(){
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
-function install-flatpak(){
+function install-flatpak() {
     sudo dnf install flatpak -y
 
     echo "Add flathub repository"
@@ -103,40 +103,40 @@ function install-flatpak(){
     echo "Install flatpak applications"
     ##### INTERNET #####
     flatpak install -y \
-    com.discordapp.Discord \
-    com.brave.Browser \
-    org.mozilla.Thunderbird \
-    org.mozilla.firefox \
-    org.libreoffice.LibreOffice \
-    org.signal.Signal \
-    org.qbittorrent.qBittorrent \
-    org.remmina.Remmina \
-    org.telegram.desktop \
-    com.valvesoftware.Steam
+        com.discordapp.Discord \
+        com.brave.Browser \
+        org.mozilla.Thunderbird \
+        org.mozilla.firefox \
+        org.libreoffice.LibreOffice \
+        org.signal.Signal \
+        org.qbittorrent.qBittorrent \
+        org.remmina.Remmina \
+        org.telegram.desktop \
+        com.valvesoftware.Steam
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
-    com.spotify.Client \
-    com.obsproject.Studio \
-    com.jgraph.drawio.desktop \
-    org.blender.Blender \
-    org.videolan.VLC \
-    org.freedesktop.Platform.ffmpeg-full \
-    io.podman_desktop.PodmanDesktop
+        com.spotify.Client \
+        com.obsproject.Studio \
+        com.jgraph.drawio.desktop \
+        org.blender.Blender \
+        org.videolan.VLC \
+        org.freedesktop.Platform.ffmpeg-full \
+        io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
     flatpak install -y \
-    org.kde.okular \
-    org.kde.gwenview \
-    org.kde.kcalc \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
+        org.kde.okular \
+        org.kde.gwenview \
+        org.kde.kcalc \
+        org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
-function default-packages(){
+function default-packages() {
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
     sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
@@ -164,7 +164,7 @@ function default-packages(){
 ###############################################################################
 ##### ARC THEME                                                          ######
 ###############################################################################
-function install-arc-theme(){
+function install-arc-theme() {
     echo "Install arc theme"
     sudo dnf -y install arc-theme arc-kde
 }
@@ -172,7 +172,7 @@ function install-arc-theme(){
 ###############################################################################
 ##### VSCODE                                                            #######
 ###############################################################################
-function install-vscode(){
+function install-vscode() {
     echo "Install Visual Studio Code"
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'

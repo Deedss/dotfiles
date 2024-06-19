@@ -4,7 +4,7 @@ source tools.sh
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
-function install-kde(){
+function install-kde() {
     echo "Perform Installation for Fedora KDE"
     ### Clean up kde
     clean-kde
@@ -24,11 +24,10 @@ function install-kde(){
     install-iwd
 }
 
-
 ###############################################################################
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
-function clean-kde(){
+function clean-kde() {
     rpm-ostree override remove \
         firefox firefox-langpacks \
         gwenview gwenview-libs okular kwrite kmag kmousetool \
@@ -41,7 +40,7 @@ function clean-kde(){
 ###############################################################################
 ##### SETUP DNF                                                         #######
 ###############################################################################
-function setup-dnf(){
+function setup-dnf() {
     echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
@@ -51,7 +50,7 @@ function setup-dnf(){
 ###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
-function install-rpmfusion(){
+function install-rpmfusion() {
     echo "Add RPM Fusion to repositories"
     sudo rpm-ostree install \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
@@ -61,7 +60,7 @@ function install-rpmfusion(){
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
-function install-flatpak(){
+function install-flatpak() {
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete fedora
@@ -70,41 +69,41 @@ function install-flatpak(){
     echo "Install flatpak applications"
     ##### INTERNET #####
     flatpak install -y \
-    com.discordapp.Discord \
-    com.brave.Browser \
-    org.mozilla.Thunderbird \
-    org.mozilla.firefox \
-    org.libreoffice.LibreOffice \
-    org.signal.Signal \
-    org.qbittorrent.qBittorrent \
-    org.remmina.Remmina \
-    org.telegram.desktop
+        com.discordapp.Discord \
+        com.brave.Browser \
+        org.mozilla.Thunderbird \
+        org.mozilla.firefox \
+        org.libreoffice.LibreOffice \
+        org.signal.Signal \
+        org.qbittorrent.qBittorrent \
+        org.remmina.Remmina \
+        org.telegram.desktop
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
-    com.spotify.Client \
-    com.obsproject.Studio \
-    com.jgraph.drawio.desktop \
-    org.blender.Blender \
-    org.videolan.VLC \
-    org.freedesktop.Platform.ffmpeg-full \
-    io.podman_desktop.PodmanDesktop
+        com.spotify.Client \
+        com.obsproject.Studio \
+        com.jgraph.drawio.desktop \
+        org.blender.Blender \
+        org.videolan.VLC \
+        org.freedesktop.Platform.ffmpeg-full \
+        io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
     flatpak install -y \
-    org.wezfurlong.wezterm \
-    org.kde.okular \
-    org.kde.gwenview \
-    org.kde.kcalc \
-    org.gnome.Evolution \
-    org.gtk.Gtk3theme.Arc-Dark \
-    org.gtk.Gtk3theme.Arc-Dark-solid
+        org.wezfurlong.wezterm \
+        org.kde.okular \
+        org.kde.gwenview \
+        org.kde.kcalc \
+        org.gnome.Evolution \
+        org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
 ##### LAYERED PACKAGES                                                   ######
 ###############################################################################
-function install-layered-packages(){
+function install-layered-packages() {
     echo "Install layered packages"
     rpm-ostree install \
         stow distrobox openssl util-linux-user ripgrep redhat-lsb-core git zstd \
@@ -114,7 +113,7 @@ function install-layered-packages(){
 ###############################################################################
 ##### VSCODE                                                            #######
 ###############################################################################
-function install-vscode(){
+function install-vscode() {
     echo "Install Visual Studio Code"
     vscode_repo="https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc"
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=$vscode_repo" > /etc/yum.repos.d/vscode.repo'
@@ -124,7 +123,7 @@ function install-vscode(){
 ###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
-function install-iwd(){
+function install-iwd() {
     rpm-ostree install iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
@@ -133,7 +132,7 @@ function install-iwd(){
 ###############################################################################
 ##### NEOVIM                                                            #######
 ###############################################################################
-function install-neovim(){
+function install-neovim() {
     cd ~/.local/bin || exit
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim
