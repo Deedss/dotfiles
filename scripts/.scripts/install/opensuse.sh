@@ -16,7 +16,6 @@ function install-desktop() {
   install-oh-my-zsh
   install-podman
   install-neovim
-  install-fzf
 
   ### theme for kde
   install-arc-theme
@@ -93,7 +92,7 @@ function default-packages() {
   sudo zypper install -y openssl zstd ncurses-devel git ripgrep \
     stow zsh util-linux java-21-openjdk java-21-openjdk-devel \
     jetbrains-mono-fonts google-roboto-fonts lsb-release \
-    steam-devices wl-clipboard bat eza wezterm
+    steam-devices wl-clipboard bat eza wezterm fzf fzf-zsh-integration
 }
 
 ###############################################################################
