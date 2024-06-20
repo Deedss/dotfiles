@@ -33,7 +33,7 @@ function clean-kde(){
     akregator discover* akonadi* kmail* kontact* \
     kuiviewer vlc*
 
-  sudo zypper in systemd-zram-service && sudo zramswapon
+  sudo zypper install -y systemd-zram-service && sudo zramswapon
 
   rm -rf .config
 }
@@ -86,22 +86,22 @@ function install-flatpak() {
 function default-packages() {
   echo "Install a selection of used applications"
   ###### CMAKE / CLANG #########
-  sudo zypper -y install cmake ninja-build clang llvm clang-tools
+  sudo zypper install -y cmake ninja-build clang llvm clang-tools
 
   ###### VIRTUALIZATION ########
-  sudo zypper -y install virt-manager
+  sudo zypper install -y virt-manager
   sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
   ###### NETWORKING ######
-  sudo zypper -y install wireshark nmap curl wget
+  sudo zypper install -y wireshark nmap curl wget
 
   ##### VIDEO DRIVERS ######
-  sudo zypper -y install Mesa-libva Mesa-libRusticlOpenCL Mesa-libGL1 \
+  sudo zypper install -y Mesa-libva Mesa-libRusticlOpenCL Mesa-libGL1 \
   libva-utils libva-wayland2 libva-vdpau-driver libva2 libva-glx2 \
   libglvnd-devel Mesa-libEGL-devel
 
   ##### OTHER PACKAGES ######
-  sudo zypper -y install openssl zstd ncurses-devel git ripgrep \
+  sudo zypper install -y openssl zstd ncurses-devel git ripgrep \
     stow zsh util-linux java-21-openjdk java-21-openjdk-devel \
     jetbrains-mono-fonts google-roboto-fonts lsb-release \
     steam-devices wl-clipboard bat eza wezterm fzf fzf-zsh-integration
@@ -114,7 +114,7 @@ function install-arc-theme() {
   echo "Install arc theme"
   sudo zypper addrepo https://download.opensuse.org/repositories/home:kill_it/openSUSE_Tumbleweed/home:kill_it.repo
   sudo zypper refresh
-  sudo zypper -y install arc-kde-* arc arc-icon-theme
+  sudo zypper install -y arc-kde-* arc arc-icon-theme
 }
 
 ###############################################################################
@@ -126,5 +126,5 @@ function install-vscode() {
   echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ntype=rpm-md\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" |
     sudo tee /etc/zypp/repos.d/vscode.repo >/dev/null
   sudo zypper refresh
-  sudo zypper -y install code
+  sudo zypper install -y code
 }
