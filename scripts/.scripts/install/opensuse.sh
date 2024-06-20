@@ -33,6 +33,8 @@ function clean-kde(){
     akregator discover* akonadi* kmail* kontact* \
     kuiviewer vlc*
 
+  sudo zypper in systemd-zram-service && sudo zramswapon
+
   rm -rf .config
 }
 
