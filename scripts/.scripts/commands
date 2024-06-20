@@ -34,7 +34,7 @@ function __update-rust() {
     echo '---------- RUST ---------'
     echo '-------------------------'
     rustup update
-    cargo install neocmakelsp starship 
+    cargo install starship 
     echo ''
 }
 

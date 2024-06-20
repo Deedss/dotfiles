@@ -11,7 +11,7 @@ function install-rust() {
     rustup component add rustfmt
 
     mkdir -p ~/.local/bin
-    cargo install starship neocmakelsp
+    cargo install starship
 }
 
 ###############################################################################
