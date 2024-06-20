@@ -86,7 +86,7 @@ function install-flatpak() {
 function default-packages() {
   echo "Install a selection of used applications"
   ###### CMAKE / CLANG #########
-  sudo zypper install -y cmake ninja-build clang llvm clang-tools
+  sudo zypper install -y cmake ninja clang llvm clang-tools
 
   ###### VIRTUALIZATION ########
   sudo zypper install -y virt-manager
