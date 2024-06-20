@@ -29,7 +29,7 @@ function install-desktop() {
 }
 
 function clean-kde(){
-  sudo zypper -y remove \
+  sudo zypper remove -y \
     akregator discover* akonadi* kmail* kontact* \
     kuiviewer vlc*
 
