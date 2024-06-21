@@ -88,7 +88,7 @@ function default-packages() {
   sudo zypper install -y cmake ninja clang llvm clang-tools 
 
   ###### VIRTUALIZATION ########
-  sudo zypper install -y virt-manager
+  sudo zypper install -t pattern kvm_server virt-manager
   sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
   ###### NETWORKING ######
@@ -114,7 +114,7 @@ function install-arc-theme() {
   echo "Install arc theme"
   sudo zypper addrepo https://download.opensuse.org/repositories/home:kill_it/openSUSE_Tumbleweed/home:kill_it.repo
   sudo zypper refresh
-  sudo zypper install -y arc-kde-* arc-icon-theme \
+  sudo zypper install -y arc-kde-* papirus-icon-theme \
     gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc
 }
 
