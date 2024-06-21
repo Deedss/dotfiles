@@ -61,7 +61,13 @@ function install-bazel() {
 ###############################################################################
 function install-iwd() {
     echo "Install IWD for networking"
-    sudo dnf install -y iwd
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y iwd
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y iwd
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y iwd
+    fi
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
@@ -74,7 +80,15 @@ function install-iwd() {
 ###############################################################################
 function install-espIdf() {
     echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y git wget flex bison gperf python3 python3-pip python3-venv \
+            cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y git wget flex bison gperf python312-pip python312-setuptools ccache dfu-util libusbx
+    fi
 
     git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
     sh ~/Software/esp-idf/install.sh
@@ -86,7 +100,14 @@ function install-espIdf() {
 ###############################################################################
 function install-podman() {
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y podman podman-compose podman-docker buildah distrobox
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y podman python312-podman-compose podman-remote \
+            podman-docker buildah distrobox
+    fi
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
@@ -101,8 +122,17 @@ function install-podman() {
 ###############################################################################
 function install-pythontools() {
     echo "Install Python-Devel"
-    sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
-    pip install --user pynvim
+
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y python3-dev python3-wheel python3-virtualenv python3-pip pipx
+        pip install --user --break-system-packages pynvim
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
+        pip install --user pynvim
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y python312-devel python312-wheel python312-virtualenv
+        pip install --user pynvim
+    fi
 }
 
 ###############################################################################
@@ -155,13 +185,26 @@ function install-fzf() {
 ##############################################################################
 function install-language-servers() {
     # Python
-    pip install --user black install python-lsp-server debugpy pynvim
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        pip install --user --break-system-packages black install python-lsp-server debugpy pynvim
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        pip install --user black install python-lsp-server debugpy pynvim
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        pip install --user black install python-lsp-server debugpy pynvim
+    fi
 
     # CMake
     curl -L https://github.com/Decodetalkers/neocmakelsp/releases/latest/download/neocmakelsp-x86_64-unknown-linux-gnu -o ~/.local/bin/neocmakelsp && chmod +x ~/.local/bin/neocmakelsp
 
     # C / C++ / Rust
-    sudo dnf install -y clang-extra-tools
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        # nothing yet
+        sudo apt update
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y clang-extra-tools
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper install -y clang-tools
+    fi
 
     curl -L https://github.com/vadimcn/codelldb/releases/latest/download/codelldb-x86_64-linux.vsix -o /tmp/codelldb.zip
     unzip -u /tmp/codelldb.zip -d ~/.local/bin/codelldb

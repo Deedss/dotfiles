@@ -6,7 +6,13 @@ function update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
-    sudo dnf update --refresh
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt update && sudo apt upgrade
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf update --refresh
+    elif [[ $(lsb_release -is) == "openSUSE" ]]; then
+        sudo zypper update
+    fi
     echo ''
 
     echo '-------------------------'
