@@ -47,8 +47,7 @@ function setup-zypper(){
 ###############################################################################
 function install-flatpak() {
   echo "Add flathub repository"
-  sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-  sudo flatpak remote-modify flathub --enable
+  flatpak remote-add --user --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 }
 
 function install-flatpak-apps() {
