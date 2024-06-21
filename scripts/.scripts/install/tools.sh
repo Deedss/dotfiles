@@ -125,13 +125,10 @@ function install-pythontools() {
 
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
         sudo apt install -y python3-dev python3-wheel python3-virtualenv python3-pip pipx
-        pip install --user --break-system-packages pynvim
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
-        pip install --user pynvim
     elif [[ $(lsb_release -is) == "openSUSE" ]]; then
         sudo zypper install -y python312-devel python312-wheel python312-virtualenv
-        pip install --user pynvim
     fi
 }
 

@@ -49,7 +49,9 @@ function install-flatpak() {
   echo "Add flathub repository"
   sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
   sudo flatpak remote-modify flathub --enable
+}
 
+function install-flatpak-apps() {
   echo "Install flatpak applications"
   ##### INTERNET #####
   flatpak install -y \
