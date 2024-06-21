@@ -114,7 +114,8 @@ function install-arc-theme() {
   echo "Install arc theme"
   sudo zypper addrepo https://download.opensuse.org/repositories/home:kill_it/openSUSE_Tumbleweed/home:kill_it.repo
   sudo zypper refresh
-  sudo zypper install -y arc-kde-* arc arc-icon-theme
+  sudo zypper install -y arc-kde-* arc-icon-theme \
+    gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc
 }
 
 ###############################################################################
