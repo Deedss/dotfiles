@@ -85,7 +85,7 @@ function install-flatpak() {
 function default-packages() {
   echo "Install a selection of used applications"
   ###### CMAKE / CLANG #########
-  sudo zypper install -y cmake ninja clang llvm clang-tools
+  sudo zypper install -y cmake ninja clang llvm clang-tools 
 
   ###### VIRTUALIZATION ########
   sudo zypper install -y virt-manager
@@ -103,7 +103,8 @@ function default-packages() {
   sudo zypper install -y openssl zstd ncurses-devel git ripgrep \
     stow zsh util-linux java-21-openjdk java-21-openjdk-devel \
     jetbrains-mono-fonts google-roboto-fonts lsb-release \
-    steam-devices wl-clipboard bat eza wezterm fzf fzf-zsh-integration
+    steam-devices wl-clipboard bat eza wezterm fzf fzf-zsh-integration \
+    flatpak
 }
 
 ###############################################################################
