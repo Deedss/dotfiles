@@ -36,6 +36,7 @@ function clean-kde(){
   sudo zypper install -y systemd-zram-service && sudo zramswapon
 
   rm -rf .config
+  sudo rm /usr/share/applications/konsolesu.desktop
 }
 
 function setup-zypper(){
