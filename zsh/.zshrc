@@ -75,7 +75,7 @@ plugins=(
     bazel
     colored-man-pages
     command-not-found
-    common-aliases
+    # common-aliases
     docker
     dotnet
     fd
@@ -105,6 +105,7 @@ setopt rmstarsilent
 
 # Define a custom file for compdump
 export ZSH_COMPDUMP="$HOME/.cache/zsh/zcompdump-$HOST-$ZSH_VERSION"
+
 
 source $ZSH/oh-my-zsh.sh
 
@@ -144,5 +145,5 @@ export NVM_DIR="$HOME/.nvm"
 
 export PATH="/sbin:/usr/sbin:/usr/local/sbin:$PATH"
 
-
 [ -f "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh ] && source "${XDG_CONFIG_HOME:-$HOME/.config}"/fzf/fzf.zsh
+

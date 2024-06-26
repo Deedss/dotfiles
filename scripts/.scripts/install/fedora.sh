@@ -19,7 +19,6 @@ function install-desktop() {
     install-oh-my-zsh
     install-podman
     install-neovim
-    install-wezterm
     install-fzf
 
     ### theme for kde
@@ -122,7 +121,8 @@ function install-flatpak() {
         org.blender.Blender \
         org.videolan.VLC \
         org.freedesktop.Platform.ffmpeg-full \
-        io.podman_desktop.PodmanDesktop
+        io.podman_desktop.PodmanDesktop \
+        org.wezfurlong.wezterm
 
     ##### KDE #####
     flatpak install -y \
@@ -179,10 +179,3 @@ function install-vscode() {
     sudo dnf -y install code
 }
 
-###############################################################################
-#### WEZTERM                                                              #####
-###############################################################################
-function install-wezterm() {
-    sudo dnf copr enable wezfurlong/wezterm-nightly
-    sudo dnf install wezterm
-}
