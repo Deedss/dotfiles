@@ -25,8 +25,8 @@ config.text_blink_rate_rapid = 0
 config.window_padding = {
   left = 4,
   right = 4,
-  top = 6,
-  bottom = 0,
+  top = 4,
+  bottom = 4,
 }
 -- config.color_scheme = "Catppuccin Frappe"
 config.color_scheme = "Catppuccin Macchiato"

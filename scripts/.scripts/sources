@@ -19,6 +19,7 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 # Custom scripts autocomplete
 export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
+source "$HOME/.scripts/fzf_commands"
 
 # Set Editor to NVIM
 export EDITOR="nvim"
