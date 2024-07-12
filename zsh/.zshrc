@@ -79,7 +79,7 @@ plugins=(
     docker
     dotnet
     fd
-    fzf-tab
+    # fzf-tab
     git
     npm
     nvm

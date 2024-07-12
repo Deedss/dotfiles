@@ -56,6 +56,55 @@ function install-bazel() {
     chmod +x ~/.local/bin/bazelisk ~/.local/bin/bazel
 }
 
+### GO
+function install-go() {
+    # Specify the version of Go to install
+    GO_VERSION=1.22.5
+    GO_PARENT_FOLDER=~/Software
+    TARBALL_FILENAME=go${GO_VERSION}.linux-amd64.tar.gz
+    TARBALL_PATH=~/Downloads/$TARBALL_FILENAME
+    INSTALL_DIR=$GO_PARENT_FOLDER/go
+
+    # Check if ~/Software/go already exists and remove it if it does
+    if [ -d "$INSTALL_DIR" ]; then
+        echo "Removing existing $INSTALL_DIR directory"
+        rm -rf "$INSTALL_DIR"
+    fi
+
+    # Check if the Go tarball already exists and remove it if it does
+    if [ -f "$TARBALL_PATH" ]; then
+        echo "Removing existing Go tarball: $TARBALL_PATH"
+        rm "$TARBALL_PATH"
+    fi
+
+    # Download the Go binary tarball
+    echo "Downloading Go tarball to $TARBALL_PATH"
+    wget -q https://dl.google.com/go/$TARBALL_FILENAME -P ~/Downloads
+
+    # Verify the download
+    if [ ! -f "$TARBALL_PATH" ]; then
+        echo "Download failed or the tarball does not exist at $TARBALL_PATH"
+        return 1
+    fi
+
+    # Extract the tarball and move it to the directory of choice
+    echo "Extracting Go tarball to $GO_PARENT_FOLDER"
+    tar -C $GO_PARENT_FOLDER -xzf $TARBALL_PATH
+
+    # Check if extraction was successful
+    if [ ! -d "$INSTALL_DIR" ]; then
+        echo "Extraction failed"
+        return 1
+    fi
+
+    # Clean up the downloaded tarball
+    echo "Removing the downloaded tarball: $TARBALL_PATH"
+    rm "$TARBALL_PATH"
+
+    echo "Go $GO_VERSION has been installed successfully in $INSTALL_DIR"
+    return 0
+}
+
 ###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
