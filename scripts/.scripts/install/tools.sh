@@ -244,7 +244,7 @@ function install-language-servers() {
     curl -L https://github.com/artempyanykh/marksman/releases/latest/download/marksman-linux-x64 -o ~/.local/bin/marksman && chmod +x ~/.local/bin/marksman
 
     # Json / Yaml
-    npm i --save-dev --save-exact @biomejs/biome
+    # npm i --save-dev --save-exact @biomejs/biome
 
     # Bazel
     curl -JL https://get.bzl.io/linux_amd64/bzl -o ~/.local/bin/bzl && chmod +x ~/.local/bin/bzl

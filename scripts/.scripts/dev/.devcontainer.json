@@ -1,0 +1,16 @@
+{
+    "name": "Dev Container",
+    "build": {
+        "dockerfile": "Containerfile",
+    },
+    "mounts": [
+        "source=${localEnv:HOME}/.config/nvim,target=/home/celixdev/.config/nvim,type=bind",
+        "source=${localEnv:HOME}/.local/share/nvim,target=/home/celixdev/.local/share/nvim,type=bind",
+        "source=${localEnv:HOME}/.local/state/nvim,target=/home/celixdev/.local/state/nvim,type=bind",
+        "source=${localEnv:HOME}/Software/nvim,target=/home/celixdev/Software/nvim,type=bind"
+    ],
+     "runArgs" : [
+        "--userns=keep-id"
+    ],
+    "securityOpt":["label=disable"],
+}
