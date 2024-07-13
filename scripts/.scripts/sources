@@ -22,8 +22,9 @@ source "$HOME/.scripts/commands"
 source "$HOME/.scripts/fzf_commands"
 
 # Set Editor to NVIM
-export EDITOR="nvim"
-export VISUAL="nvim"
+export PATH="$PATH":"$HOME/Software/nvim/bin"
+export EDITOR="$HOME/Software/nvim/bin/nvim"
+export VISUAL="$HOME/Software/nvim/bin/nvim"
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin

@@ -158,9 +158,26 @@ function install-pythontools() {
 ##### NEOVIM                                                            #######
 ###############################################################################
 function install-neovim() {
+    # Running neovim in devcontainer
+    # "mounts": [
+    #     "source=${localEnv:HOME}/.config/nvim,target=/home/celixdev/.config/nvim,type=bind",
+    #     "source=${localEnv:HOME}/.local/share/nvim,target=/home/celixdev/.local/share/nvim,type=bind",
+    #     "source=${localEnv:HOME}/.local/state/nvim,target=/home/celixdev/.local/state/nvim,type=bind",
+    #     "source=${localEnv:HOME}/Software/nvim,target=/home/celixdev/Software/nvim,type=bind"
+    # ],
+
     echo "Install Neovim"
-    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o /usr/bin/nvim
-    sudo chmod 755 /usr/bin/nvim
+    INSTALL_DIR="$HOME/Software/nvim"
+    TAR_FILE="nvim-linux64.tar.gz"
+    DOWNLOAD_URL="https://github.com/neovim/neovim/releases/latest/download/${TAR_FILE}"
+    if [ -d "$INSTALL_DIR" ]; then
+        rm -rf "$INSTALL_DIR"
+    fi
+    mkdir -p "$INSTALL_DIR"
+    curl -L "$DOWNLOAD_URL" -o "$TAR_FILE"
+    tar -xzf "$TAR_FILE" --strip-components=1 -C "$INSTALL_DIR"
+    rm "$TAR_FILE"
+
     echo ''
 }
 
