@@ -125,6 +125,17 @@ return { -- LSP Configuration & Plugins
       -- DAP
       "codelldb", -- DAP C/C++/Rust
       "debugpy",  -- DAP python
+      -- formatters
+      "black",
+      "clang-format",
+      "cmakelang",
+      "codespell",
+      "shfmt",
+      "stylua",
+      -- linters
+      "cpplint",
+      "cmakelint",
+      "pylint",
     })
 
     -- Ensure the servers and tools above are installed
