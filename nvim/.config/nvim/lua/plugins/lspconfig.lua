@@ -92,11 +92,11 @@ return { -- LSP Configuration & Plugins
 
     local servers = {
       bashls = {},
-      -- bzl = {},
+      bzl = {},
       -- biome = {},
       clangd = {},
       marksman = {},
-      neocmake = {},
+      cmake = {},
       pylsp = {},
       rust_analyzer = {},
       lua_ls = {
@@ -125,12 +125,6 @@ return { -- LSP Configuration & Plugins
       -- DAP
       "codelldb", -- DAP C/C++/Rust
       "debugpy",  -- DAP python
-      -- Linters
-      "codespell",
-      -- Formatters
-      "black",
-      "clang-format",
-      "stylua", -- Used to format lua code
     })
 
     -- Ensure the servers and tools above are installed
