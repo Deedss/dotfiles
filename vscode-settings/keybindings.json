@@ -2,7 +2,8 @@
 [
   { // Disable close active editor fully 
     "key": "ctrl+w",
-    "command": "-workbench.action.closeActiveEditor",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!vim.active"
   },
   { // Disable find and replace
     "key": "ctrl+h",
@@ -47,9 +48,5 @@
     "key": "shift+a",
     "command": "explorer.newFolder",
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
-  },
-  {
-    "key": "ctrl+n",
-    "command": "-workbench.action.files.newUntitledFile"
   },
 ]

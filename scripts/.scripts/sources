@@ -1,4 +1,12 @@
 #!/bin/bash
+
+# I install all my software in a folder ~/Software
+# Find all bin directories in ~/Software and append them to PATH
+SOFTWARE_DIR="$HOME/Software"
+for bin_dir in $(find "$SOFTWARE_DIR" -type d -name bin); do
+    export PATH="$PATH:$bin_dir"
+done
+
 # Vscode native file
 export GTK_USE_PORTAL=1
 
@@ -22,9 +30,8 @@ source "$HOME/.scripts/commands"
 source "$HOME/.scripts/fzf_commands"
 
 # Set Editor to NVIM
-export PATH="$PATH":"$HOME/Software/nvim/bin"
-export EDITOR="$HOME/Software/nvim/bin/nvim"
-export VISUAL="$HOME/Software/nvim/bin/nvim"
+export EDITOR="$SOFTWARE_DIR/nvim/bin/nvim"
+export VISUAL="$SOFTWARE_DIR/nvim/bin/nvim"
 
 # add Local to PATH
 export PATH="$PATH":"$HOME"/.local/bin
@@ -37,12 +44,10 @@ export ANDROID_HOME="$HOME"/Software/Android/Sdk
 export PATH="$PATH":"$ANDROID_HOME"/platform-tools
 
 # Flutter
-export PATH="$PATH":"$HOME"/Software/flutter/bin
 export CHROME_EXECUTABLE="flatpak run com.brave.Browser"
 
 # Go
-export PATH="$PATH":"$HOME"/Software/go/bin
-export GOPATH="$HOME"/Software/go
+export GOPATH="$SOFTWARE_DIR/go"
 alias bazel="bazelisk"
 
 # Espressif
