@@ -3,9 +3,27 @@
 # I install all my software in a folder ~/Software
 # Find all bin directories in ~/Software and append them to PATH
 SOFTWARE_DIR="$HOME/Software"
+path_add() {
+    case ":${PATH}:" in
+    *:"$1":*) ;;
+    *)
+        if [ "$2" = "after" ]; then
+            PATH=$PATH:$1
+        else
+            PATH=$1:$PATH
+        fi
+        ;;
+    esac
+}
+
 for bin_dir in $(find "$SOFTWARE_DIR" -type d -name bin); do
-    export PATH="$PATH:$bin_dir"
+    path_add $bin_dir
 done
+path_add "/sbin"
+path_add "/usr/sbin"
+path_add "/usr/local/sbin"
+path_add "$HOME/.local/bin"
+path_add "$HOME/.scripts"
 
 # Vscode native file
 export GTK_USE_PORTAL=1
@@ -25,7 +43,6 @@ export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 
 # Custom scripts autocomplete
-export PATH="$PATH":"$HOME"/.scripts
 source "$HOME/.scripts/commands"
 source "$HOME/.scripts/fzf_commands"
 
@@ -33,15 +50,12 @@ source "$HOME/.scripts/fzf_commands"
 export EDITOR="$SOFTWARE_DIR/nvim/bin/nvim"
 export VISUAL="$SOFTWARE_DIR/nvim/bin/nvim"
 
-# add Local to PATH
-export PATH="$PATH":"$HOME"/.local/bin
-
 # Rust
 source "$HOME/.cargo/env"
 
 # Android
 export ANDROID_HOME="$HOME"/Software/Android/Sdk
-export PATH="$PATH":"$ANDROID_HOME"/platform-tools
+path_add "$ANDROID_HOME/platform-tools"
 
 # Flutter
 export CHROME_EXECUTABLE="flatpak run com.brave.Browser"
