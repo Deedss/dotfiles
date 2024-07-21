@@ -68,24 +68,18 @@ function install-go() {
     # Check if ~/Software/go already exists and remove it if it does
     if [ -d "$INSTALL_DIR" ]; then
         echo "Removing existing $INSTALL_DIR directory"
-        rm -rf "$INSTALL_DIR"
+        sudo rm -rf "$INSTALL_DIR"
     fi
 
     # Check if the Go tarball already exists and remove it if it does
     if [ -f "$TARBALL_PATH" ]; then
         echo "Removing existing Go tarball: $TARBALL_PATH"
-        rm "$TARBALL_PATH"
+        sudo rm "$TARBALL_PATH"
     fi
 
     # Download the Go binary tarball
     echo "Downloading Go tarball to $TARBALL_PATH"
     wget -q https://dl.google.com/go/$TARBALL_FILENAME -P ~/Downloads
-
-    # Verify the download
-    if [ ! -f "$TARBALL_PATH" ]; then
-        echo "Download failed or the tarball does not exist at $TARBALL_PATH"
-        return 1
-    fi
 
     # Extract the tarball and move it to the directory of choice
     echo "Extracting Go tarball to $GO_PARENT_FOLDER"
