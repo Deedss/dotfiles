@@ -1,9 +1,74 @@
+" --------------------- Settings
+" # lines below/above cursor
+set scrolloff=8
+
+" Use visual bell instead of beeping when doing something wrong
+set visualbell
+
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
+
+" Timeout of key press
+set timeoutlen=400
+
+" left and right arrow keys, as well as h and l, to wrap when used at beginning or end of lines
+set whichwrap+=<,>,h,l,[,]
+
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
+set incsearch
+
+" Set folding to collapse text on indentation. Close all folds with zM.
+set foldmethod=syntax
+set foldnestmax=2
+
+" Better command-line completion
+set wildmenu
+
+" set indentation
+set foldmethod=indent
+set autoindent
+
+" Keybindings
+" let mapleader = "\<space>"      
+" let maplocalleader = "\<space>"
+
+" Move to begin/end of line
 nmap L $
 nmap H ^
+vmap L $
+vmap H ^
+
+" Motion Bindings
+" Move the select text up and down
+vmap J :m '>+1<CR>gv=gv
+vmap K :m '<-2<CR>gv=gv
+
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
+
+" Yank to the system clipboard
+nnoremap <leader>y "+y 
+vnoremap <leader>y "+y
+nnoremap <leader>Y "+Y
+
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+" Move visual line up/down
+nnoremap j gj
+nnoremap k gk
+
+" Go to next/pevrious action marker
 nmap [d editor.action.marker.prev
 nmap ]d editor.action.marker.next
 
 " Taken from telescope
+" nnoremap <Leader><Leader> <C-^>
 nmap <leader>e workbench.action.problems.focus
 nmap <leader>sf workbench.action.quickOpen
 nmap <leader>sg workbench.action.findInFiles
@@ -23,11 +88,10 @@ nmap <leader>ws editor.action.showAllSymbols
 nmap <leader>rn editor.action.rename
 nmap <leader>ca editor.action.quickFix
 nmap <leader>fd editor.action.formatDocument
+vmap <leader>fd editor.action.formatDocument
 nmap K editor.action.showHover
 
-vmap <leader>fs editor.action.formatSelection
 vnoremap p pgvy
-
 
 " Previous Json
 " "vim.normalModeKeyBindings": [
