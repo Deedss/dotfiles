@@ -20,14 +20,8 @@ set whichwrap+=<,>,h,l,[,]
 set hlsearch
 set incsearch
 
-" Set folding to collapse text on indentation. Close all folds with zM.
-set foldmethod=syntax
-set foldnestmax=2
-
-" Better command-line completion
-set wildmenu
-
-" set indentation
+" Set indentation and folding 
+" use za for fold/unfold and zR for unfold all
 set foldmethod=indent
 set autoindent
 
