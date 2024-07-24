@@ -32,7 +32,7 @@ return { -- LSP Configuration & Plugins
         -- Jump to the type of the word under your cursor.
         --  Useful when you're not sure what type a variable is and you want to see
         --  the definition of its *type*, not where it was *defined*.
-        map("n", "<leader>D", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
+        map("n", "gy", require("telescope.builtin").lsp_type_definitions, "Type [D]efinition")
 
         -- Fuzzy find all the symbols in your current document.
         --  Symbols are things like variables, functions, types, etc.
@@ -49,6 +49,9 @@ return { -- LSP Configuration & Plugins
         -- Execute a code action, usually your cursor needs to be on top of an error
         -- or a suggestion from your LSP for this to activate.
         map({"n", "v"}, "<leader>ca", vim.lsp.buf.code_action , "[C]ode [A]ction")
+
+        -- Run codelens
+        map({"n", "v"}, "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 
         -- Opens a popup that        -- Show the signature of the function you're currently completing.
         map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
