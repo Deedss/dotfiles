@@ -70,8 +70,8 @@ function __update-neovim() {
     echo '-------------------------'
     echo '-------- NEOVIM ---------'
     echo '-------------------------'
-    local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
-    latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
+    local local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
+    local latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
     if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
         INSTALL_DIR="$HOME/Software/nvim"
         TAR_FILE="nvim-linux64.tar.gz"
@@ -82,6 +82,29 @@ function __update-neovim() {
         mkdir -p "$INSTALL_DIR"
         curl -L "$DOWNLOAD_URL" -o "$TAR_FILE"
         tar -xzf "$TAR_FILE" --strip-components=1 -C "$INSTALL_DIR"
+        rm "$TAR_FILE"
+    else
+        echo 'Already up to date.'
+    fi
+    echo ''
+}
+
+function __update-lazygit() {
+    echo '-------------------------'
+    echo '-------- LAZYGIT --------'
+    echo '-------------------------'
+    local local_lazygit_version=$(lazygit --version | grep -oP ', version=\K[^\s,]+')
+    local latest_lazygit_version=$(curl -L https://api.github.com/repos/jesseduffield/lazygit/releases/latest 2>/dev/null | jq -r '.tag_name' | sed 's/^v//')
+    if [[ "$local_lazygit_version" != "$latest_lazygit_version" ]]; then
+        INSTALL_DIR="$HOME/.local/bin"
+        TAR_FILE="lazygit.tar.gz"
+        DOWNLOAD_URL="https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${latest_lazygit_version}_Linux_x86_64.tar.gz"
+        echo $DOWNLOAD_URL
+        if [ -f "$INSTALL_DIR/lazygit" ]; then
+            rm "$INSTALL_DIR/lazygit"
+        fi
+        curl -L "$DOWNLOAD_URL" -o "$TAR_FILE"
+        tar -xzf "$TAR_FILE" -C "$INSTALL_DIR" lazygit
         rm "$TAR_FILE"
     else
         echo 'Already up to date.'
