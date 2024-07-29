@@ -64,12 +64,6 @@ export CHROME_EXECUTABLE="flatpak run com.brave.Browser"
 export GOPATH="$SOFTWARE_DIR/go"
 alias bazel="bazelisk"
 
-# Espressif
-alias getIdf=". $HOME/Software/esp-idf/export.sh"
-
-# Emscripten
-alias getEmsdk="source $HOME/Software/emsdk/emsdk_env.sh"
-
 # JAVA_HOME
 JAVA_HOME="$(dirname "$(dirname "$(realpath "$(which javac)")")")"
 export JAVA_HOME
