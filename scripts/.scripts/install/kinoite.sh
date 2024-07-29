@@ -4,7 +4,7 @@ source tools.sh
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
-function install-kde() {
+install-kde() {
     echo "Perform Installation for Fedora KDE"
     ### Clean up kde
     clean-kde
@@ -27,7 +27,7 @@ function install-kde() {
 ###############################################################################
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
-function clean-kde() {
+clean-kde() {
     rpm-ostree override remove \
         firefox firefox-langpacks \
         gwenview gwenview-libs okular kwrite kmag kmousetool \
@@ -40,7 +40,7 @@ function clean-kde() {
 ###############################################################################
 ##### SETUP DNF                                                         #######
 ###############################################################################
-function setup-dnf() {
+setup-dnf() {
     echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
@@ -50,7 +50,7 @@ function setup-dnf() {
 ###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
-function install-rpmfusion() {
+install-rpmfusion() {
     echo "Add RPM Fusion to repositories"
     sudo rpm-ostree install \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
@@ -60,7 +60,7 @@ function install-rpmfusion() {
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
-function install-flatpak() {
+install-flatpak() {
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     sudo flatpak remote-delete fedora
@@ -103,7 +103,7 @@ function install-flatpak() {
 ###############################################################################
 ##### LAYERED PACKAGES                                                   ######
 ###############################################################################
-function install-layered-packages() {
+install-layered-packages() {
     echo "Install layered packages"
     rpm-ostree install \
         stow distrobox openssl util-linux-user ripgrep redhat-lsb-core git zstd \
@@ -113,7 +113,7 @@ function install-layered-packages() {
 ###############################################################################
 ##### VSCODE                                                            #######
 ###############################################################################
-function install-vscode() {
+install-vscode() {
     echo "Install Visual Studio Code"
     vscode_repo="https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc"
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=$vscode_repo" > /etc/yum.repos.d/vscode.repo'
@@ -123,7 +123,7 @@ function install-vscode() {
 ###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
-function install-iwd() {
+install-iwd() {
     rpm-ostree install iwd
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
@@ -132,7 +132,7 @@ function install-iwd() {
 ###############################################################################
 ##### NEOVIM                                                            #######
 ###############################################################################
-function install-neovim() {
+install-neovim() {
     cd ~/.local/bin || exit
     curl -L https://github.com/neovim/neovim/releases/latest/download/nvim.appimage -o nvim
     chmod u+x nvim

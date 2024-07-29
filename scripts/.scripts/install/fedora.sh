@@ -5,7 +5,7 @@ source $DIR/tools.sh
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
 ###############################################################################
-function install-desktop() {
+install-desktop() {
     echo "Perform Installation for Fedora"
     ### Set the correct DNF settings
     setup-dnf
@@ -34,7 +34,7 @@ function install-desktop() {
 ###############################################################################
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
-function clean-kde() {
+clean-kde() {
     sudo dnf install -y dnf
 
     #### Clean up KDE packages
@@ -71,7 +71,7 @@ function clean-kde() {
 ###############################################################################
 ##### SETUP DNF                                                         #######
 ###############################################################################
-function setup-dnf() {
+setup-dnf() {
     # echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
@@ -81,7 +81,7 @@ function setup-dnf() {
 ###############################################################################
 ###  ADD RPM FUSION / FLATPAK                                               ###
 ###############################################################################
-function install-rpmfusion() {
+install-rpmfusion() {
     echo "Add RPM Fusion to repositories"
     sudo dnf install -y \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
@@ -91,7 +91,7 @@ function install-rpmfusion() {
 ###############################################################################
 ##### FLATPAKS                                                           ######
 ###############################################################################
-function install-flatpak() {
+install-flatpak() {
     sudo dnf install flatpak -y
 
     echo "Add flathub repository"
@@ -136,7 +136,7 @@ function install-flatpak() {
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
-function default-packages() {
+default-packages() {
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
     sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
@@ -164,7 +164,7 @@ function default-packages() {
 ###############################################################################
 ##### ARC THEME                                                          ######
 ###############################################################################
-function install-arc-theme() {
+install-arc-theme() {
     echo "Install arc theme"
     sudo dnf -y install arc-theme arc-kde
 }
@@ -172,7 +172,7 @@ function install-arc-theme() {
 ###############################################################################
 ##### VSCODE                                                            #######
 ###############################################################################
-function install-vscode() {
+install-vscode() {
     echo "Install Visual Studio Code"
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'

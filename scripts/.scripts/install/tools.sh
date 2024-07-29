@@ -2,7 +2,7 @@
 ###############################################################################
 ###### RUST INSTALL                                                   #########
 ###############################################################################
-function install-rust() {
+install-rust() {
     echo "Install rust and rust-analyzer"
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     source "$HOME"/.cargo/env
@@ -16,7 +16,7 @@ function install-rust() {
 ###############################################################################
 ###### OH-MY-ZSH                                                         ######
 ###############################################################################
-function install-oh-my-zsh() {
+install-oh-my-zsh() {
     echo "Install OH-MY-ZSH"
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
     git clone https://github.com/zsh-users/zsh-completions "${ZSH_CUSTOM:-${ZSH:-$HOME/.oh-my-zsh}/custom}/plugins/zsh-completions"
@@ -30,7 +30,7 @@ function install-oh-my-zsh() {
 ###############################################################################
 ###### NODE JS                                                          #######
 ###############################################################################
-function install-npm() {
+install-npm() {
     echo "Install NVM and NPM"
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
     source "$HOME"/.zshrc
@@ -41,7 +41,7 @@ function install-npm() {
 ###############################################################################
 ###### Emscripten Framework                                             #######
 ###############################################################################
-function install-emscripten() {
+install-emscripten() {
     echo "Install Emscripten WebAssembly"
     git clone https://github.com/emscripten-core/emsdk.git ~/Software/emsdk
     sh ~/Software/emsdk/emsdk install latest
@@ -49,14 +49,14 @@ function install-emscripten() {
     echo ''
 }
 
-function install-bazel() {
+install-bazel() {
     curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o ~/.local/bin/bazelisk
     cp ~/.local/bin/bazelisk ~/.local/bin/bazel
     chmod +x ~/.local/bin/bazelisk ~/.local/bin/bazel
 }
 
 ### GO
-function install-go() {
+install-go() {
     # Specify the version of Go to install
     GO_VERSION=1.22.5
     GO_PARENT_FOLDER=~/Software
@@ -101,7 +101,7 @@ function install-go() {
 ###############################################################################
 ###### INSTALL IWD                                                      #######
 ###############################################################################
-function install-iwd() {
+install-iwd() {
     echo "Install IWD for networking"
     sudo dnf install -y iwd
 
@@ -114,7 +114,7 @@ function install-iwd() {
 ###############################################################################
 ###### ESP-IDF Framework                                                #######
 ###############################################################################
-function install-espIdf() {
+install-espIdf() {
     echo "Install ESP-IDF"
     sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
 
@@ -126,7 +126,7 @@ function install-espIdf() {
 ###############################################################################
 ###### PODMAN                                                           #######
 ###############################################################################
-function install-podman() {
+install-podman() {
     echo "Install podman and buildah"
     sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     sudo touch /etc/containers/nodocker
@@ -141,7 +141,7 @@ function install-podman() {
 ###############################################################################
 ###### PYTHON                                                           #######
 ###############################################################################
-function install-pythontools() {
+install-pythontools() {
     echo "Install Python-Devel"
 
     sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
@@ -150,7 +150,7 @@ function install-pythontools() {
 ###############################################################################
 ##### NEOVIM                                                            #######
 ###############################################################################
-function install-neovim() {
+install-neovim() {
     # Running neovim in devcontainer
     # "mounts": [
     #     "source=${localEnv:HOME}/.config/nvim,target=/home/celixdev/.config/nvim,type=bind",
@@ -177,7 +177,7 @@ function install-neovim() {
 ##############################################################################
 ##### UDEV RULES                                                        ######
 ##############################################################################
-function fix-config() {
+fix-config() {
     echo "Setup UDEV rules"
     export USER_GID=$(id -g)
     sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
@@ -195,7 +195,7 @@ function fix-config() {
 ##############################################################################
 ##### Language Servers                                                  ######
 ##############################################################################
-function install-language-servers() {
+install-language-servers() {
     # Python
     pip install --user black install python-lsp-server debugpy pynvim
 

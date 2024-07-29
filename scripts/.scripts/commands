@@ -2,7 +2,7 @@
 ###############################################################################
 ##### SYSTEM UPDATE                                                     #######
 ###############################################################################
-function update() {
+update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
@@ -22,7 +22,7 @@ function update() {
 ###############################################################################
 ##### UPDATE MAJOR TOOLS                                                #######
 ###############################################################################
-function __update-rust() {
+__update-rust() {
     # Rust Update
     echo '-------------------------'
     echo '---------- RUST ---------'
@@ -31,7 +31,7 @@ function __update-rust() {
     echo ''
 }
 
-function __update-neovim() {
+__update-neovim() {
     echo '-------------------------'
     echo '-------- NEOVIM ---------'
     echo '-------------------------'
@@ -57,16 +57,16 @@ function __update-neovim() {
 ###############################################################################
 ####### BACKUP                                                           ######
 ###############################################################################
-function tar-pack() {
+tar-pack() {
     filename=$(basename "$1")
     tar --zstd -cvf "$filename".tar.zst "$1"
 }
 
-function tar-unpack() {
+tar-unpack() {
     tar --zstd -xvf "$1"
 }
 
-function backup-files() {
+backup-files() {
     setopt extended_glob
     cd ~ || exit
     ## BRAVE
