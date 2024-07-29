@@ -11,7 +11,6 @@ function install-rust() {
     rustup component add rustfmt
 
     mkdir -p ~/.local/bin
-    cargo install starship
 }
 
 ###############################################################################
@@ -175,14 +174,6 @@ function install-neovim() {
     echo ''
 }
 
-###############################################################################
-##### FUZZY FILE FINDER                                                 #######
-###############################################################################
-function install-fzf() {
-    git clone https://github.com/junegunn/fzf.git ~/Software/fzf
-    sh ~/Software/fzf/install --xdg --no-update-rc --completion --key-bindings
-}
-
 ##############################################################################
 ##### UDEV RULES                                                        ######
 ##############################################################################
@@ -199,15 +190,6 @@ function fix-config() {
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
     sudo systemctl restart NetworkManager
     sleep 10
-}
-
-###############################################################################
-#### FZF                                                                  #####
-###############################################################################
-function install-fzf() {
-    mkdir -p ~/Software
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/Software/fzf
-    ~/Software/fzf/install --xdg --no-bash --completion --key-bindings --no-update-rc
 }
 
 ##############################################################################
