@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Starts the SSH Agent with ksshaskpass
+Exec=env SSH_ASKPASS=/usr/bin/ksshaskpass /bin/bash -c 'ssh-add /home/gertjan/.ssh/id_ed25519</dev/null'
+Name=Start SSH Agent
+Terminal=false
+Type=Application
+Version=1.0
