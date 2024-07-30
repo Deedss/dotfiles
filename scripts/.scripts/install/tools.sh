@@ -180,10 +180,12 @@ install-neovim() {
 fix-config() {
     echo "Setup UDEV rules"
     export USER_GID=$(id -g)
-    sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
-    export USER_GID=$(id -g)
-    sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/92-viia.rules && udevadm control --reload && udevadm trigger'
-
+    for rule in "99-vial:*vial:f64c2b3c*" "92-viia:"; do
+        filename=${rule%%:*}
+        serial=${rule##*:}
+        echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*${serial}*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" >/etc/udev/rules.d/${filename}.rules
+    done
+    sudo udevadm control --reload && sudo udevadm trigger
     echo "Add power support to bluetooth"
     sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
 
