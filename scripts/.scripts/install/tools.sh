@@ -108,7 +108,18 @@ install-iwd() {
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     sudo systemctl mask wpa_supplicant
 
+    echo -e "[General]\nRoamThreshold=-73\nRoamThreshold5G=-73" | sudo tee /etc/iwd/main.conf
+
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+}
+
+install-wpa_supplicant() {
+    echo "Setup wpa_supplicant"
+
+    sudo rm /etc/NetworkManager/conf.d/10-iwd.conf
+    sudo systemctl unmask wpa_supplicant
+    echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+    echo -e 'bgscan="simple:30:-73:3600"' | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
 ###############################################################################
@@ -172,6 +183,41 @@ install-neovim() {
     rm "$TAR_FILE"
 
     echo ''
+}
+
+# Function to install the latest version of fzf
+install-fzf() {
+    mkdir -p ~/Software
+    cd ~/Software || exit
+
+    # Download the latest release tarball URL from GitHub using GitHub API
+    FZF_URL=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest \
+              | grep "browser_download_url.*linux_amd64\.tar\.gz" \
+              | cut -d '"' -f 4)
+
+    echo $FZF_URL
+    # curl -LO "$FZF_URL"
+    # tar -xzf "$(basename "$FZF_URL")"
+    # rm "$(basename "$FZF_URL")"
+    # cd ~ || exit
+    echo "fzf has been installed in ~/Software."
+}
+
+# Function to install the latest version of zoxide
+install-zoxide() {
+    mkdir -p ~/Software
+    cd ~/Software || exit
+
+    # Download the latest release tarball URL from GitHub using GitHub API
+    ZOXIDE_URL=$(curl -s https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest \
+                 | grep "browser_download_url.*x86_64-unknown-linux-musl\.tar\.gz" \
+                 | cut -d '"' -f 4)
+    echo $ZOXIDE_URL
+    # curl -LO "$ZOXIDE_URL"
+    # tar -xzf "$(basename "$ZOXIDE_URL")" -C .
+    # rm "$(basename "$ZOXIDE_URL")"
+    # cd ~ || exit
+    echo "zoxide has been installed in ~/Software."
 }
 
 ##############################################################################
