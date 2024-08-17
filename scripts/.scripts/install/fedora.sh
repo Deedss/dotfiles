@@ -16,10 +16,10 @@ install-desktop() {
     install-vscode
     install-pythontools
     install-rust
-    install-oh-my-zsh
     install-podman
     install-neovim
     install-fzf
+    install-iwd
 
     ### theme for kde
     install-arc-theme
@@ -44,7 +44,9 @@ clean-kde() {
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
         plasma-discover plasma-drkonqi okular gwenview kcalc \
-        plasma-welcome
+        plasma-welcome totem totem-pl-parser \
+        vlc-plugin-pipewire vlc-libs adwaita-icon-theme-legacy \
+        adwaita-gtk2-theme adwaita-cursor-theme
 
     ### Packages on kde spin =>> not on minimal install
     sudo dnf autoremove -y \
