@@ -1,0 +1,17 @@
+# Add in Powerlevel10k
+romkatv/powerlevel10k
+
+# fzf plugin
+Aloxaf/fzf-tab kind:defer
+
+# oh-my-zsh plugins
+getantidote/use-omz
+ohmyzsh/ohmyzsh path:plugins/git kind:defer
+
+# Custom plugins in $ZSH_CUSTOM
+
+# Add in zsh plugins
+zsh-users/zsh-syntax-highlighting kind:defer
+zsh-users/zsh-completions path:src kind:fpath
+zsh-users/zsh-autosuggestions kind:defer
+zsh-users/zsh-history-substring-search kind:defer
