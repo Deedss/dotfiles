@@ -28,7 +28,6 @@ config.window_padding = {
   top = 4,
   bottom = 4,
 }
--- config.color_scheme = "Catppuccin Frappe"
 config.color_scheme = "Catppuccin Macchiato"
 
 -----------------------------------------
