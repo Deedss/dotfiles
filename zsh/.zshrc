@@ -40,15 +40,19 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'eval "$(fzf --
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Keybindings
-# bindkey -v
-bindkey "^[[1;5C" forward-word
-bindkey "^[[1;5D" backward-word
-bindkey "^H" backward-kill-word
-bindkey "^[[3~" kill-word
-
-# enables history substring search
-bindkey '^[[A' history-substring-search-up
-bindkey '^[[B' history-substring-search-down
+# [Backspace] - delete backword
+bindkey '^?' backward-delete-char
+# [Ctrl-Backspace] - delete whole backward-word
+bindkey '^H' backward-kill-word
+# [Delete] - delete forward
+bindkey '^[[3~' delete-char
+bindkey '^[3;5~' delete-char
+# [Ctrl-Delete] - delete whole forward-word
+bindkey '^[[3;5~' kill-word
+# [Ctrl-RightArrow] - move forward one word
+bindkey '^[[1;5C' forward-word
+# [Ctrl-LeftArrow] - move backward one word
+bindkey '^[[1;5D' backward-word
 
 # Source/Load antidote
 source "${ZSH}/antidote/antidote.zsh"
