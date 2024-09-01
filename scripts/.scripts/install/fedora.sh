@@ -150,7 +150,8 @@ install-flatpak() {
             org.gtk.Gtk3theme.Arc-Dark-solid
     elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
         flatpak install -y \
-            org.gtk.Gtk3theme.Adwaita-dark
+            org.gtk.Gtk3theme.Adwaita-dark \
+            org.gnome.Extensions
     fi
 }
 
