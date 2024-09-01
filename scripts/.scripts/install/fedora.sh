@@ -72,7 +72,7 @@ clean-desktop() {
 
         ## Install for Gnome specific
         sudo dnf install -y \
-            adwaita-gtk2-theme gnome-menus
+            adwaita-gtk2-theme gnome-menus gnome-tweaks
     fi
 
     # Update GRUB timeout value
