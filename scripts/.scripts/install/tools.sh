@@ -10,7 +10,6 @@ install-rust() {
     rustup component add rust-analyzer
     rustup component add rustfmt
 
-    mkdir -p ~/.local/bin
 }
 
 ###############################################################################
@@ -174,4 +173,6 @@ fix-config() {
     sudo udevadm control --reload && sudo udevadm trigger
     echo "Add power support to bluetooth"
     sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
+
+    mkdir -p ~/.local/bin
 }

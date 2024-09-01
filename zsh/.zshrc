@@ -13,7 +13,7 @@ ZSH=${ZSH:-${ZDOTDIR:-$HOME/.config/zsh}}
 ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
 
 # Clone antidote if necessary.
-[[ -d ${ZSH:-~}/antidote ]] ||
+[[ -d ${ZSH:-$HOME/.config/zsh}/antidote ]] ||
   git clone https://github.com/mattmc3/antidote ${ZSH}/antidote
 
 # Load completions
