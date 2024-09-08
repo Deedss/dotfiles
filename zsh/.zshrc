@@ -8,10 +8,6 @@ fi
 # Set Zsh options.
 set extended_glob
 
-# Setup vars similar to Oh My Zsh.
-ZSH=${ZSH:-${ZDOTDIR:-$HOME/.config/zsh}}
-ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
-
 # Clone antidote if necessary.
 [[ -d ${ZSH:-$HOME/.config/zsh}/antidote ]] ||
   git clone https://github.com/mattmc3/antidote ${ZSH}/antidote
@@ -55,6 +51,7 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 
 # Source/Load antidote
+ANTIDOTE_HOME=$ZSH/antidote/plugins
 source "${ZSH}/antidote/antidote.zsh"
 antidote load
 
