@@ -9,8 +9,8 @@ fi
 set extended_glob
 
 # Clone antidote if necessary.
-[[ -d ${ZSH:-$HOME/.config/zsh}/antidote ]] ||
-  git clone https://github.com/mattmc3/antidote ${ZSH}/antidote
+[[ -d $HOME/.antidote ]] ||
+  git clone https://github.com/mattmc3/antidote $HOME/.antidote
 
 # Load completions
 autoload -Uz compinit && compinit
@@ -51,8 +51,8 @@ bindkey '^[[1;5C' forward-word
 bindkey '^[[1;5D' backward-word
 
 # Source/Load antidote
-ANTIDOTE_HOME=$ZSH/antidote/plugins
-source "${ZSH}/antidote/antidote.zsh"
+ANTIDOTE_HOME=$HOME/.antidote/plugins
+source "$HOME/.antidote/antidote.zsh"
 antidote load
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
