@@ -8,8 +8,11 @@ fi
 # Set Zsh options.
 set extended_glob
 
+ZSH=${ZSH:-${ZDOTDIR:-$HOME/.config/zsh}}
+ZSH_CUSTOM=${ZSH_CUSTOM:-$ZSH/custom}
+
 # Clone antidote if necessary.
-[[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote $HOME/.antidote
+[[ -d $HOME/.config/zsh/antidote ]] || git clone https://github.com/mattmc3/antidote $HOME/.config/zsh/antidote
 
 # Load completions
 autoload -Uz compinit && compinit
