@@ -97,18 +97,6 @@ install-wpa_supplicant() {
 }
 
 ###############################################################################
-###### ESP-IDF Framework                                                #######
-###############################################################################
-install-espIdf() {
-    echo "Install ESP-IDF"
-    sudo dnf install -y git wget flex bison gperf python3 python3-pip python3-setuptools cmake ninja-build ccache dfu-util libusbx
-
-    git clone --recursive https://github.com/espressif/esp-idf.git ~/Software/esp-idf
-    sh ~/Software/esp-idf/install.sh
-    echo ''
-}
-
-###############################################################################
 ###### PODMAN                                                           #######
 ###############################################################################
 install-podman() {

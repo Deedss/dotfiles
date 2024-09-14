@@ -177,7 +177,7 @@ default-packages() {
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl zstd ncurses git ripgrep \
+    sudo dnf install -y openssl-devel zstd ncurses git ripgrep \
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard bat eza fzf zoxide
