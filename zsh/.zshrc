@@ -9,8 +9,7 @@ fi
 set extended_glob
 
 # Clone antidote if necessary.
-[[ -d $HOME/.antidote ]] ||
-  git clone https://github.com/mattmc3/antidote $HOME/.antidote
+[[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote $HOME/.antidote
 
 # Load completions
 autoload -Uz compinit && compinit
