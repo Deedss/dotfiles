@@ -33,8 +33,8 @@ install-desktop() {
 ###############################################################################
 clean-desktop() {
     #### Clean up KDE packages
-    sudo dnf autoremove -y \
-        \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
+    sudo dnf remove -y \
+        *akonadi* dnfdragora kwrite kmag kmouth kmousetool \
         kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
         ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
         kde-spectacle firefox plasma-browser-integration \
@@ -44,13 +44,13 @@ clean-desktop() {
         adwaita-gtk2-theme adwaita-cursor-theme
 
     ### Packages on kde spin =>> not on minimal install
-    sudo dnf autoremove -y \
+    sudo dnf remove -y \
         elisa-player dragon mediawriter kmahjongg \
         kmines kpat ksudoku kamoso krdc libreoffice-* \
         kdeconnectd krfb kolourpaint-* konversation
 
     ### Excess gnome packages
-    sudo dnf autoremove -y \
+    sudo dnf remove -y \
         gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 
     sudo dnf install -y \
