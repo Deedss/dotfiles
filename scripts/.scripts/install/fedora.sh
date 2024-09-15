@@ -18,13 +18,8 @@ install-desktop() {
     install-rust
     install-podman
     install-neovim
-    install-fzf
     install-iwd
-
-    ### theme for kde
-    if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        install-arc-theme
-    fi
+    install-arc-theme
 
     ### Fix default configs
     fix-config
@@ -38,42 +33,28 @@ install-desktop() {
 ###############################################################################
 clean-desktop() {
     #### Clean up KDE packages
-    if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        sudo dnf autoremove -y \
-            \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
-            kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
-            ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
-            kde-spectacle firefox plasma-browser-integration \
-            plasma-discover plasma-drkonqi okular gwenview kcalc \
-            plasma-welcome totem totem-pl-parser \
-            vlc-plugin-pipewire vlc-libs adwaita-icon-theme-legacy \
-            adwaita-gtk2-theme adwaita-cursor-theme
+    sudo dnf autoremove -y \
+        \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
+        kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
+        ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
+        kde-spectacle firefox plasma-browser-integration \
+        plasma-discover plasma-drkonqi okular gwenview kcalc \
+        plasma-welcome totem totem-pl-parser \
+        vlc-plugin-pipewire vlc-libs adwaita-icon-theme-legacy \
+        adwaita-gtk2-theme adwaita-cursor-theme
 
-        ### Packages on kde spin =>> not on minimal install
-        sudo dnf autoremove -y \
-            elisa-player dragon mediawriter kmahjongg \
-            kmines kpat ksudoku kamoso krdc libreoffice-* \
-            kdeconnectd krfb kolourpaint-* konversation
+    ### Packages on kde spin =>> not on minimal install
+    sudo dnf autoremove -y \
+        elisa-player dragon mediawriter kmahjongg \
+        kmines kpat ksudoku kamoso krdc libreoffice-* \
+        kdeconnectd krfb kolourpaint-* konversation
 
-        ### Excess gnome packages
-        sudo dnf autoremove -y \
-            gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
+    ### Excess gnome packages
+    sudo dnf autoremove -y \
+        gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
 
-        sudo dnf install -y \
-            ark dolphin
-    elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
-        ### Clean up GNOME packages
-        sudo dnf autoremove -y \
-            gnome-tour gnome-boxes libreoffice-* \
-            gnome-weather gnome-maps totem mediawriter \
-            gnome-connections gnome-software firefox \
-            gnome-calendar gnome-initial-setup gnome-contacts \
-            gnome-classic-session
-
-        ## Install for Gnome specific
-        sudo dnf install -y \
-            adwaita-gtk2-theme gnome-menus gnome-tweaks
-    fi
+    sudo dnf install -y \
+        ark dolphin
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -141,18 +122,12 @@ install-flatpak() {
         org.wezfurlong.wezterm
 
     ##### KDE #####
-    if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        flatpak install -y \
-            org.kde.okular \
-            org.kde.gwenview \
-            org.kde.kcalc \
-            org.gtk.Gtk3theme.Arc-Dark \
-            org.gtk.Gtk3theme.Arc-Dark-solid
-    elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
-        flatpak install -y \
-            org.gtk.Gtk3theme.Adwaita-dark \
-            org.gnome.Extensions
-    fi
+    flatpak install -y \
+        org.kde.okular \
+        org.kde.gwenview \
+        org.kde.kcalc \
+        org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
@@ -177,11 +152,11 @@ default-packages() {
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl-devel zstd ncurses git ripgrep \
+    sudo dnf install -y openssl openssl-devel zstd ncurses git ripgrep \
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts fira-code-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide 
+        steam-devices wl-clipboard bat eza fzf zoxide
 }
 
 ###############################################################################
