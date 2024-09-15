@@ -179,8 +179,9 @@ default-packages() {
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl-devel zstd ncurses git ripgrep \
         ncurses-libs stow zsh util-linux-user \
-        java-17-openjdk java-17-openjdk-devel jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide
+        java-17-openjdk java-17-openjdk-devel \
+        jetbrains-mono-fonts google-roboto-fonts fira-code-fonts \
+        steam-devices wl-clipboard bat eza fzf zoxide 
 }
 
 ###############################################################################
