@@ -6,7 +6,8 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # Set Zsh options.
-set extended_glob
+set extended_glob   # extend glob
+setopt globdots     # hidden files
 
 # Clone antidote if necessary.
 [[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote $HOME/.antidote
@@ -29,9 +30,12 @@ setopt hist_find_no_dups
 
 # Completion styling
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+# set list-colors to enable filename colorizing
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
 zstyle ':completion:*' menu no
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'eval "$(fzf --zsh)"
+# preview directory's content with ls when completing cd
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Keybindings
