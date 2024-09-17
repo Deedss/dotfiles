@@ -36,33 +36,18 @@ install-desktop() {
 ###  CLEAN UP KDE                                                           ###
 ###############################################################################
 clean-desktop() {
-    #### Clean up KDE packages
+    #### Clean up KDE packages on minimal install
     if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        sudo dnf autoremove -y \
-            \*akonadi* dnfdragora kwrite kmag kmouth kmousetool \
-            kget kruler kcolorchooser gnome-disk-utility ibus-libpinyin \
-            ibus-libzhuyin ibus-cangjie-* ibus-hangul kcharselect \
-            kde-spectacle firefox plasma-browser-integration \
-            plasma-discover plasma-drkonqi okular gwenview kcalc \
-            plasma-welcome totem totem-pl-parser \
-            vlc-plugin-pipewire vlc-libs adwaita-icon-theme-legacy \
-            adwaita-gtk2-theme adwaita-cursor-theme
+        sudo dnf remove -y \
+            \*akonadi* kwrite kdeconnectd krfb kcharselect \
+            plasma-discover plasma-drkonqi plasma-welcome \
+	    totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
+	    ibus-libpinyin ibus-hangul gnome-abrt \
+            vlc-plugin-* vlc-libs  
 
-        ### Packages on kde spin =>> not on minimal install
-        sudo dnf autoremove -y \
-            elisa-player dragon mediawriter kmahjongg \
-            kmines kpat ksudoku kamoso krdc libreoffice-* \
-            kdeconnectd krfb kolourpaint-* konversation
-
-        ### Excess gnome packages
-        sudo dnf autoremove -y \
-            gnome-keyring gnome-desktop3 gnome-desktop4 gnome-abrt
-
-        sudo dnf install -y \
-            ark dolphin
     elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
         ### Clean up GNOME packages
-        sudo dnf autoremove -y \
+        sudo dnf remove -y \
             gnome-tour gnome-boxes libreoffice-* \
             gnome-weather gnome-maps totem mediawriter \
             gnome-connections gnome-software firefox \
@@ -76,7 +61,7 @@ clean-desktop() {
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
-    sudo grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg
+    sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
