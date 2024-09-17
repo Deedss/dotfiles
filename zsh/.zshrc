@@ -10,7 +10,7 @@ set extended_glob   # extend glob
 setopt globdots     # hidden files
 
 # Clone antidote if necessary.
-[[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote $HOME/.antidote
+[[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote.git $HOME/.antidote
 
 # Load completions
 autoload -Uz compinit && compinit
