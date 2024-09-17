@@ -41,9 +41,9 @@ clean-desktop() {
         sudo dnf remove -y \
             \*akonadi* kwrite kdeconnectd krfb kcharselect \
             plasma-discover plasma-drkonqi plasma-welcome \
-	    totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
-	    ibus-libpinyin ibus-hangul gnome-abrt \
-            vlc-plugin-* vlc-libs  
+            totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
+            ibus-libpinyin ibus-hangul gnome-abrt \
+            vlc-plugin-* vlc-libs
 
     elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
         ### Clean up GNOME packages
@@ -165,7 +165,7 @@ default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts fira-code-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide 
+        steam-devices wl-clipboard bat eza fzf zoxide
 }
 
 ###############################################################################
@@ -185,4 +185,3 @@ install-vscode() {
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf -y install code
 }
-

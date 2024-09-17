@@ -63,6 +63,6 @@ antidote load
 [[ ! -f ~/.scripts/sources ]] || source  ~/.scripts/sources
 
 # Shell integrations
-export NVM_DIR="$HOME/.nvm" && [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
+[[ ! -d ~/.local/share/fnm ]] || eval "$(fnm env --use-on-cd --shell zsh)" && source ~/.local/share/fnm/completions.zsh

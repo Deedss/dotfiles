@@ -17,10 +17,8 @@ install-rust() {
 ###############################################################################
 install-npm() {
     echo "Install NVM and NPM"
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-    source "$HOME"/.zshrc
-    nvm install 'lts/*'
-    nvm use default
+    cargo install fnm
+    fnm completions --shell zsh > ~/.local/share/fnm/completions.zsh
 }
 
 install-bazel() {
@@ -153,14 +151,13 @@ install-neovim() {
 fix-config() {
     echo "Setup UDEV rules"
     export USER_GID=$(id -g)
-    for rule in "99-vial:*vial:f64c2b3c*" "92-viia:"; do
-        filename=${rule%%:*}
-        serial=${rule##*:}
-        echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*${serial}*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" >/etc/udev/rules.d/${filename}.rules
-    done
-    sudo udevadm control --reload && sudo udevadm trigger
+    sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
+    sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/92-viia.rules && udevadm control --reload && udevadm trigger'
+
     echo "Add power support to bluetooth"
     sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
 
-    mkdir -p ~/.local/bin
+    echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+    sudo systemctl restart NetworkManager
+    sleep 10
 }
