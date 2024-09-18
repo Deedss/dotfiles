@@ -9,7 +9,6 @@ install-rust() {
     rustup component add rust-src
     rustup component add rust-analyzer
     rustup component add rustfmt
-
 }
 
 ###############################################################################
@@ -18,6 +17,7 @@ install-rust() {
 install-npm() {
     echo "Install NVM and NPM"
     cargo install fnm
+    fnm install --lts
     fnm completions --shell zsh > ~/.local/share/fnm/completions.zsh
 }
 

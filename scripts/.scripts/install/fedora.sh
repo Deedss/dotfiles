@@ -13,12 +13,14 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     default-packages
-    install-vscode
-    install-pythontools
-    install-rust
-    install-podman
-    install-neovim
     install-iwd
+
+    install-vscode
+    install-neovim
+    install-podman
+    install-rust
+    install-pythontools
+    install-npm
 
     ### theme for kde
     if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
