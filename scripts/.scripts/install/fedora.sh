@@ -104,13 +104,11 @@ install-flatpak() {
     flatpak install -y \
         com.discordapp.Discord \
         com.brave.Browser \
-        org.mozilla.Thunderbird \
         org.mozilla.firefox \
         org.libreoffice.LibreOffice \
         org.signal.Signal \
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
-        org.telegram.desktop \
         com.valvesoftware.Steam
 
     ##### MUSIC & GRAPHICS #####
