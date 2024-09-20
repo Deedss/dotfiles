@@ -78,11 +78,9 @@ install-iwd() {
     sudo dnf install -y iwd
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
-    sudo systemctl mask wpa_supplicant
-
     echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-70" | sudo tee /etc/iwd/main.conf
-
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+    sudo systemctl mask wpa_supplicant
 }
 
 install-wpa_supplicant() {

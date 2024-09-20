@@ -4,7 +4,6 @@ local config = {}
 -- disable updates
 config.check_for_updates = false
 
--- disable warnings
 config.warn_about_missing_glyphs = false
 config.window_close_confirmation = "NeverPrompt"
 
