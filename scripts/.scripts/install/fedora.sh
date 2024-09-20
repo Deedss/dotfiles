@@ -166,6 +166,10 @@ default-packages() {
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard bat eza fzf zoxide
+
+
+    ### Set default shell
+    sudo chsh -s /bin/zsh $USER 
 }
 
 ###############################################################################
