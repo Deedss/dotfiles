@@ -111,7 +111,8 @@ install-flatpak() {
         org.signal.Signal \
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
-        com.valvesoftware.Steam
+        com.valvesoftware.Steam \
+        org.gnome.Evolution
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
