@@ -121,14 +121,14 @@ install-flatpak() {
         org.blender.Blender \
         org.videolan.VLC \
         org.freedesktop.Platform.ffmpeg-full \
-        io.podman_desktop.PodmanDesktop \
-        org.wezfurlong.wezterm
+        io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
     if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
         flatpak install -y \
             org.kde.okular \
             org.kde.gwenview \
+            org.wezfurlong.wezterm \
             org.kde.kcalc \
             org.gtk.Gtk3theme.Arc-Dark \
             org.gtk.Gtk3theme.Arc-Dark-solid
@@ -165,7 +165,7 @@ default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide
+        steam-devices wl-clipboard bat eza fzf zoxide shfmt
 
 
     ### Set default shell
