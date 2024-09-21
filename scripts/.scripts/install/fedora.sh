@@ -13,7 +13,7 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     default-packages
-    install-iwd
+    # install-iwd
 
     install-vscode
     install-neovim
@@ -165,7 +165,7 @@ default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide shfmt
+        steam-devices wl-clipboard bat eza fzf zoxide
 
 
     ### Set default shell
