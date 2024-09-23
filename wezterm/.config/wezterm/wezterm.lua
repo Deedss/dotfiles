@@ -45,6 +45,7 @@ config.keys = {
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.SplitHorizontal,
 	},
+	-- Panel navigation
 	{
 		key = "H",
 		mods = "CTRL|SHIFT",
@@ -64,6 +65,26 @@ config.keys = {
 		key = "J",
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.ActivatePaneDirection("Down"),
+	},
+	{
+		key = "H",
+		mods = "CTRL|SHIFT|ALT",
+		action = wezterm.action.AdjustPaneSize{ "Left", 2 },
+	},
+	{
+		key = "L",
+		mods = "CTRL|SHIFT|ALT",
+		action = wezterm.action.AdjustPaneSize{ "Right", 2 },
+	},
+	{
+		key = "K",
+		mods = "CTRL|SHIFT|ALT",
+		action = wezterm.action.AdjustPaneSize{ "Up", 2 },
+	},
+	{
+		key = "J",
+		mods = "CTRL|SHIFT|ALT",
+		action = wezterm.action.AdjustPaneSize{ "Down", 2 },
 	},
 }
 

@@ -43,9 +43,10 @@ clean-desktop() {
         sudo dnf remove -y \
             \*akonadi* kwrite kdeconnectd krfb kcharselect \
             plasma-discover plasma-drkonqi plasma-welcome \
+            kdeplasma-addons plasma-milou im-chooser \
             totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
-            ibus-libpinyin ibus-hangul gnome-abrt \
-            vlc-plugin-* vlc-libs
+            ibus-libpinyin ibus-hangul ibus-libzhuyin \
+	    gnome-abrt vlc-plugin-* vlc-libs
 
     elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
         ### Clean up GNOME packages
