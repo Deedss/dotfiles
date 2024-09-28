@@ -30,7 +30,7 @@ export GTK_USE_PORTAL=1
 
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
-alias ls='eza --icons=auto'
+alias ls='eza'
 alias l='ls -l'
 alias la='ls -la'
 alias fp='fzf --preview "bat -n --color=always {}"'

@@ -130,7 +130,6 @@ install-flatpak() {
         flatpak install -y \
             org.kde.okular \
             org.kde.gwenview \
-            org.wezfurlong.wezterm \
             org.kde.kcalc \
             org.gtk.Gtk3theme.Arc-Dark \
             org.gtk.Gtk3theme.Arc-Dark-solid
