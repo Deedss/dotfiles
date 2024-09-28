@@ -16,7 +16,7 @@ update() {
 
     echo ''
     __update-rust
-    __update-neovim
+    # __update-neovim
 }
 
 ###############################################################################
@@ -67,7 +67,6 @@ tar-unpack() {
 }
 
 backup-files() {
-    setopt extended_glob
     cd ~ || exit
     ## BRAVE
     tar-pack .var/app/com.brave.Browser/config/BraveSoftware
@@ -80,6 +79,4 @@ backup-files() {
 
     udisksctl mount --block-device /dev/sda1
     mv -f ~/*.tar.zst "/run/media/$USER/Backup/Linux/"
-    mv -f ~/.*.tar.zst "/run/media/$USER/Backup/Linux/"
-    unsetopt extended_glob
 }

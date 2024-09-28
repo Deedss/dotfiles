@@ -65,7 +65,3 @@ antidote load
 # Shell integrations
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
-if [[ -d ~/.local/share/fnm ]]; then
-  eval "$(fnm env --use-on-cd --shell zsh)" 
-  source ~/.local/share/fnm/completions.zsh
-fi

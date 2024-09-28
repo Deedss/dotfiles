@@ -16,11 +16,12 @@ install-desktop() {
     # install-iwd
 
     install-vscode
-    install-neovim
     install-podman
     install-rust
     install-pythontools
-    install-npm
+
+    # install-neovim
+    # install-npm
 
     ### theme for kde
     if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
@@ -166,7 +167,7 @@ default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide
+        steam-devices wl-clipboard bat eza fzf zoxide neovim 
 
 
     ### Set default shell

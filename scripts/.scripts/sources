@@ -47,10 +47,6 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 source "$HOME/.scripts/commands"
 source "$HOME/.scripts/fzf_commands"
 
-# Set Editor to NVIM
-export EDITOR="$SOFTWARE_DIR/nvim/bin/nvim"
-export VISUAL="$SOFTWARE_DIR/nvim/bin/nvim"
-
 # Rust
 source "$HOME/.cargo/env"
 
