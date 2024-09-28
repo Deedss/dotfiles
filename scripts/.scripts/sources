@@ -39,6 +39,10 @@ alias fn='nvim "${fp}"'
 alias docker='podman'
 alias docker-compose='podman-compose'
 
+## EDITOR
+export EDITOR=nvim
+export VISUAL=nvim
+
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"
 export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
