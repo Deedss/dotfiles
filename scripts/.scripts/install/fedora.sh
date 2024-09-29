@@ -13,6 +13,7 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     default-packages
+    install-brave
     # install-iwd
 
     install-vscode
@@ -47,7 +48,7 @@ clean-desktop() {
             kdeplasma-addons plasma-milou im-chooser \
             totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
             ibus-libpinyin ibus-hangul ibus-libzhuyin \
-	    gnome-abrt vlc-plugin-* vlc-libs
+            gnome-abrt vlc-plugin-* vlc-libs
 
     elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
         ### Clean up GNOME packages
@@ -105,10 +106,11 @@ install-flatpak() {
 
     echo "Install flatpak applications"
     ##### INTERNET #####
+
+    # com.brave.Browser \
+    # org.mozilla.firefox \
     flatpak install -y \
         com.discordapp.Discord \
-        com.brave.Browser \
-        org.mozilla.firefox \
         org.libreoffice.LibreOffice \
         org.signal.Signal \
         org.qbittorrent.qBittorrent \
@@ -167,11 +169,10 @@ default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide neovim 
-
+        steam-devices wl-clipboard bat eza fzf zoxide neovim
 
     ### Set default shell
-    sudo chsh -s /bin/zsh $USER 
+    sudo chsh -s /bin/zsh $USER
 }
 
 ###############################################################################
@@ -190,4 +191,14 @@ install-vscode() {
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf -y install code
+}
+
+install-brave() {
+    ## Mesa fixes
+    sudo dnf install --allowerasing mesa-va-drivers-freeworld mesa-vdpau-drivers-freeworld
+
+    sudo dnf install dnf-plugins-core
+    sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    sudo dnf install brave-browser
 }

@@ -20,13 +20,13 @@ set whichwrap+=<,>,h,l,[,]
 set hlsearch
 set incsearch
 
-" Set indentation and folding 
+" Set indentation and folding
 " use za for fold/unfold and zR for unfold all
 set foldmethod=indent
 set autoindent
 
 " Keybindings
-" let mapleader = "\<space>"      
+" let mapleader = "\<space>"
 " let maplocalleader = "\<space>"
 
 " Move to begin/end of line
@@ -45,7 +45,7 @@ vmap K :m '<-2<CR>gv=gv
 vnoremap <leader>p "_dP
 
 " Yank to the system clipboard
-nnoremap <leader>y "+y 
+nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 
@@ -63,6 +63,7 @@ nmap ]d editor.action.marker.next
 
 " Taken from telescope
 " nnoremap <Leader><Leader> <C-^>
+nmap <leader>sa workbench.action.showEditorsInActiveGroup
 nmap <leader>e workbench.action.problems.focus
 nmap <leader>sf workbench.action.quickOpen
 nmap <leader>sg workbench.action.findInFiles

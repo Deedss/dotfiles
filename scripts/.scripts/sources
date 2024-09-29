@@ -24,6 +24,7 @@ path_add "/usr/sbin"
 path_add "/usr/local/sbin"
 path_add "$HOME/.local/bin"
 path_add "$HOME/.scripts"
+path_add "$HOME/.scripts/utilities"
 
 # Vscode native file
 export GTK_USE_PORTAL=1
