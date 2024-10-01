@@ -48,7 +48,7 @@ clean-desktop() {
             kdeplasma-addons plasma-milou im-chooser \
             totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
             ibus-libpinyin ibus-hangul ibus-libzhuyin \
-            gnome-abrt vlc-plugin-* vlc-libs
+            gnome-abrt vlc-plugin-* vlc-libs firefox
 
     elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
         ### Clean up GNOME packages
