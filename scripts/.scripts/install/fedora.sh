@@ -77,7 +77,6 @@ clean-desktop() {
 ##### SETUP DNF                                                         #######
 ###############################################################################
 setup-dnf() {
-    echo "fastestmirror=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
     echo "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf

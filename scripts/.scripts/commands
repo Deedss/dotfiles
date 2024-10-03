@@ -69,7 +69,7 @@ tar-unpack() {
 backup-files() {
     cd ~ || exit
     ## BRAVE
-    tar-pack .config/BraveSoftware
+    tar-pack .config/BraveSoftware/
     tar-pack .dotfiles
     tar-pack Private
     tar-pack Work
