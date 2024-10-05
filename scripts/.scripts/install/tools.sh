@@ -33,7 +33,7 @@ install-zed() {
 ###############################################################################
 install-neovim() {
     curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
-    rm -rf ~/Software/nvim
+    rm -rf ~/Software/nvim-linux64
     tar -C ~/Software -xzf nvim-linux64.tar.gz
     rm nvim-linux64.tar.gz
 }
