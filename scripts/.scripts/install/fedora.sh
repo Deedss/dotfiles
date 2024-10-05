@@ -20,7 +20,9 @@ install-desktop() {
     install-podman
     install-rust
     install-npm
+    install-fzf
     install-zed
+    install-neovim
 
     ## Theme
     install-arc-theme
@@ -140,7 +142,7 @@ install-default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide neovim
+        steam-devices wl-clipboard 
 
     ### Set default shell
     sudo chsh -s /bin/zsh $USER
