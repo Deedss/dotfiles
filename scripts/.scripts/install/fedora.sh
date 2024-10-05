@@ -14,22 +14,18 @@ install-desktop() {
     install-rpmfusion
     default-packages
     install-brave
-    # install-iwd
 
     install-vscode
+    install-pythontools
     install-podman
     install-rust
-    install-pythontools
+    install-npm
+    install-neovim
 
-    # install-neovim
-    # install-npm
+    ## Theme
+    install-arc-theme
 
-    ### theme for kde
-    if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        install-arc-theme
-    fi
-
-    ### Fix default configs
+    ### Fix config for UDEV and powersave
     fix-config
 
     ##### FLATPAKS
@@ -41,28 +37,13 @@ install-desktop() {
 ###############################################################################
 clean-desktop() {
     #### Clean up KDE packages on minimal install
-    if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        sudo dnf remove -y \
-            \*akonadi* kwrite kdeconnectd krfb kcharselect \
-            plasma-discover plasma-drkonqi plasma-welcome \
-            kdeplasma-addons plasma-milou im-chooser \
-            totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
-            ibus-libpinyin ibus-hangul ibus-libzhuyin \
-            gnome-abrt vlc-plugin-* vlc-libs firefox
-
-    elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
-        ### Clean up GNOME packages
-        sudo dnf remove -y \
-            gnome-tour gnome-boxes libreoffice-* \
-            gnome-weather gnome-maps totem mediawriter \
-            gnome-connections gnome-software firefox \
-            gnome-calendar gnome-initial-setup gnome-contacts \
-            gnome-classic-session
-
-        ## Install for Gnome specific
-        sudo dnf install -y \
-            adwaita-gtk2-theme gnome-menus gnome-tweaks
-    fi
+    sudo dnf remove -y \
+        \*akonadi* kwrite kdeconnectd krfb kcharselect \
+        plasma-discover plasma-drkonqi plasma-welcome \
+        kdeplasma-addons plasma-milou im-chooser \
+        totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
+        ibus-libpinyin ibus-hangul ibus-libzhuyin \
+        gnome-abrt vlc-plugin-* vlc-libs firefox
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -107,7 +88,6 @@ install-flatpak() {
     ##### INTERNET #####
 
     # com.brave.Browser \
-    # org.mozilla.firefox \
     flatpak install -y \
         com.discordapp.Discord \
         org.libreoffice.LibreOffice \
@@ -115,7 +95,8 @@ install-flatpak() {
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
         com.valvesoftware.Steam \
-        org.gnome.Evolution
+        org.gnome.Evolution \
+        org.mozilla.firefox 
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -128,24 +109,18 @@ install-flatpak() {
         io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
-    if [[ "$XDG_CURRENT_DESKTOP" == "KDE" ]]; then
-        flatpak install -y \
-            org.kde.okular \
-            org.kde.gwenview \
-            org.kde.kcalc \
-            org.gtk.Gtk3theme.Arc-Dark \
-            org.gtk.Gtk3theme.Arc-Dark-solid
-    elif [[ "$XDG_CURRENT_DESKTOP" == "GNOME" ]]; then
-        flatpak install -y \
-            org.gtk.Gtk3theme.Adwaita-dark \
-            org.gnome.Extensions
-    fi
+    flatpak install -y \
+        org.kde.okular \
+        org.kde.gwenview \
+        org.kde.kcalc \
+        org.gtk.Gtk3theme.Arc-Dark \
+        org.gtk.Gtk3theme.Arc-Dark-solid
 }
 
 ###############################################################################
 ###  INSTALL DEVELOPMENT TOOLS                                              ###
 ###############################################################################
-default-packages() {
+install-default-packages() {
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
     sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
@@ -168,7 +143,7 @@ default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide neovim
+        steam-devices wl-clipboard bat eza fzf zoxide
 
     ### Set default shell
     sudo chsh -s /bin/zsh $USER
