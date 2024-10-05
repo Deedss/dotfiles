@@ -6,7 +6,11 @@ update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
-    sudo dnf update --refresh
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt update && sudo apt upgrade
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf update --refresh
+    fi
     echo ''
 
     echo '-------------------------'
@@ -15,6 +19,14 @@ update() {
     flatpak update -y
     echo ''
 
+    __update-rust
+    __update-neovim
+}
+
+###############################################################################
+##### UPDATE MAJOR TOOLS                                                #######
+###############################################################################
+__update-rust() {
     # Rust Update
     echo '-------------------------'
     echo '---------- RUST ---------'
@@ -23,6 +35,30 @@ update() {
     echo ''
 }
 
+__update-neovim() {
+    echo '-------------------------'
+    echo '-------- NEOVIM ---------'
+    echo '-------------------------'
+    local nvim_dir=~/Software/nvim
+    local nvim_url="https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz"
+    if [[ ! -d $nvim_dir ]]; then
+        mkdir -p "$nvim_dir"
+    else
+        local local_nvim_version=$(nvim --version | head -n1 | cut -d ' ' -f 2)
+        local latest_nvim_version=$(curl -sL https://api.github.com/repos/neovim/neovim/releases/latest | jq -r '.tag_name')
+        if [[ "$local_nvim_version" == "$latest_nvim_version" ]]; then
+            echo 'Already up to date.'
+            echo ''
+            return
+        fi
+    fi
+
+    rm -rf "$nvim_dir"/*
+    curl -LO "$nvim_url"
+    tar -xzf nvim-linux64.tar.gz -C "$nvim_dir" --strip-components 1
+    rm nvim-linux64.tar.gz
+    echo ''
+}
 ###############################################################################
 ####### BACKUP                                                           ######
 ###############################################################################

@@ -44,7 +44,7 @@ clean-desktop() {
         ibus-libpinyin ibus-hangul ibus-libzhuyin \
         gnome-abrt vlc-plugin-* vlc-libs firefox
 
-    sudo dnf install -y flatpak 
+    sudo dnf install -y flatpak
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
@@ -104,7 +104,7 @@ install-flatpak() {
         com.spotify.Client \
         com.obsproject.Studio \
         com.jgraph.drawio.desktop \
-        org.videolan.VLC \
+        org.videolan.VLC
 
     ##### KDE #####
     flatpak install -y \
@@ -173,4 +173,9 @@ install-brave() {
     sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
+}
+
+install-wezterm() {
+    sudo dnf copr enable wezfurlong/wezterm-nightly
+    sudo dnf install wezterm
 }

@@ -29,6 +29,16 @@ install-zed() {
 }
 
 ###############################################################################
+###### NEOVIM                                                           #######
+###############################################################################
+install-neovim() {
+    curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
+    rm -rf ~/Software/nvim
+    tar -C ~/Software -xzf nvim-linux64.tar.gz
+    rm nvim-linux64.tar.gz
+}
+
+###############################################################################
 ###### BAZEL                                                            #######
 ###############################################################################
 install-bazel() {
@@ -87,7 +97,11 @@ install-go() {
 ###############################################################################
 install-iwd() {
     echo "Install IWD for networking"
-    sudo dnf install -y iwd
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y iwd
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y iwd
+    fi
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-70" | sudo tee /etc/iwd/main.conf
@@ -109,7 +123,13 @@ install-wpa_supplicant() {
 ###############################################################################
 install-podman() {
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y podman podman-docker buildah
+        pipx install podman-compose
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y podman podman-compose podman-docker buildah distrobox
+    fi
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
@@ -124,7 +144,11 @@ install-podman() {
 ###############################################################################
 install-pythontools() {
     echo "Install Python-Devel"
-    sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        sudo apt install -y python3-devel python3-wheel python3-virtualenv python3-pygments
+    elif [[ $(lsb_release -is) == "Fedora" ]]; then
+        sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
+    fi
 }
 
 ##############################################################################
