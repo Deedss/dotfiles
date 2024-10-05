@@ -18,7 +18,7 @@ install-npm() {
     echo "Install NVM and NPM"
     cargo install fnm
     fnm install --lts
-    fnm completions --shell zsh > ~/.local/share/fnm/completions.zsh
+    fnm completions --shell zsh >~/.local/share/fnm/completions.zsh
 }
 
 ###############################################################################
@@ -87,12 +87,7 @@ install-go() {
 ###############################################################################
 install-iwd() {
     echo "Install IWD for networking"
-
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y iwd
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install -y iwd
-    fi
+    sudo dnf install -y iwd
 
     echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-70" | sudo tee /etc/iwd/main.conf
@@ -114,12 +109,7 @@ install-wpa_supplicant() {
 ###############################################################################
 install-podman() {
     echo "Install podman and buildah"
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install podman buildah podman-docker
-        pipx install podman-compose
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install -y podman podman-compose podman-docker buildah distrobox
-    fi
+    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
@@ -134,13 +124,7 @@ install-podman() {
 ###############################################################################
 install-pythontools() {
     echo "Install Python-Devel"
-
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install python3-dev python3-wheel python3-virtualenv python3-pygments
-        pip install pipx
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
-    fi
+    sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
 }
 
 ##############################################################################
