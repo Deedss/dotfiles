@@ -25,9 +25,6 @@ path_add "/usr/local/sbin"
 path_add "$HOME/.local/bin"
 path_add "$HOME/.scripts"
 
-# Vscode native file
-export GTK_USE_PORTAL=1
-
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
 alias ls='eza'

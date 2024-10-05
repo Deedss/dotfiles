@@ -44,6 +44,8 @@ clean-desktop() {
         ibus-libpinyin ibus-hangul ibus-libzhuyin \
         gnome-abrt vlc-plugin-* vlc-libs firefox
 
+    sudo dnf install -y flatpak 
+
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
@@ -76,7 +78,7 @@ install-rpmfusion() {
 ##### FLATPAKS                                                           ######
 ###############################################################################
 install-flatpak() {
-    sudo dnf install flatpak -y
+    sudo dnf install -y flatpak
 
     echo "Add flathub repository"
     sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
@@ -139,7 +141,7 @@ install-default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard bat eza fzf zoxide
+        steam-devices wl-clipboard bat eza fzf zoxide neovim
 
     ### Set default shell
     sudo chsh -s /bin/zsh $USER
