@@ -13,6 +13,7 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     install-default-packages
+    install-brave
 
     install-vscode
     install-pythontools
@@ -87,7 +88,6 @@ install-flatpak() {
 
     echo "Install flatpak applications"
     ##### INTERNET #####
-
     flatpak install -y \
         com.discordapp.Discord \
         org.libreoffice.LibreOffice \
@@ -96,8 +96,7 @@ install-flatpak() {
         org.remmina.Remmina \
         com.valvesoftware.Steam \
         io.podman_desktop.PodmanDesktop \
-        org.gnome.Evolution \
-        com.brave.Browser
+        org.gnome.Evolution
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \

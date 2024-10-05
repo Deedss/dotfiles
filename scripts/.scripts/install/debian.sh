@@ -8,7 +8,7 @@ source $DIR/tools.sh
 install-desktop() {
     echo "Perform Installation for Debian"
 
-    # install-kde-desktop
+    # install-kde
 
     ### Generic Setup
     install-default-packages
@@ -35,7 +35,7 @@ install-desktop() {
 ##############################################################################
 #### KDE DESKTOP                                                        ######
 ##############################################################################
-install-desktop() {
+install-kde() {
     echo "Install kde desktop"
     sudo apt -y install plasma-desktop plasma-workspace plasma-nm \
         kdialog kfind kde-spectacle libpam-kwallet5 kde-config-flatpak \
@@ -66,24 +66,22 @@ install-flatpak() {
     ##### INTERNET #####
     flatpak install -y \
         com.discordapp.Discord \
-        org.mozilla.Thunderbird \
         org.libreoffice.LibreOffice \
         org.signal.Signal \
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
-        org.telegram.desktop \
-        com.valvesoftware.Steam
+        com.valvesoftware.Steam \
+        io.podman_desktop.PodmanDesktop \
+        org.gnome.Evolution
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
+        com.spotify.Client \
         com.obsproject.Studio \
         com.jgraph.drawio.desktop \
-        org.blender.Blender \
-        org.videolan.VLC \
-        org.freedesktop.Platform.ffmpeg-full \
-        io.podman_desktop.PodmanDesktop \
-        com.spotify.Client
+        org.videolan.VLC
 
+    ##### KDE #####
     flatpak install -y \
         org.kde.okular \
         org.kde.gwenview \

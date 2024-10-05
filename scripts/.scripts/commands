@@ -66,10 +66,9 @@ tar-unpack() {
 
 backup-files() {
     cd ~ || exit
-
     # List of directories and files to back up
     local items=(
-        ".var/app/com.brave.Browser/config/BraveSoftware/"
+        ".config/BraveSoftware/"
         ".dotfiles"
         "Private"
         "Work"

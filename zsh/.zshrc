@@ -65,3 +65,4 @@ antidote load
 # Shell integrations
 source <(fzf --zsh)
 eval "$(zoxide init zsh)"
+eval "$(fnm env --use-on-cd --shell zsh)"
