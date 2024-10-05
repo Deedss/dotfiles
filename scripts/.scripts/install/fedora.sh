@@ -12,7 +12,7 @@ install-desktop() {
 
     ### Generic Setup
     install-rpmfusion
-    default-packages
+    install-default-packages
 
     install-vscode
     install-pythontools
