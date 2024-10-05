@@ -9,16 +9,20 @@ install-rust() {
     rustup component add rust-src
     rustup component add rust-analyzer
     rustup component add rustfmt
+
+    ## Install cli tools
+    cargo install binstall
+    cargo binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs
 }
 
 ###############################################################################
 ###### NODE JS                                                          #######
 ###############################################################################
 install-npm() {
-    echo "Install NVM and NPM"
-    cargo install fnm
+    echo "Install FNM and NodeJS"
+    cargo binstall fnm
     fnm install --lts
-    fnm completions --shell zsh >~/.local/share/fnm/completions.zsh
+    fnm completions --shell zsh > ~/.local/share/fnm/completions.zsh
 }
 
 ###############################################################################
@@ -39,57 +43,20 @@ install-neovim() {
 }
 
 ###############################################################################
+###### FZF                                                              #######
+###############################################################################
+install-fzf() {
+    git clone --depth 1 https://github.com/junegunn/fzf.git ~/Software/fzf
+    ~/Software/fzf/install --bin
+}
+
+###############################################################################
 ###### BAZEL                                                            #######
 ###############################################################################
 install-bazel() {
     curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o ~/.local/bin/bazelisk
     cp ~/.local/bin/bazelisk ~/.local/bin/bazel
     chmod +x ~/.local/bin/bazelisk ~/.local/bin/bazel
-}
-
-###############################################################################
-###### BAZEL                                                            #######
-###############################################################################
-install-go() {
-    # Specify the version of Go to install
-    GO_VERSION=1.22.5
-    GO_PARENT_FOLDER=~/Software
-    TARBALL_FILENAME=go${GO_VERSION}.linux-amd64.tar.gz
-    TARBALL_PATH=~/Downloads/$TARBALL_FILENAME
-    INSTALL_DIR=$GO_PARENT_FOLDER/go
-
-    # Check if ~/Software/go already exists and remove it if it does
-    if [ -d "$INSTALL_DIR" ]; then
-        echo "Removing existing $INSTALL_DIR directory"
-        sudo rm -rf "$INSTALL_DIR"
-    fi
-
-    # Check if the Go tarball already exists and remove it if it does
-    if [ -f "$TARBALL_PATH" ]; then
-        echo "Removing existing Go tarball: $TARBALL_PATH"
-        sudo rm "$TARBALL_PATH"
-    fi
-
-    # Download the Go binary tarball
-    echo "Downloading Go tarball to $TARBALL_PATH"
-    wget -q https://dl.google.com/go/$TARBALL_FILENAME -P ~/Downloads
-
-    # Extract the tarball and move it to the directory of choice
-    echo "Extracting Go tarball to $GO_PARENT_FOLDER"
-    tar -C $GO_PARENT_FOLDER -xzf $TARBALL_PATH
-
-    # Check if extraction was successful
-    if [ ! -d "$INSTALL_DIR" ]; then
-        echo "Extraction failed"
-        return 1
-    fi
-
-    # Clean up the downloaded tarball
-    echo "Removing the downloaded tarball: $TARBALL_PATH"
-    rm "$TARBALL_PATH"
-
-    echo "Go $GO_VERSION has been installed successfully in $INSTALL_DIR"
-    return 0
 }
 
 ###############################################################################
@@ -107,15 +74,6 @@ install-iwd() {
     echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-70" | sudo tee /etc/iwd/main.conf
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
     sudo systemctl mask wpa_supplicant
-}
-
-install-wpa_supplicant() {
-    echo "Setup wpa_supplicant"
-
-    sudo rm /etc/NetworkManager/conf.d/10-iwd.conf
-    sudo systemctl unmask wpa_supplicant
-    echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
-    echo -e 'bgscan="simple:30:-70:3600"' | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
 }
 
 ###############################################################################

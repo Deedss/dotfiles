@@ -21,6 +21,7 @@ install-desktop() {
     install-rust
     install-npm
     install-neovim
+    install-fzf
 
     ## Theme
     install-arc-theme

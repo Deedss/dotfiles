@@ -27,11 +27,12 @@ update() {
 ##### UPDATE MAJOR TOOLS                                                #######
 ###############################################################################
 __update-rust() {
-    # Rust Update
     echo '-------------------------'
     echo '---------- RUST ---------'
     echo '-------------------------'
     rustup update
+    cargo binstall --no-confirm \
+        zoxide bat eza fd-find ripgrep sd procs fnm
     echo ''
 }
 
@@ -52,6 +53,12 @@ __update-neovim() {
     fi
     echo ''
 }
+
+__update-fzf() {
+    git -C ~/Software/fzf pull
+    ~/Software/fzf/install --bin
+}
+
 ###############################################################################
 ####### BACKUP                                                           ######
 ###############################################################################
@@ -68,7 +75,7 @@ backup-files() {
     cd ~ || exit
     # List of directories and files to back up
     local items=(
-        ".config/BraveSoftware/"
+        ".config/BraveSoftware"
         ".dotfiles"
         "Private"
         "Work"
