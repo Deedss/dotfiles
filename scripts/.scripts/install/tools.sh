@@ -21,13 +21,25 @@ install-npm() {
     fnm completions --shell zsh > ~/.local/share/fnm/completions.zsh
 }
 
+###############################################################################
+###### ZED                                                              #######
+###############################################################################
+install-zed() {
+    curl -f https://zed.dev/install.sh | sh
+}
+
+###############################################################################
+###### BAZEL                                                            #######
+###############################################################################
 install-bazel() {
     curl -L https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64 -o ~/.local/bin/bazelisk
     cp ~/.local/bin/bazelisk ~/.local/bin/bazel
     chmod +x ~/.local/bin/bazelisk ~/.local/bin/bazel
 }
 
-### GO
+###############################################################################
+###### BAZEL                                                            #######
+###############################################################################
 install-go() {
     # Specify the version of Go to install
     GO_VERSION=1.22.5
@@ -131,25 +143,6 @@ install-pythontools() {
     fi
 }
 
-###############################################################################
-##### NEOVIM                                                            #######
-###############################################################################
-install-neovim() {
-    echo "Install Neovim"
-    INSTALL_DIR="$HOME/Software/nvim"
-    TAR_FILE="nvim-linux64.tar.gz"
-    DOWNLOAD_URL="https://github.com/neovim/neovim/releases/latest/download/${TAR_FILE}"
-    if [ -d "$INSTALL_DIR" ]; then
-        rm -rf "$INSTALL_DIR"
-    fi
-    mkdir -p "$INSTALL_DIR"
-    curl -L "$DOWNLOAD_URL" -o "$TAR_FILE"
-    tar -xzf "$TAR_FILE" --strip-components=1 -C "$INSTALL_DIR"
-    rm "$TAR_FILE"
-
-    echo ''
-}
-
 ##############################################################################
 ##### UDEV RULES                                                        ######
 ##############################################################################
@@ -163,6 +156,8 @@ fix-config() {
     sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
 
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+    echo -e 'bgscan="simple:30:-70:3600"' | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
     sudo systemctl restart NetworkManager
+    sudo systemctl restart wpa_supplicant
     sleep 10
 }

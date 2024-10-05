@@ -13,14 +13,13 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     default-packages
-    install-brave
 
     install-vscode
     install-pythontools
     install-podman
     install-rust
     install-npm
-    install-neovim
+    install-zed
 
     ## Theme
     install-arc-theme
@@ -87,7 +86,6 @@ install-flatpak() {
     echo "Install flatpak applications"
     ##### INTERNET #####
 
-    # com.brave.Browser \
     flatpak install -y \
         com.discordapp.Discord \
         org.libreoffice.LibreOffice \
@@ -95,18 +93,16 @@ install-flatpak() {
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
         com.valvesoftware.Steam \
+        io.podman_desktop.PodmanDesktop \
         org.gnome.Evolution \
-        org.mozilla.firefox 
+        com.brave.Browser
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
         com.spotify.Client \
         com.obsproject.Studio \
         com.jgraph.drawio.desktop \
-        org.blender.Blender \
         org.videolan.VLC \
-        org.freedesktop.Platform.ffmpeg-full \
-        io.podman_desktop.PodmanDesktop
 
     ##### KDE #####
     flatpak install -y \

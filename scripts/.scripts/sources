@@ -24,7 +24,6 @@ path_add "/usr/sbin"
 path_add "/usr/local/sbin"
 path_add "$HOME/.local/bin"
 path_add "$HOME/.scripts"
-path_add "$HOME/.scripts/utilities"
 
 # Vscode native file
 export GTK_USE_PORTAL=1
@@ -41,8 +40,8 @@ alias docker='podman'
 alias docker-compose='podman-compose'
 
 ## EDITOR
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=code
+export VISUAL=code
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"

@@ -6,55 +6,20 @@ update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt update && sudo apt upgrade
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf update --refresh
-    fi
+    sudo dnf update --refresh
     echo ''
 
     echo '-------------------------'
     echo '-------- FLATPAK --------'
     echo '-------------------------'
     flatpak update -y
-
     echo ''
-    __update-rust
-    __update-neovim
-}
 
-###############################################################################
-##### UPDATE MAJOR TOOLS                                                #######
-###############################################################################
-__update-rust() {
     # Rust Update
     echo '-------------------------'
     echo '---------- RUST ---------'
     echo '-------------------------'
     rustup update
-    echo ''
-}
-
-__update-neovim() {
-    echo '-------------------------'
-    echo '-------- NEOVIM ---------'
-    echo '-------------------------'
-    local local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
-    local latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
-    if [[ ! -d "$HOME/Software/nvim" || "$local_nvim_version" != "$latest_nvim_version" ]]; then
-        INSTALL_DIR="$HOME/Software/nvim"
-        TAR_FILE="nvim-linux64.tar.gz"
-        DOWNLOAD_URL="https://github.com/neovim/neovim/releases/latest/download/${TAR_FILE}"
-        if [ -d "$INSTALL_DIR" ]; then
-            rm -rf "$INSTALL_DIR"
-        fi
-        mkdir -p "$INSTALL_DIR"
-        curl -L "$DOWNLOAD_URL" -o "$TAR_FILE"
-        tar -xzf "$TAR_FILE" --strip-components=1 -C "$INSTALL_DIR"
-        rm "$TAR_FILE"
-    else
-        echo 'Already up to date.'
-    fi
     echo ''
 }
 
