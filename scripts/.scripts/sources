@@ -37,8 +37,8 @@ alias docker='podman'
 alias docker-compose='podman-compose'
 
 ## EDITOR
-export EDITOR=code
-export VISUAL=code
+export EDITOR=nvim
+export VISUAL=nvim
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"

@@ -40,7 +40,7 @@ backup-files() {
 
     # List of directories and files to back up
     local items=(
-        ".config/BraveSoftware/"
+        ".var/app/com.brave.Browser/config/BraveSoftware/"
         ".dotfiles"
         "Private"
         "Work"
