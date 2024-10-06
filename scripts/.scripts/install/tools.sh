@@ -20,7 +20,7 @@ install-rust() {
 ###############################################################################
 install-npm() {
     echo "Install FNM and NodeJS"
-    cargo binstall fnm
+    cargo-binstall --no-confirm fnm
     fnm install --lts
     fnm completions --shell zsh > ~/.local/share/fnm/completions.zsh
 }
