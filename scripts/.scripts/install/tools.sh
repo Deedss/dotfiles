@@ -11,7 +11,7 @@ install-rust() {
     rustup component add rustfmt
 
     ## Install cli tools
-    cargo install binstall
+    cargo install cargo-binstall
     cargo binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs just
 }
 
@@ -102,7 +102,7 @@ install-podman() {
 install-pythontools() {
     echo "Install Python-Devel"
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y python3-devel python3-wheel python3-virtualenv python3-pygments
+        sudo apt install -y python3-devel python3-wheel python3-virtualenv python3-pygments pipx
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
     fi
