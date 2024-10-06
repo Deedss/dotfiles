@@ -12,7 +12,7 @@ install-rust() {
 
     ## Install cli tools
     cargo install binstall
-    cargo binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs
+    cargo binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs just
 }
 
 ###############################################################################

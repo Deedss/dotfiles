@@ -33,7 +33,7 @@ __update-rust() {
     echo '-------------------------'
     rustup update
     cargo binstall --no-confirm \
-        zoxide bat eza fd-find ripgrep sd procs fnm
+        zoxide bat eza fd-find ripgrep sd procs fnm just
     echo ''
 }
 
