@@ -6,11 +6,7 @@ update() {
     echo '-------------------------'
     echo '-------- UPDATE ---------'
     echo '-------------------------'
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt update && sudo apt upgrade
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf update --refresh
-    fi
+    sudo dnf update --refresh
     echo ''
 
     echo '-------------------------'
@@ -21,7 +17,6 @@ update() {
 
     __update-rust
     __update-neovim
-    __update-fzf
 }
 
 ###############################################################################
@@ -32,27 +27,6 @@ __update-rust() {
     echo '---------- RUST ---------'
     echo '-------------------------'
     rustup update
-    cargo-binstall --no-confirm \
-        zoxide bat eza fd-find ripgrep sd procs fnm just
-    echo ''
-}
-
-__update-neovim() {
-    echo '-------------------------'
-    echo '-------- NEOVIM ---------'
-    echo '-------------------------'
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz -o /tmp/nvim-linux64.tar.gz
-    rm -rf ~/Software/nvim-linux64
-    tar -C ~/Software -xzf /tmp/nvim-linux64.tar.gz
-    echo ''
-}
-
-__update-fzf() {
-    echo '-------------------------'
-    echo '---------- FZF ----------'
-    echo '-------------------------'
-    git -C ~/Software/fzf pull
-    ~/Software/fzf/install --bin
     echo ''
 }
 
@@ -72,7 +46,7 @@ backup-files() {
     cd ~ || exit
     # List of directories and files to back up
     local items=(
-        ".config/BraveSoftware"
+        ".var/app/com.brave.Browser/config/BraveSoftware"
         ".dotfiles"
         "Private"
         "Work"
