@@ -155,6 +155,9 @@ install-default-packages() {
 install-arc-theme() {
     echo "Install arc theme"
     sudo dnf -y install arc-theme arc-kde
+
+    # Set gtk theme
+    dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
 }
 
 ###############################################################################
