@@ -128,9 +128,6 @@ install-arc-theme() {
     sudo apt -y install arc-theme
     wget -qO- https://raw.githubusercontent.com/PapirusDevelopmentTeam/arc-kde/master/install.sh | sh
     wget -qO- https://git.io/papirus-icon-theme-install | DESTDIR="$HOME/.local/share/icons" sh
-
-    # Set gtk theme
-    dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
 }
 
 ###############################################################################
