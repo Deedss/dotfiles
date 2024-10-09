@@ -62,5 +62,8 @@ antidote load
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ ! -f ~/.scripts/sources ]] || source  ~/.scripts/sources
 
-command -v fzf > /dev/null && source <(fzf --zsh)
-command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
+# Shell integrations
+[[ ! -f ~/.local/bin/fzf ]] || source <(fzf --zsh)
+[[ ! -f ~/.cargo/bin/zoxide ]] || eval "$(zoxide init zsh)"
+[[ ! -f ~/.cargo/bin/fnm ]] || eval "$(fnm env --use-on-cd --shell zsh)"
+[[ ! -d ~/.local/share/fnm ]] || source ~/.local/share/fnm/completions.zsh
