@@ -142,8 +142,7 @@ install-default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard nodejs \
-        eza bat zoxide fd-find procs ripgrep sd just fzf
+        steam-devices wl-clipboard 
 
     ### Set default shell
     sudo chsh -s /bin/zsh $USER
