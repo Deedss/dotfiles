@@ -59,21 +59,15 @@ tar-unpack() {
 backup-files() {
     cd ~ || exit
     # List of directories and files to back up
-    local items=(
-        ".config/BraveSoftware"
-        ".dotfiles"
-        "Private"
-        "Work"
-        "Projects"
-        ".ssh"
-        ".gitconfig"
-    )
-
-    for item in "${items[@]}"; do
-        if [[ -e "$item" ]]; then
-            tar-pack "$item"
-        else
-            echo "Skipping $item: does not exist."
-        fi
-    done
+    if [[ -d ~/.config/BraveSoftware ]]; then
+        tar-pack .config/BraveSoftware
+    elif [[ -d ~/.var/app/com.brave.Browser/config/BraveSoftware ]]; then
+        tar-pack .var/app/com.brave.Browser/config/BraveSoftware
+    fi
+    [[ ! -d ~/.dotfiles ]] || tar-pack .dotfiles
+    [[ ! -d ~/Private ]] || tar-pack Private
+    [[ ! -d ~/Work ]] || tar-pack Work
+    [[ ! -d ~/Projects ]] || tar-pack Projects
+    [[ ! -d ~/.ssh ]] || tar-pack .ssh
+    [[ ! -f ~/.gitconfig ]] || tar-pack .gitconfig
 }
