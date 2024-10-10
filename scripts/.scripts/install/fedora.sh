@@ -98,7 +98,8 @@ install-flatpak() {
         org.remmina.Remmina \
         com.valvesoftware.Steam \
         io.podman_desktop.PodmanDesktop \
-        org.gnome.Evolution
+        org.gnome.Evolution \
+        com.brave.Browser
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -168,16 +169,6 @@ install-vscode() {
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf -y install code
-}
-
-install-brave() {
-    ## Mesa fixes
-    sudo dnf install --allowerasing mesa-va-drivers-freeworld mesa-vdpau-drivers-freeworld
-
-    sudo dnf install dnf-plugins-core
-    sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf install brave-browser
 }
 
 install-wezterm() {
