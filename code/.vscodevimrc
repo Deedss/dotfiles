@@ -99,7 +99,6 @@ vmap g> editor.action.nextSelectionMatchFindAction
 vmap g< editor.action.previousSelectionMatchFindAction
 
 " Treesitter Expand Shrink
-nmap ]x editor.action.smartSelect.shrink
-vmap ]x editor.action.smartSelect.shrink
-nmap [x editor.action.smartSelect.expand
-vmap [x editor.action.smartSelect.expand
+xmap v editor.action.smartSelect.shrink
+" nmap <C-space> editor.action.smartSelect.expand
+xmap V editor.action.smartSelect.expand
