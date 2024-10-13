@@ -82,7 +82,7 @@ nmap gs editor.action.accessibleViewGoToSymbol
 nmap gS editor.action.showAllSymbols
 nmap cd editor.action.rename
 nmap g. editor.action.quickFix
-nmap <leader>fd editor.action.formatDocument
+nmap <leader>fd editor.action.formatDocumentA
 vmap <leader>fd editor.action.formatDocument
 nmap K editor.action.showHover
 
