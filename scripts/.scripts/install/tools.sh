@@ -103,9 +103,7 @@ install-podman() {
 install-pythontools() {
     echo "Install Python-Devel"
     if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y python3-devel python3-wheel python3-virtualenv python3-pygments
-        python3 -m pip install --user pipx
-        python3 -m pipx ensurepath
+        sudo apt install -y python3-devel python3-wheel python3-virtualenv python3-pygments pipx
     elif [[ $(lsb_release -is) == "Fedora" ]]; then
         sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
     fi
