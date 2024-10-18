@@ -6,7 +6,7 @@ set surround
 set multiple-cursors
 set commentary
 set argtextobj
-" set easymotion
+set easymotion
 set textobj-entire
 set ReplaceWithRegister
 
@@ -71,35 +71,29 @@ nmap [d <Action>(GotoPreviousError)
 nmap ]d <Action>(GotoNextError)
 
 " Telescope-like functionality with JetBrains actions
-" nmap <leader><leader> <Action>(ShowEditorTabs)
-" nmap <leader>e <Action>(ShowProblems)
-" nmap <leader>sf <Action>(SearchEverywhere)
-" nmap <leader>sg <Action>(FindInPath)
-" nmap <leader>sd <Action>(ShowProblems)
-" nmap <space>s. <Action>(RecentFiles)
-"nmap <leader>/ <Action>(Find)
-" nmap g/ <Action>(FindInPath)
+nmap <leader>e <Action>(ShowProblems)
+nmap <leader>sf <Action>(SearchEverywhere)
+nmap <leader>sg <Action>(FindInPath)
+nmap <leader>sd <Action>(ShowErrorDescription)
+nmap <leader>s. <Action>(RecentFiles)
+nmap <leader>/ <Action>(Find)
+nmap g/ <Action>(FindInPath)
 
 " LSP-like functionality with JetBrains actions
-" nmap gd Action>(GotoDeclaration)
-" nmap gr <Action>(GotoUsage)
-" nmap gI <Action>(GotoImplementation)
-" nmap gy <Action>(GotoTypeDeclaration)
-" nmap gD <Action>(GotoDeclaration)
-" nmap gs <Action>(GotoSymbol)
-" nmap gS <Action>(GotoFileStructure)
-" nmap cd <Action>(RenameElement)
-" nmap g. <Action>(ShowIntentionActions)
+nmap gd <Action>(GotoDeclaration)
+nmap gr <Action>(ShowUsages)
+nmap gI <Action>(GotoImplementation)
+nmap gy <Action>(GotoTypeDeclaration)
+nmap gD <Action>(GotoDeclaration)
+nmap gs <Action>(FileStructurePopup)
+nmap gS <Action>(GotoSymbol)
+nmap cd <Action>(RenameElement)
+nmap g. <Action>(ShowIntentionActions)
 nmap <leader>fd <Action>(ReformatCode)
 vmap <leader>fd <Action>(ReformatCode)
-" nmap K <Action>(QuickDocumentation)
+nmap K <Action>(QuickJavaDoc)
 
 " Multi Cursor Selection
 nmap gl <Action>(SelectNextOccurrence)
 vmap gl <Action>(SelectNextOccurrence)
-nmap gL <Action>(UnselectPreviousOccurrence)    " Not identical to vscode but works mostly
 vmap gL <Action>(UnselectPreviousOccurrence)
-
-" Treesitter-like expand/shrink functionality
-xmap v <Action>(EditorPreviousWord)
-xmap V <Action>(EditorNextWord)
