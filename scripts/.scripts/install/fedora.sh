@@ -19,10 +19,7 @@ install-desktop() {
     install-pythontools
     install-podman
     install-rust
-    install-npm
-    install-fzf
     install-zed
-    install-neovim
 
     ## Theme
     install-arc-theme

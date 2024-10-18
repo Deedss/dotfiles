@@ -20,6 +20,11 @@ update() {
     echo ''
 
     __update-rust
+
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        __update-neovim
+        __update-fzf
+    fi
 }
 
 ###############################################################################
@@ -30,6 +35,9 @@ __update-rust() {
     echo '---------- RUST ---------'
     echo '-------------------------'
     rustup update
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        cargo-binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs just deno
+    fi
     echo ''
 }
 

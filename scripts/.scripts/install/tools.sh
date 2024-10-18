@@ -11,8 +11,10 @@ install-rust() {
     rustup component add rustfmt
 
     ## Install cli tools
-    cargo install cargo-binstall
-    cargo-binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs just
+    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
+        cargo install cargo-binstall
+        cargo-binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs just
+    fi
 }
 
 ###############################################################################
