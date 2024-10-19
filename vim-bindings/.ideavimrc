@@ -74,7 +74,7 @@ nmap [d <Action>(GotoPreviousError)
 
 " Telescope-like functionality with JetBrains actions
 nmap <leader>e <Action>(ShowProblems)
-nmap <leader>sf <Action>(SearchEverywhere)
+nmap <leader>sf <Action>(GotoFile)
 nmap <leader>sg <Action>(FindInPath)
 nmap <leader>sd <Action>(ShowErrorDescription)
 nmap <leader>s. <Action>(RecentFiles)

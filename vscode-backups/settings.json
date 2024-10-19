@@ -1,0 +1,99 @@
+{
+    "editor.experimental.treeSitterTelemetry": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.confirmDelete": false,
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDragAndDrop": false,
+    "gitblame.inlineMessageEnabled": true,
+    "editor.formatOnSave": true,
+    "window.zoomLevel": -1,
+    "diffEditor.hideUnchangedRegions.enabled": true,
+    "editor.fontSize": 13,
+    "editor.inlayHints.fontSize": 13,
+    "debug.console.fontSize": 13,
+    "markdown.preview.fontSize": 13,
+    "terminal.integrated.fontSize": 13,
+    "chat.editor.fontSize": 13,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true,
+    "keyboard.dispatch": "keyCode",
+    "editor.minimap.enabled": false,
+    "terminal.integrated.persistentSessionScrollback": 10000,
+    "terminal.integrated.scrollback": 10000,
+    "window.menuBarVisibility": "toggle",
+    "telemetry.telemetryLevel": "off",
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    },
+    "extensions.ignoreRecommendations": true,
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "workbench.sideBar.location": "right",
+    "files.autoSave": "onFocusChange",
+    "editor.cursorSurroundingLines": 10,
+    "zenMode.fullScreen": false,
+    "window.restoreWindows": "none",
+    // Devcontainers
+    "dev.containers.dockerPath": "podman",
+    "dev.containers.dockerComposePath": "podman compose",
+    "dev.containers.cacheVolume": false,
+    // Docker
+    "docker.environment": {
+        "docker.host": "unix:///run/user/1000/podman/podman.sock"
+    },
+    "docker.dockerPath": "podman",
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    // CPP
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "clangd.arguments": [
+        "--all-scopes-completion=true",
+        "--clang-tidy",
+        "--fallback-style=Google",
+        "--function-arg-placeholders=false",
+        "--header-insertion=iwyu"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "C_Cpp.clang_format_fallbackStyle": "Google",
+    "C_Cpp.clang_format_style": "Google",
+    "C_Cpp.experimentalFeatures": "enabled",
+    // Lua
+    "Lua.runtime.version": "Lua 5.1",
+    // Cmake
+    "cmake.configureOnOpen": false,
+    "cmake.showOptionsMovedNotification": false,
+    "cmake.showConfigureWithDebuggerNotification": false,
+    "cmake.copyCompileCommands": "${sourceDirectory}/compile_commands.json",
+    "cmake.ctestArgs": [
+        "--extra-verbose"
+    ],
+    "cmake.configureOnEdit": false,
+    // VIM
+    "vim.leader": "space",
+    "vim.easymotion": true,
+    "vim.useSystemClipboard": true,
+    "vim.highlightedyank.enable": true,
+    "vim.targets.enable": true,
+    "vim.handleKeys": {
+        "<C-k>": false,
+    },
+    "vim.vimrc.enable": true,
+    "vim.timeout": 400,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.autoindent": true,
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "vim.replaceWithRegister": true,
+    "vim.showMarksInGutter": true,
+    "vim.smartRelativeLine": true,
+    "vim.sneak": true,
+    // "vim.foldfix": true,
+}

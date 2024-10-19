@@ -1,0 +1,68 @@
+// Place your key bindings in this file to override the defaultsauto[]
+[
+  { // Disable close active editor fully 
+    "key": "ctrl+w",
+    "command": "workbench.action.closeActiveEditor",
+    "when": "!vim.active"
+  },
+  { // Disable find and replace
+    "key": "ctrl+h",
+    "command": "-editor.action.startFindReplaceAction",
+    "when": "editorFocus || editorIsOpen"
+  },
+  { // Disable closing of all windows
+    "key": "ctrl+shift+w",
+    "command": "-workbench.action.closeWindow"
+  },
+  { // Focus (and open if necessary) files explorer if not yet focused
+    "key": "ctrl+shift+e",
+    "command": "workbench.files.action.focusFilesExplorer",
+    "when": "viewContainer.workbench.view.explorer.enabled && !editorFocus",
+  },
+  { // Close files explorer
+    "key": "ctrl+shift+e",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "activeViewlet == 'workbench.view.explorer' && !editorFocus",
+  },
+  { // Instantly return focus back to first editor
+    "key": "ctrl+w",
+    "command": "workbench.action.focusFirstEditorGroup",
+    "when": "sideBarFocus"
+  },
+  {
+    "key": "ctrl+w",
+    "command": "workbench.action.closePanel",
+    "when": "panelFocus"
+  },
+  {
+    "key": "r",
+    "command": "renameFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "shift+a",
+    "command": "explorer.newFolder",
+    "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
+  },
+  {
+    "key": "ctrl+shift+o",
+    "command": "workbench.action.showAllSymbols"
+  },
+  {
+    "key": "ctrl+t",
+    "command": "-workbench.action.showAllSymbols"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
+  },
+  {
+    "key": "shift shift",
+    "command": "workbench.action.quickOpen"
+  }
+]
