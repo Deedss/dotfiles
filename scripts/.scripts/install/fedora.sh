@@ -143,6 +143,9 @@ install-default-packages() {
         steam-devices wl-clipboard neovim nodejs \
         eza bat zoxide fd-find procs ripgrep sd just fzf
 
+    sudo dnf install -y --setopt=install_weak_deps=False \
+        neovim
+
     ### Set default shell
     sudo chsh -s /bin/zsh $USER
 }
