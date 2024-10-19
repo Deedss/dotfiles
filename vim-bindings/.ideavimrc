@@ -101,7 +101,8 @@ vmap gl <Action>(SelectNextOccurrence)
 vmap gL <Action>(UnselectPreviousOccurrence)
 
 " Treesitter
-xmap v <Action>(EditorSelectWord)
-xmap V <Action>(EditorUnSelectWord)
+vmap [x <Action>(EditorSelectWord)
+xmap [x <Action>(EditorSelectWord)
+xmap ]x <Action>(EditorUnSelectWord)
 nmap ]f <Action>(MethodDown)
 nmap [f <Action>(MethodUp)
