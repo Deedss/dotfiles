@@ -93,11 +93,9 @@ return { -- LSP Configuration & Plugins
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         local servers = {
-            bashls = {},
             bzl = {},
             -- biome = {},
             clangd = {},
-            marksman = {},
             cmake = {},
             pylsp = {},
             rust_analyzer = {},
@@ -126,7 +124,7 @@ return { -- LSP Configuration & Plugins
         vim.list_extend(ensure_installed, {
             -- DAP
             "codelldb", -- DAP C/C++/Rust
-            "debugpy", -- DAP python
+            "debugpy",  -- DAP python
             -- formatters
             "black",
             "clang-format",
