@@ -78,8 +78,8 @@ nmap gr editor.action.goToReferences
 nmap gI editor.action.goToImplementation
 nmap gy editor.action.goToTypeDefinition
 nmap gD editor.action.peekDeclaration
-nmap gs editor.action.accessibleViewGoToSymbol
-nmap gS editor.action.showAllSymbols
+nmap gs workbench.action.gotoSymbol
+nmap gS workbench.action.showAllSymbols
 nmap cd editor.action.rename
 nmap g. editor.action.quickFix
 nmap <leader>fd editor.action.formatDocumentA
@@ -99,6 +99,5 @@ vmap g> editor.action.nextSelectionMatchFindAction
 vmap g< editor.action.previousSelectionMatchFindAction
 
 " Treesitter Expand Shrink
-xmap v editor.action.smartSelect.shrink
-" nmap <C-space> editor.action.smartSelect.expand
-xmap V editor.action.smartSelect.expand
+xmap v editor.action.smartSelect.expand
+xmap V editor.action.smartSelect.shrink

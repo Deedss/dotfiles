@@ -2,13 +2,15 @@
 let mapleader=' '
 
 """ Plugins  --------------------------------
-set surround
-set multiple-cursors
-set commentary
-set argtextobj
-set easymotion
-set textobj-entire
-set ReplaceWithRegister
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-commentary'
+Plug 'machakann/vim-highlightedyank'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'easymotion/vim-easymotion'    " Requires extra plugins
+Plug 'justinmk/vim-sneak'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
+Plug 'vim-scripts/ReplaceWithRegister'
 
 """ Plugin settings -------------------------
 let g:argtextobj_pairs="[:],(:),<:>"
@@ -67,8 +69,8 @@ nnoremap <leader>Y "+Y
 nnoremap <C-L> :nohl<CR><C-L>
 
 " Go to next/previous action marker
-nmap [d <Action>(GotoPreviousError)
 nmap ]d <Action>(GotoNextError)
+nmap [d <Action>(GotoPreviousError)
 
 " Telescope-like functionality with JetBrains actions
 nmap <leader>e <Action>(ShowProblems)
@@ -97,3 +99,9 @@ nmap K <Action>(QuickJavaDoc)
 nmap gl <Action>(SelectNextOccurrence)
 vmap gl <Action>(SelectNextOccurrence)
 vmap gL <Action>(UnselectPreviousOccurrence)
+
+" Treesitter
+xmap v <Action>(EditorSelectWord)
+xmap V <Action>(EditorUnSelectWord)
+nmap ]f <Action>(MethodDown)
+nmap [f <Action>(MethodUp)
