@@ -9,8 +9,6 @@ return { -- Autoformat
       cpp = { " clang-format" },
       python = { "black" },
       cmake = { "cmake-format" },
-      sh = { "shfmt" },
-      lua = { "stylua" },
     },
   }
 }

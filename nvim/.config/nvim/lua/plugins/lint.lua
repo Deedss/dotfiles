@@ -7,8 +7,8 @@ return {
     local lint = require("lint")
 
     lint.linters_by_ft = {
-      c = { "cpplint" },
-      cpp = { "cpplint" },
+      c = { "clangtidy" },
+      cpp = { "clangtidy" },
       cmake = { "cmakelint" },
       python = { "pylint" },
     }
