@@ -90,7 +90,11 @@ return { -- LSP Configuration & Plugins
         local servers = {
             clangd = {},
             cmake = {},
-            pylsp = {},
+            basedpyright = {
+                analysis = {
+                    diagnosticMode = "openFilesOnly",
+                }
+            },
             rust_analyzer = {},
             lua_ls = {
                 settings = {
