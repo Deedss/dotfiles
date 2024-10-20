@@ -25,7 +25,7 @@ install-cmake-lsp() {
 }
 
 install-python-lsp() {
-  pip install basedpyright black debugpy
+  pip install python-lsp-server pylint black debugpy
 
 }
 
