@@ -7,7 +7,7 @@ Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'easymotion/vim-easymotion'    " Requires extra plugins
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'vim-scripts/argtextobj.vim'
 Plug 'kana/vim-textobj-entire'
 Plug 'vim-scripts/ReplaceWithRegister'
@@ -73,6 +73,7 @@ nmap ]d <Action>(GotoNextError)
 nmap [d <Action>(GotoPreviousError)
 
 " Telescope-like functionality with JetBrains actions
+nmap <leader>sb <Action>(RecentFiles)
 nmap <leader>e <Action>(ShowProblems)
 nmap <leader>sf <Action>(GotoFile)
 nmap <leader>sg <Action>(FindInPath)
