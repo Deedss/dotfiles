@@ -40,7 +40,7 @@ return { -- LSP Configuration & Plugins
 
                 -- Rename the variable under your cursor
                 --  Most Language Servers support renaming across files, etc.
-                map("n", "<leader>cd", vim.lsp.buf.rename, "[C]hange [D]efinition")
+                map("n", "cd", vim.lsp.buf.rename, "[C]hange [D]efinition")
 
                 -- Execute a code action, usually your cursor needs to be on top of an error
                 -- or a suggestion from your LSP for this to activate.
