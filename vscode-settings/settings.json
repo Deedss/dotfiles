@@ -1,37 +1,41 @@
 {
-    // General
+    "editor.experimental.treeSitterTelemetry": true,
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "vscode-icons",
+    "explorer.confirmDelete": false,
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "security.workspace.trust.untrustedFiles": "open",
+    "explorer.confirmDragAndDrop": false,
+    "gitblame.inlineMessageEnabled": true,
+    "editor.formatOnSave": true,
+    "window.zoomLevel": -1,
+    "diffEditor.hideUnchangedRegions.enabled": true,
     "editor.fontSize": 13,
     "editor.inlayHints.fontSize": 13,
     "debug.console.fontSize": 13,
     "markdown.preview.fontSize": 13,
     "terminal.integrated.fontSize": 13,
     "chat.editor.fontSize": 13,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true,
+    "keyboard.dispatch": "keyCode",
     "editor.minimap.enabled": false,
-    "workbench.colorTheme": "Catppuccin Macchiato",
-    "editor.quickSuggestions": {
-        "comments": "inline",
-        "strings": "inline"
-    },
-    "diffEditor.hideUnchangedRegions.enabled": true,
     "terminal.integrated.persistentSessionScrollback": 10000,
     "terminal.integrated.scrollback": 10000,
-    "scm.experimental.showHistoryGraph": true,
-    "window.zoomLevel": -1,
     "window.menuBarVisibility": "toggle",
     "telemetry.telemetryLevel": "off",
-    "editor.fontFamily": "'JetBrains Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'",
-    "keyboard.dispatch": "keyCode",
     "extensions.experimental.affinity": {
         "vscodevim.vim": 1
     },
     "extensions.ignoreRecommendations": true,
-    "workbench.iconTheme": "material-icon-theme",
     "editor.insertSpaces": true,
     "editor.tabSize": 2,
     "workbench.sideBar.location": "right",
     "files.autoSave": "onFocusChange",
     "editor.cursorSurroundingLines": 10,
-    "editor.renderWhitespace": "boundary",
     "zenMode.fullScreen": false,
     "window.restoreWindows": "none",
     // Devcontainers
@@ -43,24 +47,41 @@
         "docker.host": "unix:///run/user/1000/podman/podman.sock"
     },
     "docker.dockerPath": "podman",
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    },
+    // Python
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    },
     // CPP
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "clangd.arguments": [
+        "--all-scopes-completion=true",
+        "--clang-tidy",
+        "--fallback-style=Google",
+        "--function-arg-placeholders=false",
+        "--header-insertion=iwyu"
+    ],
+    "C_Cpp.intelliSenseEngine": "disabled",
     "C_Cpp.clang_format_fallbackStyle": "Google",
     "C_Cpp.clang_format_style": "Google",
-    "C_Cpp.suggestSnippets": false,
-    "C_Cpp.autocompleteAddParentheses": true,
+    "C_Cpp.experimentalFeatures": "enabled",
     // Lua
     "Lua.runtime.version": "Lua 5.1",
     // Cmake
     "cmake.configureOnOpen": false,
     "cmake.showOptionsMovedNotification": false,
     "cmake.showConfigureWithDebuggerNotification": false,
+    "cmake.copyCompileCommands": "${sourceDirectory}/compile_commands.json",
     "cmake.ctestArgs": [
         "--extra-verbose"
     ],
     "cmake.configureOnEdit": false,
     // VIM
     "vim.leader": "space",
-    // "vim.foldfix": true,
     "vim.easymotion": true,
     "vim.useSystemClipboard": true,
     "vim.highlightedyank.enable": true,
@@ -68,5 +89,18 @@
     "vim.handleKeys": {
         "<C-k>": false,
     },
-    "vim.vimrc.enable": true
+    "vim.vimrc.enable": true,
+    "vim.timeout": 400,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.autoindent": true,
+    "workbench.colorTheme": "Catppuccin Mocha",
+    "vim.replaceWithRegister": true,
+    "vim.showMarksInGutter": true,
+    "vim.smartRelativeLine": true,
+    "vim.sneak": true,
+    "python.analysis.autoFormatStrings": true,
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "standard",
+    // "vim.foldfix": true,
 }
