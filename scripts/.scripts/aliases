@@ -1,0 +1,14 @@
+#!/bin/bash
+
+## Personal aliases
+alias chrome="flatpak run com.brave.Browser"
+alias ls='eza'
+alias l='ls -l'
+alias la='ls -la'
+alias fp='fzf --preview "bat -n --color=always {}"'
+alias fn='nvim "${fp}"'
+
+alias docker='podman'
+alias docker-compose='podman-compose'
+
+alias bazel="bazelisk"
