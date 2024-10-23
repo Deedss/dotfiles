@@ -10,9 +10,9 @@ vim.opt.mouse = 'a'               -- enable mouse support
 vim.opt.clipboard = 'unnamedplus' -- copy/paste to system clipboard
 -- vim.opt.clipboard = vim.opt.vscode_clipboard
 vim.opt.swapfile = false          -- don't use swapfile
-vim.opt.updatetime = 250          -- Decrease update time
-vim.opt.timeoutlen = 300          -- Decrease update time
-vim.opt.signcolumn = 'yes'        -- Keep signcolumn on by default
+-- vim.opt.updatetime = 250          -- Decrease update time
+-- vim.opt.timeoutlen = 300          -- Decrease update time
+vim.opt.signcolumn = 'yes' -- Keep signcolumn on by default
 vim.opt.termguicolors = true
 -- vim.opt.spelllang = 'en_us'       -- Set language
 -- vim.opt.spell = true              -- Set spelling
@@ -75,8 +75,8 @@ vim.keymap.set({ 'n', 'x' }, '<leader>fd', [[<cmd>lua require('vscode').call('ed
 
 
 -- Move to begin/end of line
-vim.keymap.set({'n', 'v'}, 'L', '$')
-vim.keymap.set({'n', 'v'} , 'H', '^')
+vim.keymap.set({ 'n', 'v' }, 'L', '$')
+vim.keymap.set({ 'n', 'v' }, 'H', '^')
 
 -- Motion Bindings
 -- replace currently selected text with default register without yanking it
@@ -84,14 +84,14 @@ vim.keymap.set('v', '<leader>p', '\"_dP')
 
 
 -- Move visual line up/down
-vim.keymap.set('n', 'j','gj')
-vim.keymap.set('n', 'k','gk')
+-- vim.keymap.set('n', 'j','gj') (default)
+-- vim.keymap.set('n', 'k','gk') (default)
 
 -- Go to next/pevrious action marker
 vim.keymap.set('n', '[d', [[<cmd>lua require('vscode').call('editor.action.marker.prev')<cr>]])
 vim.keymap.set('n', ']d', [[<cmd>lua require('vscode').call('editor.action.marker.next')<cr>]])
 
--- Taken from telescope 
+-- Taken from telescope
 vim.keymap.set('n', '<leader>sb', [[<cmd>lua require('vscode').call('workbench.action.showEditorsInActiveGroup')<cr>]])
 vim.keymap.set('n', '<leader>sd', [[<cmd>lua require('vscode').call('workbench.action.problems.focus')<cr>]])
 vim.keymap.set('n', '<leader>sf', [[<cmd>lua require('vscode').call('workbench.action.quickOpen')<cr>]])
@@ -102,25 +102,27 @@ vim.keymap.set('n', 'g/', [[<cmd>lua require('vscode').action('workbench.action.
 
 
 -- Taken from lspconfig
--- vim.keymap.set('n', 'gd', [[<cmd>lua require('vscode').action('editor.action.revealDefinition')<cr>]])
+-- vim.keymap.set('n', 'gd', [[<cmd>lua require('vscode').action('editor.action.revealDefinition')<cr>]]) (default)
 vim.keymap.set('n', 'gr', [[<cmd>lua require('vscode').action('editor.action.goToReferences')<cr>]])
 vim.keymap.set('n', 'gI', [[<cmd>lua require('vscode').action('editor.action.goToImplementation')<cr>]])
 vim.keymap.set('n', 'gy', [[<cmd>lua require('vscode').action('editor.action.goToTypeDefinition')<cr>]])
--- vim.keymap.set('n', 'gD', [[<cmd>lua require('vscode').action('editor.action.peekDeclaration')<cr>]])
+-- vim.keymap.set('n', 'gD', [[<cmd>lua require('vscode').action('editor.action.peekDeclaration')<cr>]]) (default)
 vim.keymap.set('n', 'gs', [[<cmd>lua require('vscode').action('gotoSymbol')<cr>]])
 vim.keymap.set('n', 'gS', [[<cmd>lua require('vscode').action('showAllSymbols')<cr>]])
 vim.keymap.set('n', 'cd', [[<cmd>lua require('vscode').action('editor.action.rename')<cr>]])
--- vim.keymap.set({ "n", "x" }, "<leader>r", function() vscode.with_insert(function() vscode.action("editor.action.refactor") end) end)
+-- vim.keymap.set({ "n", "x" }, "<leader>r", function() vscode.with_insert(function() vscode.action("editor.action.refactor") end) end) (default)
 vim.keymap.set('n', 'g.', [[<cmd>lua require('vscode').action('editor.action.quickFix')<cr>]])
 vim.keymap.set('n', 'gS', [[<cmd>lua require('vscode').action('showAllSymbols')<cr>]])
 vim.keymap.set({ 'n', 'x' }, '<leader>fd', [[<cmd>lua require('vscode').call('editor.action.formatSelection')<cr>]])
--- vim.keymap.set('n', 'K', [[<cmd>lua require('vscode').call('editor.action.showHover')<cr>]]) 
+-- vim.keymap.set('n', 'K', [[<cmd>lua require('vscode').call('editor.action.showHover')<cr>]])  (default)
 
 vim.keymap.set('v', 'p', 'pgvy')
 
 -- Multi Cursor Selection
-vim.keymap.set({ "n", "x", "i" }, "gl", function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToNextFindMatch") end) end)
-vim.keymap.set({ "n", "x", "i" }, "gL", function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToPreviousFindMatch") end) end)
+vim.keymap.set({ "n", "x", "i" }, "gl",
+  function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToNextFindMatch") end) end)
+vim.keymap.set({ "n", "x", "i" }, "gL",
+  function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToPreviousFindMatch") end) end)
 
 -- -- Treesitter Expand Shrink
 vim.keymap.set({ 'n', 'x' }, '[x', [[<cmd>lua require('vscode').call('editor.action.smartSelect.expand')<cr>]])
@@ -129,9 +131,8 @@ vim.keymap.set('x', ']x', [[<cmd>lua require('vscode').call('editor.action.smart
 ---------------------------------------------------------------------------
 --- AUTOCOMMANDS                                                        ---
 ---------------------------------------------------------------------------
--- Highlight when yanking (copying) text
---  Try it with `yap` in normal mode
---  See `:help vim.highlight.on_yank()`
+-- Set the highlight group for yank
+-- Create the autocommand for yank highlighting
 vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('highlight-yank', { clear = true }),
   callback = function()
