@@ -63,17 +63,6 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 vim.keymap.set('x', '<leader>p', '\'_dP')
 
--- Jump to start and end of the line using home row
-vim.keymap.set('n', 'H', '^')
-vim.keymap.set('n', 'L', '$')
-
-
--- LSP like bindings
-vim.keymap.set('n', '<leader>/', [[<cmd>lua require('vscode').action('workbench.action.findInFiles')<cr>]])
-vim.keymap.set('n', '<leader>sf', [[<cmd>lua require('vscode').call('workbench.action.quickOpen')<cr>]])
-vim.keymap.set({ 'n', 'x' }, '<leader>fd', [[<cmd>lua require('vscode').call('editor.action.formatSelection')<cr>]])
-
-
 -- Move to begin/end of line
 vim.keymap.set({ 'n', 'v' }, 'L', '$')
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
@@ -81,7 +70,6 @@ vim.keymap.set({ 'n', 'v' }, 'H', '^')
 -- Motion Bindings
 -- replace currently selected text with default register without yanking it
 vim.keymap.set('v', '<leader>p', '\"_dP')
-
 
 -- Move visual line up/down
 -- vim.keymap.set('n', 'j','gj') (default)
@@ -107,13 +95,13 @@ vim.keymap.set('n', 'gr', [[<cmd>lua require('vscode').action('editor.action.goT
 vim.keymap.set('n', 'gI', [[<cmd>lua require('vscode').action('editor.action.goToImplementation')<cr>]])
 vim.keymap.set('n', 'gy', [[<cmd>lua require('vscode').action('editor.action.goToTypeDefinition')<cr>]])
 -- vim.keymap.set('n', 'gD', [[<cmd>lua require('vscode').action('editor.action.peekDeclaration')<cr>]]) (default)
-vim.keymap.set('n', 'gs', [[<cmd>lua require('vscode').action('gotoSymbol')<cr>]])
-vim.keymap.set('n', 'gS', [[<cmd>lua require('vscode').action('showAllSymbols')<cr>]])
+vim.keymap.set('n', 'gs', [[<cmd>lua require('vscode').action('workbench.action.gotoSymbol')<cr>]])
+vim.keymap.set('n', 'gS', [[<cmd>lua require('vscode').action('workbench.action.showAllSymbols')<cr>]])
 vim.keymap.set('n', 'cd', [[<cmd>lua require('vscode').action('editor.action.rename')<cr>]])
 -- vim.keymap.set({ "n", "x" }, "<leader>r", function() vscode.with_insert(function() vscode.action("editor.action.refactor") end) end) (default)
 vim.keymap.set('n', 'g.', [[<cmd>lua require('vscode').action('editor.action.quickFix')<cr>]])
-vim.keymap.set('n', 'gS', [[<cmd>lua require('vscode').action('showAllSymbols')<cr>]])
-vim.keymap.set({ 'n', 'x' }, '<leader>fd', [[<cmd>lua require('vscode').call('editor.action.formatSelection')<cr>]])
+vim.keymap.set({ 'n', 'x' }, '<leader>fd', [[<cmd>lua require('vscode').call('editor.action.formatDocument')<cr>]])
+vim.keymap.set({ 'x' }, '<leader>fs', [[<cmd>lua require('vscode').call('editor.action.formatSelection')<cr>]])
 -- vim.keymap.set('n', 'K', [[<cmd>lua require('vscode').call('editor.action.showHover')<cr>]])  (default)
 
 vim.keymap.set('v', 'p', 'pgvy')
@@ -143,16 +131,45 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
--- local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
--- if not vim.loop.fs_stat(lazypath) then
---   local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
---   vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
--- end ---@diagnostic disable-next-line: undefined-field
--- vim.opt.rtp:prepend(lazypath)
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  vim.fn.system({ 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath })
+end
+vim.opt.rtp:prepend(lazypath)
 
 -- -- [[ Configure and install plugins ]]
--- require('lazy').setup({
---   {
-
---   },
--- })
+require('lazy').setup({
+  {
+    {
+      "folke/flash.nvim",
+      event = "VeryLazy",
+      opts = {},
+      -- stylua: ignore
+      keys = {
+        { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+        { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+        { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+        { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+        { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+      },
+    },
+    {
+      --     Old text                    Command         New text
+      -- --------------------------------------------------------------------------------
+      --     surr*ound_words             ysiw)           (surround_words)
+      --     *make strings               ys$"            "make strings"
+      --     [delete ar*ound me!]        ds]             delete around me!
+      --     remove <b>HTML t*ags</b>    dst             remove HTML tags
+      --     'change quot*es'            cs'"            "change quotes"
+      --     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
+      --     delete(functi*on calls)     dsf             function calls
+      "kylechui/nvim-surround",
+      version = "*", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+      config = function()
+        require("nvim-surround").setup({})
+      end,
+    }
+  },
+})
