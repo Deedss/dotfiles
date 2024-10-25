@@ -50,6 +50,9 @@ clean-desktop() {
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
+    # mitigation for amdgpu 
+    echo "# Mitigate amdgpu psr issue\noptions amdgpu dcdebugmask=0x10" | sudo tee -a /etc/modprobe.d/amdgpu-fix.conf
+
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
     rm -rf "$HOME/.local/share/akonadi*"

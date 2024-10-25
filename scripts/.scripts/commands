@@ -29,11 +29,6 @@ set-gtk-theme() {
     dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
 }
 
-# TODO remove after linux-firmware update
-reset-gpu() {
-    sudo cat /sys/kernel/debug/dri/1/amdgpu_gpu_recover
-}
-
 tar-pack() {
     local filename=$(basename "$1")
     tar --zstd -cvf "${filename}.tar.zst" "$1"
