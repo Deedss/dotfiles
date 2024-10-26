@@ -10,15 +10,14 @@
     "security.workspace.trust.untrustedFiles": "open",
     "explorer.confirmDragAndDrop": false,
     "gitblame.inlineMessageEnabled": true,
-    "editor.formatOnSave": true,
-    "window.zoomLevel": -1,
+    // "editor.formatOnSave": true,
     "diffEditor.hideUnchangedRegions.enabled": true,
-    "editor.fontSize": 13,
-    "editor.inlayHints.fontSize": 13,
-    "debug.console.fontSize": 13,
-    "markdown.preview.fontSize": 13,
-    "terminal.integrated.fontSize": 13,
-    "chat.editor.fontSize": 13,
+    "editor.fontSize": 12,
+    "editor.inlayHints.fontSize": 12,
+    "debug.console.fontSize": 12,
+    "markdown.preview.fontSize": 12,
+    "terminal.integrated.fontSize": 12,
+    "chat.editor.fontSize": 12,
     "editor.fontFamily": "JetBrains Mono",
     "editor.fontLigatures": true,
     "keyboard.dispatch": "keyCode",
@@ -28,7 +27,8 @@
     "window.menuBarVisibility": "toggle",
     "telemetry.telemetryLevel": "off",
     "extensions.experimental.affinity": {
-        "vscodevim.vim": 1
+        "vscodevim.vim": 1,
+        "asvetliakov.vscode-neovim": 1
     },
     "extensions.ignoreRecommendations": true,
     "editor.insertSpaces": true,
@@ -59,16 +59,11 @@
         "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
     },
     "clangd.arguments": [
-        "--all-scopes-completion=true",
         "--clang-tidy",
         "--fallback-style=Google",
         "--function-arg-placeholders=false",
-        "--header-insertion=iwyu"
+        "--header-insertion=never"
     ],
-    "C_Cpp.intelliSenseEngine": "disabled",
-    "C_Cpp.clang_format_fallbackStyle": "Google",
-    "C_Cpp.clang_format_style": "Google",
-    "C_Cpp.experimentalFeatures": "enabled",
     // Lua
     "Lua.runtime.version": "Lua 5.1",
     // Cmake
@@ -80,6 +75,8 @@
         "--extra-verbose"
     ],
     "cmake.configureOnEdit": false,
+    // NEOVIM
+    "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode.lua",
     // VIM
     "vim.leader": "space",
     "vim.easymotion": true,

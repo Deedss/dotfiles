@@ -1,15 +1,5 @@
 // Place your key bindings in this file to override the defaultsauto[]
 [
-  { // Disable close active editor fully 
-    "key": "ctrl+w",
-    "command": "workbench.action.closeActiveEditor",
-    "when": "!vim.active"
-  },
-  { // Disable new file with ctrl n
-    "key": "ctrl+n",
-    "command": "-workbench.action.files.newUntitledFile",
-    "when": "!vim.active"
-  },
   { // Disable find and replace
     "key": "ctrl+h",
     "command": "-editor.action.startFindReplaceAction",
