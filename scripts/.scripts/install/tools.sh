@@ -9,45 +9,13 @@ install-rust() {
     rustup component add rust-src
     rustup component add rust-analyzer
     rustup component add rustfmt
-
-    ## Install cli tools
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        cargo install cargo-binstall
-        cargo-binstall --no-confirm zoxide bat eza fd-find ripgrep sd procs just
-    fi
 }
 
-###############################################################################
-###### NODE JS                                                          #######
-###############################################################################
-install-npm() {
-    echo "Install FNM and NodeJS"
-    cargo-binstall --no-confirm fnm
-    fnm install --lts
-    fnm completions --shell zsh >~/.local/share/fnm/completions.zsh
-}
 ###############################################################################
 ###### ZED                                                              #######
 ###############################################################################
 install-zed() {
     curl -f https://zed.dev/install.sh | sh
-}
-
-###############################################################################
-###### NEOVIM                                                           #######
-###############################################################################
-install-neovim() {
-    curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz -o /tmp/nvim-linux64.tar.gz
-    rm -rf ~/Software/nvim-linux64
-    tar -C ~/Software -xzf /tmp/nvim-linux64.tar.gz
-}
-
-###############################################################################
-###### FZF                                                              #######
-###############################################################################
-install-fzf() {
-    git clone --depth 1 https://github.com/junegunn/fzf.git ~/Software/fzf
-    ~/Software/fzf/install --bin
 }
 
 ###############################################################################
@@ -64,11 +32,7 @@ install-bazel() {
 ###############################################################################
 install-iwd() {
     echo "Install IWD for networking"
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y iwd
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install -y iwd
-    fi
+    sudo dnf install -y iwd
 
     echo -e "[device]\nwifi.backend=iwd\nwifi.iwd.autoconnect=yes" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
@@ -80,13 +44,7 @@ install-iwd() {
 ###############################################################################
 install-podman() {
     echo "Install podman and buildah"
-
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y podman podman-docker buildah
-        pipx install podman-compose
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install -y podman podman-compose podman-docker buildah distrobox
-    fi
+    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
     sudo touch /etc/containers/nodocker
 
     ###############################################################################
@@ -101,11 +59,7 @@ install-podman() {
 ###############################################################################
 install-pythontools() {
     echo "Install Python-Devel"
-    if [[ $(lsb_release -is) == "Debian" || $(lsb_release -is) == "Ubuntu" ]]; then
-        sudo apt install -y python3-dev python3-wheel python3-virtualenv python3-pygments pipx
-    elif [[ $(lsb_release -is) == "Fedora" ]]; then
-        sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
-    fi
+    sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
 }
 
 ##############################################################################
