@@ -144,7 +144,7 @@ install-default-packages() {
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
-        eza bat zoxide fd-find procs ripgrep sd just fzf
+        eza bat zoxide fd-find procs ripgrep sd just fzf kitty
 
     sudo dnf install -y --setopt=install_weak_deps=False \
         neovim
