@@ -38,20 +38,8 @@ zstyle ':completion:*' menu no
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
-# Keybindings
-# [Backspace] - delete backword
-bindkey '^?' backward-delete-char
-# [Ctrl-Backspace] - delete whole backward-word
-bindkey '^H' backward-kill-word
-# [Delete] - delete forward
+bindkey ' ' magic-space                               # [Space] - don't do history expansion
 bindkey '^[[3~' delete-char
-bindkey '^[3;5~' delete-char
-# [Ctrl-Delete] - delete whole forward-word
-bindkey '^[[3;5~' kill-word
-# [Ctrl-RightArrow] - move forward one word
-bindkey '^[[1;5C' forward-word
-# [Ctrl-LeftArrow] - move backward one word
-bindkey '^[[1;5D' backward-word
 
 # Source/Load antidote
 ANTIDOTE_HOME=$HOME/.antidote/plugins
