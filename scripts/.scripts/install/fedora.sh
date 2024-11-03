@@ -13,7 +13,7 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     install-default-packages
-    install-brave
+    # install-brave
 
     install-vscode
     install-pythontools
@@ -98,8 +98,7 @@ install-flatpak() {
         org.remmina.Remmina \
         com.valvesoftware.Steam \
         io.podman_desktop.PodmanDesktop \
-        org.gnome.Evolution 
-        # com.brave.Browser
+        com.brave.Browser
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -110,9 +109,6 @@ install-flatpak() {
 
     ##### KDE #####
     flatpak install -y \
-        org.kde.okular \
-        org.kde.gwenview \
-        org.kde.kcalc \
         org.gtk.Gtk3theme.Arc-Dark \
         org.gtk.Gtk3theme.Arc-Dark-solid
 }
@@ -144,7 +140,8 @@ install-default-packages() {
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
-        eza bat zoxide fd-find procs ripgrep sd just fzf kitty
+        eza bat zoxide fd-find procs ripgrep sd just fzf kitty \
+        kcalc okular gwenview
 
     sudo dnf install -y --setopt=install_weak_deps=False \
         neovim
@@ -179,7 +176,7 @@ install-wezterm() {
     sudo dnf install wezterm
 }
 
-install-brrave() {
+install-brave() {
     ## Install mesa-vaapi-freeeworld
     sudo dnf install mesa-va-drivers-freeworld mesa-vaapi-drivers-freeworld --allowerasing
 

@@ -13,9 +13,9 @@
     }
   },
   {
-    "context": "Editor",
     "bindings": {
-      // "j k": ["workspace::SendKeystrokes", "escape"]
+      "ctrl-`": "zed::OpenSettings",
+      "ctrl-,": "workspace::ToggleBottomDock"
     }
   }
 ]

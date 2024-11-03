@@ -16,6 +16,14 @@
     "dark": "Catppuccin Macchiato - No Italics"
     // "dark": "Gruvbox Dark"
   },
+  "assistant": {
+    "default_model": {
+      "provider": "openai",
+      "model": "gpt-4o"
+    },
+    "version": "2",
+    "enabled": false
+  },
   "chat_panel": {
     "dock": "right"
   },
