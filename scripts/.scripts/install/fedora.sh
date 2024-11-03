@@ -98,8 +98,8 @@ install-flatpak() {
         org.remmina.Remmina \
         com.valvesoftware.Steam \
         io.podman_desktop.PodmanDesktop \
-        org.gnome.Evolution \
-        com.brave.Browser
+        org.gnome.Evolution 
+        # com.brave.Browser
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -177,4 +177,14 @@ install-vscode() {
 install-wezterm() {
     sudo dnf copr enable wezfurlong/wezterm-nightly
     sudo dnf install wezterm
+}
+
+install-brrave() {
+    ## Install mesa-vaapi-freeeworld
+    sudo dnf install mesa-va-drivers-freeworld mesa-vaapi-drivers-freeworld --allowerasing
+
+    sudo dnf install dnf-plugins-core
+    sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
+    sudo dnf install brave-browser
 }
