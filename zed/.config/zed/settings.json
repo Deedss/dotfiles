@@ -8,19 +8,16 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "vim_mode": true,
-  "ui_font_size": 11,
-  "buffer_font_size": 11,
+  "ui_font_size": 12,
+  "buffer_font_size": 12,
+  "ui_font_family": "JetBrains Mono",
+  "buffer_font_family": "JetBrains Mono",
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "Catppuccin Macchiato - No Italics"
-    // "dark": "Gruvbox Dark"
+    "light": "Catppuccin Latte",
+    "dark": "Catppuccin Macchiato"
   },
   "assistant": {
-    "default_model": {
-      "provider": "openai",
-      "model": "gpt-4o"
-    },
     "version": "2",
     "enabled": false
   },

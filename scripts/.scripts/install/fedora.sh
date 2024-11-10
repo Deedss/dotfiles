@@ -20,6 +20,7 @@ install-desktop() {
     install-podman
     install-rust
     install-zed
+    install-iwd
 
     ## Theme
     install-arc-theme
@@ -103,7 +104,6 @@ install-flatpak() {
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
         com.spotify.Client \
-        com.obsproject.Studio \
         com.jgraph.drawio.desktop \
         org.videolan.VLC
 
