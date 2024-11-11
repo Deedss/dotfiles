@@ -82,7 +82,7 @@ nmap gs workbench.action.gotoSymbol
 nmap gS workbench.action.showAllSymbols
 nmap cd editor.action.rename
 nmap g. editor.action.quickFix
-nmap <leader>fd editor.action.formatDocumentA
+nmap <leader>fd editor.action.formatDocument
 vmap <leader>fd editor.action.formatDocument
 nmap K editor.action.showHover
 

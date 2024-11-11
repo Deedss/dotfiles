@@ -1,6 +1,11 @@
 return { -- LSP Configuration & Plugins
     "neovim/nvim-lspconfig",
     dependencies = {
+        -- Automatically install LSPs and related tools to stdpath for neovim
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+
         -- Useful status updates for LSP.
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
         { "j-hui/fidget.nvim", opts = {} },
@@ -40,14 +45,14 @@ return { -- LSP Configuration & Plugins
 
                 -- Rename the variable under your cursor
                 --  Most Language Servers support renaming across files, etc.
-                map("n", "cd", vim.lsp.buf.rename, "[C]hange [D]efinition")
+                map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
 
                 -- Execute a code action, usually your cursor needs to be on top of an error
                 -- or a suggestion from your LSP for this to activate.
-                map({ "n", "v" }, "g.", vim.lsp.buf.code_action, "[C]ode [A]ction")
+                map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 
                 -- Run codelens
-                map({ "n", "v" }, "gl", vim.lsp.codelens.run, "[C]ode [L]ens")
+                map({ "n", "v" }, "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
 
                 -- Opens a popup that        -- Show the signature of the function you're currently completing.
                 map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
@@ -88,6 +93,8 @@ return { -- LSP Configuration & Plugins
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         local servers = {
+            bzl = {},
+            -- biome = {},
             clangd = {},
             cmake = {},
             pylsp = {},
@@ -111,17 +118,49 @@ return { -- LSP Configuration & Plugins
             },
         }
 
+        -- You can add other tools here that you want Mason to install
+        -- for you, so that they are available from within Neovim.
+        local ensure_installed = vim.tbl_keys(servers or {})
+        vim.list_extend(ensure_installed, {
+            -- DAP
+            "codelldb", -- DAP C/C++/Rust
+            "debugpy",  -- DAP python
+            -- formatters
+            "black",
+            "clang-format",
+            "cmakelang",
+            "codespell",
+            "shfmt",
+            "stylua",
+            -- linters
+            "cpplint",
+            "cmakelint",
+            "pylint",
+        })
+
         -- Ensure the servers and tools above are installed
-        for server_name, server in pairs(servers) do
-            require("lspconfig")[server_name].setup({
-                cmd = server.cmd,
-                settings = server.settings,
-                filetypes = server.filetypes,
-                -- This handles overriding only values explicitly passed
-                -- by the server configuration above. Useful when disabling
-                -- certain features of an LSP (for example, turning off formatting for tsserver)
-                capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
-            })
-        end
+        --  To check the current status of installed tools and/or manually install
+        --  other tools, you can run
+        --    :Mason
+        --
+        --  You can press `g?` for help in this menu
+        require("mason").setup()
+        require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+        require("mason-lspconfig").setup({
+            handlers = {
+                function(server_name)
+                    local server = servers[server_name] or {}
+                    require("lspconfig")[server_name].setup({
+                        cmd = server.cmd,
+                        settings = server.settings,
+                        filetypes = server.filetypes,
+                        -- This handles overriding only values explicitly passed
+                        -- by the server configuration above. Useful when disabling
+                        -- certain features of an LSP (for example, turning off formatting for tsserver)
+                        capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
+                    })
+                end,
+            },
+        })
     end,
 }
