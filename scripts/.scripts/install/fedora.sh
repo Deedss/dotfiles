@@ -49,10 +49,11 @@ clean-desktop() {
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
+    sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="amdgpu.dcdebugmask=0x10 /' /etc/default/grub
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
-    # mitigation for amdgpu 
-    echo -e "# Mitigate amdgpu psr issue\noptions amdgpu dcdebugmask=0x10" | sudo tee -a /etc/modprobe.d/amdgpu-fix.conf
+    # mitigation for amdgpu
+    # echo -e "# Mitigate amdgpu psr issue\noptions amdgpu dcdebugmask=0x10" | sudo tee -a /etc/modprobe.d/amdgpu-fix.conf
 
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
