@@ -23,7 +23,9 @@ __update-rust() {
     echo ''
 }
 
-up() { cd $(eval printf '../'%.0s {1..$1}); }
+up() { 
+    cd $(eval printf '../'%.0s {1..$1}); 
+}
 
 set-gtk-theme() {
     dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
