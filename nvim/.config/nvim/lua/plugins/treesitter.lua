@@ -13,10 +13,10 @@ return { -- Highlight, edit, and navigate code
         incremental_selection = {
           enable = true,
           keymaps = {
-            init_selection = "v",
-            node_incremental = "v",
+            init_selection = "]x",
+            node_incremental = "]x",
             scope_incremental = false,
-            node_decremental = "V",
+            node_decremental = "[x",
           },
         },
       })
