@@ -10,7 +10,7 @@ return {
       c = { "clangtidy" },
       cpp = { "clangtidy" },
       cmake = { "cmakelint" },
-      python = { "pylint" },
+      python = { "ruff" },
     }
   end,
 }
