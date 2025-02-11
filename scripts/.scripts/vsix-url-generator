@@ -39,7 +39,7 @@ def select_platform():
         sys.exit(2)
 
 def main():
-    parser = argparse.ArgumentParser(add_help=False)
+    parser = argparse.ArgumentParser(description="Generate a VSCode extension download URL", add_help=False)
     parser.add_argument("-u", "--url", help="The URL of the VSCode marketplace extension site")
     parser.add_argument("-v", "--version", help="The version of the package that you want")
     parser.add_argument("-t", "--target_platform", action="store_true", help="Trigger the target platform selection menu")
@@ -47,9 +47,13 @@ def main():
     
     args = parser.parse_args()
     
-    if args.help:
+    if args.help or len(sys.argv) == 1:
         print_help()
     
+    if not args.url or not args.version:
+        print("Error: Both --url and --version are required parameters.\n", file=sys.stderr)
+        print_help()
+
     url = args.url
     version = args.version
 
