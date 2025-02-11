@@ -9,22 +9,10 @@ def print_help():
 Usage: vscode_url_generator.py -u <url> -v <version> [-t]
 
 Parameters:
-  -u, --url            The URL of the VSCode marketplace extension site 
-                      (e.g. https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-  -v, --version        The version of the package that you want
-  -t, --target_platform  (Optional) Trigger the target platform selection menu.
-
-The currently available platforms are:
-  1: win32-x64
-  2: win32-arm64
-  3: linux-x64
-  4: linux-arm64
-  5: linux-armhf
-  6: alpine-x64
-  7: alpine-arm64
-  8: darwin-x64
-  9: darwin-arm64
-  10: web
+  -u, --url                 The URL of the VSCode marketplace extension site (e.g. https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+  -v, --version             The version of the package that you want
+  -t, --target_platform     (Optional) Trigger the target platform selection menu. The currently available platforms are:
+                                win32-x64, win32-arm64, linux-x64, linux-arm64, linux-armhf, alpine-x64, alpine-arm64, darwin-x64, darwin-arm64, web
 """
     print(help_text)
     sys.exit(1)
@@ -52,8 +40,8 @@ def select_platform():
 
 def main():
     parser = argparse.ArgumentParser(add_help=False)
-    parser.add_argument("-u", "--url", required=True, help="The URL of the VSCode marketplace extension site")
-    parser.add_argument("-v", "--version", required=True, help="The version of the package that you want")
+    parser.add_argument("-u", "--url", help="The URL of the VSCode marketplace extension site")
+    parser.add_argument("-v", "--version", help="The version of the package that you want")
     parser.add_argument("-t", "--target_platform", action="store_true", help="Trigger the target platform selection menu")
     parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit")
     
