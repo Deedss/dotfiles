@@ -1,20 +1,11 @@
 #!/usr/bin/env python3
 
 import argparse
-import re
 import sys
 
-def print_help():
-    help_text = """
-Usage: vscode_url_generator.py -u <url> -v <version> [-t]
-
-Parameters:
-  -u, --url                 The URL of the VSCode marketplace extension site (e.g. https://marketplace.visualstudio.com/items?itemName=ms-python.python)
-  -v, --version             The version of the package that you want
-  -t, --target_platform     (Optional) Trigger the target platform selection menu. The currently available platforms are:
-                                win32-x64, win32-arm64, linux-x64, linux-arm64, linux-armhf, alpine-x64, alpine-arm64, darwin-x64, darwin-arm64, web
-"""
-    print(help_text)
+def print_help(parser : argparse.ArgumentParser):
+    """Print the help message and exit."""
+    parser.print_help()
     sys.exit(1)
 
 def select_platform():
@@ -39,36 +30,29 @@ def select_platform():
         sys.exit(2)
 
 def main():
-    parser = argparse.ArgumentParser(description="Generate a VSCode extension download URL", add_help=False)
-    parser.add_argument("-u", "--url", help="The URL of the VSCode marketplace extension site")
+    parser = argparse.ArgumentParser(description="Generate a VSCode extension download URL")
+    parser.add_argument("-i", "--identifier", help="The unique identifier of the extension (e.g., ms-python.python)")
     parser.add_argument("-v", "--version", help="The version of the package that you want")
     parser.add_argument("-t", "--target_platform", action="store_true", help="Trigger the target platform selection menu")
-    parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit")
     
     args = parser.parse_args()
     
-    if args.help or len(sys.argv) == 1:
-        print_help()
+    # Print help if no arguments are provided
+    if len(sys.argv) == 1:
+        print_help(parser)
     
-    if not args.url or not args.version:
-        print("Error: Both --url and --version are required parameters.\n", file=sys.stderr)
-        print_help()
-
-    url = args.url
+    if not args.identifier or not args.version:
+        print("Error: Both --identifier and --version are required.", file=sys.stderr)
+        print_help(parser)
+    
+    identifier = args.identifier
     version = args.version
 
-    # Extract the publisher and package from the URL
-    match = re.search(r"itemName=([^&]+)", url)
-    if not match:
-        print("Error: Could not extract publisher or package name from the URL.", file=sys.stderr)
+    if '.' not in identifier:
+        print("Error: Invalid identifier format. Expected format is publisher.package (e.g., ms-python.python).", file=sys.stderr)
         sys.exit(3)
     
-    item_name = match.group(1)
-    if '.' not in item_name:
-        print("Error: Invalid itemName format. Expected format is publisher.package.", file=sys.stderr)
-        sys.exit(4)
-    
-    publisher, package = item_name.split('.', 1)  # Split only at the first dot
+    publisher, package = identifier.split('.', 1)
 
     if args.target_platform:
         target_platform = select_platform()
