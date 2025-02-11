@@ -76,12 +76,12 @@ vim.keymap.set('v', '<leader>p', '\"_dP')
 -- vim.keymap.set('n', 'j','gj') (default)
 -- vim.keymap.set('n', 'k','gk') (default)
 
--- Go to next/pevrious action marker
+-- Go to next/previous action marker
 vim.keymap.set('n', '[d', function() vscode.call('editor.action.marker.prev') end)
 vim.keymap.set('n', ']d', function() vscode.call('editor.action.marker.next') end)
 
 -- Taken from telescope
-vim.keymap.set('n', '<leader><leader>' , function() vscode.call('workbench.action.showEditorsInActiveGroup') end)
+vim.keymap.set('n', '<leader><leader>', function() vscode.call('workbench.action.showEditorsInActiveGroup') end)
 vim.keymap.set('n', '<leader>sd', function() vscode.call('workbench.action.problems.focus') end)
 vim.keymap.set('n', '<leader>sf', function() vscode.call('workbench.action.quickOpen') end)
 vim.keymap.set('n', '<leader>sg', function() vscode.call('workbench.action.findInFiles') end)
@@ -99,7 +99,8 @@ vim.keymap.set('n', 'gy', function() vscode.action('editor.action.goToTypeDefini
 vim.keymap.set('n', 'gs', function() vscode.action('workbench.action.gotoSymbol') end)
 vim.keymap.set('n', 'gS', function() vscode.action('workbench.action.showAllSymbols') end)
 -- vim.keymap.set('n', 'cd', function() vscode.action('editor.action.rename') end)
-vim.keymap.set('n', 'cd', function() vscode.action('editor.action.rename') end)
+vim.keymap.set('n', 'cd', function() vscode.action("editor.action.rename") end)
+
 -- vim.keymap.set({ "n", "x" }, "<leader>r", function() vscode.with_insert(function() vscode.action("editor.action.refactor") end) end) (default)
 vim.keymap.set('n', 'g.', function() vscode.action('editor.action.quickFix') end)
 vim.keymap.set({ 'n', 'x' }, '<leader>fd', function() vscode.call('editor.action.formatDocument') end)
@@ -115,8 +116,8 @@ vim.keymap.set('v', 'p', 'pgvy')
 --   function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToPreviousFindMatch") end) end)
 
 -- -- Treesitter Expand Shrink
--- vim.keymap.set({ 'n', 'x' }, '[x', function() vscode.call('editor.action.smartSelect.expand') end)
--- vim.keymap.set('x', ']x', function() vscode.call('editor.action.smartSelect.shrink') end)
+vim.keymap.set({ 'n', 'x' }, '[x', function() vscode.call('editor.action.smartSelect.expand') end)
+vim.keymap.set('x', ']x', function() vscode.call('editor.action.smartSelect.shrink') end)
 
 ---------------------------------------------------------------------------
 --- AUTOCOMMANDS                                                        ---

@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+
+import argparse
+import re
+import sys
+
+def print_help():
+    help_text = """
+Usage: vscode_url_generator.py -u <url> -v <version> [-t]
+
+Parameters:
+  -u, --url            The URL of the VSCode marketplace extension site 
+                      (e.g. https://marketplace.visualstudio.com/items?itemName=ms-python.python)
+  -v, --version        The version of the package that you want
+  -t, --target_platform  (Optional) Trigger the target platform selection menu.
+
+The currently available platforms are:
+  1: win32-x64
+  2: win32-arm64
+  3: linux-x64
+  4: linux-arm64
+  5: linux-armhf
+  6: alpine-x64
+  7: alpine-arm64
+  8: darwin-x64
+  9: darwin-arm64
+  10: web
+"""
+    print(help_text)
+    sys.exit(1)
+
+def select_platform():
+    platforms = [
+        "win32-x64", "win32-arm64", "linux-x64", "linux-arm64", "linux-armhf", 
+        "alpine-x64", "alpine-arm64", "darwin-x64", "darwin-arm64", "web"
+    ]
+    
+    print("Select a platform:")
+    for i, platform in enumerate(platforms, start=1):
+        print(f"{i}: {platform}")
+    
+    try:
+        choice = int(input("Choose an option [1-10]: "))
+        if 1 <= choice <= len(platforms):
+            return platforms[choice - 1]
+        else:
+            print("Invalid choice", file=sys.stderr)
+            sys.exit(2)
+    except ValueError:
+        print("Invalid input. Please enter a number between 1 and 10.", file=sys.stderr)
+        sys.exit(2)
+
+def main():
+    parser = argparse.ArgumentParser(add_help=False)
+    parser.add_argument("-u", "--url", required=True, help="The URL of the VSCode marketplace extension site")
+    parser.add_argument("-v", "--version", required=True, help="The version of the package that you want")
+    parser.add_argument("-t", "--target_platform", action="store_true", help="Trigger the target platform selection menu")
+    parser.add_argument("-h", "--help", action="store_true", help="Show this help message and exit")
+    
+    args = parser.parse_args()
+    
+    if args.help:
+        print_help()
+    
+    url = args.url
+    version = args.version
+
+    # Extract the publisher and package from the URL
+    match = re.search(r"itemName=([^&]+)", url)
+    if not match:
+        print("Error: Could not extract publisher or package name from the URL.", file=sys.stderr)
+        sys.exit(3)
+    
+    item_name = match.group(1)
+    if '.' not in item_name:
+        print("Error: Invalid itemName format. Expected format is publisher.package.", file=sys.stderr)
+        sys.exit(4)
+    
+    publisher, package = item_name.split('.', 1)  # Split only at the first dot
+
+    if args.target_platform:
+        target_platform = select_platform()
+        final_url = f"https://marketplace.visualstudio.com/_apis/public/gallery/publishers/{publisher}/vsextensions/{package}/{version}/vspackage?targetPlatform={target_platform}"
+    else:
+        final_url = f"https://marketplace.visualstudio.com/_apis/public/gallery/publishers/{publisher}/vsextensions/{package}/{version}/vspackage"
+    
+    print(f"Generated URL: {final_url}")
+
+if __name__ == "__main__":
+    main()
+
