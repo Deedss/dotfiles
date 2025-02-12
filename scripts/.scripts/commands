@@ -51,3 +51,50 @@ backup-files() {
     [[ ! -d ~/.ssh ]] || tar-pack .ssh
     [[ ! -f ~/.gitconfig ]] || tar-pack .gitconfig
 }
+
+
+# List Podman images, optionally filtered by name or tag
+list_podman_images() {
+  local filter=$1
+  if [ -z "$filter" ]; then
+    podman images --format "{{.Repository}}:{{.Tag}}"
+  else
+    podman images --format "{{.Repository}}:{{.Tag}}" | grep "$filter"
+  fi
+}
+
+# Remove Podman images, optionally filtered by name or tag
+remove_podman_images() {
+  local filter=$1
+  local images_to_remove
+  if [ -z "$filter" ]; then
+    images_to_remove=$(podman images -q)  # Get all image IDs
+  else
+    images_to_remove=$(podman images --format "{{.ID}} {{.Repository}}:{{.Tag}}" | grep "$filter" | awk '{print $1}')
+  fi
+  
+  if [ -z "$images_to_remove" ]; then
+    echo "No images found to remove."
+  else
+    echo "Removing images..."
+    podman rmi -f $images_to_remove
+  fi
+}
+
+# Stop running Podman containers, optionally filtered by name or image name
+stop_podman_containers() {
+  local filter=$1
+  local containers_to_stop
+  if [ -z "$filter" ]; then
+    containers_to_stop=$(podman ps -q)  # Get all running container IDs
+  else
+    containers_to_stop=$(podman ps --format "{{.ID}} {{.Image}}" | grep "$filter" | awk '{print $1}')
+  fi
+
+  if [ -z "$containers_to_stop" ]; then
+    echo "No running containers found to stop."
+  else
+    echo "Stopping containers..."
+    podman stop $containers_to_stop
+  fi
+}
