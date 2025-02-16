@@ -1,103 +1,86 @@
 {
-    "editor.experimental.treeSitterTelemetry": true,
-    "workbench.editor.enablePreview": false,
-    "workbench.iconTheme": "vscode-icons",
-    "explorer.confirmDelete": false,
-    "cmake.pinnedCommands": [
-        "workbench.action.tasks.configureTaskRunner",
-        "workbench.action.tasks.runTask"
-    ],
-    "security.workspace.trust.untrustedFiles": "open",
-    "explorer.confirmDragAndDrop": false,
-    "gitblame.inlineMessageEnabled": true,
-    // "editor.formatOnSave": true,
-    "diffEditor.hideUnchangedRegions.enabled": true,
-    "editor.fontSize": 12,
-    "editor.inlayHints.fontSize": 12,
-    "debug.console.fontSize": 12,
-    "markdown.preview.fontSize": 12,
-    "terminal.integrated.fontSize": 12,
-    "chat.editor.fontSize": 12,
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontLigatures": true,
-    "keyboard.dispatch": "keyCode",
-    "editor.minimap.enabled": false,
-    "terminal.integrated.persistentSessionScrollback": 10000,
-    "terminal.integrated.scrollback": 10000,
-    "window.menuBarVisibility": "toggle",
-    "telemetry.telemetryLevel": "off",
-    "extensions.experimental.affinity": {
-        "vscodevim.vim": 1,
-        "asvetliakov.vscode-neovim": 1
-    },
-    "extensions.ignoreRecommendations": true,
-    "editor.insertSpaces": true,
-    "editor.tabSize": 2,
-    "workbench.sideBar.location": "right",
-    "files.autoSave": "onFocusChange",
-    "editor.cursorSurroundingLines": 10,
-    "zenMode.fullScreen": false,
-    "window.restoreWindows": "none",
-    // Devcontainers
-    "dev.containers.dockerPath": "podman",
-    "dev.containers.dockerComposePath": "podman compose",
-    "dev.containers.cacheVolume": false,
-    // Docker
-    "docker.environment": {
-        "docker.host": "unix:///run/user/1000/podman/podman.sock"
-    },
-    "docker.dockerPath": "podman",
-    "[dockerfile]": {
-        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
-    },
-    // Python
-    "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter"
-    },
-    // CPP
-    "[cpp]": {
-        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
-    },
+    "Lua.runtime.version": "Lua 5.1",
+    "chat.editor.fontSize": 11,
     "clangd.arguments": [
         "--clang-tidy",
         "--fallback-style=Google",
         "--function-arg-placeholders=false",
         "--header-insertion=never"
     ],
-    // Lua
-    "Lua.runtime.version": "Lua 5.1",
+    "cmake.configureOnEdit": false,
     // Cmake
     "cmake.configureOnOpen": false,
-    "cmake.showOptionsMovedNotification": false,
-    "cmake.showConfigureWithDebuggerNotification": false,
-    "cmake.copyCompileCommands": "${sourceDirectory}/compile_commands.json",
+    "cmake.copyCompileCommands": "${sourceDirectory}",
     "cmake.ctestArgs": [
         "--extra-verbose"
     ],
-    "cmake.configureOnEdit": false,
-    // NEOVIM
-    "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode.lua",
-    // VIM
-    "vim.leader": "space",
-    "vim.easymotion": true,
-    "vim.useSystemClipboard": true,
-    "vim.highlightedyank.enable": true,
-    "vim.targets.enable": true,
-    "vim.handleKeys": {
-        "<C-k>": false,
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "cmake.showConfigureWithDebuggerNotification": false,
+    "debug.console.fontSize": 11,
+    "dev.containers.dockerComposePath": "podman compose",
+    "dev.containers.dockerPath": "podman",
+    "docker.dockerPath": "podman",
+    "docker.environment": {
+        "docker.host": "unix:///run/user/1000/podman/podman.sock"
     },
-    "vim.vimrc.enable": true,
-    "vim.timeout": 400,
-    "vim.hlsearch": true,
-    "vim.incsearch": true,
-    "vim.autoindent": true,
-    "workbench.colorTheme": "Catppuccin Mocha",
-    "vim.replaceWithRegister": true,
-    "vim.showMarksInGutter": true,
-    "vim.smartRelativeLine": true,
-    "vim.sneak": true,
+    "editor.cursorSurroundingLines": 10,
+    "editor.experimental.treeSitterTelemetry": true,
+    "editor.fontFamily": "JetBrains Mono",
+    "editor.fontLigatures": true,
+    "editor.fontSize": 11,
+    "editor.formatOnPaste": true,
+    "editor.inlayHints.fontSize": 11,
+    "editor.insertSpaces": true,
+    "editor.minimap.enabled": false,
+    "editor.tabSize": 2,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "extensions.experimental.affinity": {
+        "asvetliakov.vscode-neovim": 1,
+        "vscodevim.vim": 1
+    },
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "onFocusChange",
+    "git.blame.editorDecoration.enabled": true,
+    "git.blame.statusBarItem.enabled": true,
+    "keyboard.dispatch": "keyCode",
+    "markdown.preview.fontSize": 11,
     "python.analysis.autoFormatStrings": true,
     "python.analysis.autoImportCompletions": true,
-    "python.analysis.typeCheckingMode": "standard",
-    // "vim.foldfix": true,
+    "python.analysis.typeCheckingMode": "strict",
+    "security.workspace.trust.untrustedFiles": "open",
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.fontSize": 11,
+    "terminal.integrated.persistentSessionScrollback": 10000,
+    "terminal.integrated.scrollback": 10000,
+    "vim.autoindent": true,
+    "vim.handleKeys": {
+        "<C-k>": false
+    },
+    "vim.highlightedyank.enable": true,
+    "vim.hlsearch": true,
+    "vim.incsearch": true,
+    "vim.leader": "space",
+    "vim.replaceWithRegister": true,
+    "vim.showMarksInGutter": true,
+    "vim.sneak": true,
+    "vim.sneakReplacesF": true,
+    "vim.sneakUseIgnorecaseAndSmartcase": true,
+    "vim.timeout": 400,
+    "vim.useSystemClipboard": true,
+    "vim.vimrc.enable": true,
+    "vscode-neovim.neovimInitVimPaths.linux": "~/.config/nvim/vscode.lua",
+    "window.menuBarVisibility": "toggle",
+    "window.restoreWindows": "none",
+    "workbench.colorTheme": "Catppuccin Macchiato",
+    "workbench.editor.enablePreview": false,
+    "workbench.iconTheme": "vscode-icons",
+    "workbench.sideBar.location": "right",
+    "zenMode.fullScreen": false,
+    "[dockerfile]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-docker"
+    }
 }
