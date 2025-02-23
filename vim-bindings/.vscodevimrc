@@ -102,3 +102,6 @@ vmap g< editor.action.previousSelectionMatchFindAction
 nmap [x editor.action.smartSelect.expand
 xmap [x editor.action.smartSelect.expand
 xmap ]x editor.action.smartSelect.shrink
+
+" Debugging
+nmap <space>? editor.debug.action.selectionToRepl

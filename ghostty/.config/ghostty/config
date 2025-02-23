@@ -1,0 +1,8 @@
+# Theming
+theme = catppuccin-macchiato
+
+# Fonts
+font-family = JetBrains Mono
+font-size = 10
+
+# Keybindings
