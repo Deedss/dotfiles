@@ -41,6 +41,9 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 bindkey ' ' magic-space                               # [Space] - don't do history expansion
 bindkey '^[[3~' delete-char
 
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;3D" backward-word
+
 # Source/Load antidote
 ANTIDOTE_HOME=$HOME/.antidote/plugins
 source "$HOME/.antidote/antidote.zsh"

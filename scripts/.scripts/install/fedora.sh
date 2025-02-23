@@ -21,7 +21,7 @@ install-desktop() {
     install-rust
     install-zed
     install-iwd
-    install-wezterm
+    install-ghostty
 
     ## Theme
     install-arc-theme
@@ -186,4 +186,10 @@ install-brave() {
     sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
+}
+
+
+install-ghostty() {
+    sudo dnf copr enable pgdev/ghostty
+    sudo dnf install ghostty
 }
