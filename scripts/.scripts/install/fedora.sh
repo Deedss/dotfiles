@@ -21,6 +21,7 @@ install-desktop() {
     install-rust
     install-zed
     install-iwd
+    install-wezterm
 
     ## Theme
     install-arc-theme
@@ -141,7 +142,7 @@ install-default-packages() {
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
-        eza bat zoxide fd-find procs ripgrep sd just fzf kitty \
+        eza bat zoxide fd-find procs ripgrep sd just fzf \
         kcalc okular gwenview
 
     sudo dnf install -y --setopt=install_weak_deps=False \
