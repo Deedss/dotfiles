@@ -21,6 +21,10 @@ config.cursor_blink_rate = 0
 config.text_blink_rate = 0
 config.text_blink_rate_rapid = 0
 
+-- Fix fps
+config.max_fps = 120
+config.animation_fps = 120
+
 config.window_padding = {
   left = 4,
   right = 4,
