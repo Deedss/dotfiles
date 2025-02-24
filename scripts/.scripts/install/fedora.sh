@@ -21,7 +21,7 @@ install-desktop() {
     install-rust
     install-zed
     install-iwd
-    # install-ghostty
+    install-ghostty
 
     ## Theme
     install-arc-theme
@@ -142,7 +142,7 @@ install-default-packages() {
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
-        eza bat zoxide fd-find procs ripgrep sd just fzf \
+        eza bat zoxide fd-find procs ripgrep sd just fzf kitty \
         kcalc okular gwenview
 
     sudo dnf install -y --setopt=install_weak_deps=False \
@@ -186,4 +186,10 @@ install-brave() {
     sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
+}
+
+
+install-ghostty() {
+    sudo dnf copr enable pgdev/ghostty
+    sudo dnf install ghostty
 }
