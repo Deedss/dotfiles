@@ -21,7 +21,6 @@ install-desktop() {
     install-rust
     install-zed
     install-iwd
-    install-ghostty
 
     ## Theme
     install-arc-theme
@@ -173,11 +172,6 @@ install-vscode() {
     sudo dnf -y install code
 }
 
-install-wezterm() {
-    sudo dnf copr enable wezfurlong/wezterm-nightly
-    sudo dnf install wezterm
-}
-
 install-brave() {
     ## Install mesa-vaapi-freeeworld
     sudo dnf install mesa-va-drivers-freeworld mesa-vaapi-drivers-freeworld --allowerasing
@@ -186,10 +180,4 @@ install-brave() {
     sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
-}
-
-
-install-ghostty() {
-    sudo dnf copr enable pgdev/ghostty
-    sudo dnf install ghostty
 }
