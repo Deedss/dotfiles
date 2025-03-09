@@ -110,9 +110,9 @@ vim.keymap.set({ 'x' }, '<leader>fs', function() vscode.call('editor.action.form
 vim.keymap.set('v', 'p', 'pgvy')
 
 -- Multi Cursor Selection
--- vim.keymap.set({ "n", "x", "i" }, "<C-d>",
+-- vim.keymap.set({ "n", "x", "i" }, "<M-d>",
 --   function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToNextFindMatch") end) end)
--- vim.keymap.set({ "n", "x", "i" }, "<C-D>",
+-- vim.keymap.set({ "n", "x", "i" }, "<M-D>",
 --   function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToPreviousFindMatch") end) end)
 
 -- -- Treesitter Expand Shrink

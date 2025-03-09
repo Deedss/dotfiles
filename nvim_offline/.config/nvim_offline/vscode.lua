@@ -59,6 +59,7 @@ vim.opt.completeopt = 'menu,menuone,noselect'
 --------------------------------------------------------------------------
 --- KEYMAPS                                                            ---
 --------------------------------------------------------------------------
+local vscode = require('vscode')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 vim.keymap.set('x', '<leader>p', '\'_dP')
@@ -75,46 +76,48 @@ vim.keymap.set('v', '<leader>p', '\"_dP')
 -- vim.keymap.set('n', 'j','gj') (default)
 -- vim.keymap.set('n', 'k','gk') (default)
 
--- Go to next/pevrious action marker
-vim.keymap.set('n', '[d', [[<cmd>lua require('vscode').call('editor.action.marker.prev')<cr>]])
-vim.keymap.set('n', ']d', [[<cmd>lua require('vscode').call('editor.action.marker.next')<cr>]])
+-- Go to next/previous action marker
+vim.keymap.set('n', '[d', function() vscode.call('editor.action.marker.prev') end)
+vim.keymap.set('n', ']d', function() vscode.call('editor.action.marker.next') end)
 
 -- Taken from telescope
-vim.keymap.set('n', '<leader>sb', [[<cmd>lua require('vscode').call('workbench.action.showEditorsInActiveGroup')<cr>]])
-vim.keymap.set('n', '<leader>sd', [[<cmd>lua require('vscode').call('workbench.action.problems.focus')<cr>]])
-vim.keymap.set('n', '<leader>sf', [[<cmd>lua require('vscode').call('workbench.action.quickOpen')<cr>]])
-vim.keymap.set('n', '<leader>sg', [[<cmd>lua require('vscode').call('workbench.action.findInFiles')<cr>]])
-vim.keymap.set('n', '<leader>s.', [[<cmd>lua require('vscode').call('workbench.action.openRecent')<cr>]])
-vim.keymap.set('n', '<leader>/', [[<cmd>lua require('vscode').action('workbench.action.findInFiles')<cr>]])
-vim.keymap.set('n', 'g/', [[<cmd>lua require('vscode').action('workbench.action.quickTextSearch')<cr>]])
+vim.keymap.set('n', '<leader><leader>', function() vscode.call('workbench.action.showEditorsInActiveGroup') end)
+vim.keymap.set('n', '<leader>sd', function() vscode.call('workbench.action.problems.focus') end)
+vim.keymap.set('n', '<leader>sf', function() vscode.call('workbench.action.quickOpen') end)
+vim.keymap.set('n', '<leader>sg', function() vscode.call('workbench.action.findInFiles') end)
+vim.keymap.set('n', '<leader>s.', function() vscode.call('workbench.action.openRecent') end)
+vim.keymap.set('n', '<leader>/', function() vscode.action('workbench.action.findInFiles') end)
+vim.keymap.set('n', 'g/', function() vscode.action('workbench.action.quickTextSearch') end)
 
 
 -- Taken from lspconfig
--- vim.keymap.set('n', 'gd', [[<cmd>lua require('vscode').action('editor.action.revealDefinition')<cr>]]) (default)
-vim.keymap.set('n', 'gr', [[<cmd>lua require('vscode').action('editor.action.goToReferences')<cr>]])
-vim.keymap.set('n', 'gI', [[<cmd>lua require('vscode').action('editor.action.goToImplementation')<cr>]])
-vim.keymap.set('n', 'gy', [[<cmd>lua require('vscode').action('editor.action.goToTypeDefinition')<cr>]])
--- vim.keymap.set('n', 'gD', [[<cmd>lua require('vscode').action('editor.action.peekDeclaration')<cr>]]) (default)
-vim.keymap.set('n', 'gs', [[<cmd>lua require('vscode').action('workbench.action.gotoSymbol')<cr>]])
-vim.keymap.set('n', 'gS', [[<cmd>lua require('vscode').action('workbench.action.showAllSymbols')<cr>]])
-vim.keymap.set('n', 'cd', [[<cmd>lua require('vscode').action('editor.action.rename')<cr>]])
+-- vim.keymap.set('n', 'gd', function() vscode.action('editor.action.revealDefinition') end) (default)
+vim.keymap.set('n', 'gr', function() vscode.action('editor.action.goToReferences') end)
+vim.keymap.set('n', 'gI', function() vscode.action('editor.action.goToImplementation') end)
+vim.keymap.set('n', 'gy', function() vscode.action('editor.action.goToTypeDefinition') end)
+-- vim.keymap.set('n', 'gD', function() vscode.action('editor.action.peekDeclaration') end) (default)
+vim.keymap.set('n', 'gs', function() vscode.action('workbench.action.gotoSymbol') end)
+vim.keymap.set('n', 'gS', function() vscode.action('workbench.action.showAllSymbols') end)
+-- vim.keymap.set('n', 'cd', function() vscode.action('editor.action.rename') end)
+vim.keymap.set('n', 'cd', function() vscode.action("editor.action.rename") end)
+
 -- vim.keymap.set({ "n", "x" }, "<leader>r", function() vscode.with_insert(function() vscode.action("editor.action.refactor") end) end) (default)
-vim.keymap.set('n', 'g.', [[<cmd>lua require('vscode').action('editor.action.quickFix')<cr>]])
-vim.keymap.set({ 'n', 'x' }, '<leader>fd', [[<cmd>lua require('vscode').call('editor.action.formatDocument')<cr>]])
-vim.keymap.set({ 'x' }, '<leader>fs', [[<cmd>lua require('vscode').call('editor.action.formatSelection')<cr>]])
--- vim.keymap.set('n', 'K', [[<cmd>lua require('vscode').call('editor.action.showHover')<cr>]])  (default)
+vim.keymap.set('n', 'g.', function() vscode.action('editor.action.quickFix') end)
+vim.keymap.set({ 'n', 'x' }, '<leader>fd', function() vscode.call('editor.action.formatDocument') end)
+vim.keymap.set({ 'x' }, '<leader>fs', function() vscode.call('editor.action.formatSelection') end)
+-- vim.keymap.set('n', 'K', function() vscode.call('editor.action.showHover') end) (default)
 
 vim.keymap.set('v', 'p', 'pgvy')
 
 -- Multi Cursor Selection
-vim.keymap.set({ "n", "x", "i" }, "gl",
-  function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToNextFindMatch") end) end)
-vim.keymap.set({ "n", "x", "i" }, "gL",
-  function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToPreviousFindMatch") end) end)
+-- vim.keymap.set({ "n", "x", "i" }, "<M-d>",
+--   function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToNextFindMatch") end) end)
+-- vim.keymap.set({ "n", "x", "i" }, "<M-D>",
+--   function() vscode.with_insert(function() vscode.action("editor.action.addSelectionToPreviousFindMatch") end) end)
 
 -- -- Treesitter Expand Shrink
--- vim.keymap.set({ 'n', 'x' }, '[x', [[<cmd>lua require('vscode').call('editor.action.smartSelect.expand')<cr>]])
--- vim.keymap.set('x', ']x', [[<cmd>lua require('vscode').call('editor.action.smartSelect.shrink')<cr>]])
+vim.keymap.set({ 'n', 'x' }, '[x', function() vscode.call('editor.action.smartSelect.expand') end)
+vim.keymap.set('x', ']x', function() vscode.call('editor.action.smartSelect.shrink') end)
 
 ---------------------------------------------------------------------------
 --- AUTOCOMMANDS                                                        ---
@@ -141,6 +144,8 @@ vim.opt.rtp:prepend(lazypath)
 -- -- [[ Configure and install plugins ]]
 require('lazy').setup({
   {
+    { "tpope/vim-sleuth", event = "VeryLazy" },
+    { "tpope/vim-repeat", event = "VeryLazy" },
     {
       "folke/flash.nvim",
       event = "VeryLazy",
