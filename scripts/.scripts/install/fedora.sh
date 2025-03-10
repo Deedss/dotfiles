@@ -20,7 +20,6 @@ install-desktop() {
     install-podman
     install-rust
     install-zed
-    install-wezterm
     install-iwd
 
     ## Theme
@@ -143,7 +142,7 @@ install-default-packages() {
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
         eza bat zoxide fd-find procs ripgrep sd just fzf \
-        kcalc okular gwenview
+        kcalc okular gwenview kitty
 
     sudo dnf install -y --setopt=install_weak_deps=False \
         neovim
@@ -181,9 +180,4 @@ install-brave() {
     sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
     sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
     sudo dnf install brave-browser
-}
-
-install-wezterm() {
-    sudo dnf copr enable wezfurlong/wezterm-nightly
-    sudo dnf install wezterm
 }
