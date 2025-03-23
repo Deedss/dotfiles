@@ -25,7 +25,7 @@ set scrolloff=8             " # lines below/above cursor
 set visualbell              " Use visual bell instead of beeping when doing something wrong
 set ignorecase              " Use case insensitive search, except when using capital letters
 set smartcase               " Use case insensitive search, except when using capital letters
-st timeoutlen=400          " Timeout of key press
+set timeoutlen=400          " Timeout of key press
 set whichwrap+=<,>,h,l,[,]  " left and right arrow keys, as well as h and l, to wrap when used at beginning or end of lines
 set clipboard+=unnamedplus  " Use system clipboard
 

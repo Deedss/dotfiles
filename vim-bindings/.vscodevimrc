@@ -25,6 +25,9 @@ set incsearch
 set foldmethod=indent
 set autoindent
 
+" vim sneak
+let g:sneak#streak = 1
+
 " Keybindings
 " let mapleader = "\<space>"
 " let maplocalleader = "\<space>"
@@ -63,7 +66,7 @@ nmap ]d editor.action.marker.next
 
 " Taken from telescope
 " nnoremap <Leader><Leader> <C-^>
-nmap <leader><leader> workbench.action.showEditorsInActiveGroup
+nmap <leader>sa workbench.action.showEditorsInActiveGroup
 nmap <leader>e workbench.action.problems.focus
 nmap <leader>sf workbench.action.quickOpen
 nmap <leader>sg workbench.action.findInFiles

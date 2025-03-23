@@ -7,5 +7,6 @@ return { -- Collection of various small independent plugins/modules
     -- down = '<M-j>',
     -- up = '<M-k>',
     require("mini.move").setup()
+    require("mini.files").setup()
   end,
 }
