@@ -27,16 +27,21 @@ setopt hist_ignore_all_dups
 setopt hist_save_no_dups
 setopt hist_ignore_dups
 setopt hist_find_no_dups
+setopt LIST_PACKED
 
-# Completion styling
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# force zsh not to show completion menu, which allows fzf-tab to capture the unambiguous prefix
-zstyle ':completion:*' menu no
-# preview directory's content with ls when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
-zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*' use-cache on                                               # Enable caching
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"               # Specify caching folder
+zstyle ':completion:*:descriptions' format '[%d]'                                 # todo: describe action
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'                            # Completion styling
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}                             # activate color-completion(!)
+zstyle ':completion:*' group-name ''                                              # group
+zstyle ':completion:*' menu no                                                    # force zsh not to show completion menu
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'                # preview directory's content with ls when completing cd
+zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word'  # todo: describe action
+zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'   # todo: describe action
+zstyle ':completion:*:git-checkout:*' sort false                                  # todo: describe action
+zstyle ':fzf-tab:*' switch-group '<' '>'                                          # todo: describe action
+zstyle ':completion:*' list-max-items 20                                          # todo: describe action
 
 bindkey ' ' magic-space                               # [Space] - don't do history expansion
 bindkey '^[[3~' delete-char
