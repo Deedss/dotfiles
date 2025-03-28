@@ -1,100 +1,69 @@
 #!/bin/bash
 update() {
-    echo '-------------------------'
-    echo '-------- UPDATE ---------'
-    echo '-------------------------'
-    sudo dnf update --refresh
-    echo ''
+  echo '-------------------------'
+  echo '-------- UPDATE ---------'
+  echo '-------------------------'
+  sudo dnf update --refresh
+  echo ''
 
-    echo '-------------------------'
-    echo '-------- FLATPAK --------'
-    echo '-------------------------'
-    flatpak update -y
-    echo ''
+  echo '-------------------------'
+  echo '-------- FLATPAK --------'
+  echo '-------------------------'
+  flatpak update -y
+  echo ''
 
-    __update-rust
+  __update-rust
+  __update-neovim
 }
 
 __update-rust() {
-    echo '-------------------------'
-    echo '---------- RUST ---------'
-    echo '-------------------------'
-    rustup update
-    echo ''
+  echo '-------------------------'
+  echo '---------- RUST ---------'
+  echo '-------------------------'
+  rustup update
+  echo ''
 }
 
-up() { 
-    cd $(eval printf '../'%.0s {1..$1}); 
+__update-neovim() {
+  echo '-------------------------'
+  echo '--------- NEOVIM --------'
+  echo '-------------------------'
+  local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
+  latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
+  if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
+    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
+    sudo chmod 755 /usr/local/bin/nvim
+  else
+    echo 'Already up to date'
+  fi
+  echo ''
+}
+
+up() {
+  cd $(eval printf '../'%.0s {1..$1})
 }
 
 set-gtk-theme() {
-    dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
+  dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
 }
 
 tar-pack() {
-    local filename=$(basename "$1")
-    tar --zstd -cvf "${filename}.tar.zst" "$1"
+  local filename=$(basename "$1")
+  tar --zstd -cvf "${filename}.tar.zst" "$1"
 }
 
 tar-unpack() {
-    tar --zstd -xvf "$1"
+  tar --zstd -xvf "$1"
 }
 
 backup-files() {
-    cd ~ || exit
-    # List of directories and files to back up
-    [[ ! -d ~/.var/app/com.brave.Browser/config/BraveSoftware ]] || tar-pack .var/app/com.brave.Browser/config/BraveSoftware
-    [[ ! -d ~/.dotfiles ]] || tar-pack .dotfiles
-    [[ ! -d ~/Private ]] || tar-pack Private
-    [[ ! -d ~/Work ]] || tar-pack Work
-    [[ ! -d ~/Projects ]] || tar-pack Projects
-    [[ ! -d ~/.ssh ]] || tar-pack .ssh
-    [[ ! -f ~/.gitconfig ]] || tar-pack .gitconfig
-}
-
-
-# List Podman images, optionally filtered by name or tag
-list_podman_images() {
-  local filter=$1
-  if [ -z "$filter" ]; then
-    podman images --format "{{.Repository}}:{{.Tag}}"
-  else
-    podman images --format "{{.Repository}}:{{.Tag}}" | grep "$filter"
-  fi
-}
-
-# Remove Podman images, optionally filtered by name or tag
-remove_podman_images() {
-  local filter=$1
-  local images_to_remove
-  if [ -z "$filter" ]; then
-    images_to_remove=$(podman images -q)  # Get all image IDs
-  else
-    images_to_remove=$(podman images --format "{{.ID}} {{.Repository}}:{{.Tag}}" | grep "$filter" | awk '{print $1}')
-  fi
-  
-  if [ -z "$images_to_remove" ]; then
-    echo "No images found to remove."
-  else
-    echo "Removing images..."
-    podman rmi -f $images_to_remove
-  fi
-}
-
-# Stop running Podman containers, optionally filtered by name or image name
-stop_podman_containers() {
-  local filter=$1
-  local containers_to_stop
-  if [ -z "$filter" ]; then
-    containers_to_stop=$(podman ps -q)  # Get all running container IDs
-  else
-    containers_to_stop=$(podman ps --format "{{.ID}} {{.Image}}" | grep "$filter" | awk '{print $1}')
-  fi
-
-  if [ -z "$containers_to_stop" ]; then
-    echo "No running containers found to stop."
-  else
-    echo "Stopping containers..."
-    podman stop $containers_to_stop
-  fi
+  cd ~ || exit
+  # List of directories and files to back up
+  [[ ! -d ~/.var/app/com.brave.Browser/config/BraveSoftware ]] || tar-pack .var/app/com.brave.Browser/config/BraveSoftware
+  [[ ! -d ~/.dotfiles ]] || tar-pack .dotfiles
+  [[ ! -d ~/Private ]] || tar-pack Private
+  [[ ! -d ~/Work ]] || tar-pack Work
+  [[ ! -d ~/Projects ]] || tar-pack Projects
+  [[ ! -d ~/.ssh ]] || tar-pack .ssh
+  [[ ! -f ~/.gitconfig ]] || tar-pack .gitconfig
 }

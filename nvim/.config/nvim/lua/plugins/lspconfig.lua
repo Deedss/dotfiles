@@ -43,10 +43,6 @@ return { -- LSP Configuration & Plugins
                 map("n", "<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols,
                     "[W]orkspace [S]ymbols")
 
-                -- Rename the variable under your cursor
-                --  Most Language Servers support renaming across files, etc.
-                map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
-
                 -- Execute a code action, usually your cursor needs to be on top of an error
                 -- or a suggestion from your LSP for this to activate.
                 map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -90,7 +86,7 @@ return { -- LSP Configuration & Plugins
         --  When you add nvim-cmp, luasnip, etc. Neovim now has *more* capabilities.
         --  So, we create new capabilities with nvim cmp, and then broadcast that to the servers.
         local capabilities = vim.lsp.protocol.make_client_capabilities()
-        capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
+        capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
 
         local servers = {
             bzl = {},
