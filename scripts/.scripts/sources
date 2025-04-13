@@ -52,5 +52,5 @@ export CHROME_EXECUTABLE="flatpak run com.brave.Browser"
 export GOPATH="$SOFTWARE_DIR/go"
 
 # JAVA_HOME
-JAVA_HOME="$(dirname "$(dirname "$(realpath "$(which javac)")")")"
-export JAVA_HOME
+# JAVA_HOME="$(dirname "$(dirname "$(realpath "$(which javac)")")")"
+# export JAVA_HOME

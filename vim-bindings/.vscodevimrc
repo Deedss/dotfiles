@@ -66,12 +66,13 @@ nmap ]d editor.action.marker.next
 
 " Taken from telescope
 " nnoremap <Leader><Leader> <C-^>
-nmap <leader>sa workbench.action.showEditorsInActiveGroup
+nmap <leader>, workbench.action.showEditorsInActiveGroup
+nmap <leader>fb workbench.action.showEditorsInActiveGroup
 nmap <leader>e workbench.action.problems.focus
-nmap <leader>sf workbench.action.quickOpen
+nmap <leader>ff workbench.action.quickOpen
 nmap <leader>sg workbench.action.findInFiles
 nmap <leader>sd workbench.action.problems.focus
-nmap <leader>s. workbench.action.openRecent
+nmap <leader>fr workbench.action.openRecent
 nmap <leader>/ actions.find
 nmap g/ workbench.action.quickTextSearch
 

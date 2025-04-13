@@ -20,17 +20,12 @@ return { -- LSP Configuration & Plugins
 
                 -- Execute a code action, usually your cursor needs to be on top of an error
                 -- or a suggestion from your LSP for this to activate.
-                map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+                map({ "n", "v" }, "g.", vim.lsp.buf.code_action, "Code Action")
 
-                -- Run codelens
-                map({ "n", "v" }, "<leader>cl", vim.lsp.codelens.run, "[C]ode [L]ens")
+                map({ "n", "v" }, "cd", vim.lsp.buf.rename, "Change Definition")
 
                 -- Opens a popup that        -- Show the signature of the function you're currently completing.
                 map("n", "<C-k>", vim.lsp.buf.signature_help, "Signature Documentation")
-
-                -- WARN: This is not Goto Definition, this is Goto Declaration.
-                --  For example, in C this would take you to the header
-                map("n", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
 
                 map("n", "<leader>fd", function()
                     vim.lsp.buf.format({ async = true })
