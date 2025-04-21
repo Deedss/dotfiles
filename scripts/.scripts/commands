@@ -14,6 +14,7 @@ update() {
 
   __update-rust
   __update-neovim
+  __update-lazygit
 }
 
 __update-rust() {
@@ -33,6 +34,22 @@ __update-neovim() {
   if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
     sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
     sudo chmod 755 /usr/local/bin/nvim
+  else
+    echo 'Already up to date'
+  fi
+  echo ''
+}
+
+__update-lazygit() {
+  echo '-------------------------'
+  echo '-------- LAZYGIT --------'
+  echo '-------------------------'
+  local_lazygit_version=$(lazygit --version | grep -oP 'version=\K[^,]*' | head -n1)
+  latest_lazygit_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
+  if [[ "$local_lazygit_version" != "$latest_lazygit_version" ]]; then
+    curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${latest_lazygit_version}/lazygit_${latest_lazygit_version}_Linux_x86_64.tar.gz"
+    tar xf /tmp/lazygit.tar.gz lazygit
+    sudo install /tmp/lazygit -D -t /usr/local/bin/
   else
     echo 'Already up to date'
   fi
