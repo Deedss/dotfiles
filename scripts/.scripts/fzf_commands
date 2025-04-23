@@ -60,3 +60,7 @@ prmi() {
   podman images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r podman rmi -f
   podman image prune -f
 }
+
+tl() {
+  tldr --list | fzf --preview 'tldr {} --color always' | xargs tldr
+}
