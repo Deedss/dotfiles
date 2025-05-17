@@ -136,12 +136,12 @@ install-default-packages() {
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    sudo dnf install -y openssl-devel zstd ncurses git ripgrep \
+    sudo dnf install -y openssl-devel zstd ncurses git \
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
-        eza bat zoxide fd-find procs ripgrep sd just fzf \
+        bat zoxide fd-find procs ripgrep sd fzf \
         kcalc okular gwenview kitty
 
     sudo dnf install -y --setopt=install_weak_deps=False \
@@ -170,14 +170,4 @@ install-vscode() {
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf -y install code
-}
-
-install-brave() {
-    ## Install mesa-vaapi-freeeworld
-    sudo dnf install mesa-va-drivers-freeworld mesa-vaapi-drivers-freeworld --allowerasing
-
-    sudo dnf install dnf-plugins-core
-    sudo dnf4 config-manager --add-repo https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
-    sudo rpm --import https://brave-browser-rpm-release.s3.brave.com/brave-core.asc
-    sudo dnf install brave-browser
 }

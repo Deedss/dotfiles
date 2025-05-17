@@ -29,38 +29,6 @@ git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  
 FZF-EOF" --preview-window=right:60%
 }
 
-# Select a podman container to start and attach to
-pa() {
-  local cid
-  cid=$(podman ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
-  [ -n "$cid" ] && podman start "$cid" && podman attach "$cid"
-}
-
-# Select a podman container to start and run interactively
-pit() {
-  local cid
-  cid=$(podman images | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
-  [ -n "$cid" ] && podman run -it "$cid" /bin/bash
-}
-
-# Select a running podman container to stop
-ps() {
-  local cid
-  cid=$(podman ps | sed 1d | fzf -q "$1" | awk '{print $1}')
-  [ -n "$cid" ] && podman stop "$cid"
-}
-
-# Select a podman container to remove
-prm() {
-  podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman rm -f
-}
-
-# Select a podman image or images to remove
-prmi() {
-  podman images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r podman rmi -f
-  podman image prune -f
-}
-
 tl() {
   tldr --list | fzf --preview 'tldr {} --color always' | xargs tldr
 }

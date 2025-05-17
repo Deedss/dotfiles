@@ -48,7 +48,7 @@ __update-lazygit() {
   latest_lazygit_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | \grep -Po '"tag_name": *"v\K[^"]*')
   if [[ "$local_lazygit_version" != "$latest_lazygit_version" ]]; then
     curl -Lo /tmp/lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/download/v${latest_lazygit_version}/lazygit_${latest_lazygit_version}_Linux_x86_64.tar.gz"
-    tar xf /tmp/lazygit.tar.gz lazygit
+    tar xf /tmp/lazygit.tar.gz
     sudo install /tmp/lazygit -D -t /usr/local/bin/
   else
     echo 'Already up to date'
