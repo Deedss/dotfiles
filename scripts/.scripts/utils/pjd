@@ -1,0 +1,245 @@
+#!/bin/bash
+
+set -e
+
+print_bold() {
+    echo -e "\033[1m$1\033[0m"
+}
+
+print_help() {
+    echo "Usage: $0 [OPTIONS]"
+    echo
+    echo "Prepare a JetBrains development container."
+    echo
+    echo "Options:"
+    echo "  -h, --help                Show this help message and exit"
+    echo "  -i, --image IMAGE         Specify the base image to use"
+    echo "  -n, --name NAME           Specify the container name (default is derived from image)"
+    echo
+    echo "This script will:"
+    echo "  - Prompt you to choose an IDE (CLion, IntelliJ IDEA, PyCharm)"
+    echo "  - Verify the required environment variables for the IDE"
+    echo "  - Build a temporary container image and run it with GUI support"
+}
+
+### Interactively select an image
+select_base_image() {
+    echo "Available images:"
+    podman images --format "{{.Repository}}:{{.Tag}}" | nl
+
+    echo "Please select an image by number (or press Enter to use the default: ${DEFAULT_CONTAINER_IMAGE}):"
+    read -r IMAGE_NUM
+
+    if [ -z "$IMAGE_NUM" ]; then
+        echo "No selection made. Using default image: $DEFAULT_CONTAINER_IMAGE"
+        CONTAINER_IMAGE=$DEFAULT_CONTAINER_IMAGE
+    else
+        SELECTED_IMAGE=$(podman images --format "{{.Repository}}:{{.Tag}}" | sed -n "${IMAGE_NUM}p")
+        if [ -z "$SELECTED_IMAGE" ]; then
+            echo "Invalid selection. Exiting..."
+            exit 1
+        else
+            CONTAINER_IMAGE=$SELECTED_IMAGE
+            echo "You selected: $CONTAINER_IMAGE"
+        fi
+    fi
+}
+
+check_existing_container() {
+    if podman ps -a --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
+        echo "A container named '${CONTAINER_NAME}' already exists."
+        echo "Would you like to rebuild it? (y/n)"
+        read -r REBUILD_CHOICE
+        if [[ "$REBUILD_CHOICE" =~ ^[Yy]$ ]]; then
+            echo "Removing existing container..."
+            podman rm -f "${CONTAINER_NAME}"
+        else
+            echo "Exiting without rebuilding."
+            exit 0
+        fi
+    fi
+}
+
+run_container() {
+    ENVS="-e XDG_RUNTIME_DIR -e DISPLAY -e XAUTHORITY \
+          -e NO_PROXY -e HTTP_PROXY -e HTTPS_PROXY \
+          -e no_proxy -e http_proxy -e https_proxy"
+
+    MOUNTS="-v ${HOME}/.gitconfig:/home/${USER}/.gitconfig \
+            -v ${HOME}/.ssh:/home/${USER}/.ssh \
+            -v ${IDE_PATH}:/${IDE_NAME} \
+            -v ${LOCAL_DEV_DIR}:${LOCAL_DEV_DIR} \
+            -v ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR} \
+            -v ${XAUTHORITY}:${XAUTHORITY} \
+            -v ${HOME}/.config/JetBrains:/home/${USER}/.config/JetBrains \
+            -v ${HOME}/.cache/JetBrains:/home/${USER}/.cache/JetBrains \
+            -v ${HOME}/.local/share/JetBrains:/home/${USER}/.local/share/JetBrains"
+
+    podman run --name "${CONTAINER_NAME}" \
+        -d -it --rm \
+        --net=host --pid=host --ipc=host \
+        --privileged \
+        --http-proxy=false \
+        --userns=keep-id \
+        --security-opt label=disable \
+        ${ENVS} \
+        ${MOUNTS} \
+        "${CONTAINER_NAME}"
+}
+
+# Ask user for IDE selection
+select_ide() {
+    echo "Select the JetBrains IDE to run:"
+    select ide in "CLion" "IntelliJ IDEA" "PyCharm"; do
+        case $ide in
+            "CLion") IDE_NAME="clion"; ENV_VAR="CLION_DIR"; break ;;
+            "IntelliJ IDEA") IDE_NAME="idea"; ENV_VAR="IDEA_DIR"; break ;;
+            "PyCharm") IDE_NAME="pycharm"; ENV_VAR="PYCHARM_DIR"; break ;;
+            *) echo "Invalid option. Try again." ;;
+        esac
+    done
+}
+
+# Check env variables
+check_env_variable() {
+    IDE_PATH="${!ENV_VAR:-}"
+
+    # If set and valid, continue
+    if [[ -n "$IDE_PATH" && -x "${IDE_PATH}/bin/${IDE_NAME}.sh" ]]; then
+        return
+    fi
+
+    echo "Environment variable $ENV_VAR not set or invalid."
+    echo "Would you like to manually enter the path to ${ide}? (y/n)"
+    read -r REPLY
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        echo "Enter the full path to the ${ide} installation directory (it should contain 'bin/${IDE_NAME}.sh'):"
+        read -r MANUAL_PATH
+        if [[ -x "$(realpath ${MANUAL_PATH})/bin/${IDE_NAME}.sh" ]]; then
+            IDE_PATH="$MANUAL_PATH"
+            return
+        else
+            echo "ERROR: '${MANUAL_PATH}/bin/${IDE_NAME}.sh' not found or not executable."
+            exit 1
+        fi
+    else
+        echo "ERROR: ${ide} not available and no manual path provided."
+        echo "Please set the environment variable ${ENV_VAR} or rerun the script."
+        exit 1
+    fi
+}
+
+# Write the containerfile
+write_containerfile() {
+    cat > "$CONTAINERFILE_PATH" <<EOF
+FROM ${CONTAINER_IMAGE}
+
+ARG USERNAME=$(whoami)
+ARG USER_UID=$(id -u)
+ARG USER_GID=$(id -g)
+
+# Check for microdnf
+RUN if ! command -v microdnf &> /dev/null && command -v dnf &> /dev/null; then \\
+      dnf install -y microdnf; \\
+    fi
+
+# Default packages
+RUN microdnf install --setopt=install_weak_deps=0 -y git git-lfs gdb gdb-gdbserver gcc-c++ perf strace valgrind \\
+  curl unzip tar findutils grep xterm procps-ng unzip firefox \\
+  libXtst libXrender libXext freetype libXi libicu \\
+  sudo passwd shadow-utils
+
+# Create user and grant sudo
+RUN groupadd -g \$USER_GID \$USERNAME && \\
+    useradd -m -u \$USER_UID -g \$USER_GID -s /bin/bash \$USERNAME && \\
+    echo "\$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+USER \$USERNAME
+WORKDIR /home/\$USERNAME
+
+ENTRYPOINT ["/${IDE_NAME}/bin/${IDE_NAME}"]
+EOF
+}
+
+# Build the container
+build_container() {
+    podman build -t "${CONTAINER_NAME}" -f "$CONTAINERFILE_PATH"
+    rm -f "$CONTAINERFILE_PATH"
+}
+
+ensure_jetbrains_config() {
+    CONFIG_DIR="${HOME}/.config/JetBrains"
+    if [[ ! -d "$CONFIG_DIR" ]]; then
+        mkdir -p "$CONFIG_DIR"
+        echo "Created JetBrains config directory: $CONFIG_DIR"
+    fi
+}
+
+set_container_name() {
+    if [[ -z "$CUSTOM_CONTAINER_NAME" ]]; then
+        CONTAINER_NAME="jetbrains-$(echo "${CONTAINER_IMAGE}" | awk -F'[/:]' '{print $(NF-1)}')-${IDE_NAME}"
+    else
+        CONTAINER_NAME="$CUSTOM_CONTAINER_NAME"
+    fi
+}
+
+#########################
+#### VARIABLES      #####
+#########################
+DEFAULT_CONTAINER_IMAGE="docker.io/library/almalinux:8.10-minimal-20250411"
+CONTAINER_IMAGE=""
+CONTAINERFILE_PATH="/tmp/Containerfile"
+LOCAL_DEV_DIR="${HOME}/Projects"
+CUSTOM_CONTAINER_NAME=""
+
+#########################
+#### PARSE CLI      #####
+#########################
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+    -h|--help)
+        print_help
+        exit 0
+        ;;
+    -i|--image)
+        CONTAINER_IMAGE="$2"
+        shift 2
+        ;;
+    -n|--name)
+        CUSTOM_CONTAINER_NAME="$2"
+        shift 2
+        ;;
+    *)
+        echo "Unknown option: $1"
+        exit 1
+        ;;
+    esac
+done
+
+### SELECT IMAGE if not set
+if [[ -z "$CONTAINER_IMAGE" ]]; then
+    select_base_image
+fi
+
+### Set container name
+set_container_name
+
+### IDE Selection & Verification
+select_ide
+ensure_jetbrains_config
+check_env_variable
+
+# Check if container exists and act accordingly
+check_existing_container
+
+### PRINT selection
+print_bold "Setting up a JetBrains container with the following properties:"
+print_bold "  - name: ${CONTAINER_NAME}"
+print_bold "  - image: ${CONTAINER_IMAGE}"
+print_bold "  - IDE: ${IDE_NAME}"
+echo ""
+
+### Build and run
+write_containerfile
+build_container
+run_container
