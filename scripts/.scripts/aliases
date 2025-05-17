@@ -4,3 +4,4 @@
 alias chrome="flatpak run com.brave.Browser"
 alias fp='fzf --preview "bat -n --color=always {}"'
 alias fn='nvim "${fp}"'
+alias l='lsd -l -A'

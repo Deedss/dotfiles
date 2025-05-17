@@ -142,7 +142,7 @@ install-default-packages() {
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard neovim nodejs \
-        bat zoxide fd-find procs ripgrep sd fzf \
+        lsd bat zoxide fd-find procs ripgrep sd fzf \
         kcalc okular gwenview kitty
 
     sudo dnf install -y --setopt=install_weak_deps=False \

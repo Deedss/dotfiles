@@ -144,10 +144,14 @@ RUN if ! command -v microdnf &> /dev/null && command -v dnf &> /dev/null; then \
     fi
 
 # Default packages
-RUN microdnf install --setopt=install_weak_deps=0 -y git git-lfs gdb gdb-gdbserver gcc-c++ perf strace valgrind \\
+RUN microdnf install --setopt=install_weak_deps=0 -y \\
+  git git-lfs gdb gdb-gdbserver gcc-c++ perf strace valgrind \\
   curl unzip tar findutils grep xterm procps-ng unzip firefox \\
-  libXtst libXrender libXext freetype libXi libicu \\
-  sudo passwd shadow-utils
+  sudo passwd shadow-utils 
+
+# Required deps for JetBrains IDE
+RUN microdnf install --setopt=install_weak_deps=0 -y \\
+  libXtst libXrender libXext freetype libXi libicu
 
 # Create user and grant sudo
 RUN groupadd -g \$USER_GID \$USERNAME && \\
