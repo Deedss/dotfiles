@@ -20,6 +20,7 @@ install-desktop() {
     install-podman
     install-rust
     install-zed
+    install-starship
     install-iwd
 
     ## Theme
