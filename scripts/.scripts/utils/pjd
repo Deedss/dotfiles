@@ -45,6 +45,56 @@ select_base_image() {
     fi
 }
 
+# Ask user for IDE selection
+select_ide() {
+    echo "Select the JetBrains IDE to run:"
+    select ide in "CLion" "IntelliJ IDEA" "PyCharm"; do
+        case $ide in
+            "CLion") IDE_NAME="clion"; ENV_VAR="CLION_DIR"; break ;;
+            "IntelliJ IDEA") IDE_NAME="idea"; ENV_VAR="IDEA_DIR"; break ;;
+            "PyCharm") IDE_NAME="pycharm"; ENV_VAR="PYCHARM_DIR"; break ;;
+            *) echo "Invalid option. Try again." ;;
+        esac
+    done
+}
+
+ensure_jetbrains_config() {
+    CONFIG_DIR="${HOME}/.config/JetBrains"
+    if [[ ! -d "$CONFIG_DIR" ]]; then
+        mkdir -p "$CONFIG_DIR"
+        echo "Created JetBrains config directory: $CONFIG_DIR"
+    fi
+}
+
+# Check env variables
+check_env_variable() {
+    IDE_PATH="${!ENV_VAR:-}"
+
+    # If set and valid, continue
+    if [[ -n "$IDE_PATH" && -x "${IDE_PATH}/bin/${IDE_NAME}.sh" ]]; then
+        return
+    fi
+
+    echo "Environment variable $ENV_VAR not set or invalid."
+    echo "Would you like to manually enter the path to ${ide}? (y/n)"
+    read -r REPLY
+    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
+        echo "Enter the full path to the ${ide} installation directory (it should contain 'bin/${IDE_NAME}.sh'):"
+        read -r MANUAL_PATH
+        if [[ -x "$(realpath ${MANUAL_PATH})/bin/${IDE_NAME}.sh" ]]; then
+            IDE_PATH="$MANUAL_PATH"
+            return
+        else
+            echo "ERROR: '${MANUAL_PATH}/bin/${IDE_NAME}.sh' not found or not executable."
+            exit 1
+        fi
+    else
+        echo "ERROR: ${ide} not available and no manual path provided."
+        echo "Please set the environment variable ${ENV_VAR} or rerun the script."
+        exit 1
+    fi
+}
+
 check_existing_container() {
     if podman ps -a --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
         echo "A container named '${CONTAINER_NAME}' already exists."
@@ -87,47 +137,6 @@ run_container() {
         "${CONTAINER_NAME}"
 }
 
-# Ask user for IDE selection
-select_ide() {
-    echo "Select the JetBrains IDE to run:"
-    select ide in "CLion" "IntelliJ IDEA" "PyCharm"; do
-        case $ide in
-            "CLion") IDE_NAME="clion"; ENV_VAR="CLION_DIR"; break ;;
-            "IntelliJ IDEA") IDE_NAME="idea"; ENV_VAR="IDEA_DIR"; break ;;
-            "PyCharm") IDE_NAME="pycharm"; ENV_VAR="PYCHARM_DIR"; break ;;
-            *) echo "Invalid option. Try again." ;;
-        esac
-    done
-}
-
-# Check env variables
-check_env_variable() {
-    IDE_PATH="${!ENV_VAR:-}"
-
-    # If set and valid, continue
-    if [[ -n "$IDE_PATH" && -x "${IDE_PATH}/bin/${IDE_NAME}.sh" ]]; then
-        return
-    fi
-
-    echo "Environment variable $ENV_VAR not set or invalid."
-    echo "Would you like to manually enter the path to ${ide}? (y/n)"
-    read -r REPLY
-    if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-        echo "Enter the full path to the ${ide} installation directory (it should contain 'bin/${IDE_NAME}.sh'):"
-        read -r MANUAL_PATH
-        if [[ -x "$(realpath ${MANUAL_PATH})/bin/${IDE_NAME}.sh" ]]; then
-            IDE_PATH="$MANUAL_PATH"
-            return
-        else
-            echo "ERROR: '${MANUAL_PATH}/bin/${IDE_NAME}.sh' not found or not executable."
-            exit 1
-        fi
-    else
-        echo "ERROR: ${ide} not available and no manual path provided."
-        echo "Please set the environment variable ${ENV_VAR} or rerun the script."
-        exit 1
-    fi
-}
 
 # Write the containerfile
 write_containerfile() {
@@ -147,7 +156,7 @@ RUN if ! command -v microdnf &> /dev/null && command -v dnf &> /dev/null; then \
 RUN microdnf install --setopt=install_weak_deps=0 -y \\
   git git-lfs gdb gdb-gdbserver gcc-c++ perf strace valgrind \\
   curl unzip tar findutils grep xterm procps-ng unzip firefox \\
-  sudo passwd shadow-utils 
+  sudo passwd shadow-utils
 
 # Required deps for JetBrains IDE
 RUN microdnf install --setopt=install_weak_deps=0 -y \\
@@ -171,17 +180,11 @@ build_container() {
     rm -f "$CONTAINERFILE_PATH"
 }
 
-ensure_jetbrains_config() {
-    CONFIG_DIR="${HOME}/.config/JetBrains"
-    if [[ ! -d "$CONFIG_DIR" ]]; then
-        mkdir -p "$CONFIG_DIR"
-        echo "Created JetBrains config directory: $CONFIG_DIR"
-    fi
-}
-
 set_container_name() {
     if [[ -z "$CUSTOM_CONTAINER_NAME" ]]; then
-        CONTAINER_NAME="jetbrains-$(echo "${CONTAINER_IMAGE}" | awk -F'[/:]' '{print $(NF-1)}')-${IDE_NAME}"
+        IMAGE_BASE_NAME=$(echo "${CONTAINER_IMAGE}" | awk -F'[:/]' '{print $(NF-1)}')
+        IMAGE_TAG=$(echo "${CONTAINER_IMAGE}" | awk -F'[:]' '{print $NF}')
+        CONTAINER_NAME="jetbrains-${IMAGE_BASE_NAME}-${IMAGE_TAG}-${IDE_NAME}"
     else
         CONTAINER_NAME="$CUSTOM_CONTAINER_NAME"
     fi
@@ -220,6 +223,11 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
+# ### IDE Selection & Verification
+select_ide
+ensure_jetbrains_config
+check_env_variable
+
 ### SELECT IMAGE if not set
 if [[ -z "$CONTAINER_IMAGE" ]]; then
     select_base_image
@@ -228,22 +236,17 @@ fi
 ### Set container name
 set_container_name
 
-### IDE Selection & Verification
-select_ide
-ensure_jetbrains_config
-check_env_variable
-
-# Check if container exists and act accordingly
+# # Check if container exists and act accordingly
 check_existing_container
 
-### PRINT selection
+# ### PRINT selection
 print_bold "Setting up a JetBrains container with the following properties:"
 print_bold "  - name: ${CONTAINER_NAME}"
 print_bold "  - image: ${CONTAINER_IMAGE}"
 print_bold "  - IDE: ${IDE_NAME}"
 echo ""
 
-### Build and run
+# ### Build and run
 write_containerfile
 build_container
 run_container
