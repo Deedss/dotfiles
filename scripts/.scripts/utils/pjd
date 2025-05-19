@@ -12,9 +12,10 @@ print_help() {
     echo "Prepare a JetBrains development container."
     echo
     echo "Options:"
-    echo "  -h, --help                Show this help message and exit"
-    echo "  -i, --image IMAGE         Specify the base image to use"
-    echo "  -n, --name NAME           Specify the container name (default is derived from image)"
+    echo "  -h, --help                      Show this help message and exit"
+    echo "  -i, --image IMAGE               Specify the base image to use"
+    echo "  -n, --name NAME                 Specify the container name (default is derived from image)"
+    echo "  -m, --mounts SRC:DEST[:TYPE]    Add additional mounts (TYPE defaults to 'bind')"
     echo
     echo "This script will:"
     echo "  - Prompt you to choose an IDE (CLion, IntelliJ IDEA, PyCharm)"
@@ -22,7 +23,6 @@ print_help() {
     echo "  - Build a temporary container image and run it with GUI support"
 }
 
-### Interactively select an image
 select_base_image() {
     echo "Available images:"
     podman images --format "{{.Repository}}:{{.Tag}}" | nl
@@ -45,7 +45,6 @@ select_base_image() {
     fi
 }
 
-# Ask user for IDE selection
 select_ide() {
     echo "Select the JetBrains IDE to run:"
     select ide in "CLion" "IntelliJ IDEA" "PyCharm"; do
@@ -66,11 +65,9 @@ ensure_jetbrains_config() {
     fi
 }
 
-# Check env variables
 check_env_variable() {
     IDE_PATH="${!ENV_VAR:-}"
 
-    # If set and valid, continue
     if [[ -n "$IDE_PATH" && -x "${IDE_PATH}/bin/${IDE_NAME}.sh" ]]; then
         return
     fi
@@ -79,7 +76,7 @@ check_env_variable() {
     echo "Would you like to manually enter the path to ${ide}? (y/n)"
     read -r REPLY
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-        echo "Enter the full path to the ${ide} installation directory (it should contain 'bin/${IDE_NAME}.sh'):"
+        echo "Enter the full path to the ${ide} installation directory (the root of ${IDE_NAME}, containing the subdirs (bin, jbr, etc)):"
         read -r MANUAL_PATH
         if [[ -x "$(realpath ${MANUAL_PATH})/bin/${IDE_NAME}.sh" ]]; then
             IDE_PATH="$MANUAL_PATH"
@@ -110,71 +107,79 @@ check_existing_container() {
     fi
 }
 
-run_container() {
+setup_container_config() {
     ENVS="-e XDG_RUNTIME_DIR -e DISPLAY -e XAUTHORITY \
           -e NO_PROXY -e HTTP_PROXY -e HTTPS_PROXY \
           -e no_proxy -e http_proxy -e https_proxy"
 
-    MOUNTS="-v ${HOME}/.gitconfig:/home/${USER}/.gitconfig \
-            -v ${HOME}/.ssh:/home/${USER}/.ssh \
-            -v ${IDE_PATH}:/${IDE_NAME} \
-            -v ${LOCAL_DEV_DIR}:${LOCAL_DEV_DIR} \
-            -v ${XDG_RUNTIME_DIR}:${XDG_RUNTIME_DIR} \
-            -v ${XAUTHORITY}:${XAUTHORITY} \
-            -v ${HOME}/.config/JetBrains:/home/${USER}/.config/JetBrains \
-            -v ${HOME}/.cache/JetBrains:/home/${USER}/.cache/JetBrains \
-            -v ${HOME}/.local/share/JetBrains:/home/${USER}/.local/share/JetBrains"
+    MOUNTS="--mount type=bind,source=${HOME}/.gitconfig,target=/root/.gitconfig \
+            --mount type=bind,source=${HOME}/.ssh,target=/root/.ssh \
+            --mount type=bind,source=${IDE_PATH},target=/${IDE_NAME} \
+            --mount type=bind,source=${LOCAL_DEV_DIR},target=${LOCAL_DEV_DIR} \
+            --mount type=bind,source=${XDG_RUNTIME_DIR},target=${XDG_RUNTIME_DIR} \
+            --mount type=bind,source=${HOME}/.config/JetBrains,target=/root/.config/JetBrains \
+            --mount type=bind,source=${HOME}/.cache/JetBrains,target=/root/.cache/JetBrains \
+            --mount type=bind,source=${HOME}/.local/share/JetBrains,target=/root/.local/share/JetBrains"
 
+    if [ ${#ADDITIONAL_MOUNTS[@]} -gt 0 ]; then
+        for mount in "${ADDITIONAL_MOUNTS[@]}"; do
+            IFS=':' read -r SRC DEST TYPE <<< "$mount"
+            ABS_SRC=$(realpath -m "$SRC")
+            MOUNT_OPT="type=${TYPE:-bind},source=${ABS_SRC},target=${DEST}"
+            MOUNTS="$MOUNTS --mount $MOUNT_OPT"
+        done
+    fi
+
+    ## When using wayland, the XAUTHORITY is required
+    if [ -n "$WAYLAND_DISPLAY" ] || [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+        print_bold "Detected Wayland session, adding Wayland configuration"
+        if [ -z "$XAUTHORITY" ]; then
+            XAUTHORITY="$HOME/.Xauthority"
+            if [ ! -f "$XAUTHORITY" ]; then
+                echo "Warning: XAUTHORITY not set and default file not found"
+            fi
+        fi
+
+        ## Required to mount XAUTHORITY for xwayland
+        if [ -f "$XAUTHORITY" ]; then
+            MOUNTS="$MOUNTS --mount type=bind,source=${XAUTHORITY},target=${XAUTHORITY}"
+        fi
+    else
+        print_bold "Using X11 configuration"
+    fi
+}
+
+run_container() {
     podman run --name "${CONTAINER_NAME}" \
         -d -it --rm \
         --net=host --pid=host --ipc=host \
         --privileged \
         --http-proxy=false \
-        --userns=keep-id \
         --security-opt label=disable \
         ${ENVS} \
         ${MOUNTS} \
         "${CONTAINER_NAME}"
 }
 
-
-# Write the containerfile
 write_containerfile() {
     cat > "$CONTAINERFILE_PATH" <<EOF
 FROM ${CONTAINER_IMAGE}
 
-ARG USERNAME=$(whoami)
-ARG USER_UID=$(id -u)
-ARG USER_GID=$(id -g)
-
-# Check for microdnf
 RUN if ! command -v microdnf &> /dev/null && command -v dnf &> /dev/null; then \\
       dnf install -y microdnf; \\
     fi
 
-# Default packages
 RUN microdnf install --setopt=install_weak_deps=0 -y \\
   git git-lfs gdb gdb-gdbserver gcc-c++ perf strace valgrind \\
-  curl unzip tar findutils grep xterm procps-ng unzip firefox \\
-  sudo passwd shadow-utils
+  curl unzip tar findutils grep xterm procps-ng unzip firefox bash-completion
 
-# Required deps for JetBrains IDE
 RUN microdnf install --setopt=install_weak_deps=0 -y \\
   libXtst libXrender libXext freetype libXi libicu
-
-# Create user and grant sudo
-RUN groupadd -g \$USER_GID \$USERNAME && \\
-    useradd -m -u \$USER_UID -g \$USER_GID -s /bin/bash \$USERNAME && \\
-    echo "\$USERNAME ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
-
-USER \$USERNAME
-WORKDIR /home/\$USERNAME
 
 ENTRYPOINT ["/${IDE_NAME}/bin/${IDE_NAME}"]
 EOF
 }
 
-# Build the container
 build_container() {
     podman build -t "${CONTAINER_NAME}" -f "$CONTAINERFILE_PATH"
     rm -f "$CONTAINERFILE_PATH"
@@ -198,6 +203,7 @@ CONTAINER_IMAGE=""
 CONTAINERFILE_PATH="/tmp/Containerfile"
 LOCAL_DEV_DIR="${HOME}/Projects"
 CUSTOM_CONTAINER_NAME=""
+ADDITIONAL_MOUNTS=()
 
 #########################
 #### PARSE CLI      #####
@@ -216,6 +222,14 @@ while [[ $# -gt 0 ]]; do
         CUSTOM_CONTAINER_NAME="$2"
         shift 2
         ;;
+    -m|--mounts)
+        ADDITIONAL_MOUNTS+=("$2")
+        if ! echo "$2" | grep -q ":"; then
+            echo "Error: Mount format should be 'source:destination[:type]'"
+            exit 1
+        fi
+        shift 2
+        ;;
     *)
         echo "Unknown option: $1"
         exit 1
@@ -223,30 +237,32 @@ while [[ $# -gt 0 ]]; do
     esac
 done
 
-# ### IDE Selection & Verification
 select_ide
 ensure_jetbrains_config
 check_env_variable
 
-### SELECT IMAGE if not set
 if [[ -z "$CONTAINER_IMAGE" ]]; then
     select_base_image
 fi
 
-### Set container name
 set_container_name
-
-# # Check if container exists and act accordingly
 check_existing_container
 
-# ### PRINT selection
 print_bold "Setting up a JetBrains container with the following properties:"
 print_bold "  - name: ${CONTAINER_NAME}"
 print_bold "  - image: ${CONTAINER_IMAGE}"
 print_bold "  - IDE: ${IDE_NAME}"
+if [ ${#ADDITIONAL_MOUNTS[@]} -gt 0 ]; then
+    print_bold "  - Additional mounts:"
+    for mount in "${ADDITIONAL_MOUNTS[@]}"; do
+        IFS=':' read -r SRC DEST TYPE <<< "$mount"
+        ABS_SRC=$(realpath -m "$SRC")
+        print_bold "      - $ABS_SRC:$DEST${TYPE:+:$TYPE}"
+    done
+fi
 echo ""
 
-# ### Build and run
 write_containerfile
 build_container
+setup_container_config
 run_container
