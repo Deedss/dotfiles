@@ -117,6 +117,7 @@ setup_container_config() {
             --mount type=bind,source=${IDE_PATH},target=/${IDE_NAME} \
             --mount type=bind,source=${LOCAL_DEV_DIR},target=${LOCAL_DEV_DIR} \
             --mount type=bind,source=${XDG_RUNTIME_DIR},target=${XDG_RUNTIME_DIR} \
+            --mount type=bind,source=/tmp/.X11-unix,target=/tmp/.X11-unix \
             --mount type=bind,source=${HOME}/.config/JetBrains,target=/root/.config/JetBrains \
             --mount type=bind,source=${HOME}/.cache/JetBrains,target=/root/.cache/JetBrains \
             --mount type=bind,source=${HOME}/.local/share/JetBrains,target=/root/.local/share/JetBrains"
