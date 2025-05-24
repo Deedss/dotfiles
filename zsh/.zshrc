@@ -84,7 +84,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'                          
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}                             # activate color-completion(!)
 zstyle ':completion:*' group-name ''                                              # group
 zstyle ':completion:*' menu no                                                    # force zsh not to show completion menu
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'                # preview directory's content with ls when completing cd
+# zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'              # preview directory's content with ls when completing cd
+# zstyle ':fzf-tab:complete:cd:*'                                                    # preview directory's content with ls when completing cd 
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word'  # todo: describe action
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'   # todo: describe action
 zstyle ':completion:*:git-checkout:*' sort false                                  # todo: describe action
