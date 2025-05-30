@@ -51,7 +51,7 @@ __update-lazygit() {
     temp_dir=$(mktemp -d)
     curl -Lo "$temp_dir/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/releases/download/v${latest_lazygit_version}/lazygit_${latest_lazygit_version}_Linux_x86_64.tar.gz"
     tar -xf "$temp_dir/lazygit.tar.gz" -C "$temp_dir"
-    sudo install "$temp_dir/lazygit" -D -t /usr/local/bin/
+    install "$temp_dir/lazygit" -D -t $HOME/.local/bin/
     rm -rf "$temp_dir"
   else
     echo 'Already up to date'
