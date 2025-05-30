@@ -37,6 +37,7 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 # Custom scripts autocomplete
 source "$HOME/.scripts/aliases"
 source "$HOME/.scripts/commands"
+source "$HOME/.scripts/updates"
 source "$HOME/.scripts/fzf_commands"
 
 # Rust

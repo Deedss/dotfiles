@@ -53,7 +53,7 @@ vim.opt.autoindent = true
 -----------------------------------------------------------
 -- Autocompletion
 -----------------------------------------------------------
-vim.opt.completeopt = 'menuone'
+vim.opt.completeopt = "menuone,noinsert,noselect"
 -- don't auto commenting new lines
 
 --------------------------------------------------------------------------
