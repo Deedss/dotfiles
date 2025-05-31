@@ -87,34 +87,3 @@ fix-config() {
     sudo systemctl restart wpa_supplicant
     sleep 10
 }
-
-##############################################################################
-##### SYSTEMD SERVICE TO DISABLE POWER SAVING                           ######
-##############################################################################
-create_wifi_powersave_service() {
-  local service_path="/etc/systemd/system/wifi-powersave-off.service"
-  sudo tee "$service_path" > /dev/null <<EOF
-[Unit]
-Description=Disable WiFi Power Save
-After=network.target
-Wants=network.target
-
-[Service]
-Type=oneshot
-ExecStart=/bin/iw dev wlan0 set power_save off
-RemainAfterExit=true
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-  echo "Systemd service created at $service_path"
-
-  # Reload systemd and enable the service
-  sudo systemctl daemon-reexec
-  sudo systemctl daemon-reload
-  sudo systemctl enable wifi-powersave-off.service
-  sudo systemctl start wifi-powersave-off.service
-
-  echo "Service enabled and started."
-}

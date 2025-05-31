@@ -21,7 +21,6 @@ install-desktop() {
     install-rust
     install-zed
     install-starship
-    install-iwd
 
     ## Theme
     install-arc-theme
@@ -50,11 +49,9 @@ clean-desktop() {
 
     # Update GRUB timeout value
     sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
+    # mitigation for amdgpu
     sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="amdgpu.dcdebugmask=0x10 /' /etc/default/grub
     sudo grub2-mkconfig -o /boot/grub2/grub.cfg
-
-    # mitigation for amdgpu
-    # echo -e "# Mitigate amdgpu psr issue\noptions amdgpu dcdebugmask=0x10" | sudo tee -a /etc/modprobe.d/amdgpu-fix.conf
 
     sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
@@ -141,12 +138,9 @@ install-default-packages() {
         ncurses-libs stow zsh util-linux-user \
         java-17-openjdk java-17-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard neovim nodejs \
+        steam-devices wl-clipboard nodejs \
         lsd bat zoxide fd-find procs ripgrep sd fzf \
         kcalc okular gwenview kitty
-
-    sudo dnf install -y --setopt=install_weak_deps=False \
-        neovim
 
     ### Set default shell
     sudo chsh -s /bin/zsh $USER

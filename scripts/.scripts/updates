@@ -13,6 +13,9 @@ update() {
   flatpak update -y
   echo ''
 
+  __update-rust
+  __update-neovim
+  __update-lazygit
 }
 
 __update-rust() {

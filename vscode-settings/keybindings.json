@@ -14,6 +14,21 @@
     "command": "workbench.action.toggleSidebarVisibility",
     "when": "activeViewlet == 'workbench.view.explorer' && !editorFocus",
   },
+  { // Close Search 
+    "key": "ctrl+shift+f",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "activeViewlet == 'workbench.view.search' && !editorFocus",
+  },
+  { // Close SCM
+    "key": "ctrl+shift+g",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "activeViewlet == 'workbench.view.scm' && !editorFocus",
+  },
+  { // Close Debug 
+    "key": "ctrl+shift+d",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "activeViewlet == 'workbench.view.debug' && !editorFocus",
+  },
   { // Move back to editor from sidebar
     "key": "ctrl+w h",
     "command": "workbench.action.focusActiveEditorGroup",
@@ -35,21 +50,12 @@
     "when": "filesExplorerFocus && foldersViewVisible && !explorerResourceIsRoot && !explorerResourceReadonly && !inputFocus"
   },
   {
-    "key": "ctrl+`",
-    "command": "workbench.action.openSettings"
+    "key": "ctrl+n",
+    "command": "-workbench.action.files.newUntitledFile"
   },
   {
-    "key": "ctrl+,",
-    "command": "-workbench.action.openSettings"
-  },
-  {
-    "key": "ctrl+,",
-    "command": "workbench.action.terminal.toggleTerminal",
-    "when": "terminal.active"
-  },
-  {
-    "key": "ctrl+`",
-    "command": "-workbench.action.terminal.toggleTerminal",
-    "when": "terminal.active"
-  },
+    "key": "escape",
+    "command": "workbench.action.toggleSidebarVisibility",
+    "when": "sideBarFocus"
+  }
 ]

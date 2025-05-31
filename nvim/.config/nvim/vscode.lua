@@ -69,7 +69,7 @@ vim.keymap.set({ 'n', 'v' }, 'L', '$')
 vim.keymap.set({ 'n', 'v' }, 'H', '^')
 
 -- Motion Bindings
--- replace currently selected text with default register without yanking it
+-- replace currently selected text with default regist!er without yanking it
 vim.keymap.set('v', '<leader>p', '\"_dP')
 
 -- Move visual line up/down
@@ -83,8 +83,8 @@ vim.keymap.set('n', ']d', function() vscode.call('editor.action.marker.next') en
 -- Taken from telescope
 vim.keymap.set('n', '<leader><leader>', function() vscode.call('workbench.action.showEditorsInActiveGroup') end)
 vim.keymap.set('n', '<leader>sd', function() vscode.call('workbench.action.problems.focus') end)
-vim.keymap.set('n', '<leader>sf', function() vscode.call('workbench.action.quickOpen') end)
-vim.keymap.set('n', '<leader>sg', function() vscode.call('workbench.action.findInFiles') end)
+vim.keymap.set('n', '<leader>ff', function() vscode.call('workbench.action.quickOpen') end)
+vim.keymap.set('n', '<leader>fg', function() vscode.call('workbench.action.findInFiles') end)
 vim.keymap.set('n', '<leader>s.', function() vscode.call('workbench.action.openRecent') end)
 vim.keymap.set('n', '<leader>/', function() vscode.action('workbench.action.findInFiles') end)
 vim.keymap.set('n', 'g/', function() vscode.action('workbench.action.quickTextSearch') end)
@@ -173,6 +173,10 @@ require('lazy').setup({
       config = function()
         require("nvim-surround").setup({})
       end,
+    },
+    {
+      "tpope/vim-repeat",
+      event = "VeryLazy"
     },
     { -- Highlight, edit, and navigate code
       "nvim-treesitter/nvim-treesitter",
