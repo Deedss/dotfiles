@@ -27,9 +27,7 @@ select_base_image() {
     echo "Available images:"
     podman images --format "{{.Repository}}:{{.Tag}}"
 
-    echo
-    echo "Enter part of the image name (or regex) to filter:"
-    echo "Press Enter to use the default: ${DEFAULT_CONTAINER_IMAGE}"
+    printf "\nEnter part of the image name (or regex) to filter [default: %s]: " "$DEFAULT_CONTAINER_IMAGE"
     read -r IMAGE_FILTER
 
     if [ -z "$IMAGE_FILTER" ]; then
@@ -55,7 +53,7 @@ select_base_image() {
             printf "%3d) %s\n" $((i + 1)) "${MATCHING_IMAGES[$i]}"
         done
 
-        echo "Enter the number of the image to select, or type full image name:"
+        printf "\nEnter the number of the image to select, or type full image name: "
         read -r USER_INPUT
 
         if [[ "$USER_INPUT" =~ ^[0-9]+$ ]] && [ "$USER_INPUT" -ge 1 ] && [ "$USER_INPUT" -le "${#MATCHING_IMAGES[@]}" ]; then
@@ -99,10 +97,10 @@ check_env_variable() {
     fi
 
     echo "Environment variable $ENV_VAR not set or invalid."
-    echo "Would you like to manually enter the path to ${ide}? (y/n)"
+    printf "Would you like to manually enter the path to %s? (y/n): " "$ide"
     read -r REPLY
     if [[ "$REPLY" =~ ^[Yy]$ ]]; then
-        echo "Enter the full path to the ${ide} installation directory (the root of ${IDE_NAME}, containing the subdirs (bin, jbr, etc)):"
+        printf "Enter the full path to the %s installation directory: " "$ide"
         read -r MANUAL_PATH
         if [[ -x "$(realpath ${MANUAL_PATH})/bin/${IDE_NAME}.sh" ]]; then
             IDE_PATH="$MANUAL_PATH"
@@ -121,7 +119,7 @@ check_env_variable() {
 check_existing_container() {
     if podman ps -a --format "{{.Names}}" | grep -q "^${CONTAINER_NAME}$"; then
         echo "A container named '${CONTAINER_NAME}' already exists."
-        echo "Would you like to rebuild it? (y/n)"
+        printf "Would you like to rebuild it? (y/n): "
         read -r REBUILD_CHOICE
         if [[ "$REBUILD_CHOICE" =~ ^[Yy]$ ]]; then
             echo "Removing existing container..."
@@ -157,7 +155,6 @@ setup_container_config() {
         done
     fi
 
-    ## When using wayland, the XAUTHORITY is required
     if [ -n "$WAYLAND_DISPLAY" ] || [ "$XDG_SESSION_TYPE" = "wayland" ]; then
         print_bold "Detected Wayland session, adding Wayland configuration"
         if [ -z "$XAUTHORITY" ]; then
@@ -167,7 +164,6 @@ setup_container_config() {
             fi
         fi
 
-        ## Required to mount XAUTHORITY for xwayland
         if [ -f "$XAUTHORITY" ]; then
             MOUNTS="$MOUNTS --mount type=bind,source=${XAUTHORITY},target=${XAUTHORITY}"
         fi
