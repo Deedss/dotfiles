@@ -25,22 +25,48 @@ print_help() {
 
 select_base_image() {
     echo "Available images:"
-    podman images --format "{{.Repository}}:{{.Tag}}" | nl
+    podman images --format "{{.Repository}}:{{.Tag}}"
 
-    echo "Please select an image by number (or press Enter to use the default: ${DEFAULT_CONTAINER_IMAGE}):"
-    read -r IMAGE_NUM
+    echo
+    echo "Enter part of the image name (or regex) to filter:"
+    echo "Press Enter to use the default: ${DEFAULT_CONTAINER_IMAGE}"
+    read -r IMAGE_FILTER
 
-    if [ -z "$IMAGE_NUM" ]; then
+    if [ -z "$IMAGE_FILTER" ]; then
         echo "No selection made. Using default image: $DEFAULT_CONTAINER_IMAGE"
         CONTAINER_IMAGE=$DEFAULT_CONTAINER_IMAGE
+        return
+    fi
+
+    mapfile -t MATCHING_IMAGES < <(podman images --format "{{.Repository}}:{{.Tag}}" | grep -Ei "$IMAGE_FILTER")
+
+    if [ "${#MATCHING_IMAGES[@]}" -eq 0 ]; then
+        echo "No matching images found. Exiting..."
+        exit 1
+
+    elif [ "${#MATCHING_IMAGES[@]}" -eq 1 ]; then
+        CONTAINER_IMAGE="${MATCHING_IMAGES[0]}"
+        echo "Only one match found. Selected: $CONTAINER_IMAGE"
+        return
+
     else
-        SELECTED_IMAGE=$(podman images --format "{{.Repository}}:{{.Tag}}" | sed -n "${IMAGE_NUM}p")
-        if [ -z "$SELECTED_IMAGE" ]; then
+        echo "Multiple images matched:"
+        for i in "${!MATCHING_IMAGES[@]}"; do
+            printf "%3d) %s\n" $((i + 1)) "${MATCHING_IMAGES[$i]}"
+        done
+
+        echo "Enter the number of the image to select, or type full image name:"
+        read -r USER_INPUT
+
+        if [[ "$USER_INPUT" =~ ^[0-9]+$ ]] && [ "$USER_INPUT" -ge 1 ] && [ "$USER_INPUT" -le "${#MATCHING_IMAGES[@]}" ]; then
+            CONTAINER_IMAGE="${MATCHING_IMAGES[$((USER_INPUT - 1))]}"
+            echo "You selected: $CONTAINER_IMAGE"
+        elif printf "%s\n" "${MATCHING_IMAGES[@]}" | grep -qx "$USER_INPUT"; then
+            CONTAINER_IMAGE="$USER_INPUT"
+            echo "You selected: $CONTAINER_IMAGE"
+        else
             echo "Invalid selection. Exiting..."
             exit 1
-        else
-            CONTAINER_IMAGE=$SELECTED_IMAGE
-            echo "You selected: $CONTAINER_IMAGE"
         fi
     fi
 }
