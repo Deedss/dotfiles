@@ -1,3 +1,6 @@
+# Add in Powerlevel10k
+romkatv/powerlevel10
+
 # fzf plugin
 Aloxaf/fzf-tab kind:defer
 
