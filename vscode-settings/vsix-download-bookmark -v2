@@ -1,0 +1,129 @@
+javascript:(function(){
+    function createPopup(publisher, extension, version, showPlatform){
+        const existing = document.getElementById("vsix-popup");
+        if (existing) existing.remove();
+
+        const popup = document.createElement("div");
+        popup.id = "vsix-popup";
+        popup.style = `
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            background: #f0f0f0; border: 1px solid #ccc;
+            padding: 16px; border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            font-family: sans-serif; color: #333;
+            max-width: 400px;
+        `;
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "×";
+        closeBtn.style = `
+            position: absolute; top: 5px; right: 10px; background: none;
+            border: none; font-size: 18px; cursor: pointer;
+        `;
+        closeBtn.onclick = () => popup.remove();
+
+        const platforms = [
+            { label: "Default", value: "" },
+            { label: "Linux x64", value: "linux-x64" },
+            { label: "Linux ARM32", value: "linux-armhf" },
+            { label: "Linux ARM64", value: "linux-arm64" },
+            { label: "Windows x64", value: "win32-x64" },
+            { label: "Windows ARM", value: "win32-arm64" },
+            { label: "macOS Intel", value: "darwin-x64" },
+            { label: "macOS Apple Silicon", value: "darwin-arm64" },
+            { label: "Alpine Linux 64-bit", value: "alpine-x64" },
+            { label: "Alpine Linux ARM64", value: "alpine-arm64" },
+            { label: "Web", value: "web" }
+        ];
+
+        const platformSelector = showPlatform ? `
+            <label><strong>Platform:</strong><br>
+                <select id="vsix-platform" style="width: 100%; margin: 5px 0;">
+                    ${platforms.map(p => `<option value="${p.value}">${p.label}</option>`).join("")}
+                </select>
+            </label>
+        ` : "";
+
+        popup.innerHTML = `
+            <div>
+                <strong>Extension:</strong> ${publisher}.${extension}<br>
+                <strong>Version:</strong> ${version}<br>
+                ${platformSelector}
+                <strong>VSIX URL:</strong><br>
+                <input type="text" value="" id="vsix-url" style="width: 100%; margin: 5px 0;" readonly>
+                <button id="vsix-download">Download</button>
+                <button id="vsix-copy">Copy</button>
+            </div>
+        `;
+
+        popup.appendChild(closeBtn);
+        document.body.appendChild(popup);
+
+        const urlInput = document.getElementById("vsix-url");
+        const platformSelect = document.getElementById("vsix-platform");
+        const baseUrl = `https://marketplace.visualstudio.com/_apis/public/gallery/publishers/${publisher}/vsextensions/${extension}/${version}/vspackage`;
+
+        function updateUrl() {
+            const platform = platformSelect ? platformSelect.value : "";
+            urlInput.value = platform ? `${baseUrl}?targetPlatform=${platform}` : baseUrl;
+        }
+
+        if (platformSelect) platformSelect.addEventListener("change", updateUrl);
+        updateUrl();
+
+        document.getElementById("vsix-download").onclick = () => {
+            window.open(urlInput.value, "_blank");
+        };
+
+        document.getElementById("vsix-copy").onclick = () => {
+            navigator.clipboard.writeText(urlInput.value).then(() =>
+                alert("Copied!")
+            );
+        };
+    }
+
+    function getLatestVersion(){
+        const el = document.querySelector("#versionHistoryTab tbody tr .version-history-container-column");
+        return el ? el.textContent.trim() : null;
+    }
+
+    function hasLinuxCapability(){
+        const caps = document.querySelectorAll(".capabilities-list-item");
+        return Array.from(caps).some(i =>
+            i.textContent.toLowerCase().includes("linux")
+        );
+    }
+
+    try {
+        const itemName = new URL(window.location.href).searchParams.get("itemName");
+        if (!itemName) throw "itemName parameter not found in URL";
+
+        const [publisher, extension] = itemName.split(".");
+        if (!publisher || !extension) throw "Invalid itemName format";
+
+        const version = getLatestVersion();
+        if (!version) throw "Failed to extract version";
+
+        const showPlatformDropdown = hasLinuxCapability();
+        createPopup(publisher, extension, version, showPlatformDropdown);
+    } catch (e) {
+        const existing = document.getElementById("vsix-popup");
+        if (existing) existing.remove();
+
+        const popup = document.createElement("div");
+        popup.id = "vsix-popup";
+        popup.style = `
+            position: fixed; top: 20px; right: 20px; z-index: 9999;
+            background: #ffe6e6; border: 1px solid #cc0000;
+            padding: 16px; border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+            font-family: sans-serif; color: #333;
+            max-width: 400px;
+        `;
+        popup.innerHTML = `
+            <div><strong>Error:</strong> ${e}</div>
+            <button style="position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 18px; cursor: pointer;" onclick="document.getElementById('vsix-popup').remove()">×</button>
+        `;
+        document.body.appendChild(popup);
+    }
+})();
