@@ -47,11 +47,6 @@ vmap K :m '<-2<CR>gv=gv
 " without yanking it
 vnoremap <leader>p "_dP
 
-" Yank to the system clipboard
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-nnoremap <leader>Y "+Y
-
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
@@ -90,8 +85,6 @@ nmap <leader>fd editor.action.formatDocument
 vmap <leader>fd editor.action.formatDocument
 nmap K editor.action.showHover
 
-vnoremap p pgvy
-
 " Multi Cursor Selection
 nmap gl editor.action.addSelectionToNextFindMatch
 vmap gl editor.action.addSelectionToNextFindMatch
@@ -99,8 +92,8 @@ vmap gl editor.action.addSelectionToNextFindMatch
 nmap gL editor.action.addSelectionToPreviousFindMatch
 vmap gL editor.action.addSelectionToPreviousFindMatch
 
-vmap g> editor.action.nextSelectionMatchFindAction
-vmap g< editor.action.previousSelectionMatchFindAction
+vmap g> editor.action.moveSelectionToNextFindMatch
+vmap g< editor.action.moveSelectionToPreviousFindMatch
 
 " Treesitter Expand Shrink
 nmap [x editor.action.smartSelect.expand

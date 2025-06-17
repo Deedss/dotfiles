@@ -24,10 +24,10 @@
   "buffer_font_family": "JetBrains Mono",
   "theme": {
     "mode": "system",
-    "light": "One Light",
+    "light": "Catppuccin Latte",
     "dark": "One Dark"
   },
-  "agent": {
+  "assistant": {
     "version": "2",
     "enabled": false
   },
