@@ -45,11 +45,15 @@ vmap K :m '<-2<CR>gv=gv
 
 " replace currently selected text with default register
 " without yanking it
-vnoremap <leader>p "_dP
+xnoremap <leader>p "_dP
 
 " Map <C-L> (redraw screen) to also turn off search highlighting until the
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
+
+" Fix search
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " Move visual line up/down
 " nnoremap j gj
