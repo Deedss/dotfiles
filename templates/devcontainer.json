@@ -1,0 +1,44 @@
+{
+  // Name and base image
+  "name": "Dev Container",
+  "build": {
+    "dockerfile": "Containerfile",
+    "args": {
+      "USERNAME": "${localEnv:USER}",
+      "USER_UID": "${localEnv:UID}",
+      "USER_GID": "${localEnv:GID}"
+    }
+  },
+  // Extra run args
+  "runArgs": [
+    "--userns=keep-id"
+  ],
+  // Capabilities for debug, etc
+  "capAdd": [
+    "SYS_PTRACE"
+  ],
+  "securityOpt": [
+    "label=disable"
+  ],
+  "remoteUser": "${localEnv:USER}",
+  "containerUser": "${localEnv:USER}",
+  // Extensions to install
+  "customizations": {
+    "vscode": {
+      "settings": {},
+      "extensions": [
+        // C++ tools
+        "ms-vscode.cpptools",
+        "llvm-vs-code-extensions.vscode-clangd",
+        "ms-vscode.cmake-tools",
+        // Rust
+        "rust-lang.rust-analyzer",
+        // Git tools
+        "mhutchie.git-graph",
+        "donjayamanne.githistory"
+      ]
+    }
+  },
+  "workspaceMount": "source=${localWorkspaceFolder},target=${localWorkspaceFolder},type=bind",
+  "workspaceFolder": "${localWorkspaceFolder}"
+}

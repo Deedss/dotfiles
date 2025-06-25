@@ -1,0 +1,38 @@
+# Use fedora:latest as the base image
+FROM fedora:42 AS base
+
+ARG USERNAME
+ARG USER_UID=1000
+ARG USER_GID=1000
+
+# Install shared packages and create a user that matches the host UID/GID
+RUN dnf install -y --setopt=install_weak_deps=False curl zip sudo git && dnf clean all
+
+# Create user and group if they don't already exist
+RUN groupadd --gid ${USER_GID} ${USERNAME} && \
+    useradd --uid ${USER_UID} --gid ${USER_GID} -m ${USERNAME} && \
+    echo "${USERNAME} ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/${USERNAME} && \
+    chmod 0440 /etc/sudoers.d/${USERNAME}
+
+# C++ development stage
+FROM base AS cpp
+RUN dnf install -y --setopt=install_weak_deps=False \
+    gcc gcc-c++ clang clang-tools-extra cmake gdb gdbserver make ninja \
+    && dnf clean all
+
+USER ${USERNAME}
+
+# Rust development stage
+FROM base AS rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+ENV PATH="/home/${USERNAME}/.cargo/bin:${PATH}"
+
+USER ${USERNAME}
+
+# Python development stage
+FROM base AS python
+RUN dnf install -y --setopt=install_weak_deps=False \
+    python3 python3-pip python3-virtualenv \
+    && dnf clean all
+
+USER ${USERNAME}
