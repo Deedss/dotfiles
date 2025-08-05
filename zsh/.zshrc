@@ -13,7 +13,8 @@ setopt globdots     # hidden files
 [[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote.git $HOME/.antidote
 
 # Load completions
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+compinit
 
 # History
 HISTSIZE=5000

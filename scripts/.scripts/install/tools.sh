@@ -43,6 +43,7 @@ install-iwd() {
 
     echo -e "[device]\nwifi.backend=iwd\nwifi.iwd.autoconnect=yes" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
     echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
+    echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-76\n[Scan]\nDisablePeriodicScan=false" | sudo tee -a /etc/iwd/main.conf
     sudo systemctl mask wpa_supplicant
 }
 

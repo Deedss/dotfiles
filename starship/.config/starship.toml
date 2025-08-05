@@ -1,0 +1,95 @@
+# General config
+palette = "catppuccin_macchiato"
+
+# Username
+[username]
+format = "[$user](bold yellow)"
+disabled = false
+show_always = true
+
+# Hostname
+[hostname]
+ssh_only = false
+format = "[$ssh_symbol](bold blue)[@](bold)[$hostname](bold green)[:](bold) "
+trim_at = ".companyname.com"
+disabled = false
+
+# Directory setttings
+[directory]
+truncation_length = 4
+truncate_to_repo = false
+truncation_symbol = "…/"
+
+[git_branch]
+symbol = ""
+format = '( [$symbol $branch]($style) )'
+only_attached = true
+ignore_branches = []
+truncation_length = 25
+truncation_symbol = "..."
+always_show_remote = false
+disabled = false
+
+[git_commit]
+format = "( [($tag)(@$hash)]($style) )"
+commit_hash_length = 7
+only_detached = true
+tag_symbol = "󰓼 "
+tag_disabled = false
+disabled = false
+
+[git_status]
+format = '([$ahead_behind]($style) )([$all_status]($style) )'
+stashed = "*${count}"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+up_to_date = ""
+diverged = "⇡${ahead_count}⇣${behind_count}"
+conflicted = "=${count}"
+deleted = "×${count}"
+renamed = "»${count}"
+modified = "!${count}"
+staged = "+${count}"
+untracked = "?${count}"
+disabled = true
+
+[git_state]
+format = '([$state( $progress_current/$progress_total)]($style) )'
+rebase = "REBASING"
+merge = "MERGING"
+revert = "REVERTING"
+cherry_pick = "CHERRY-PICKING"
+bisect = "BISECTING"
+am = "AM"
+am_or_rebase = "AM/REBASE"
+disabled = false
+
+# Color schemes
+[palettes.catppuccin_macchiato]
+rosewater = "#f4dbd6"
+flamingo = "#f0c6c6"
+pink = "#f5bde6"
+mauve = "#c6a0f6"
+red = "#ed8796"
+maroon = "#ee99a0"
+peach = "#f5a97f"
+yellow = "#eed49f"
+green = "#a6da95"
+teal = "#8bd5ca"
+sky = "#91d7e3"
+sapphire = "#7dc4e4"
+blue = "#8aadf4"
+lavender = "#b7bdf8"
+text = "#cad3f5"
+subtext1 = "#b8c0e0"
+subtext0 = "#a5adcb"
+overlay2 = "#939ab7"
+overlay1 = "#8087a2"
+overlay0 = "#6e738d"
+surface2 = "#5b6078"
+surface1 = "#494d64"
+surface0 = "#363a4f"
+base = "#24273a"
+mantle = "#1e2030"
+crust = "#181926"
+
