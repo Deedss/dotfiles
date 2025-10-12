@@ -15,7 +15,6 @@ update() {
 
   __update-rust
   __update-neovim
-  __update-lazygit
 }
 
 __update-rust() {
@@ -41,24 +40,3 @@ __update-neovim() {
   echo ''
 }
 
-__update-lazygit() {
-  echo '-------------------------'
-  echo '-------- LAZYGIT --------'
-  echo '-------------------------'
-  local local_lazygit_version=$(lazygit --version | grep -oP 'version=\K[^,]*' | head -n1)
-
-  local latest_lazygit_version=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": *"v\K[^"]*')
-
-  if [[ "$local_lazygit_version" != "$latest_lazygit_version" ]]; then
-    echo "Updating LazyGit from version $local_lazygit_version to $latest_lazygit_version"
-    temp_dir=$(mktemp -d)
-    curl -Lo "$temp_dir/lazygit.tar.gz" "https://github.com/jesseduffield/lazygit/releases/download/v${latest_lazygit_version}/lazygit_${latest_lazygit_version}_Linux_x86_64.tar.gz"
-    tar -xf "$temp_dir/lazygit.tar.gz" -C "$temp_dir"
-    install "$temp_dir/lazygit" -D -t $HOME/.local/bin/
-    rm -rf "$temp_dir"
-  else
-    echo 'Already up to date'
-  fi
-
-  echo ''
-}

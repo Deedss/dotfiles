@@ -5,11 +5,11 @@ let mapleader=' '
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
-Plug 'terryma/vim-multiple-cursors'
+" Plug 'terryma/vim-multiple-cursors'
 " Plug 'easymotion/vim-easymotion'    " Requires extra plugins
 Plug 'justinmk/vim-sneak'
-Plug 'vim-scripts/argtextobj.vim'
-Plug 'kana/vim-textobj-entire'
+" Plug 'vim-scripts/argtextobj.vim'
+" Plug 'kana/vim-textobj-entire'
 Plug 'vim-scripts/ReplaceWithRegister'
 
 """ Plugin settings -------------------------

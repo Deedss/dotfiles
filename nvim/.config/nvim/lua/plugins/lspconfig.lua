@@ -79,7 +79,7 @@ return { -- LSP Configuration & Plugins
 
         -- Ensure the servers and tools above are installed
         for server_name, server in pairs(servers) do
-            require("lspconfig")[server_name].setup({
+            vim.lsp.config(server_name, {
                 cmd = server.cmd,
                 settings = server.settings,
                 filetypes = server.filetypes,
@@ -88,6 +88,10 @@ return { -- LSP Configuration & Plugins
                 -- certain features of an LSP (for example, turning off formatting for tsserver)
                 capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {}),
             })
+        end
+
+        for server_name, server in pairs(servers) do
+            vim.lsp.enable(server_name)
         end
     end,
 }
