@@ -1,87 +1,101 @@
-""" Map leader to space ---------------------
-let mapleader=' '
+" ==============================
+" IdeaVim Configuration
+" ==============================
 
-""" Plugins  --------------------------------
+" ---------------------
+" Leader Key
+" ---------------------
+let mapleader=' '
+let maplocalleader=' '
+
+" ---------------------
+" Generic Vim Settings
+" ---------------------
+set scrolloff=8             " Keep 8 lines above/below cursor
+set visualbell              " Use visual bell instead of beep
+set ignorecase              " Case-insensitive search
+set smartcase               " Unless uppercase used
+set timeoutlen=400          " Timeout for mapped key sequences
+set whichwrap+=<,>,h,l,[,]  " Allow cursor wrapping
+set clipboard+=unnamedplus  " Use system clipboard (handled automatically in IdeaVim)
+set hlsearch                " Highlight search matches
+set incsearch               " Incremental search
+set foldmethod=indent       " Folding based on indentation
+set autoindent              " Auto-indent new lines
+set tabstop=4               " Tab width
+set shiftwidth=4            " Indent width
+set expandtab               " Use spaces instead of tabs
+
+" ---------------------
+" Plugins
+" ---------------------
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'machakann/vim-highlightedyank'
-" Plug 'terryma/vim-multiple-cursors'
-" Plug 'easymotion/vim-easymotion'    " Requires extra plugins
 Plug 'justinmk/vim-sneak'
-" Plug 'vim-scripts/argtextobj.vim'
-" Plug 'kana/vim-textobj-entire'
+Plug 'vim-scripts/argtextobj.vim'
+Plug 'kana/vim-textobj-entire'
 Plug 'vim-scripts/ReplaceWithRegister'
 
-""" Plugin settings -------------------------
-let g:argtextobj_pairs="[:],(:),<:>"
-
-""" Idea specific settings ------------------
+" ---------------------
+" Idea-specific Settings
+" ---------------------
 set ideajoin
 set ideastatusicon=gray
 set idearefactormode=keep
 
-""" Generic VIM settings ------------------
-set scrolloff=8             " # lines below/above cursor
-set visualbell              " Use visual bell instead of beeping when doing something wrong
-set ignorecase              " Use case insensitive search, except when using capital letters
-set smartcase               " Use case insensitive search, except when using capital letters
-set timeoutlen=400          " Timeout of key press
-set whichwrap+=<,>,h,l,[,]  " left and right arrow keys, as well as h and l, to wrap when used at beginning or end of lines
-set clipboard+=unnamedplus  " Use system clipboard
-
-set hlsaarch                " Highlight searches (use <C-L> to temporarily turn off highlighting; see the mapping of <C-L> below)
-set incsearch               " Incremental searches
-
-set foldmethod=indent       " Set indentation and folding use za for fold/unfold and zR for unfold all
-set autoindent              " Set autoindent
-
-" insert spaces when tab is pressed "
-set tabstop=4
-set shiftwidth=4
-set expandtab
-
-""" Mappings ---------------------
-" Don't use Ex mode, use Q for formatting.
-map Q gq
-
-" Move to begin/end of line
-nmap L $
+" ---------------------
+" Motion / Navigation
+" ---------------------
+" Move to beginning/end of line
 nmap H ^
-vmap L $
+nmap L $
 vmap H ^
+vmap L $
 
-" Motion Bindings
-" Move the selected text up and down
+" Move selected text up/down (visual mode)
 vmap J :m '>+1<CR>gv=gv
 vmap K :m '<-2<CR>gv=gv
 
-" Replace currently selected text with default register
-" without yanking it
+" ---------------------
+" Replace Selection Without Yanking
+" ---------------------
 vnoremap <leader>p "_dP
 
-" Yank to the system clipboard
+" ---------------------
+" Yank to System Clipboard
+" ---------------------
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 nnoremap <leader>Y "+Y
 
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
+" ---------------------
+" Search Highlight & Redraw
+" ---------------------
+nnoremap <C-L> :nohlsearch<CR><C-L>
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
-" Go to next/previous action marker
+" ---------------------
+" Action Markers / Errors
+" ---------------------
 nmap ]d <Action>(GotoNextError)
 nmap [d <Action>(GotoPreviousError)
 
-" Telescope-like functionality with JetBrains actions
+" ---------------------
+" Quick Open / Navigation (Telescope-like)
+" ---------------------
 nmap <leader>fr <Action>(RecentFiles)
-nmap <leader>e <Action>(ShowProblems)
 nmap <leader>ff <Action>(GotoFile)
 nmap <leader>sg <Action>(FindInPath)
 nmap <leader>sd <Action>(ShowErrorDescription)
+nmap <leader>e <Action>(ShowProblems)
 nmap <leader>/ <Action>(Find)
 nmap g/ <Action>(FindInPath)
 
-" LSP-like functionality with JetBrains actions
+" ---------------------
+" LSP / Language Features
+" ---------------------
 nmap gd <Action>(GotoDeclaration)
 nmap gr <Action>(ShowUsages)
 nmap gI <Action>(GotoImplementation)
@@ -95,12 +109,16 @@ nmap <leader>fd <Action>(ReformatCode)
 vmap <leader>fd <Action>(ReformatCode)
 nmap K <Action>(QuickJavaDoc)
 
-" Multi Cursor Selection
+" ---------------------
+" Multi-Cursor / Selection
+" ---------------------
 nmap gl <Action>(SelectNextOccurrence)
 vmap gl <Action>(SelectNextOccurrence)
 vmap gL <Action>(UnselectPreviousOccurrence)
 
-" Treesitter
+" ---------------------
+" Smart / Structural Selection
+" ---------------------
 vmap [x <Action>(EditorSelectWord)
 xmap [x <Action>(EditorSelectWord)
 xmap ]x <Action>(EditorUnSelectWord)
