@@ -29,13 +29,22 @@ __update-neovim() {
   echo '-------------------------'
   echo '--------- NEOVIM --------'
   echo '-------------------------'
-  local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
-  latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
-  if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
+  if command -v nvim &> /dev/null; then
+    local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
+    latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
+    if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
+      sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
+      sudo chmod 755 /usr/local/bin/nvim
+      echo "Updated nvim from $local_nvim_version to $latest_nvim_version"
+    else
+      echo 'Already up to date'
+    fi
+  else
+    echo "nvim not found, installing..."
+    latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
     sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
     sudo chmod 755 /usr/local/bin/nvim
-  else
-    echo 'Already up to date'
+    echo "Installed nvim $latest_nvim_version"
   fi
   echo ''
 }

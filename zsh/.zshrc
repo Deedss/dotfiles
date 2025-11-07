@@ -93,7 +93,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}                           
 zstyle ':completion:*' group-name ''                                              # group
 zstyle ':completion:*' menu no                                                    # force zsh not to show completion menu
 # zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'              # preview directory's content with ls when completing cd
-# zstyle ':fzf-tab:complete:cd:*'                                                    # preview directory's content with ls when completing cd 
+# zstyle ':fzf-tab:complete:cd:*'                                                    # preview directory's content with ls when completing cd
 zstyle ':fzf-tab:complete:git-(add|diff|restore):*' fzf-preview 'git diff $word'  # todo: describe action
 zstyle ':fzf-tab:complete:git-log:*' fzf-preview 'git log --color=always $word'   # todo: describe action
 zstyle ':completion:*:git-checkout:*' sort false                                  # todo: describe action
@@ -112,9 +112,10 @@ source "$HOME/.antidote/antidote.zsh"
 antidote load
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+#[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 [[ ! -f ~/.scripts/sources ]] || source  ~/.scripts/sources
 
 # Shell integrations
 command -v fzf > /dev/null && source <(fzf --zsh)
 command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
+eval "$(starship init zsh)"

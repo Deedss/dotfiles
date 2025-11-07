@@ -1,105 +1,124 @@
-" --------------------- Settings
-" # lines below/above cursor
+" ==============================
+" VSCodeVim Configuration
+" ==============================
+
+" ---------------------
+" General Editor Settings
+" ---------------------
+" Number of context lines above/below cursor
 set scrolloff=8
 
-" Use visual bell instead of beeping when doing something wrong
+" Use visual bell instead of audible beep
 set visualbell
 
-" Use case insensitive search, except when using capital letters
+" Case-insensitive search unless uppercase is used
 set ignorecase
 set smartcase
 
-" Timeout of key press
+" Incremental search and highlight matches
+set incsearch
+set hlsearch
+
+" Timeout for mapped key sequences (in milliseconds)
 set timeoutlen=400
 
-" left and right arrow keys, as well as h and l, to wrap when used at beginning or end of lines
+" Allow cursor to wrap at line ends with arrow keys or h/l
 set whichwrap+=<,>,h,l,[,]
 
-" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
-" mapping of <C-L> below)
-set hlsearch
-set incsearch
+" Indentation & Folding
+set autoindent             " Auto-indent new lines
+set foldmethod=indent      " Folding based on indentation
+" Use za to toggle folds, zR to open all folds
 
-" Set indentation and folding
-" use za for fold/unfold and zR for unfold all
-set foldmethod=indent
-set autoindent
-
-" vim sneak
+" ---------------------
+" Plugins / Extensions
+" ---------------------
+" Vim Sneak streak
 let g:sneak#streak = 1
 
-" Keybindings
+" ---------------------
+" Leader Keys
+" ---------------------
 " let mapleader = "\<space>"
 " let maplocalleader = "\<space>"
 
-" Move to begin/end of line
-nmap L $
-nmap H ^
-vmap L $
-vmap H ^
+" ==============================
+" Line Movement (Move Lines Up/Down)
+" Works in both Normal and Visual modes
+" ==============================
+nnoremap <C-j> editor.action.moveLinesDownAction   " Move current line down
+nnoremap <C-k> editor.action.moveLinesUpAction     " Move current line up
+vnoremap <C-j> editor.action.moveLinesDownAction   " Move selected lines down
+vnoremap <C-k> editor.action.moveLinesUpAction     " Move selected lines up
 
-" Motion Bindings
-" Move the select text up and down
-vmap J :m '>+1<CR>gv=gv
-vmap K :m '<-2<CR>gv=gv
-
-" replace currently selected text with default register
-" without yanking it
+" ==============================
+" Replace Selection Without Yanking
+" ==============================
 xnoremap <leader>p "_dP
+" Replace visual selection with default register content without overwriting it
 
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
+" ==============================
+" Search Highlight & Redraw
+" ==============================
+nnoremap <C-L> :nohl<CR><C-L>  " Clear search highlight and redraw
+nnoremap n nzzzv               " Center cursor after search next
+nnoremap N Nzzzv               " Center cursor after search previous
 
-" Fix search
-nnoremap n nzzzv
-nnoremap N Nzzzv
+" ==============================
+" Action Markers
+" ==============================
+nnoremap [d editor.action.marker.prev  " Go to previous action marker
+nnoremap ]d editor.action.marker.next  " Go to next action marker
 
-" Move visual line up/down
-" nnoremap j gj
-" nnoremap k gk
+" ==============================
+" Telescope / Quick Open Shortcuts
+" ==============================
+nnoremap <leader>, workbench.action.showEditorsInActiveGroup
+nnoremap <leader>fb workbench.action.showEditorsInActiveGroup
+nnoremap <leader>e workbench.action.problems.focus
+nnoremap <leader>ff workbench.action.quickOpen
+nnoremap <leader>sg workbench.action.findInFiles
+nnoremap <leader>sd workbench.action.problems.focus
+nnoremap <leader>fr workbench.action.openRecent
+nnoremap <leader>/ actions.find
+nnoremap g/ workbench.action.quickTextSearch
 
-" Go to next/pevrious action marker
-nmap [d editor.action.marker.prev
-nmap ]d editor.action.marker.next
+" ==============================
+" LSP / Language Features
+" ==============================
+nnoremap gd editor.action.revealDefinition          " Go to definition
+nnoremap gr editor.action.goToReferences            " Go to references
+nnoremap gI editor.action.goToImplementation       " Go to implementation
+nnoremap gy editor.action.goToTypeDefinition       " Go to type definition
+nnoremap gD editor.action.peekDeclaration          " Peek declaration
+nnoremap gs workbench.action.gotoSymbol            " Go to symbol
+nnoremap gS workbench.action.showAllSymbols       " Show all symbols
+nnoremap cd editor.action.rename                   " Rename symbol
+nnoremap g. editor.action.quickFix                 " Quick fix action
+nnoremap <leader>fd editor.action.formatDocument  " Format document
+vnoremap <leader>fd editor.action.formatDocument  " Format selection in visual mode
+nnoremap K editor.action.showHover                 " Show hover info
 
-" Taken from telescope
-" nnoremap <Leader><Leader> <C-^>
-nmap <leader>, workbench.action.showEditorsInActiveGroup
-nmap <leader>fb workbench.action.showEditorsInActiveGroup
-nmap <leader>e workbench.action.problems.focus
-nmap <leader>ff workbench.action.quickOpen
-nmap <leader>sg workbench.action.findInFiles
-nmap <leader>sd workbench.action.problems.focus
-nmap <leader>fr workbench.action.openRecent
-nmap <leader>/ actions.find
-nmap g/ workbench.action.quickTextSearch
+" ==============================
+" Multi-Cursor / Find & Select
+" ==============================
+" Add selection to next/previous match
+nnoremap gl editor.action.addSelectionToNextFindMatch
+vnoremap gl editor.action.addSelectionToNextFindMatch
+nnoremap gL editor.action.addSelectionToPreviousFindMatch
+vnoremap gL editor.action.addSelectionToPreviousFindMatch
 
-"  Taken from lspconfig
-nmap gd editor.action.revealDefinition
-nmap gr editor.action.goToReferences
-nmap gI editor.action.goToImplementation
-nmap gy editor.action.goToTypeDefinition
-nmap gD editor.action.peekDeclaration
-nmap gs workbench.action.gotoSymbol
-nmap gS workbench.action.showAllSymbols
-nmap cd editor.action.rename
-nmap g. editor.action.quickFix
-nmap <leader>fd editor.action.formatDocument
-vmap <leader>fd editor.action.formatDocument
-nmap K editor.action.showHover
+" Move selection to next/previous match (visual mode)
+vnoremap g> editor.action.moveSelectionToNextFindMatch
+vnoremap g< editor.action.moveSelectionToPreviousFindMatch
 
-" Multi Cursor Selection
-nmap gl editor.action.addSelectionToNextFindMatch
-vmap gl editor.action.addSelectionToNextFindMatch
+" Select all highlights in selection
+vnoremap ga editor.action.selectHighlights
 
-nmap gL editor.action.addSelectionToPreviousFindMatch
-vmap gL editor.action.addSelectionToPreviousFindMatch
+" ==============================
+" Treesitter / Smart Select
+" ==============================
+nnoremap [x editor.action.smartSelect.expand     " Expand selection
+xnoremap [x editor.action.smartSelect.expand     " Expand selection (visual mode)
+xnoremap ]x editor.action.smartSelect.shrink     " Shrink selection (visual mode)
 
-vmap g> editor.action.moveSelectionToNextFindMatch
-vmap g< editor.action.moveSelectionToPreviousFindMatch
-
-" Treesitter Expand Shrink
-nmap [x editor.action.smartSelect.expand
-xmap [x editor.action.smartSelect.expand
-xmap ]x editor.action.smartSelect.shrink

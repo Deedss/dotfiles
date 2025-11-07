@@ -16,9 +16,9 @@ path_add() {
     esac
 }
 
-for bin_dir in $(find "$SOFTWARE_DIR/language-servers" -type d -name bin); do
-    path_add $bin_dir
-done
+# for bin_dir in $(find "$SOFTWARE_DIR/language-servers" -type d -name bin); do
+#     path_add $bin_dir
+# done
 path_add "/sbin"
 path_add "/usr/sbin"
 path_add "/usr/local/sbin"
