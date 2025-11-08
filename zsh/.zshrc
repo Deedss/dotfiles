@@ -118,4 +118,6 @@ antidote load
 # Shell integrations
 command -v fzf > /dev/null && source <(fzf --zsh)
 command -v zoxide > /dev/null && eval "$(zoxide init zsh)"
+command -v uv > /dev/null && eval "$(uv generate-shell-completion zsh)"
+command -v uv > /dev/null && eval "$(uvx --generate-shell-completion zsh)"
 eval "$(starship init zsh)"

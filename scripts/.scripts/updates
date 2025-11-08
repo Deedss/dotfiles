@@ -13,15 +13,17 @@ update() {
   flatpak update -y
   echo ''
 
-  __update-rust
   __update-neovim
+  __update-dev-tools
 }
 
-__update-rust() {
+__update-dev-tools() {
   echo '-------------------------'
-  echo '---------- RUST ---------'
+  echo '------ DEV TOOLING ------'
   echo '-------------------------'
   rustup update
+  uv self update
+  uv tool upgrade --all
   echo ''
 }
 
@@ -48,4 +50,3 @@ __update-neovim() {
   fi
   echo ''
 }
-

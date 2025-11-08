@@ -19,6 +19,7 @@ install-desktop() {
     install-pythontools
     install-podman
     install-rust
+    install-python-tools
     install-zed
     install-starship
 

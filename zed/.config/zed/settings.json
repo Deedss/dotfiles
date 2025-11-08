@@ -27,13 +27,15 @@
     "light": "One Light",
     "dark": "Catppuccin Macchiato - No Italics"
   },
-  "chat_panel": {
-    "dock": "right"
-  },
   "project_panel": {
     "dock": "right"
   },
   "outline_panel": {
     "dock": "right"
+  },
+  "languages": {
+    "Python": {
+      "language_servers": ["ty"]
+    }
   }
 }
