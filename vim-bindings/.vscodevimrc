@@ -71,49 +71,60 @@ nnoremap [d editor.action.marker.prev  " Go to previous action marker
 nnoremap ]d editor.action.marker.next  " Go to next action marker
 
 " ==============================
-" Telescope / Quick Open Shortcuts
+" Search / Telescope-style Navigation
 " ==============================
-nnoremap <leader>, workbench.action.showEditorsInActiveGroup
-nnoremap <leader>fb workbench.action.showEditorsInActiveGroup
-nnoremap <leader>e workbench.action.problems.focus
-nnoremap <leader>ff workbench.action.quickOpen
-nnoremap <leader>sg workbench.action.findInFiles
-nnoremap <leader>sd workbench.action.problems.focus
-nnoremap <leader>fr workbench.action.openRecent
-nnoremap <leader>/ actions.find
-nnoremap g/ workbench.action.quickTextSearch
+nnoremap <leader>ff workbench.action.quickOpen        " Fuzzy find files
+nnoremap <leader>fr workbench.action.openRecent       " Recent files
+nnoremap <leader>sg workbench.action.findInFiles      " Search text in files
+nnoremap <leader>/ actions.find                       " Find command
+nnoremap g/ workbench.action.quickTextSearch          " Quick text search
+nnoremap <leader>e workbench.action.problems.focus    " Show problems
 
 " ==============================
-" LSP / Language Features
+" LSP / Language Features (Zed-style mappings)
 " ==============================
+" ---- Go To / Peek ----
 nnoremap gd editor.action.revealDefinition          " Go to definition
-nnoremap gr editor.action.goToReferences            " Go to references
-nnoremap gI editor.action.goToImplementation       " Go to implementation
-nnoremap gy editor.action.goToTypeDefinition       " Go to type definition
-nnoremap gD editor.action.peekDeclaration          " Peek declaration
-nnoremap gs workbench.action.gotoSymbol            " Go to symbol
-nnoremap gS workbench.action.showAllSymbols       " Show all symbols
-nnoremap cd editor.action.rename                   " Rename symbol
-nnoremap g. editor.action.quickFix                 " Quick fix action
-nnoremap <leader>fd editor.action.formatDocument  " Format document
-vnoremap <leader>fd editor.action.formatDocument  " Format selection in visual mode
-nnoremap K editor.action.showHover                 " Show hover info
+nnoremap gD editor.action.peekDeclaration           " Go to declaration (peek)
+nnoremap gy editor.action.goToTypeDefinition        " Go to type definition
+nnoremap gI editor.action.goToImplementation        " Go to implementation
+nnoremap gA editor.action.goToReferences            " Go to all references
+nnoremap gs workbench.action.gotoSymbol             " Find symbol in current file
+nnoremap gS workbench.action.showAllSymbols         " Find symbol in entire project
+
+" ---- Diagnostics ----
+nnoremap ]d editor.action.marker.next               " Go to next diagnostic
+nnoremap [d editor.action.marker.prev               " Go to previous diagnostic
+
+" ---- Hover / Code Actions ----
+nnoremap gh editor.action.showHover                 " Show inline error / hover info
+nnoremap g. editor.action.quickFix                  " Open code actions menu
+
+" ---- Rename / Format ----
+nnoremap cd editor.action.rename                    " Rename symbol
+nnoremap <leader>fd editor.action.formatDocument     " Format document
+vnoremap <leader>fd editor.action.formatDocument     " Format selection in visual mode
 
 " ==============================
-" Multi-Cursor / Find & Select
+" Multi-Cursor / Find & Select (Zed-style)
 " ==============================
-" Add selection to next/previous match
+" Add a cursor selecting the next copy of the current word
 nnoremap gl editor.action.addSelectionToNextFindMatch
 vnoremap gl editor.action.addSelectionToNextFindMatch
+
+" Add a cursor selecting the previous copy of the current word
 nnoremap gL editor.action.addSelectionToPreviousFindMatch
 vnoremap gL editor.action.addSelectionToPreviousFindMatch
 
-" Move selection to next/previous match (visual mode)
+" Skip latest word selection, and add next
 vnoremap g> editor.action.moveSelectionToNextFindMatch
+
+" Skip latest word selection, and add previous
 vnoremap g< editor.action.moveSelectionToPreviousFindMatch
 
-" Select all highlights in selection
+" Add a visual selection for every copy of the current word
 vnoremap ga editor.action.selectHighlights
+
 
 " ==============================
 " Treesitter / Smart Select

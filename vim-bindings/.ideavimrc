@@ -77,50 +77,62 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 
 " ---------------------
-" Action Markers / Errors
+" Action Markers / Diagnostics
 " ---------------------
-nmap ]d <Action>(GotoNextError)
-nmap [d <Action>(GotoPreviousError)
+nmap ]d <Action>(GotoNextError)         " Go to next diagnostic
+nmap [d <Action>(GotoPreviousError)     " Go to previous diagnostic
 
 " ---------------------
-" Quick Open / Navigation (Telescope-like)
+" Quick Open / Search (Telescope-like)
 " ---------------------
-nmap <leader>fr <Action>(RecentFiles)
-nmap <leader>ff <Action>(GotoFile)
-nmap <leader>sg <Action>(FindInPath)
-nmap <leader>sd <Action>(ShowErrorDescription)
-nmap <leader>e <Action>(ShowProblems)
-nmap <leader>/ <Action>(Find)
-nmap g/ <Action>(FindInPath)
+nmap <leader>ff <Action>(GotoFile)              " Fuzzy find files
+nmap <leader>fr <Action>(RecentFiles)           " Recent files
+nmap <leader>sg <Action>(FindInPath)            " Search text in files
+nmap <leader>/ <Action>(Find)                   " Command find
+nmap g/ <Action>(FindInPath)                    " Quick text search
+nmap <leader>e <Action>(ShowProblems)           " Show problems
+nmap <leader>sd <Action>(ShowErrorDescription)  " Show error details
 
 " ---------------------
-" LSP / Language Features
+" LSP / Language Features (Zed-style)
 " ---------------------
-nmap gd <Action>(GotoDeclaration)
-nmap gr <Action>(ShowUsages)
-nmap gI <Action>(GotoImplementation)
-nmap gy <Action>(GotoTypeDeclaration)
-nmap gD <Action>(GotoDeclaration)
-nmap gs <Action>(FileStructurePopup)
-nmap gS <Action>(GotoSymbol)
-nmap cd <Action>(RenameElement)
-nmap g. <Action>(ShowIntentionActions)
-nmap <leader>fd <Action>(ReformatCode)
-vmap <leader>fd <Action>(ReformatCode)
-nmap K <Action>(QuickJavaDoc)
+nmap gd <Action>(GotoDeclaration)             " Go to definition
+nmap gD <Action>(QuickDefinition)             " Go to declaration (peek)
+nmap gy <Action>(GotoTypeDeclaration)         " Go to type definition
+nmap gI <Action>(GotoImplementation)          " Go to implementation
+nmap gA <Action>(ShowUsages)                  " Go to all references
+nmap gs <Action>(FileStructurePopup)          " Find symbol in current file
+nmap gS <Action>(GotoSymbol)                  " Find symbol in entire project
+nmap gh <Action>(QuickJavaDoc)                " Show hover / inline doc
+nmap g. <Action>(ShowIntentionActions)        " Code actions menu
+nmap cd <Action>(RenameElement)               " Rename symbol
+nmap <leader>fd <Action>(ReformatCode)        " Format document
+vmap <leader>fd <Action>(ReformatCode)        " Format selection
 
 " ---------------------
-" Multi-Cursor / Selection
+" Multi-Cursor / Selection (Zed-style)
 " ---------------------
+" Add a cursor selecting the next copy of the current word
 nmap gl <Action>(SelectNextOccurrence)
 vmap gl <Action>(SelectNextOccurrence)
-vmap gL <Action>(UnselectPreviousOccurrence)
+
+" Add a cursor selecting the previous copy of the current word
+nmap gL <Action>(SelectPreviousOccurrence)
+vmap gL <Action>(SelectPreviousOccurrence)
+
+" Skip latest word selection, and add next
+vmap g> <Action>(SelectNextOccurrenceExcludingCurrent)
+
+" Skip latest word selection, and add previous
+vmap g< <Action>(SelectPreviousOccurrenceExcludingCurrent)
+
+" Add a visual selection for every copy of the current word
+vmap ga <Action>(SelectAllOccurrences)
 
 " ---------------------
 " Smart / Structural Selection
 " ---------------------
-vmap [x <Action>(EditorSelectWord)
-xmap [x <Action>(EditorSelectWord)
-xmap ]x <Action>(EditorUnSelectWord)
-nmap ]f <Action>(MethodDown)
-nmap [f <Action>(MethodUp)
+xmap [x <Action>(EditorSelectWord)        " Expand selection
+xmap ]x <Action>(EditorUnSelectWord)      " Shrink selection
+nmap [f <Action>(MethodUp)                " Go to previous function
+nmap ]f <Action>(MethodDown)              " Go to next function
