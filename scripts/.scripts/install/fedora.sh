@@ -141,7 +141,7 @@ install-default-packages() {
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard nodejs \
         lsd bat zoxide fd-find procs ripgrep fzf \
-        kcalc okular gwenview kitty plasma-milou
+        kcalc okular gwenview kitty plasma-milou vim
 
     ### Set default shell
     sudo chsh -s /bin/zsh $USER
