@@ -14,6 +14,7 @@ update() {
   echo ''
 
   __update-dev-tools
+  __update-neovim
 }
 
 __update-dev-tools() {
@@ -25,3 +26,19 @@ __update-dev-tools() {
   uv tool upgrade --all
   echo ''
 }
+
+__update-neovim() {
+  echo '-------------------------'
+  echo '--------- NEOVIM --------'
+  echo '-------------------------'
+  local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
+  latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
+  if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
+    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
+    sudo chmod 755 /usr/local/bin/nvim
+  else
+    echo 'Already up to date'
+  fi
+  echo ''
+}
+

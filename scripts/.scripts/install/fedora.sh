@@ -21,6 +21,7 @@ install-desktop() {
     install-rust
     install-python-tools
     install-zed
+    install-neovim
     install-starship
 
     ## Theme
