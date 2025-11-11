@@ -26,8 +26,8 @@ set timeoutlen=400
 set whichwrap+=<,>,h,l,[,]
 
 " Indentation & Folding
-set autoindent             " Auto-indent new lines
-set foldmethod=indent      " Folding based on indentation
+set autoindent
+set foldmethod=indent
 " Use za to toggle folds, zR to open all folds
 
 " ---------------------
@@ -46,64 +46,64 @@ let g:sneak#streak = 1
 " Line Movement (Move Lines Up/Down)
 " Works in both Normal and Visual modes
 " ==============================
-nnoremap <C-j> editor.action.moveLinesDownAction   " Move current line down
-nnoremap <C-k> editor.action.moveLinesUpAction     " Move current line up
-vnoremap <C-j> editor.action.moveLinesDownAction   " Move selected lines down
-vnoremap <C-k> editor.action.moveLinesUpAction     " Move selected lines up
+nnoremap <C-j> editor.action.moveLinesDownAction
+nnoremap <C-k> editor.action.moveLinesUpAction
+vnoremap <C-j> editor.action.moveLinesDownAction
+vnoremap <C-k> editor.action.moveLinesUpAction
 
 " ==============================
 " Replace Selection Without Yanking
 " ==============================
-xnoremap <leader>p "_dP
+vnoremap <leader>p "_dP
 " Replace visual selection with default register content without overwriting it
 
 " ==============================
 " Search Highlight & Redraw
 " ==============================
-nnoremap <C-L> :nohl<CR><C-L>  " Clear search highlight and redraw
-nnoremap n nzzzv               " Center cursor after search next
-nnoremap N Nzzzv               " Center cursor after search previous
+nnoremap <C-L> :nohl<CR><C-L>
+nnoremap n nzzzv
+nnoremap N Nzzzv
 
 " ==============================
 " Action Markers
 " ==============================
-nnoremap [d editor.action.marker.prev  " Go to previous action marker
-nnoremap ]d editor.action.marker.next  " Go to next action marker
+nnoremap [d editor.action.marker.prev
+nnoremap ]d editor.action.marker.next
 
 " ==============================
 " Search / Telescope-style Navigation
 " ==============================
-nnoremap <leader>ff workbench.action.quickOpen        " Fuzzy find files
-nnoremap <leader>fr workbench.action.openRecent       " Recent files
-nnoremap <leader>sg workbench.action.findInFiles      " Search text in files
-nnoremap <leader>/ actions.find                       " Find command
-nnoremap g/ workbench.action.quickTextSearch          " Quick text search
-nnoremap <leader>e workbench.action.problems.focus    " Show problems
+nnoremap <leader>ff workbench.action.quickOpen
+nnoremap <leader>fr workbench.action.openRecent
+nnoremap <leader>sg workbench.action.findInFiles
+nnoremap <leader>/ actions.find
+nnoremap g/ workbench.action.quickTextSearch
+nnoremap <leader>e workbench.action.problems.focus
 
 " ==============================
 " LSP / Language Features (Zed-style mappings)
 " ==============================
 " ---- Go To / Peek ----
-nnoremap gd editor.action.revealDefinition          " Go to definition
-nnoremap gD editor.action.peekDeclaration           " Go to declaration (peek)
-nnoremap gy editor.action.goToTypeDefinition        " Go to type definition
-nnoremap gI editor.action.goToImplementation        " Go to implementation
-nnoremap gA editor.action.goToReferences            " Go to all references
-nnoremap gs workbench.action.gotoSymbol             " Find symbol in current file
-nnoremap gS workbench.action.showAllSymbols         " Find symbol in entire project
+nnoremap gd editor.action.revealDefinition
+nnoremap gD editor.action.peekDeclaration
+nnoremap gy editor.action.goToTypeDefinition
+nnoremap gI editor.action.goToImplementation
+nnoremap gA editor.action.goToReferences
+nnoremap gs workbench.action.gotoSymbol
+nnoremap gS workbench.action.showAllSymbols
 
 " ---- Diagnostics ----
-nnoremap ]d editor.action.marker.next               " Go to next diagnostic
-nnoremap [d editor.action.marker.prev               " Go to previous diagnostic
+nnoremap ]d editor.action.marker.next
+nnoremap [d editor.action.marker.prev
 
 " ---- Hover / Code Actions ----
-nnoremap gh editor.action.showHover                 " Show inline error / hover info
-nnoremap g. editor.action.quickFix                  " Open code actions menu
+nnoremap gh editor.action.showHover
+nnoremap g. editor.action.quickFix
 
 " ---- Rename / Format ----
-nnoremap cd editor.action.rename                    " Rename symbol
-nnoremap <leader>fd editor.action.formatDocument     " Format document
-vnoremap <leader>fd editor.action.formatDocument     " Format selection in visual mode
+nnoremap cd editor.action.rename
+nnoremap <leader>fd editor.action.formatDocument
+vnoremap <leader>fd editor.action.formatDocument
 
 " ==============================
 " Multi-Cursor / Find & Select (Zed-style)
@@ -129,7 +129,7 @@ vnoremap ga editor.action.selectHighlights
 " ==============================
 " Treesitter / Smart Select
 " ==============================
-nnoremap [x editor.action.smartSelect.expand     " Expand selection
-xnoremap [x editor.action.smartSelect.expand     " Expand selection (visual mode)
-xnoremap ]x editor.action.smartSelect.shrink     " Shrink selection (visual mode)
+nnoremap [x editor.action.smartSelect.expand
+xnoremap [x editor.action.smartSelect.expand
+xnoremap ]x editor.action.smartSelect.shrink
 
