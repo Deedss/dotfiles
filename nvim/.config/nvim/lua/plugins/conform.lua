@@ -7,8 +7,9 @@ return { -- Autoformat
         formatters_by_ft = {
             c = { "clang-format" },
             cpp = { " clang-format" },
-            python = { "ruff" },
             cmake = { "cmake-format" },
+            python = { "ruff" },
+            rust = { "rustfmt", lsp_format = "fallback" },
         },
     }
 }
