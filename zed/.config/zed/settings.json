@@ -32,10 +32,5 @@
   },
   "outline_panel": {
     "dock": "right"
-  },
-  "languages": {
-    "Python": {
-      "language_servers": ["ty"]
-    }
   }
 }
