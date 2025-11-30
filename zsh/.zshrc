@@ -2,17 +2,17 @@
 : ${__zsh_cache_dir:=${XDG_CACHE_HOME:-$HOME/.cache}/zsh}
 [[ -d $__zsh_cache_dir ]] || mkdir -p $__zsh_cache_dir
 
+source ~/.zsh/variables.zsh
+source ~/.zsh/options.zsh
+source ~/.zsh/completions.zsh
+source ~/.zsh/keys.zsh
+
 # Clone antidote if necessary.
 [[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote.git $HOME/.antidote
 # Source/Load antidote
 ANTIDOTE_HOME=$HOME/.antidote/plugins
 source "$HOME/.antidote/antidote.zsh"
 antidote load
-
-source ~/.zsh/variables.zsh
-source ~/.zsh/options.zsh
-source ~/.zsh/completions.zsh
-source ~/.zsh/keys.zsh
 
 [[ ! -f ~/.scripts/sources ]] || source  ~/.scripts/sources
 
