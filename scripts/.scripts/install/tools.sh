@@ -35,13 +35,16 @@ install-python-tools() {
     uv tool install ty ruff
 }
 
+###############################################################################
+###### Cli Tools                                                        #######
+###############################################################################
+install-cli-tools() {
+    # Cargo binstall
+    curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 
-###############################################################################
-###### CURL                                                             #######
-###############################################################################
-install-starship() {
-    curl https://starship.rs/install.sh | sh -s -- -b ~/.local/bin
+    cargo binstall --no-confirm cargo-update starship yazi-fm yazi-cli
 }
+
 
 ###############################################################################
 ###### BAZEL                                                            #######

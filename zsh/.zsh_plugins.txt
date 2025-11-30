@@ -1,12 +1,9 @@
-# Add in Powerlevel10k
-# romkatv/powerlevel10
-
-# fzf plugin
-Aloxaf/fzf-tab kind:defer
-
-# oh-my-zsh plugins
-getantidote/use-omz
+# frameworks like oh-my-zsh are supported
+getantidote/use-omz        # handle OMZ dependencies
+ohmyzsh/ohmyzsh path:lib   # load OMZ's library
 ohmyzsh/ohmyzsh path:plugins/git kind:defer
+ohmyzsh/ohmyzsh path:plugins/rust kind:defer
+
 
 # Custom plugins in $ZSH_CUSTOM
 

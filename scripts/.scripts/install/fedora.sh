@@ -22,7 +22,7 @@ install-desktop() {
     install-python-tools
     install-zed
     install-neovim
-    install-starship
+    install-cli-tools
 
     ## Theme
     install-arc-theme
