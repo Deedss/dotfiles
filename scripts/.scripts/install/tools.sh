@@ -42,7 +42,7 @@ install-cli-tools() {
     # Cargo binstall
     curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
 
-    cargo binstall --no-confirm cargo-update starship yazi-fm yazi-cli
+    cargo binstall --no-confirm cargo-update starship yazi-fm yazi-cli watchexec-cli
 }
 
 
