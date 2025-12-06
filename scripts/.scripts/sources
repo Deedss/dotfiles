@@ -38,7 +38,7 @@ export DOCKER_HOST=unix:///run/user/$UID/podman/podman.sock
 source "$HOME/.scripts/aliases"
 source "$HOME/.scripts/commands"
 source "$HOME/.scripts/updates"
-source "$HOME/.scripts/fzf_commands"
+source "$HOME/.scripts/fzf"
 
 # Rust
 source "$HOME/.cargo/env"
