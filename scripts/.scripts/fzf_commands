@@ -1,6 +1,29 @@
 #!/bin/bash
 
-export FZF_DEFAULT_OPTS="-m --border --height=80%"
+export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
+export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
+export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down"
+
+## Catpuccin Macchiato
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
+  --color=bg+:#363a4f \
+  --color=bg:#24273a \
+  --color=border:#8aadf4 \
+  --color=fg:#cad3f5 \
+  --color=gutter:#24273a \
+  --color=header:#f5a97f \
+  --color=hl+:#8aadf4 \
+  --color=hl:#8aadf4 \
+  --color=info:#a5adcb \
+  --color=label:#a5adcb \
+  --color=marker:#c6a0f6 \
+  --color=pointer:#c6a0f6 \
+  --color=prompt:#8aadf4 \
+  --color=query:#cad3f5:regular \
+  --color=scrollbar:#8aadf4 \
+  --color=separator:#f5a97f \
+  --color=spinner:#c6a0f6 \
+"
 
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
@@ -27,10 +50,6 @@ git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  
               xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
               {}
 FZF-EOF" --preview-window=right:60%
-}
-
-tl() {
-  tldr --list | fzf --preview 'tldr {} --color always' | xargs tldr
 }
 
 # fkill - kill process

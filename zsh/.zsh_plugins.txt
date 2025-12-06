@@ -6,6 +6,7 @@ ohmyzsh/ohmyzsh path:plugins/rust kind:defer
 
 
 # Custom plugins in $ZSH_CUSTOM
+Aloxaf/fzf-tab
 
 # Add in zsh plugins
 zsh-users/zsh-syntax-highlighting kind:defer
