@@ -4,6 +4,7 @@ ohmyzsh/ohmyzsh path:lib   # load OMZ's library
 ohmyzsh/ohmyzsh path:plugins/git kind:defer
 ohmyzsh/ohmyzsh path:plugins/rust kind:defer
 
+
 # Custom plugins in $ZSH_CUSTOM
 Aloxaf/fzf-tab
 

@@ -1,0 +1,74 @@
+#!/bin/bash
+
+export FZF_DEFAULT_COMMAND="rg --files --follow --hidden --glob '!.git'"
+export FZF_DEFAULT_OPTS="--highlight-line --info=inline-right --ansi --layout=reverse --border=none"
+export FZF_CTRL_T_OPTS="--preview='less {}' --height=100% --bind shift-up:preview-page-up,shift-down:preview-page-down"
+
+## Catpuccin Macchiato
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
+  --color=bg+:#363a4f \
+  --color=bg:#24273a \
+  --color=border:#8aadf4 \
+  --color=fg:#cad3f5 \
+  --color=gutter:#24273a \
+  --color=header:#f5a97f \
+  --color=hl+:#8aadf4 \
+  --color=hl:#8aadf4 \
+  --color=info:#a5adcb \
+  --color=label:#a5adcb \
+  --color=marker:#c6a0f6 \
+  --color=pointer:#c6a0f6 \
+  --color=prompt:#8aadf4 \
+  --color=query:#cad3f5:regular \
+  --color=scrollbar:#8aadf4 \
+  --color=separator:#f5a97f \
+  --color=spinner:#c6a0f6 \
+"
+
+# fe [FUZZY PATTERN] - Open the selected file with the default editor
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fe() {
+  IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
+  [[ -n "$files" ]] && ${EDITOR:-nvim} "${files[@]}"
+}
+
+# using ripgrep combined with preview
+# find-in-file - usage: fif <searchTerm>
+fif() {
+  if [ ! "$#" -gt 0 ]; then echo "Need a string to search for!"; return 1; fi
+  rg --files-with-matches --no-messages "$1" | fzf --preview "highlight -O ansi -l {} 2> /dev/null | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1' || rg --ignore-case --pretty --context 10 '$1' {}"
+}
+
+# fshow - git commit browser
+fshow() {
+git log --graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"  | \
+ fzf --ansi --no-sort --reverse --tiebreak=index --preview \
+ 'f() { set -- $(echo -- "$@" | grep -o "[a-f0-9]\{7\}"); [ $# -eq 0 ] || git show --color=always $1 ; }; f {}' \
+ --bind "alt-j:preview-down,alt-k:preview-up,ctrl-m:execute:
+              (grep -o '[a-f0-9]\{7\}' | head -1 |
+              xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
+              {}
+FZF-EOF" --preview-window=right:60%
+}
+
+# fkill - kill process
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+
+## Use fzf with zoxide
+fz() {
+  local dir=$(
+    zoxide query --list --score |
+    fzf --height 40% --layout reverse --info inline \
+        --nth 2.. --tac --no-sort --query "$*" \
+        --bind 'enter:become:echo {2..}'
+  ) && cd "$dir"
+}

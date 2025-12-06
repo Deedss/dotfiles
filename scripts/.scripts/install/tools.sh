@@ -41,11 +41,8 @@ install-python-tools() {
 install-cli-tools() {
     # Cargo binstall
     curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
-    cargo binstall --no-confirm cargo-update starship yazi-fm yazi-cli watchexec-cli
 
-    # Github App Installer https://github.com/get-gah/gah
-    bash -c "$(curl -fsSL https://raw.githubusercontent.com/get-gah/gah/refs/heads/master/tools/install.sh)"
-    gah install lazygit --unattended
+    cargo binstall --no-confirm cargo-update starship yazi-fm yazi-cli watchexec-cli
 }
 
 
