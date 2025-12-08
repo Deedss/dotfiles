@@ -1,10 +1,7 @@
 {
     "[cpp]": {
-        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+        "editor.defaultFormatter": "xaver.clang-format"
     },
-    "C_Cpp.copilotHover": "disabled",
-    "C_Cpp.inlayHints.parameterNames.hideLeadingUnderscores": false,
-    "C_Cpp.intelliSenseEngine": "disabled",
     "chat.agent.enabled": false,
     "chat.commandCenter.enabled": false,
     "chat.disableAIFeatures": true,
@@ -18,9 +15,10 @@
         "--header-insertion=never"
     ],
     "clangd.onConfigChanged.forceEnable": true,
-    "cmake.configureOnEdit": false,
     // Cmake
+    "cmake.configureOnEdit": false,
     "cmake.configureOnOpen": false,
+    "cmake.ctest.debugLaunchTarget": "Launch",
     // "cmake.copyCompileCommands": "${sourceDirectory}",
     "cmake.ctestArgs": [
         "--extra-verbose"
@@ -36,8 +34,7 @@
     "dev.containers.dockerPath": "podman",
     "editor.cursorSurroundingLines": 8,
     "editor.experimental.treeSitterTelemetry": true,
-    "editor.fontFamily": "JetBrains Mono",
-    "editor.fontLigatures": true,
+    "editor.fontFamily": "IBM Plex Mono",
     "editor.fontSize": 11,
     "editor.formatOnPaste": true,
     "editor.inlayHints.enabled": "on",
@@ -59,13 +56,15 @@
     "keyboard.dispatch": "keyCode",
     "Lua.runtime.version": "Lua 5.1",
     "markdown.preview.fontSize": 11,
-    "python.languageServer": "None",
     "security.workspace.trust.untrustedFiles": "open",
     "telemetry.feedback.enabled": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.fontSize": 11,
     "terminal.integrated.persistentSessionScrollback": 10000,
     "terminal.integrated.scrollback": 10000,
+    "ty.path": [
+        "~/.local/bin/ty"
+    ],
     "vim.autoindent": true,
     "vim.foldfix": true,
     "vim.handleKeys": {
@@ -144,8 +143,11 @@
     "window.menuBarVisibility": "toggle",
     "window.restoreWindows": "none",
     "window.titleBarStyle": "native",
-    "workbench.colorTheme": "Catppuccin Macchiato",
     "workbench.editor.enablePreview": false,
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.sideBar.location": "right"
+    "workbench.sideBar.location": "right",
+    "rust-analyzer.completion.fullFunctionSignatures.enable": true,
+    "rust-analyzer.inlayHints.closureCaptureHints.enable": true,
+    "debug.terminal.clearBeforeReusing": true,
+    "workbench.colorTheme": "Catppuccin Mocha"
 }

@@ -52,10 +52,5 @@
   {
     "key": "ctrl+n",
     "command": "-workbench.action.files.newUntitledFile"
-  },
-  {
-    "key": "escape",
-    "command": "workbench.action.toggleSidebarVisibility",
-    "when": "sideBarFocus"
   }
 ]

@@ -7,6 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "inlay_hints": {
+    "show_background": true,
+    "enabled": true
+  },
   "icon_theme": "Catppuccin Macchiato",
   "buffer_line_height": "comfortable",
   "base_keymap": "VSCode",
@@ -18,7 +22,7 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Macchiato - No Italics"
+    "dark": "Catppuccin Mocha"
   },
   "project_panel": {
     "dock": "right"
