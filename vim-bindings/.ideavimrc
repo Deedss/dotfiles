@@ -1,3 +1,4 @@
+
 " ==============================
 " IdeaVim Configuration
 " ==============================
@@ -5,134 +6,174 @@
 " ---------------------
 " Leader Key
 " ---------------------
+" Use Space as leader key
 let mapleader=' '
 let maplocalleader=' '
 
 " ---------------------
 " Generic Vim Settings
 " ---------------------
-set scrolloff=8             " Keep 8 lines above/below cursor
-set visualbell              " Use visual bell instead of beep
-set ignorecase              " Case-insensitive search
-set smartcase               " Unless uppercase used
-set timeoutlen=400          " Timeout for mapped key sequences
-set whichwrap+=<,>,h,l,[,]  " Allow cursor wrapping
-set clipboard+=unnamedplus  " Use system clipboard (handled automatically in IdeaVim)
-set hlsearch                " Highlight search matches
-set incsearch               " Incremental search
-set foldmethod=indent       " Folding based on indentation
-set autoindent              " Auto-indent new lines
-set tabstop=4               " Tab width
-set shiftwidth=4            " Indent width
-set expandtab               " Use spaces instead of tabs
+" Keep 8 lines visible above and below the cursor
+set scrolloff=8
+" Enable case-insensitive search
+set ignorecase
+" Enable smart case (case-sensitive if uppercase used)
+set smartcase
+" Timeout length for mapped key sequences (ms)
+set timeoutlen=400
+" Allow cursor wrapping across lines (partially supported)
+set whichwrap+=<,>,h,l,[,]
+" Sync with system clipboard (IdeaVim does this automatically)
+set clipboard+=unnamedplus
+" Highlight search matches
+set hlsearch
+" Enable incremental search
+set incsearch
 
 " ---------------------
 " Plugins
 " ---------------------
+" Surround text objects easily
 Plug 'tpope/vim-surround'
+" Comment out code quickly
 Plug 'tpope/vim-commentary'
+" Highlight yanked text
 Plug 'machakann/vim-highlightedyank'
+" Quick two-character motions
 Plug 'justinmk/vim-sneak'
+" Argument text object
 Plug 'vim-scripts/argtextobj.vim'
+" Entire file text object
 Plug 'kana/vim-textobj-entire'
+" Replace with register contents
 Plug 'vim-scripts/ReplaceWithRegister'
 
 " ---------------------
 " Idea-specific Settings
 " ---------------------
+" Use IntelliJ-style line joining
 set ideajoin
+" Use gray IdeaVim status icon
 set ideastatusicon=gray
+" Keep refactor preview mode
 set idearefactormode=keep
 
 " ---------------------
 " Motion / Navigation
 " ---------------------
-" Move to beginning/end of line
+" Move to beginning of line
 nmap H ^
-nmap L $
 vmap H ^
+" Move to end of line
+nmap L $
 vmap L $
-
-" Move selected text up/down (visual mode)
+" Move selected text down
 vmap J :m '>+1<CR>gv=gv
+" Move selected text up
 vmap K :m '<-2<CR>gv=gv
 
 " ---------------------
 " Replace Selection Without Yanking
 " ---------------------
+" Paste over selection without overwriting register
 vnoremap <leader>p "_dP
 
 " ---------------------
 " Yank to System Clipboard
 " ---------------------
+" Yank to system clipboard
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
+" Yank line to system clipboard
 nnoremap <leader>Y "+Y
 
 " ---------------------
 " Search Highlight & Redraw
 " ---------------------
+" Clear search highlights and redraw screen
 nnoremap <C-L> :nohlsearch<CR><C-L>
+" Center search results (next)
 nnoremap n nzzzv
+" Center search results (previous)
 nnoremap N Nzzzv
 
 " ---------------------
 " Action Markers / Diagnostics
 " ---------------------
-nmap ]d <Action>(GotoNextError)         " Go to next diagnostic
-nmap [d <Action>(GotoPreviousError)     " Go to previous diagnostic
+" Go to next diagnostic
+nmap ]d <Action>(GotoNextError)
+" Go to previous diagnostic
+nmap [d <Action>(GotoPreviousError)
 
 " ---------------------
-" Quick Open / Search (Telescope-like)
+" Quick Open / Search (IDE-native)
 " ---------------------
-nmap <leader>ff <Action>(GotoFile)              " Fuzzy find files
-nmap <leader>fr <Action>(RecentFiles)           " Recent files
-nmap <leader>sg <Action>(FindInPath)            " Search text in files
-nmap <leader>/ <Action>(Find)                   " Command find
-nmap g/ <Action>(FindInPath)                    " Quick text search
-nmap <leader>e <Action>(ShowProblems)           " Show problems
-nmap <leader>sd <Action>(ShowErrorDescription)  " Show error details
+" Fuzzy find files
+nmap <leader>ff <Action>(GotoFile)
+" Open recent files
+nmap <leader>fr <Action>(RecentFiles)
+" Search text in project
+nmap <leader>sg <Action>(FindInPath)
+" Find command
+nmap <leader>/ <Action>(Find)
+" Quick text search
+nmap g/ <Action>(FindInPath)
+" Show problems window
+nmap <leader>e <Action>(ShowProblems)
+" Show error details
+nmap <leader>sd <Action>(ShowErrorDescription)
 
 " ---------------------
 " LSP / Language Features (Zed-style)
 " ---------------------
-nmap gd <Action>(GotoDeclaration)             " Go to definition
-nmap gD <Action>(QuickDefinition)             " Go to declaration (peek)
-nmap gy <Action>(GotoTypeDeclaration)         " Go to type definition
-nmap gI <Action>(GotoImplementation)          " Go to implementation
-nmap gA <Action>(ShowUsages)                  " Go to all references
-nmap gs <Action>(FileStructurePopup)          " Find symbol in current file
-nmap gS <Action>(GotoSymbol)                  " Find symbol in entire project
-nmap gh <Action>(QuickJavaDoc)                " Show hover / inline doc
-nmap g. <Action>(ShowIntentionActions)        " Code actions menu
-nmap cd <Action>(RenameElement)               " Rename symbol
-nmap <leader>fd <Action>(ReformatCode)        " Format document
-vmap <leader>fd <Action>(ReformatCode)        " Format selection
+" Go to definition
+nmap gd <Action>(GotoDeclaration)
+" Peek declaration
+nmap gD <Action>(QuickDefinition)
+" Go to type definition
+nmap gy <Action>(GotoTypeDeclaration)
+" Go to implementation
+nmap gI <Action>(GotoImplementation)
+" Show all usages
+nmap gA <Action>(ShowUsages)
+" File structure popup
+nmap gs <Action>(FileStructurePopup)
+" Symbol search (project-wide)
+nmap gS <Action>(GotoSymbol)
+" Show documentation / hover
+nmap gh <Action>(QuickJavaDoc)
+" Show intention actions / code actions
+nmap g. <Action>(ShowIntentionActions)
+" Rename symbol
+nmap cd <Action>(RenameElement)
+" Format document / selection (IDE formatter)
+nmap <leader>fd <Action>(ReformatCode)
+vmap <leader>fd <Action>(ReformatCode)
 
 " ---------------------
 " Multi-Cursor / Selection (Zed-style)
 " ---------------------
-" Add a cursor selecting the next copy of the current word
+" Select next occurrence
 nmap gl <Action>(SelectNextOccurrence)
 vmap gl <Action>(SelectNextOccurrence)
-
-" Add a cursor selecting the previous copy of the current word
+" Select previous occurrence
 nmap gL <Action>(SelectPreviousOccurrence)
 vmap gL <Action>(SelectPreviousOccurrence)
-
-" Skip latest word selection, and add next
+" Skip current selection and select next
 vmap g> <Action>(SelectNextOccurrenceExcludingCurrent)
-
-" Skip latest word selection, and add previous
+" Skip current selection and select previous
 vmap g< <Action>(SelectPreviousOccurrenceExcludingCurrent)
-
-" Add a visual selection for every copy of the current word
+" Select all occurrences
 vmap ga <Action>(SelectAllOccurrences)
 
 " ---------------------
 " Smart / Structural Selection
 " ---------------------
-xmap [x <Action>(EditorSelectWord)        " Expand selection
-xmap ]x <Action>(EditorUnSelectWord)      " Shrink selection
-nmap [f <Action>(MethodUp)                " Go to previous function
-nmap ]f <Action>(MethodDown)              " Go to next function
+" Expand selection
+xmap [x <Action>(EditorSelectWord)
+" Shrink selection
+xmap ]x <Action>(EditorUnSelectWord)
+" Go to previous function
+nmap [f <Action>(MethodUp)
+" Go to next function
+nmap ]f <Action>(MethodDown)
