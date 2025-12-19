@@ -1,24 +1,30 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ###############################################
-# FZF Defaults
+# FZF Commands
 ###############################################
+# Files (CTRL-T, default)
+export FZF_DEFAULT_COMMAND="rg --files --no-ignore-vcs \
+  --glob '!*/{.git,node_modules,.cov-idir,jacoco-files}/**'"
 
-# Faster, safer file listing with ripgrep:
-# - Hide ALL .git directories everywhere
-# - Follow symlinks
-# - Include hidden files except ignored ones
-export FZF_DEFAULT_COMMAND="rg --files --follow --hidden \
-  --glob '!.git/**'"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# General UI defaults
-export FZF_DEFAULT_OPTS="
-  --ansi
-  --highlight-line
-  --info=inline-right
-  --layout=reverse
-  --border=none
-"
+# Directories (ALT-C)
+export FZF_ALT_C_COMMAND="fd --type d --no-ignore-vcs --strip-cwd-prefix \
+  --exclude node_modules \
+  --exclude .git \
+  --exclude .cov-idir \
+  --exclude jacoco-files"
+
+###############################################
+# FZF UI Defaults
+###############################################
+export FZF_DEFAULT_OPTS="\
+--highlight-line \
+--info=inline-right \
+--layout=reverse \
+--border=none"
+
 # # Catppuccin Macchiato Theme https://github.com/catppuccin/fzf/blob/main/themes/catppuccin-fzf-macchiato.sh
 # export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
 # --color=bg+:#363A4F,bg:#24273A,spinner:#F4DBD6,hl:#ED8796 \
@@ -28,7 +34,7 @@ export FZF_DEFAULT_OPTS="
 # --color=border:#6E738D,label:#CAD3F5"
 
 # Catppuccin Macchiato Theme https://github.com/catppuccin/fzf/blob/main/themes/catppuccin-fzf-mocha.sh
-export FZF_DEFAULT_OPTS=" \
+export FZF_DEFAULT_OPTS="${FZF_DEFAULT_OPTS} \
 --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
 --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
@@ -37,11 +43,9 @@ export FZF_DEFAULT_OPTS=" \
 
 # CTRL-T (file picker)
 export FZF_CTRL_T_OPTS="
-  --preview='cat --style=plain --color=always {}'
+  --preview='cat {}' \
   --bind shift-up:preview-page-up,shift-down:preview-page-down
-  --height=100%
 "
-
 ###############################################
 # fe — Open selected files in your $EDITOR
 ###############################################
@@ -67,7 +71,7 @@ fif() {
 
   rg --files-with-matches --no-messages "$1" \
     | fzf --ansi --preview "
-        cat --color=always --style=numbers --line-range=:500 {} \
+        cat {} \
         | rg --colors 'match:bg:yellow' --ignore-case --pretty --context 10 '$1'
       "
 }
