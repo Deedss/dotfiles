@@ -1,6 +1,33 @@
 local wezterm = require("wezterm")
 local config = {}
 
+local tabline = wezterm.plugin.require("https://github.com/michaelbrusegard/tabline.wez")
+tabline.setup({
+	sections = {
+		tabline_a = { nil },
+		tabline_b = { nil },
+		tabline_c = { nil },
+		tab_active = {
+			{ 'parent',  padding = 0,                      max_length = 8 },
+			'/',
+			{ 'cwd',     padding = { left = 0, right = 1 } },
+			{ 'process', icons_enabled = false,            padding = { left = 1, right = 1 } },
+		},
+		tab_inactive = {
+			{ 'parent',  padding = 0,                      max_length = 8 },
+			'/',
+			{ 'cwd',     padding = { left = 0, right = 1 } },
+			{ 'process', icons_enabled = false,            padding = { left = 1, right = 1 } },
+			{ 'output' },
+		},
+		tabline_x = { 'ram', 'cpu' },
+		tabline_y = { nil },
+		tabline_z = { 'domain' },
+	},
+	extensions = {},
+})
+tabline.apply_to_config(config)
+
 -- disable updates
 config.check_for_updates = false
 
@@ -12,7 +39,7 @@ config.initial_rows = 30
 config.initial_cols = 110
 
 -- UI
-config.use_fancy_tab_bar = false
+config.window_decorations = "NONE"
 config.tab_bar_at_bottom = true
 config.font_size = 9.0
 
@@ -26,12 +53,12 @@ config.max_fps = 120
 config.animation_fps = 120
 
 config.window_padding = {
-  left = 4,
-  right = 4,
-  top = 4,
-  bottom = 4,
+	left = 4,
+	right = 4,
+	top = 4,
+	bottom = 4,
 }
-config.color_scheme = "Catppuccin Macchiato"
+config.color_scheme = "Catppuccin Mocha"
 
 -----------------------------------------
 -------- KEY MAPPINGS -------------------
@@ -48,47 +75,6 @@ config.keys = {
 		key = "(",
 		mods = "CTRL|SHIFT",
 		action = wezterm.action.SplitHorizontal,
-	},
-	-- Panel navigation
-	{
-		key = "H",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.ActivatePaneDirection("Left"),
-	},
-	{
-		key = "L",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.ActivatePaneDirection("Right"),
-	},
-	{
-		key = "K",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.ActivatePaneDirection("Up"),
-	},
-	{
-		key = "J",
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.ActivatePaneDirection("Down"),
-	},
-	{
-		key = "H",
-		mods = "CTRL|SHIFT|ALT",
-		action = wezterm.action.AdjustPaneSize{ "Left", 2 },
-	},
-	{
-		key = "L",
-		mods = "CTRL|SHIFT|ALT",
-		action = wezterm.action.AdjustPaneSize{ "Right", 2 },
-	},
-	{
-		key = "K",
-		mods = "CTRL|SHIFT|ALT",
-		action = wezterm.action.AdjustPaneSize{ "Up", 2 },
-	},
-	{
-		key = "J",
-		mods = "CTRL|SHIFT|ALT",
-		action = wezterm.action.AdjustPaneSize{ "Down", 2 },
 	},
 }
 
