@@ -7,7 +7,7 @@ install-rust-lsp() {
 
 install-cpp-lsp() {
   ## Clangd lsp
-  sudo dnf install clang-tools-extra
+  doas dnf install clang-tools-extra
   ## Debug tool
   local API_URL="https://api.github.com/repos/vadimcn/codelldb/releases/latest"
   local INSTALL_DIR="$HOME/Software/language-servers/codelldb"

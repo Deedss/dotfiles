@@ -20,8 +20,8 @@ install-zed() {
 
 install-neovim() {
     latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
-    sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
-    sudo chmod 755 /usr/local/bin/nvim
+    doas curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
+    doas chmod 755 /usr/local/bin/nvim
 }
 
 ###############################################################################
@@ -63,12 +63,12 @@ install-bazel() {
 ###############################################################################
 install-iwd() {
     echo "Install IWD for networking"
-    sudo dnf install -y iwd
+    doas dnf install -y iwd
 
-    echo -e "[device]\nwifi.backend=iwd\nwifi.iwd.autoconnect=yes" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf
-    echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
-    echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-76\n[Scan]\nDisablePeriodicScan=false" | sudo tee -a /etc/iwd/main.conf
-    sudo systemctl mask wpa_supplicant
+    echo -e "[device]\nwifi.backend=iwd\nwifi.iwd.autoconnect=yes" | doas tee /etc/NetworkManager/conf.d/10-iwd.conf
+    echo -e "[connection]\nwifi.powersave=2" | doas tee /etc/NetworkManager/conf.d/20-powersave.conf
+    echo -e "[General]\nRoamThreshold=-70\nRoamThreshold5G=-76\n[Scan]\nDisablePeriodicScan=false" | doas tee -a /etc/iwd/main.conf
+    doas systemctl mask wpa_supplicant
 }
 
 ###############################################################################
@@ -76,8 +76,8 @@ install-iwd() {
 ###############################################################################
 install-podman() {
     echo "Install podman and buildah"
-    sudo dnf install -y podman podman-compose podman-docker buildah distrobox
-    sudo touch /etc/containers/nodocker
+    doas dnf install -y podman podman-compose podman-docker buildah distrobox
+    doas touch /etc/containers/nodocker
 
     ###############################################################################
     ####### START PODMAN ROOTLESS                                           #######
@@ -91,7 +91,7 @@ install-podman() {
 ###############################################################################
 install-pythontools() {
     echo "Install Python-Devel"
-    sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
+    doas dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
 }
 
 ##############################################################################
@@ -100,15 +100,15 @@ install-pythontools() {
 fix-config() {
     echo "Setup UDEV rules"
     export USER_GID=$(id -g)
-    sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
-    sudo --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/92-viia.rules && udevadm control --reload && udevadm trigger'
+    doas --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", ATTRS{serial}==\"*vial:f64c2b3c*\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/99-vial.rules && udevadm control --reload && udevadm trigger'
+    doas --preserve-env=USER_GID sh -c 'echo "KERNEL==\"hidraw*\", SUBSYSTEM==\"hidraw\", MODE=\"0660\", GROUP=\"$USER_GID\", TAG+=\"uaccess\", TAG+=\"udev-acl\"" > /etc/udev/rules.d/92-viia.rules && udevadm control --reload && udevadm trigger'
 
     echo "Add power support to bluetooth"
-    sudo sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
+    doas sed -i 's/# Experimental = false/Experimental = true/' /etc/bluetooth/main.conf
 
-    echo -e "[connection]\nwifi.powersave=2" | sudo tee /etc/NetworkManager/conf.d/20-powersave.conf
-    echo -e 'bgscan="simple:30:-70:3600"' | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
-    sudo systemctl restart NetworkManager
-    sudo systemctl restart wpa_supplicant
+    echo -e "[connection]\nwifi.powersave=2" | doas tee /etc/NetworkManager/conf.d/20-powersave.conf
+    echo -e 'bgscan="simple:30:-70:3600"' | doas tee -a /etc/wpa_supplicant/wpa_supplicant.conf
+    doas systemctl restart NetworkManager
+    doas systemctl restart wpa_supplicant
     sleep 10
 }

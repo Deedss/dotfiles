@@ -4,7 +4,7 @@ update() {
   echo '-------------------------'
   echo '-------- UPDATE ---------'
   echo '-------------------------'
-  sudo dnf update --refresh
+  doas dnf update --refresh
   echo ''
 
   echo '-------------------------'
@@ -36,8 +36,8 @@ __update-neovim() {
   local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
   latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq --raw-output '.tag_name')
   if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
-    sudo curl --location https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage --output /usr/local/bin/nvim
-    sudo chmod 755 /usr/local/bin/nvim
+    doas curl --location https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage --output /usr/local/bin/nvim
+    doas chmod 755 /usr/local/bin/nvim
   else
     echo 'Already up to date'
   fi

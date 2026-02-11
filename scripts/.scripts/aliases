@@ -2,6 +2,10 @@
 
 ## Personal aliases
 alias chrome="flatpak run com.brave.Browser"
+
+alias sudo='doas'
+alias sudoedit='doas nvim'
+
 alias fp='fzf --preview "bat -n --color=always {}"'
 alias fn='nvim "${fp}"'
 alias ls='lsd'

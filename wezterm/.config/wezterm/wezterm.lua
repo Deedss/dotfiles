@@ -58,7 +58,8 @@ config.window_padding = {
 	top = 4,
 	bottom = 4,
 }
-config.color_scheme = "Catppuccin Mocha"
+-- config.color_scheme = "Catppuccin Mocha"
+config.color_scheme = "Catppuccin Macchiato"
 
 -----------------------------------------
 -------- KEY MAPPINGS -------------------
