@@ -63,16 +63,16 @@ clean-desktop() {
 
 setup-doas() {
     sudo dnf install -y opendoas
-    echo "permit persist :wheel\n" | sudo tee -a /etc/dnf/dnf.conf
+    echo -e "permit persist :wheel\n" | sudo tee -a /etc/doas.conf
 }
 
 ###############################################################################
 ##### SETUP DNF                                                         #######
 ###############################################################################
 setup-dnf() {
-    echo "defaultyes=1" | doas tee -a /etc/dnf/dnf.conf
-    echo "deltarpm=0" | doas tee -a /etc/dnf/dnf.conf
-    echo "max_parallel_downloads=20" | doas tee -a /etc/dnf/dnf.conf
+    echo -e "defaultyes=1" | doas tee -a /etc/dnf/dnf.conf
+    echo -e "deltarpm=0" | doas tee -a /etc/dnf/dnf.conf
+    echo -e "max_parallel_downloads=20" | doas tee -a /etc/dnf/dnf.conf
 }
 
 ###############################################################################
