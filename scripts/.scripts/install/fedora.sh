@@ -24,6 +24,7 @@ install-desktop() {
     install-zed
     install-neovim
     install-cli-tools
+    install-kitty
 
     ## Theme
     install-arc-theme
@@ -148,7 +149,7 @@ install-default-packages() {
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard nodejs \
         lsd bat zoxide fd-find procs ripgrep fzf \
-        kcalc okular gwenview kitty plasma-milou vim
+        kcalc okular gwenview plasma-milou vim
 
     ### Set default shell
     doas chsh -s /bin/zsh $USER

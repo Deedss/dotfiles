@@ -15,6 +15,7 @@ update() {
 
   __update-dev-tools
   __update-neovim
+  __update-kitty
 }
 
 __update-dev-tools() {
@@ -38,6 +39,20 @@ __update-neovim() {
   if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
     doas curl --location https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage --output /usr/local/bin/nvim
     doas chmod 755 /usr/local/bin/nvim
+  else
+    echo 'Already up to date'
+  fi
+  echo ''
+}
+
+__update-kitty() {
+  echo '-------------------------'
+  echo '---------- KITTY --------'
+  echo '-------------------------'
+  local_kitty_version=$(kitty --version | awk '{print $2}')
+  latest_kitty_version=$(curl -sL https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name' | sed 's/^v//')
+  if [[ "$local_kitty_version" != "$latest_kitty_version" ]]; then
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin launch=n
   else
     echo 'Already up to date'
   fi
