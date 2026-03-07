@@ -11,7 +11,6 @@
     "show_background": true,
     "enabled": true,
   },
-  "icon_theme": "Catppuccin Macchiato",
   "buffer_line_height": "comfortable",
   "base_keymap": "VSCode",
   "vim_mode": true,
@@ -29,5 +28,10 @@
   },
   "outline_panel": {
     "dock": "right",
+  },
+  "languages": {
+    "Python": {
+      "language_servers": ["ty", "!basedpyright"],
+    },
   },
 }
