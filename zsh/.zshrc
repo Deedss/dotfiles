@@ -112,7 +112,7 @@ bindkey '^[[3~' delete-char
 #########################################################################
 # Custom Scripting
 #########################################################################
-
+eval "$(/home/gertjan/.local/bin/mise activate zsh)"
 [[ -f ~/.scripts/sources ]] && source ~/.scripts/sources
 
 # Integrations

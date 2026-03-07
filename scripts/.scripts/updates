@@ -23,7 +23,9 @@ __update-dev-tools() {
   echo '------ DEV TOOLING ------'
   echo '-------------------------'
   rustup update
-  cargo install-update -a
+
+  mise self-update
+  mise upgrade
 
   uv self update
   uv tool upgrade --all
