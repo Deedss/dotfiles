@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+
+import argparse
+import re
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+
+def bold(text: str) -> None:
+    if sys.stdout.isatty():
+        print(f"\033[1m{text}\033[0m")
+    else:
+        print(text)
+
+
+def list_images(runtime: str) -> list[str]:
+    result = subprocess.run(
+        [runtime, "images", "--format", "{{.Repository}}:{{.Tag}}"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    return [line for line in result.stdout.splitlines() if line.strip()]
+
+
+def select_image() -> str:
+    all_images = list_images("podman")
+    if not all_images:
+        print("No images found. Please provide one with -i / --image.")
+        sys.exit(1)
+
+    matches = all_images
+
+    while True:
+        if len(matches) == 1:
+            confirm = input(
+                f"\nSingle match: {matches[0]}\nUse this image? [Y/n]: "
+            ).strip()
+            if confirm == "" or confirm.lower() == "y":
+                return matches[0]
+            matches = all_images  # declined — start over
+
+        if len(matches) < len(all_images):
+            print(f"\n{len(matches)} matches:")
+            for img in matches:
+                print(f"  - {img}")
+
+        term = input("\nFilter (regex/substring): ").strip()
+        if not term:
+            print("Filter cannot be empty. Please enter a search term.")
+            continue
+
+        narrowed = [img for img in matches if re.search(term, img, re.IGNORECASE)]
+        if not narrowed:
+            print(f"No matches for '{term}'. Try again.")
+            continue
+
+        matches = narrowed
+
+
+def derive_name(image: str) -> str:
+    parts = re.split(r"[/:]", image)
+    return f"{parts[-2]}_{parts[-1]}" if len(parts) >= 2 else parts[-1]
+
+
+def repo_root() -> Path | None:
+    result = subprocess.run(
+        ["git", "rev-parse", "--show-toplevel"],
+        capture_output=True,
+        text=True,
+    )
+    return Path(result.stdout.strip()) if result.returncode == 0 else None
+
+
+# ── Writers ───────────────────────────────────────────────────────────────────
+
+_CMAKE_OPTS = "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DENABLE_TESTING=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+
+CMAKE_XML = f"""\
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSharedSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="{_CMAKE_OPTS}" />
+      <configuration PROFILE_NAME="RelWithDebInfo" ENABLED="false" CONFIG_NAME="RelWithDebInfo" GENERATION_OPTIONS="{_CMAKE_OPTS}" />
+    </configurations>
+  </component>
+</project>
+"""
+
+
+def _default_containerfile(image: str) -> str:
+    return f"""\
+FROM {image}
+
+RUN if ! command -v microdnf 2>&1 /dev/null && command -v dnf 2>&1 /dev/null; then \\
+      dnf install -y microdnf; \\
+    fi
+
+RUN microdnf install --setopt=install_weak_deps=0 -y \\
+  git git-lfs gdb gdb-gdbserver gcc-c++ perf js-d3-flame-graph strace valgrind socat \\
+  curl unzip tar findutils grep xterm procps-ng firefox bash-completion \\
+  libXtst libXrender libXext freetype libXi mesa-libgbm libdrm libicu \\
+  && microdnf clean all \\
+  && rm -rf /var/cache/dnf
+"""
+
+
+def _default_devcontainer_json(name: str) -> str:
+    return f"""\
+{{
+    "name": "{name}",
+    "build": {{"dockerfile": "Dockerfile"}},
+    "capAdd": ["SYS_ADMIN", "SYS_PTRACE", "PERFMON"],
+    "runArgs": ["--net=host", "--pid=host", "--ipc=host"],
+    "privileged": true,
+    "securityOpt": ["label=disable"],
+    "mounts": [],
+    "containerEnv": {{}},
+    "workspaceMount": "src=${{localWorkspaceFolder}},dst=${{localWorkspaceFolder}},type=bind",
+    "workspaceFolder": "${{localWorkspaceFolder}}"
+}}
+"""
+
+
+def write_cmake_xml(idea_dir: Path) -> None:
+    cmake_xml = idea_dir / "cmake.xml"
+    if cmake_xml.exists():
+        return
+    cmake_xml.write_text(CMAKE_XML)
+
+
+def write_containerfile(dest: Path, image: str, custom: Path | None) -> None:
+    if custom:
+        shutil.copy(custom, dest)
+        print(f"Using custom Containerfile: {custom}")
+        return
+    dest.write_text(_default_containerfile(image))
+
+
+def write_devcontainer_json(dest: Path, name: str, custom: Path | None) -> None:
+    if custom:
+        shutil.copy(custom, dest)
+        print(f"Using custom devcontainer.json: {custom}")
+        return
+    dest.write_text(_default_devcontainer_json(name))
+
+
+# ── Entry point ───────────────────────────────────────────────────────────────
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Prepare a JetBrains development container.",
+        formatter_class=argparse.RawTextHelpFormatter,
+        epilog=(
+            "This script can be executed from any location in a git repository.\n"
+            "JetBrains supports multiple devcontainers per project; each gets a\n"
+            "unique name derived from the image reference."
+        ),
+    )
+    parser.add_argument(
+        "-i",
+        "--image",
+        metavar="IMAGE",
+        help="Use IMAGE directly, skipping interactive selection",
+    )
+    parser.add_argument(
+        "-c",
+        "--containerfile",
+        metavar="FILE",
+        type=Path,
+        help="Use FILE as the Dockerfile instead of the built-in default",
+    )
+    parser.add_argument(
+        "-j",
+        "--json",
+        metavar="FILE",
+        type=Path,
+        help="Use FILE as devcontainer.json instead of the built-in default",
+    )
+    return parser.parse_args()
+
+
+def main() -> None:
+    args = parse_args()
+
+    # Validate custom paths up front
+    if args.containerfile and not args.containerfile.is_file():
+        print(f"Error: Containerfile not found: {args.containerfile}")
+        sys.exit(1)
+    if args.json and not args.json.is_file():
+        print(f"Error: devcontainer.json not found: {args.json}")
+        sys.exit(1)
+
+    # Resolve working directory
+    root = repo_root()
+    if root:
+        import os
+
+        os.chdir(root)
+    else:
+        print(
+            f"[!] Not inside a git repository — .devcontainer will be created in {Path.cwd()}"
+        )
+
+    # Detect runtime and select image
+    image = args.image or select_image()
+    name = derive_name(image)
+
+    bold("Setting up a JetBrains devcontainer:")
+    bold(f"  - name:  {name}")
+    bold(f"  - image: {image}")
+
+    # Create directory structure
+    idea_dir = Path(".idea")
+    devcontainer_dir = Path(".devcontainer") / name
+    idea_dir.mkdir(exist_ok=True)
+    devcontainer_dir.mkdir(parents=True, exist_ok=True)
+
+    write_cmake_xml(idea_dir)
+    write_containerfile(devcontainer_dir / "Dockerfile", image, args.containerfile)
+    write_devcontainer_json(devcontainer_dir / "devcontainer.json", name, args.json)
+
+    print()
+    bold(f"[+] {Path.cwd() / devcontainer_dir / 'devcontainer.json'}")
+
+
+if __name__ == "__main__":
+    main()

@@ -117,5 +117,5 @@ function prm() {
 }
 # Select a podman image or images to remove
 function prmi() {
-  podman images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r podman rmi
+  podman images | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $3 }' | xargs -r podman rmi -f 
 }
