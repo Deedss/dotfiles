@@ -5,10 +5,12 @@ import re
 import shutil
 import subprocess
 import sys
+import os
 from pathlib import Path
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
 
 def bold(text: str) -> None:
     """Print text in bold if stdout is a TTY, otherwise print plainly.
@@ -33,7 +35,9 @@ def list_images(runtime: str) -> list[str]:
     """
     result = subprocess.run(
         [runtime, "images", "--format", "{{.Repository}}:{{.Tag}}"],
-        capture_output=True, text=True, check=True,
+        capture_output=True,
+        text=True,
+        check=True,
     )
     return [line for line in result.stdout.splitlines() if line.strip()]
 
@@ -56,7 +60,9 @@ def select_image() -> str:
 
     while True:
         if len(matches) == 1:
-            confirm = input(f"\nSingle match: {matches[0]}\nUse this image? [Y/n]: ").strip()
+            confirm = input(
+                f"\nSingle match: {matches[0]}\nUse this image? [Y/n]: "
+            ).strip()
             if confirm == "" or confirm.lower() == "y":
                 return matches[0]
             matches = all_images  # declined — start over
@@ -104,7 +110,8 @@ def repo_root() -> Path | None:
     """
     result = subprocess.run(
         ["git", "rev-parse", "--show-toplevel"],
-        capture_output=True, text=True,
+        capture_output=True,
+        text=True,
     )
     return Path(result.stdout.strip()) if result.returncode == 0 else None
 
@@ -227,6 +234,7 @@ def write_devcontainer_json(dest: Path, name: str, custom: Path | None) -> None:
 
 # ── Entry point ───────────────────────────────────────────────────────────────
 
+
 def parse_args() -> argparse.Namespace:
     """Parse and return command-line arguments."""
     parser = argparse.ArgumentParser(
@@ -238,9 +246,26 @@ def parse_args() -> argparse.Namespace:
             "unique name derived from the image reference."
         ),
     )
-    parser.add_argument("-i", "--image", metavar="IMAGE", help="Use IMAGE directly, skipping interactive selection")
-    parser.add_argument("-c", "--containerfile", metavar="FILE", type=Path, help="Use FILE as the Dockerfile instead of the built-in default")
-    parser.add_argument("-j", "--json", metavar="FILE", type=Path, help="Use FILE as devcontainer.json instead of the built-in default")
+    parser.add_argument(
+        "-i",
+        "--image",
+        metavar="IMAGE",
+        help="Use IMAGE directly, skipping interactive selection",
+    )
+    parser.add_argument(
+        "-c",
+        "--containerfile",
+        metavar="FILE",
+        type=Path,
+        help="Use FILE as the Dockerfile instead of the built-in default",
+    )
+    parser.add_argument(
+        "-j",
+        "--json",
+        metavar="FILE",
+        type=Path,
+        help="Use FILE as devcontainer.json instead of the built-in default",
+    )
     return parser.parse_args()
 
 
@@ -259,10 +284,11 @@ def main() -> None:
     # Resolve working directory
     root = repo_root()
     if root:
-        import os
         os.chdir(root)
     else:
-        print(f"[!] Not inside a git repository — .devcontainer will be created in {Path.cwd()}")
+        print(
+            f"[!] Not inside a git repository — .devcontainer will be created in {Path.cwd()}"
+        )
 
     # Detect runtime and select image
     image = args.image or select_image()
