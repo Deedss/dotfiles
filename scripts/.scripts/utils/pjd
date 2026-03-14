@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from this import d
 
 import argparse
 import re
@@ -118,9 +119,18 @@ def repo_root() -> Path | None:
 
 # ── Writers ───────────────────────────────────────────────────────────────────
 
-_CMAKE_OPTS = "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DENABLE_TESTING=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
 
-CMAKE_XML = f"""\
+def _default_cmake_xml() -> str:
+    """Render the built-in cmake.xml template.
+
+    Defines Debug and RelWithDebInfo configurations sharing a common set
+    of CMake generation options.
+
+    Returns:
+        cmake.xml contents as a string.
+    """
+    _CMAKE_OPTS = "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DENABLE_TESTING=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+    return f"""\
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CMakeSharedSettings">
@@ -199,7 +209,7 @@ def write_cmake_xml(idea_dir: Path) -> None:
     cmake_xml = idea_dir / "cmake.xml"
     if cmake_xml.exists():
         return
-    cmake_xml.write_text(CMAKE_XML)
+    cmake_xml.write_text(_default_cmake_xml())
 
 
 def write_containerfile(dest: Path, image: str, custom: Path | None) -> None:
