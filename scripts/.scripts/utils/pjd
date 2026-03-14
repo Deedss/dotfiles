@@ -1,27 +1,44 @@
 #!/usr/bin/env python3
 
 import argparse
+import logging
+import os
 import re
 import shutil
 import subprocess
 import sys
-import os
 from pathlib import Path
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
+log = logging.getLogger(__name__)
+
+
+BOLD = 25  # Custom level above INFO (20), below WARNING (30)
+logging.addLevelName(BOLD, "BOLD")
+
+
+def _configure_logging() -> None:
+    """Configure a clean stdout logger with ANSI bold support for the BOLD level."""
+
+    class BoldFormatter(logging.Formatter):
+        def format(self, record: logging.LogRecord) -> str:
+            msg = super().format(record)
+            if record.levelno == BOLD:
+                return f"\033[1m{msg}\033[0m"
+            return msg
+
+    handler = logging.StreamHandler(sys.stdout)
+    handler.setFormatter(BoldFormatter("%(message)s"))
+    logging.basicConfig(level=logging.INFO, handlers=[handler])
 
 
 def bold(text: str) -> None:
-    """Print text in bold if stdout is a TTY, otherwise print plainly.
+    """Log text at the BOLD level, rendered in bold in the terminal.
 
     Args:
         text: The string to print.
     """
-    if sys.stdout.isatty():
-        print(f"\033[1m{text}\033[0m")
-    else:
-        print(text)
+    log.log(BOLD, text)
 
 
 def list_images(runtime: str) -> list[str]:
@@ -33,12 +50,24 @@ def list_images(runtime: str) -> list[str]:
     Returns:
         A list of image references in ``repository:tag`` format.
     """
-    result = subprocess.run(
-        [runtime, "images", "--format", "{{.Repository}}:{{.Tag}}"],
-        capture_output=True,
-        text=True,
-        check=True,
-    )
+    try:
+        result = subprocess.run(
+            [runtime, "images", "--format", "{{.Repository}}:{{.Tag}}"],
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except FileNotFoundError:
+        log.error("Error: '%s' not found in PATH.", runtime)
+        sys.exit(1)
+    except subprocess.CalledProcessError as e:
+        log.error(
+            "Error: '%s images' failed (exit %d):\n%s",
+            runtime,
+            e.returncode,
+            e.stderr.strip(),
+        )
+        sys.exit(1)
     return [line for line in result.stdout.splitlines() if line.strip()]
 
 
@@ -53,7 +82,7 @@ def select_image() -> str:
     """
     all_images = list_images("podman")
     if not all_images:
-        print("No images found. Please provide one with -i / --image.")
+        log.error("No images found. Please provide one with -i / --image.")
         sys.exit(1)
 
     matches = all_images
@@ -68,18 +97,18 @@ def select_image() -> str:
             matches = all_images  # declined — start over
 
         if len(matches) < len(all_images):
-            print(f"\n{len(matches)} matches:")
+            log.info("\n%d matches:", len(matches))
             for img in matches:
-                print(f"  - {img}")
+                log.info("  - %s", img)
 
         term = input("\nFilter (regex/substring): ").strip()
         if not term:
-            print("Filter cannot be empty. Please enter a search term.")
+            log.info("Filter cannot be empty. Please enter a search term.")
             continue
 
         narrowed = [img for img in matches if re.search(term, img, re.IGNORECASE)]
         if not narrowed:
-            print(f"No matches for '{term}'. Try again.")
+            log.info("No matches for '%s'. Try again.", term)
             continue
 
         matches = narrowed
@@ -118,6 +147,8 @@ def repo_root() -> Path | None:
 
 # ── Writers ───────────────────────────────────────────────────────────────────
 
+_CMAKE_OPTS = "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DENABLE_TESTING=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
+
 
 def _default_cmake_xml() -> str:
     """Render the built-in cmake.xml template.
@@ -128,7 +159,6 @@ def _default_cmake_xml() -> str:
     Returns:
         cmake.xml contents as a string.
     """
-    _CMAKE_OPTS = "-DCMAKE_CXX_COMPILER_LAUNCHER=ccache -DENABLE_TESTING=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5"
     return f"""\
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
@@ -221,7 +251,7 @@ def write_containerfile(dest: Path, image: str, custom: Path | None) -> None:
     """
     if custom:
         shutil.copy(custom, dest)
-        print(f"Using custom Containerfile: {custom}")
+        log.info("Using custom Containerfile: %s", custom)
         return
     dest.write_text(_default_containerfile(image))
 
@@ -236,7 +266,7 @@ def write_devcontainer_json(dest: Path, name: str, custom: Path | None) -> None:
     """
     if custom:
         shutil.copy(custom, dest)
-        print(f"Using custom devcontainer.json: {custom}")
+        log.info("Using custom devcontainer.json: %s", custom)
         return
     dest.write_text(_default_devcontainer_json(name))
 
@@ -280,14 +310,15 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> None:
     """Entry point: validate inputs, resolve context, and scaffold the devcontainer."""
+    _configure_logging()
     args = parse_args()
 
     # Validate custom paths up front
     if args.containerfile and not args.containerfile.is_file():
-        print(f"Error: Containerfile not found: {args.containerfile}")
+        log.error("Error: Containerfile not found: %s", args.containerfile)
         sys.exit(1)
     if args.json and not args.json.is_file():
-        print(f"Error: devcontainer.json not found: {args.json}")
+        log.error("Error: devcontainer.json not found: %s", args.json)
         sys.exit(1)
 
     # Resolve working directory
@@ -295,11 +326,12 @@ def main() -> None:
     if root:
         os.chdir(root)
     else:
-        print(
-            f"[!] Not inside a git repository — .devcontainer will be created in {Path.cwd()}"
+        log.info(
+            "[!] Not inside a git repository — .devcontainer will be created in %s",
+            Path.cwd(),
         )
 
-    # Detect runtime and select image
+    # Select image
     image = args.image or select_image()
     name = derive_name(image)
 
@@ -317,7 +349,7 @@ def main() -> None:
     write_containerfile(devcontainer_dir / "Dockerfile", image, args.containerfile)
     write_devcontainer_json(devcontainer_dir / "devcontainer.json", name, args.json)
 
-    print()
+    log.info("")
     bold(f"[+] {Path.cwd() / devcontainer_dir / 'devcontainer.json'}")
 
 
