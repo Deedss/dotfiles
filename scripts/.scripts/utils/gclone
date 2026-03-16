@@ -1,0 +1,95 @@
+#!/usr/bin/env bash
+# gclone - A git clone wrapper for a GitLab instance
+# Usage: gclone <project/repo>
+
+set -euo pipefail
+
+# ─── Configuration ────────────────────────────────────────────────────────────
+BASE_URL="git@gitlab.example.com"   # <-- Set your GitLab SSH base URL here
+DEFAULT_BRANCH="develop"
+# ──────────────────────────────────────────────────────────────────────────────
+
+# Validate argument
+if [[ $# -ne 1 ]]; then
+    echo "Usage: $(basename "$0") <project/repo>" >&2
+    exit 1
+fi
+
+PROJECT="$1"
+CLONE_URL="${BASE_URL}:${PROJECT}.git"
+
+# ─── Branch selection ─────────────────────────────────────────────────────────
+select_branch() {
+    echo "Fetching remote branches..." >&2
+    mapfile -t ALL_BRANCHES < <(
+        git ls-remote --heads "$CLONE_URL" \
+            | awk '{sub("refs/heads/", "", $2); print $2}' \
+            | sort
+    )
+
+    if [[ ${#ALL_BRANCHES[@]} -eq 0 ]]; then
+        echo "No remote branches found. Using default: ${DEFAULT_BRANCH}" >&2
+        BRANCH="$DEFAULT_BRANCH"
+        return
+    fi
+
+    local matches=("${ALL_BRANCHES[@]}")
+
+    while true; do
+        if [[ ${#matches[@]} -eq 1 ]]; then
+            printf "\nSingle match: %s\nUse this branch? [Y/n]: " "${matches[0]}"
+            read -r confirm
+            if [[ -z "$confirm" || "$confirm" =~ ^[Yy]$ ]]; then
+                BRANCH="${matches[0]}"
+                return
+            fi
+            matches=("${ALL_BRANCHES[@]}")  # declined — start over
+        fi
+
+        if [[ ${#matches[@]} -lt ${#ALL_BRANCHES[@]} ]]; then
+            printf "\n%d matches:\n" "${#matches[@]}"
+            printf "  - %s\n" "${matches[@]}"
+        fi
+
+        printf "\nFilter (regex/substring) [Enter for default: %s]: " "$DEFAULT_BRANCH"
+        read -r term
+
+        if [[ -z "$term" ]]; then
+            echo "Using default branch: ${DEFAULT_BRANCH}" >&2
+            BRANCH="$DEFAULT_BRANCH"
+            return
+        fi
+
+        mapfile -t narrowed < <(printf "%s\n" "${matches[@]}" | grep -Ei -- "$term" || true)
+
+        if [[ ${#narrowed[@]} -eq 0 ]]; then
+            echo "No matches for '$term'. Try again."
+            continue
+        fi
+
+        matches=("${narrowed[@]}")
+    done
+}
+
+select_branch
+
+# ─── Directory selection ──────────────────────────────────────────────────────
+# Default: lowercase branch name with '/' replaced by '_'
+DEFAULT_DIR="${BRANCH//\//_}"
+DEFAULT_DIR="${DEFAULT_DIR,,}"
+
+printf "\nClone into directory [%s]: " "$DEFAULT_DIR"
+read -r TARGET_DIR
+TARGET_DIR="${TARGET_DIR:-$DEFAULT_DIR}"
+
+# ─── Clone ────────────────────────────────────────────────────────────────────
+echo ""
+echo "  URL    : ${CLONE_URL}"
+echo "  Branch : ${BRANCH}"
+echo "  Dir    : ${TARGET_DIR}"
+echo ""
+
+git clone --branch "$BRANCH" "$CLONE_URL" "$TARGET_DIR"
+
+echo ""
+echo "✓ Cloned '${PROJECT}' (branch: ${BRANCH}) into '${TARGET_DIR}'"
