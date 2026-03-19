@@ -120,7 +120,7 @@ RUN if ! command -v microdnf 2>&1 /dev/null && command -v dnf 2>&1 /dev/null; th
     fi
 
 RUN microdnf install --setopt=install_weak_deps=0 -y \\
-  git git-lfs gdb gdb-gdbserver gcc-c++ perf js-d3-flame-graph strace valgrind socat \\
+  git git-lfs gdb gdb-gdbserver gcc-c++ ccache perf js-d3-flame-graph strace valgrind socat \\
   curl unzip tar findutils grep xterm procps-ng firefox bash-completion \\
   libXtst libXrender libXext freetype libXi mesa-libgbm libdrm libicu \\
   && microdnf clean all \\
@@ -147,6 +147,7 @@ write_devcontainer_json() {
     "securityOpt": ["label=disable"],
     "mounts": [],
     "containerEnv": {},
+    "containerUser": "root",
     "workspaceMount": "src=\${localWorkspaceFolder},dst=\${localWorkspaceFolder},type=bind",
     "workspaceFolder": "\${localWorkspaceFolder}"
 }
