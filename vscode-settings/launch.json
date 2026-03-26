@@ -1,0 +1,19 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "(lldb) debug",
+      "type": "lldb",
+      "request": "launch",
+      "program": "${command:cmake.launchTargetPath}",
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "terminal": "integrated",
+      "initCommands": [
+        "settings set target.max-string-summary-length 1024",
+        "settings set target.max-children-count 128",
+        "settings set target.max-memory-read-size 4096"
+      ]
+    }
+  ]
+}
