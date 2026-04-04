@@ -8,7 +8,6 @@ source $DIR/tools.sh
 install-desktop() {
     echo "Perform Installation for Fedora"
     ### Set the correct DNF settings
-    setup-doas
     setup-dnf
 
     ### Generic Setup
@@ -41,7 +40,7 @@ install-desktop() {
 ###############################################################################
 clean-desktop() {
     #### Clean up KDE packages on minimal install
-    doas dnf remove -y \
+    sudo dnf remove -y \
         \*akonadi* kwrite kdeconnectd krfb kcharselect \
         plasma-discover plasma-drkonqi plasma-welcome \
         kdeplasma-addons plasma-milou im-chooser \
@@ -49,31 +48,27 @@ clean-desktop() {
         ibus-libpinyin ibus-hangul ibus-libzhuyin \
         gnome-abrt vlc-plugin-* vlc-libs firefox
 
-    doas dnf install -y flatpak
+    sudo dnf install -y flatpak
 
     # Update GRUB timeout value
-    # doas sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
+    # sudo sed -i 's/GRUB_TIMEOUT=.*/GRUB_TIMEOUT=0/' /etc/default/grub
     # mitigation for amdgpu
-    # doas sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="amdgpu.dcdebugmask=0x10 /' /etc/default/grub
-    # doas grub2-mkconfig -o /boot/grub2/grub.cfg
+    # sudo sed -i 's/GRUB_CMDLINE_LINUX="/GRUB_CMDLINE_LINUX="amdgpu.dcdebugmask=0x10 /' /etc/default/grub
+    # sudo grub2-mkconfig -o /boot/grub2/grub.cfg
 
-    doas rm -rf /usr/share/akonadi
+    sudo rm -rf /usr/share/akonadi
     rm -rf "$HOME/.config"
     rm -rf "$HOME/.local/share/akonadi*"
 }
 
-setup-doas() {
-    sudo dnf install -y opendoas
-    echo -e "permit persist :wheel\n" | sudo tee -a /etc/doas.conf
-}
 
 ###############################################################################
 ##### SETUP DNF                                                         #######
 ###############################################################################
 setup-dnf() {
-    echo -e "defaultyes=1" | doas tee -a /etc/dnf/dnf.conf
-    echo -e "deltarpm=0" | doas tee -a /etc/dnf/dnf.conf
-    echo -e "max_parallel_downloads=20" | doas tee -a /etc/dnf/dnf.conf
+    echo -e "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
+    echo -e "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
+    echo -e "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
 }
 
 ###############################################################################
@@ -81,7 +76,7 @@ setup-dnf() {
 ###############################################################################
 install-rpmfusion() {
     echo "Add RPM Fusion to repositories"
-    doas dnf install -y \
+    sudo dnf install -y \
         "https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm" \
         "https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"
 }
@@ -90,12 +85,12 @@ install-rpmfusion() {
 ##### FLATPAKS                                                           ######
 ###############################################################################
 install-flatpak() {
-    doas dnf install -y flatpak
+    sudo dnf install -y flatpak
 
     echo "Add flathub repository"
-    doas flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    doas flatpak remote-delete fedora
-    doas flatpak remote-modify flathub --enable
+    sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+    sudo flatpak remote-delete fedora
+    sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
     ##### INTERNET #####
@@ -127,23 +122,23 @@ install-flatpak() {
 install-default-packages() {
     echo "Install a selection of used applications"
     ###### CMAKE / CLANG #########
-    doas dnf install -y cmake ninja-build clang llvm clang-tools-extra
+    sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
 
     ###### VIRTUALIZATION ########
-    doas dnf install -y virt-manager
-    doas usermod -aG kvm,libvirt,lp,dialout "$USER"
+    sudo dnf install -y virt-manager
+    sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
 
     ###### NETWORKING ######
-    doas dnf install -y wireshark nmap curl wget
+    sudo dnf install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    doas dnf install -y mesa-vulkan-drivers mesa-va-drivers \
+    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
         libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
 
     ##### OTHER PACKAGES ######
-    doas dnf install -y openssl-devel zstd ncurses git \
+    sudo dnf install -y openssl-devel zstd ncurses git \
         ncurses-libs stow zsh util-linux-user \
         java-25-openjdk java-25-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
@@ -152,7 +147,7 @@ install-default-packages() {
         kcalc okular gwenview plasma-milou vim
 
     ### Set default shell
-    doas chsh -s /bin/zsh $USER
+    sudo chsh -s /bin/zsh $USER
 }
 
 ###############################################################################
@@ -160,7 +155,7 @@ install-default-packages() {
 ###############################################################################
 install-arc-theme() {
     echo "Install arc theme"
-    doas dnf -y install arc-theme arc-kde
+    sudo dnf -y install arc-theme arc-kde
 
     # Set gtk theme
     dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
@@ -171,7 +166,7 @@ install-arc-theme() {
 ###############################################################################
 install-vscode() {
     echo "Install Visual Studio Code"
-    doas rpm --import https://packages.microsoft.com/keys/microsoft.asc
-    doas sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
-    doas dnf -y install code
+    sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
+    sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
+    sudo dnf -y install code
 }
