@@ -1,7 +1,6 @@
-return { -- Adds git related signs to the gutter, as well as utilities for managing changes
-  "lewis6991/gitsigns.nvim",
-  opts = {
-    -- See `:help gitsigns.txt`
+vim.pack.add({ "https://github.com/lewis6991/gitsigns.nvim" })
+
+require("nvim.config.nvim.lua.plugin.gitsigns").setup({
     signs = {
       add = { text = "+" },
       change = { text = "~" },
@@ -9,5 +8,4 @@ return { -- Adds git related signs to the gutter, as well as utilities for manag
       topdelete = { text = "‾" },
       changedelete = { text = "~" },
     },
-  },
-}
+})
