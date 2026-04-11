@@ -4,9 +4,7 @@ return {
         "BufWritePost", "BufReadPost", "InsertLeave"
     },
     config = function()
-        local lint = require("lint")
-
-        lint.linters_by_ft = {
+        require("lint").linters_by_ft = {
             c = { "clangtidy" },
             cpp = { "clangtidy" },
             cmake = { "cmakelint" },
