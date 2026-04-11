@@ -29,8 +29,6 @@ set clipboard+=unnamedplus
 set hlsearch
 " Enable incremental search
 set incsearch
-" When on, prevents beeping on error
-set visualbell
 
 " ---------------------
 " Plugins

@@ -6,10 +6,8 @@ vim.keymap.set("x", "<leader>p", "\"_dP")
 vim.keymap.set("n", "H", "^")
 vim.keymap.set("n", "L", "$")
 
--- https://vim.fandom.com/wiki/Moving_lines_up_or_down#Mappings_to_move_lines
-vim.keymap.set("n", "<A-j>", ":m .+1<CR>==", { silent = true, noremap = true })
-vim.keymap.set("n", "<A-k>", ":m .-2<CR>==", { silent = true, noremap = true })
-vim.keymap.set("i", "<A-j>", "<Esc>:m .+1<CR>==gi", { silent = true, noremap = true })
-vim.keymap.set("i", "<A-k>", "<Esc>:m .-2<CR>==gi", { silent = true, noremap = true })
-vim.keymap.set("v", "<A-j>", ":m '>+1<CR>gv=gv", { silent = true, noremap = true })
-vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { silent = true, noremap = true })
+-- TIP: Disable arrow keys in normal mode
+vim.keymap.set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
+vim.keymap.set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
+vim.keymap.set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
+vim.keymap.set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
