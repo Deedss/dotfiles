@@ -106,8 +106,8 @@ setopt emacs                   # use emacs keybindings
 bindkey ' ' magic-space        # space does not trigger history expansion
 bindkey '^[[3~' delete-char
 
-# bindkey "^[[1;3C" forward-word
-# bindkey "^[[1;3D" backward-word
+bindkey '^[[1;5C' emacs-forward-word
+bindkey '^[[1;5D' emacs-backward-word
 
 #########################################################################
 # Custom Scripting
