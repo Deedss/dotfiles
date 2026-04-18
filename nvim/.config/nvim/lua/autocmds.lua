@@ -7,3 +7,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
         vim.highlight.on_yank()
     end,
 })
+
+-- update all plugins
+vim.api.nvim_create_user_command("PackUpdateAll",
+    function()
+        vim.pack.update()
+    end,
+    { desc = "Update all plugins" }
+)
