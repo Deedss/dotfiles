@@ -1,9 +1,10 @@
-vim.pack.add({
-  { src = "https://github.com/catppuccin/nvim", name = "catppuccin" }
-})
+vim.pack.add {
+  { src = 'https://github.com/catppuccin/nvim', name = 'catppuccin' },
+}
 
-require("catppuccin").setup({
-  flavour = "macchiato",
-})
+require('catppuccin').setup {
+  flavour = 'macchiato',
+}
 
-vim.cmd([[colorscheme catppuccin]])
+vim.cmd [[colorscheme catppuccin]]
+

@@ -1,6 +1,6 @@
-vim.pack.add({
-  { src = "https://github.com/kylechui/nvim-surround" }
-})
+vim.pack.add {
+  { src = 'https://github.com/kylechui/nvim-surround' },
+}
 
 --     Old text                    Command         New text
 -- --------------------------------------------------------------------------------
@@ -11,4 +11,4 @@ vim.pack.add({
 --     'change quot*es'            cs'"            "change quotes"
 --     <b>or tag* types</b>        csth1<CR>       <h1>or tag types</h1>
 --     delete(functi*on calls)     dsf             function calls
-require("nvim-surround").setup({})
+require('nvim-surround').setup()

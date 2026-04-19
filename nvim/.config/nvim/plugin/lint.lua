@@ -1,10 +1,10 @@
-vim.pack.add({
-    { src = "https://github.com/mfussenegger/nvim-lint" }
-})
+vim.pack.add {
+  { src = 'https://github.com/mfussenegger/nvim-lint' },
+}
 
 require('lint').linters_by_ft = {
-    c = { "clangtidy" },
-    cpp = { "clangtidy" },
-    cmake = { "cmakelint" },
-    python = { "ruff" },
+  c = { 'clangtidy' },
+  cpp = { 'clangtidy' },
+  cmake = { 'cmakelint' },
+  python = { 'ruff' },
 }
