@@ -26,8 +26,12 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "cebf88881a4fab2c20a2a950269953417af1c3e8",
+      "rev": "834246377489f9a1e6d4df570a7874a48c644b56",
       "src": "https://github.com/ibhagwan/fzf-lua"
+    },
+    "fzf-lua-explorer.nvim": {
+      "rev": "d57b8f5a3abc341c986e0d045f08c585ab544244",
+      "src": "https://github.com/otavioschwanck/fzf-lua-explorer.nvim"
     },
     "grug-far.nvim": {
       "rev": "21604255d0e8f9968322f61f2b6c09e5efe1285a",

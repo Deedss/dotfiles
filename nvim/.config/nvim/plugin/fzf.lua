@@ -1,13 +1,18 @@
 vim.pack.add({
   { src = "https://github.com/ibhagwan/fzf-lua" },
+  { src = "https://github.com/otavioschwanck/fzf-lua-explorer.nvim" },
   { src = "https://github.com/nvim-tree/nvim-web-devicons" },
 })
 
-require('fzf-lua').setup({})
+require('fzf-lua').setup()
+require("fzf-lua-explorer").setup()
 
 local fzflua = require('fzf-lua')
 
 -- -- Top Pickers
+vim.keymap.set("n", "<leader>e", function ()
+  require("fzf-lua-explorer").explorer()
+end, { desc = "File Explorer" })
 -- -- find
 vim.keymap.set("n", "<leader>,", fzflua.buffers, { desc = "Buffers" })
 vim.keymap.set("n", "<leader>fb", fzflua.buffers, { desc = "Buffers" })
@@ -19,10 +24,8 @@ vim.keymap.set("n", "<leader>gs", fzflua.git_status, { desc = "Git Status" })
 vim.keymap.set("n", "<leader>gS", fzflua.git_stash, { desc = "Git Stash" })
 vim.keymap.set("n", "<leader>gd", fzflua.git_diff, { desc = "Git Diff (Hunks)" })
 -- Grep
-vim.keymap.set("n", "<leader>sB", fzflua.grep_curbuf, { desc = "Grep Open Buffers" })
-vim.keymap.set("n", "<leader>/", fzflua.grep, { desc = "Grep" })
-vim.keymap.set("n", "<leader>sg", fzflua.grep, { desc = "Grep" })
-vim.keymap.set({ "n", "x" }, "<leader>sw", fzflua.grep_cword, { desc = "Visual selection or word" })
+vim.keymap.set("n", "<leader>/", fzflua.live_grep, { desc = "Grep" })
+vim.keymap.set({ "n", "x" }, "<leader>gw", fzflua.grep_cword, { desc = "Visual selection or word" })
 -- search
 vim.keymap.set("n", '<leader>s"', fzflua.registers, { desc = "Registers" })
 vim.keymap.set("n", "<leader>sb", fzflua.lines, { desc = "Buffer Lines" })
