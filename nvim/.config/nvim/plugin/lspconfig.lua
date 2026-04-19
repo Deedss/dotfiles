@@ -13,7 +13,6 @@ local servers = {
   cmake = {},
   pylsp = {},
   rust_analyzer = {},
-  stylua = {},
   lua_ls = {
     settings = {
       Lua = {
