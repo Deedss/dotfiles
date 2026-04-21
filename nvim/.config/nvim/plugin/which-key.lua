@@ -1,3 +1,4 @@
+if vim.g.vscode then return end
 vim.pack.add {
   { src = 'https://github.com/folke/which-key.nvim' },
 }

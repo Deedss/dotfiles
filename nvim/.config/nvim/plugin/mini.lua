@@ -1,3 +1,5 @@
+if vim.g.vscode then return end
+
 vim.pack.add {
   { src = 'https://github.com/echasnovski/mini.nvim' },
   { src = 'https://github.com/nvim-tree/nvim-web-devicons' },

@@ -1,3 +1,5 @@
+if vim.g.vscode then return end
+
 vim.pack.add {
   { src = 'https://github.com/neovim/nvim-lspconfig' },
   { src = 'https://github.com/j-hui/fidget.nvim' },

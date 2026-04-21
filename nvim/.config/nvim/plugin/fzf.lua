@@ -1,3 +1,5 @@
+if vim.g.vscode then return end
+
 vim.pack.add {
   { src = 'https://github.com/ibhagwan/fzf-lua' },
   { src = 'https://github.com/otavioschwanck/fzf-lua-explorer.nvim' },
