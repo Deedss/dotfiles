@@ -41,7 +41,7 @@ install-python-tools() {
 install-cli-tools() {
     ## Use mise 
     curl https://mise.run | sh
-    mise use -g lazygit fzf starship yazi watchexec
+    mise use -g fzf starship lua-language-server stylua tree-sitter
 }
 
 ###############################################################################

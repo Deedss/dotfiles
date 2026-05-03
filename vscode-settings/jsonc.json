@@ -1,0 +1,35 @@
+{
+	"CodeLLDB": {
+		"prefix": "lldb-local",
+		"description": "CodeLLDB launch config using CMake Tools target resolution",
+		"body": [
+			"{",
+			"    \"name\": \"${1:CodeLLDB}\",",
+			"    \"type\": \"lldb\",",
+			"    \"request\": \"launch\",",
+			"    \"program\": \"\\${command:cmake.launchTargetPath}\",",
+			"    \"args\": [$2],",
+			"    \"cwd\": \"\\${workspaceFolder}\",",
+			"    \"env\": {},",
+			"    \"stopOnEntry\": ${3|false,true|}",
+			"}"
+		]
+	},
+	"CodeLLDB GDBServer": {
+		"prefix": "lldb-remote",
+		"description": "CodeLLDB remote debug via gdbserver using CMake Tools target resolution",
+		"body": [
+			"{",
+			"    \"name\": \"${1:CodeLLDB Remote}\",",
+			"    \"type\": \"lldb\",",
+			"    \"request\": \"custom\",",
+			"    \"targetCreateCommands\": [",
+			"        \"target create \\${command:cmake.launchTargetPath}\"",
+			"    ],",
+			"    \"processCreateCommands\": [",
+			"        \"gdb-remote ${2:localhost}:${3:2345}\"",
+			"    ]",
+			"}"
+		]
+	}
+}

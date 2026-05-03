@@ -92,7 +92,7 @@ vim.keymap.set('n', 'g/', function() vscode.action('workbench.action.quickTextSe
 
 -- Taken from lspconfig
 -- vim.keymap.set('n', 'gd', function() vscode.action('editor.action.revealDefinition') end) (default)
-vim.keymap.set('n', 'gr', function() vscode.action('editor.action.goToReferences') end)
+vim.keymap.set('n', 'gA', function() vscode.action('editor.action.goToReferences') end)
 vim.keymap.set('n', 'gI', function() vscode.action('editor.action.goToImplementation') end)
 vim.keymap.set('n', 'gy', function() vscode.action('editor.action.goToTypeDefinition') end)
 -- vim.keymap.set('n', 'gD', function() vscode.action('editor.action.peekDeclaration') end) (default)
