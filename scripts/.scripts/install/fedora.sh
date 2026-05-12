@@ -46,7 +46,10 @@ clean-desktop() {
         kdeplasma-addons plasma-milou im-chooser \
         totem-pl-parser gnome-disk-utility adwaita-gtk2-theme \
         ibus-libpinyin ibus-hangul ibus-libzhuyin \
-        gnome-abrt vlc-plugin-* vlc-libs firefox
+        gnome-abrt vlc-plugin-* vlc-libs firefox \
+        libreoffice-* kpat kmahjongg kmines \
+        neochat krdc dragon krusader qrca kmouth ktorrent \
+        kamoso k3b elisa-player digikam kolourpaint
 
     sudo dnf install -y flatpak
 
