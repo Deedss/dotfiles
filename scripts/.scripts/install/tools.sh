@@ -113,5 +113,5 @@ fix-config() {
     # echo -e 'bgscan="simple:30:-70:3600"' | sudo tee -a /etc/wpa_supplicant/wpa_supplicant.conf
     sudo systemctl restart NetworkManager
     sudo systemctl restart wpa_supplicant
-    sleep 10
+    sleep 20
 }
