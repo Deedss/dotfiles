@@ -1,0 +1,333 @@
+#!/usr/bin/env bash
+
+#=====================================================================
+#  pjdm – tidy wrapper for a JetBrains IDE container
+#=====================================================================
+#
+#  What it does
+#    • pick an image (CLI flag, fzf / manual filter, or default)
+#    • optionally let the user choose a custom container name; otherwise
+#      derive one from the image (`awk -F'[/:]' …`).
+#    • let the user choose an IDE (CLion / IntelliJ IDEA / PyCharm)
+#    • verify that the chosen IDE is installed (or ask for a manual path)
+#    • write a minimal Containerfile that installs the tools you need
+#    • (re)build an image per base-image+IDE combination
+#    • run the container with all the mounts / proxy env‑vars you already use
+#
+#  No devcontainer.json is produced – the script only runs the container.
+#=====================================================================
+
+set -euo pipefail
+IFS=$'\n\t'
+
+# ────────────────────────  Configuration  ────────────────────────
+readonly DEFAULT_CONTAINER_IMAGE='my_image:some_version'
+readonly CONTAINERFILE_PATH='/tmp/Containerfile'
+
+# ────────────────────────  Helper functions  ────────────────────────
+bold() { printf '\033[1m%s\033[0m\n' "$*"; }
+
+print_help() {
+    cat <<'EOF'
+Usage: pjdm [OPTIONS]
+
+Options
+  -h, --help                Show this help message and exit
+  -i, --image IMAGE         Use IMAGE as the base image (skip interactive list)
+  -n, --name NAME           Set a custom container name (otherwise derived from image)
+  --rebuild                 Force rebuilding of the image before running
+EOF
+}
+
+# -----------------------------------------------------------------
+#  Resolve which base image we will finally use.
+# -----------------------------------------------------------------
+resolve_image() {
+    if [[ -n $BASE_IMAGE ]]; then
+        return
+    fi
+
+    # Fetch all images while skipping <none>:<none>
+    mapfile -t ALL_IMAGES < <(
+        podman images --format '{{.Repository}}:{{.Tag}}' \
+        | grep -vE '^<none>:<none>$'
+    )
+
+    if [[ ${#ALL_IMAGES[@]} -eq 0 ]]; then
+        echo "No usable images found. Falling back to default: ${DEFAULT_CONTAINER_IMAGE}"
+        BASE_IMAGE="${DEFAULT_CONTAINER_IMAGE}"
+        return
+    fi
+
+    # ── fzf path ──────────────────────────────────────────────────
+    if command -v fzf >/dev/null 2>&1; then
+        echo "Select a container image using fzf (press Esc to fall back to manual filter):"
+        local selected
+        selected=$(printf '%s\n' "${ALL_IMAGES[@]}" | fzf --prompt='Image > ') || true
+
+        if [[ -n $selected ]]; then
+            BASE_IMAGE="$selected"
+            echo "Selected image: ${BASE_IMAGE}"
+            return
+        fi
+        echo "No image selected – falling back to manual filter…"
+    fi
+
+    # ── Manual filter / default fallback ──────────────────────────
+    while true; do
+        echo "Available images:"
+        printf '  - %s\n' "${ALL_IMAGES[@]}"
+        echo
+        echo "Enter an image filter (regex/substring), or press <Enter> to use the default:"
+        echo "Default: ${DEFAULT_CONTAINER_IMAGE}"
+        printf 'Filter: '
+        read -r FILTER
+
+        if [[ -z $FILTER ]]; then
+            BASE_IMAGE="${DEFAULT_CONTAINER_IMAGE}"
+            echo "Using default image: ${BASE_IMAGE}"
+            return
+        fi
+
+        mapfile -t MATCHES < <(
+            printf '%s\n' "${ALL_IMAGES[@]}" | grep -Ei -- "$FILTER" || true
+        )
+
+        (( ${#MATCHES[@]} )) || { echo "No images matched '$FILTER'. Try again."; echo; continue; }
+
+        # Narrowing loop
+        while true; do
+            if (( ${#MATCHES[@]} == 1 )); then
+                echo
+                echo "Single match: ${MATCHES[0]}"
+                printf 'Use this image? [Y/n]: '
+                read -r CONFIRM
+                if [[ -z $CONFIRM || $CONFIRM =~ ^[Yy]$ ]]; then
+                    BASE_IMAGE="${MATCHES[0]}"
+                    echo "Selected image: ${BASE_IMAGE}"
+                    return
+                fi
+                echo "Restarting selection."; echo; break
+            fi
+
+            echo
+            echo "Multiple matches (${#MATCHES[@]}). Refine your filter:"
+            printf '  - %s\n' "${MATCHES[@]}"
+            echo
+            printf 'Refine: '
+            read -r REFINE
+
+            [[ -z $REFINE ]] && { echo "Empty refinement, starting over."; echo; break; }
+
+            mapfile -t NEW_MATCHES < <(
+                printf '%s\n' "${MATCHES[@]}" | grep -Ei -- "$REFINE" || true
+            )
+
+            (( ${#NEW_MATCHES[@]} )) || { echo "No results for '$REFINE'. Try again."; continue; }
+            MATCHES=("${NEW_MATCHES[@]}")
+        done
+    done
+}
+
+# -----------------------------------------------------------------
+#  Derive (or accept) a container name.
+# -----------------------------------------------------------------
+set_container_name() {
+    if [[ -n $CUSTOM_CONTAINER_NAME ]]; then
+        CONTAINER_NAME="${CUSTOM_CONTAINER_NAME}"
+    else
+        local img_part
+        img_part=$(awk -F'[/:]' '{print $(NF-1)"_"$NF}' <<<"$BASE_IMAGE")
+        CONTAINER_NAME="jetbrains-${img_part}-${IDE_NAME}"
+    fi
+}
+
+# -----------------------------------------------------------------
+#  Let the user pick an IDE (CLion / IntelliJ IDEA / PyCharm)
+# -----------------------------------------------------------------
+select_ide() {
+    if command -v fzf >/dev/null 2>&1; then
+        local selected
+        selected=$(printf '%s\n' "CLion" "IntelliJ IDEA" "PyCharm" | fzf --prompt='IDE > ') || true
+    else
+        echo "Select the JetBrains IDE to run:"
+        select selected in "CLion" "IntelliJ IDEA" "PyCharm"; do
+            [[ -n $selected ]] && break
+            echo "Invalid choice – try again."
+        done
+    fi
+
+    case $selected in
+        CLion)           IDE_NAME='clion';   ENV_VAR='CLION_DIR'   ;;
+        "IntelliJ IDEA") IDE_NAME='idea';    ENV_VAR='IDEA_DIR'    ;;
+        PyCharm)         IDE_NAME='pycharm'; ENV_VAR='PYCHARM_DIR' ;;
+        *) echo "No IDE selected – aborting."; exit 1 ;;
+    esac
+}
+
+# -----------------------------------------------------------------
+#  Verify that the chosen IDE is reachable.
+# -----------------------------------------------------------------
+check_ide_path() {
+    IDE_PATH="${!ENV_VAR:-}"
+
+    if [[ -n $IDE_PATH && -x "${IDE_PATH}/bin/${IDE_NAME}.sh" ]]; then
+        return
+    fi
+
+    echo "Environment variable ${ENV_VAR} is not set or does not point to a valid installation."
+    while true; do
+        read -rp "Do you want to enter the path manually? (y/n) " reply
+        case $reply in
+            [Yy]* )
+                read -rp "Enter the full path to the ${IDE_NAME} installation (must contain bin/${IDE_NAME}.sh): " manual_path
+                if [[ -x "${manual_path}/bin/${IDE_NAME}.sh" ]]; then
+                    IDE_PATH="${manual_path}"
+                    export "${ENV_VAR}"="${IDE_PATH}"
+                    return
+                else
+                    echo "ERROR: ${manual_path}/bin/${IDE_NAME}.sh not found or not executable."
+                fi
+                ;;
+            [Nn]* )
+                echo "Cannot continue without a valid ${IDE_NAME} installation – aborting."
+                exit 1
+                ;;
+            * ) echo "Please answer y or n." ;;
+        esac
+    done
+}
+
+# -----------------------------------------------------------------
+#  Write a minimal Containerfile.
+# -----------------------------------------------------------------
+write_containerfile() {
+    cat > "${CONTAINERFILE_PATH}" <<EOF
+FROM ${BASE_IMAGE}
+RUN if ! command -v microdnf &>/dev/null && command -v dnf &>/dev/null; then \\
+        dnf install -y microdnf; \\
+    fi
+RUN microdnf install --setopt=install_weak_deps=0 -y \\
+        git git-lfs gdb gcc-c++ perf js-d3-flame-graph strace valgrind socat \\
+        curl unzip tar findutils grep xterm procps-ng firefox bash-completion \\
+        libXtst libXrender libXext freetype libXi mesa-libgbm libdrm libicu \\
+    && microdnf clean all
+RUN echo "alias me='ssh -t \$(whoami)@localhost \"cd \\$(pwd); /bin/bash;\"'" >> /root/.bashrc
+ENTRYPOINT ["/${IDE_NAME}/bin/${IDE_NAME}.sh"]
+EOF
+}
+
+# -----------------------------------------------------------------
+#  (Re)build the image – only if needed or --rebuild given.
+# -----------------------------------------------------------------
+maybe_build_image() {
+    $FORCE_REBUILD && podman rmi -f "${CONTAINER_NAME}" || true
+
+    if podman images --format '{{.Repository}}:{{.Tag}}' | grep -q "^${CONTAINER_NAME}$"; then
+        echo "Image '${CONTAINER_NAME}' already exists – skipping build."
+        return
+    fi
+
+    write_containerfile
+    echo "Building image '${CONTAINER_NAME}' …"
+    podman build -t "${CONTAINER_NAME}" -f "${CONTAINERFILE_PATH}"
+    rm -f "${CONTAINERFILE_PATH}"
+}
+
+# -----------------------------------------------------------------
+#  Assemble podman run options.
+# -----------------------------------------------------------------
+make_run_opts() {
+    local -a run_opts=()
+
+    # Core flags
+    run_opts+=(
+        --name "${CONTAINER_NAME}"
+        -it -d --rm
+        --net=host --pid=host --ipc=host
+        --privileged
+        --http-proxy=false
+    )
+
+    # Proxy env vars
+    run_opts+=(-e DISPLAY -e NO_PROXY -e HTTP_PROXY -e HTTPS_PROXY \
+                -e no_proxy -e http_proxy -e https_proxy)
+
+    # IDE mount — readonly; container has no reason to write back to the host IDE installation
+    run_opts+=(--mount "type=bind,src=${IDE_PATH},dst=/${IDE_NAME},readonly")
+
+    # JetBrains config/cache/share — must be writable (IDE writes state here)
+    run_opts+=(
+        --mount "type=bind,src=${HOME}/.config/JetBrains,dst=/root/.config/JetBrains"
+        --mount "type=bind,src=${HOME}/.cache/JetBrains,dst=/root/.cache/JetBrains"
+        --mount "type=bind,src=${HOME}/.local/share/JetBrains,dst=/root/.local/share/JetBrains"
+    )
+
+    # Git / SSH — readonly; container should read these, never modify them
+    run_opts+=(
+        --mount "type=bind,src=${HOME}/.gitconfig,dst=/root/.gitconfig,readonly"
+        --mount "type=bind,src=${HOME}/.ssh,dst=/root/.ssh,readonly"
+    )
+
+    # X11 socket
+    run_opts+=(--mount "type=bind,src=/tmp/.X11-unix,dst=/tmp/.X11-unix,readonly")
+
+    # Optional mounts
+    if [[ -d "${HOME}/.continue" ]]; then
+        run_opts+=(--mount "type=bind,src=$(realpath "${HOME}/.continue"),dst=/root/.continue")
+    fi
+
+    if [[ -n "${XDG_RUNTIME_DIR:-}" ]]; then
+        run_opts+=(--mount "type=bind,src=${XDG_RUNTIME_DIR},dst=${XDG_RUNTIME_DIR}")
+    fi
+
+    printf '%s\n' "${run_opts[@]}"
+}
+
+# -----------------------------------------------------------------
+#  Launch the container.
+# -----------------------------------------------------------------
+run_container() {
+    if podman container exists "${CONTAINER_NAME}" 2>/dev/null; then
+        echo "Container '${CONTAINER_NAME}' is already running – attaching…"
+        podman exec -it "${CONTAINER_NAME}" "/${IDE_NAME}/bin/${IDE_NAME}.sh"
+        return
+    fi
+
+    local -a run_opts
+    IFS=' ' read -r -a run_opts <<< "$(make_run_opts)"
+    podman run "${run_opts[@]}" "${CONTAINER_NAME}"
+}
+
+# ────────────────────────  Argument parsing  ────────────────────────
+BASE_IMAGE=''
+CUSTOM_CONTAINER_NAME=''
+FORCE_REBUILD=false
+
+while (( $# )); do
+    case "$1" in
+        -h|--help)  print_help; exit 0 ;;
+        -i|--image) BASE_IMAGE="$2"; shift 2 ;;
+        -n|--name)  CUSTOM_CONTAINER_NAME="$2"; shift 2 ;;
+        --rebuild)  FORCE_REBUILD=true; shift ;;
+        *)          echo "Unknown option: $1" >&2; print_help; exit 1 ;;
+    esac
+done
+
+# ────────────────────────  Main workflow  ────────────────────────
+resolve_image
+select_ide
+check_ide_path
+set_container_name
+
+bold "=== JetBrains container set‑up ==="
+bold "IDE               : ${IDE_NAME}"
+bold "Base image        : ${BASE_IMAGE}"
+bold "Container name    : ${CONTAINER_NAME}"
+echo
+
+maybe_build_image
+run_container
+#=====================================================================
+#  End of script
+#=====================================================================

@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 up() {
   cd $(eval printf '../'%.0s {1..$1})
 }
@@ -27,3 +27,4 @@ backup-files() {
   [[ ! -d ~/.ssh ]] || tar-pack .ssh
   [[ ! -f ~/.gitconfig ]] || tar-pack .gitconfig
 }
+

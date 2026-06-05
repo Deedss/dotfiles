@@ -6,15 +6,15 @@
       "version": "1.0.0 - 2.0.0"
     },
     "catppuccin": {
-      "rev": "426dbebe06b5c69fd846ceb17b42e12f890aedf1",
+      "rev": "0303a7208dba448c459767486a38a6ec05c4216b",
       "src": "https://github.com/catppuccin/nvim"
     },
     "conform.nvim": {
-      "rev": "dca1a190aa85f9065979ef35802fb77131911106",
+      "rev": "619363c30309d29ffa631e67c8183f2a72caa373",
       "src": "https://github.com/stevearc/conform.nvim"
     },
     "fidget.nvim": {
-      "rev": "889e2e96edef4e144965571d46f7a77bcc4d0ddf",
+      "rev": "82404b196e73a00b1727a91903beef5ddc319d22",
       "src": "https://github.com/j-hui/fidget.nvim"
     },
     "flash.nvim": {
@@ -26,7 +26,7 @@
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "23f71140754b9162551dc8ccc1d6346e4275ecc2",
+      "rev": "988416cc782dfe28bff3f0da9b8c943b236cd86a",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "fzf-lua-explorer.nvim": {
@@ -34,19 +34,19 @@
       "src": "https://github.com/otavioschwanck/fzf-lua-explorer.nvim"
     },
     "grug-far.nvim": {
-      "rev": "21790e59dd0109a92a70cb874dd002af186314f5",
+      "rev": "5506c2f59dc9ab2ed6c233585412b24d31d51521",
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "mini.nvim": {
-      "rev": "17c448b0f3f29c0857a3436fc64e1d7cb9267ec3",
+      "rev": "cbae4fa396bbf9c802b3d2dc2e9c5362e8fb9468",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-lint": {
-      "rev": "665525810630701b84181e4d9eefd24b49845b29",
+      "rev": "d48f3a76189d03b2239f6df1b2f7e3fa8353743b",
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "4d9647d7b14dd2756578761f8cc2cf80f671b926",
+      "rev": "229b79051b380377664edc4cbd534930154921a1",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -62,7 +62,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "nvim-web-devicons": {
-      "rev": "2795c26c916bb3c57dde308b82be51971fa92747",
+      "rev": "dfbfaa967a6f7ec50789bead7ef87e336c1fa63c",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "trouble.nvim": {

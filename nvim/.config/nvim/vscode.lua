@@ -8,7 +8,6 @@ vim.g.maplocalleader = ' '
 -- General
 vim.opt.mouse = 'a'               -- enable mouse support
 vim.opt.clipboard = 'unnamedplus' -- copy/paste to system clipboard
--- vim.opt.clipboard = vim.opt.vscode_clipboard
 vim.opt.swapfile = false          -- don't use swapfile
 -- vim.opt.updatetime = 250          -- Decrease update time
 -- vim.opt.timeoutlen = 300          -- Decrease update time
