@@ -1,7 +1,12 @@
-
 " ==============================
 " IdeaVim Configuration
 " ==============================
+"
+" Mapping convention used in this file:
+"   - <Action>(...) mappings MUST be recursive (map/nmap/vmap/xmap).
+"     They do NOT work with noremap, because <Action>(...) is itself a
+"     mapping (like <Plug>). Do not convert these to *noremap.
+"   - Plain key/motion remaps (no <Action>) use the *noremap variants.
 
 " ---------------------
 " Leader Key
@@ -33,20 +38,32 @@ set incsearch
 " ---------------------
 " Plugins
 " ---------------------
+" NOTE: every plugin below is built into core IdeaVim -- the Plug/set line is
+" all that's needed, no JetBrains Marketplace install required.
+
 " Surround text objects easily
 Plug 'tpope/vim-surround'
 " Comment out code quickly
 Plug 'tpope/vim-commentary'
 " Highlight yanked text
 Plug 'machakann/vim-highlightedyank'
-" Quick two-character motions
+" Quick two-character motions (s / S, then ; or , to repeat)
 Plug 'justinmk/vim-sneak'
-" Argument text object
+" Argument text object (ia / aa)
 Plug 'vim-scripts/argtextobj.vim'
-" Entire file text object
+" Entire file text object (ie / ae)
 Plug 'kana/vim-textobj-entire'
-" Replace with register contents
+" Replace with register contents (gr / grr)
 Plug 'vim-scripts/ReplaceWithRegister'
+" Case coercion: crs snake, crc camel, cru UPPER, cr- kebab, crm Pascal
+Plug 'tpope/vim-abolish'
+
+" ---------------------
+" Plugin Settings
+" ---------------------
+" Let argtextobj recognize {} and <> args too, not just (). Parens MUST come
+" first so expressions like func(x << 5) still parse correctly.
+let g:argtextobj_pairs="(:),{:},<:>"
 
 " ---------------------
 " Idea-specific Settings
@@ -61,16 +78,17 @@ set idearefactormode=keep
 " ---------------------
 " Motion / Navigation
 " ---------------------
+" CHANGED: plain motions -> noremap variants (no <Action> involved)
 " Move to beginning of line
-nmap H ^
-vmap H ^
+nnoremap H ^
+vnoremap H ^
 " Move to end of line
-nmap L $
-vmap L $
+nnoremap L $
+vnoremap L $
 " Move selected text down
-vmap J :m '>+1<CR>gv=gv
+vnoremap J :m '>+1<CR>gv=gv
 " Move selected text up
-vmap K :m '<-2<CR>gv=gv
+vnoremap K :m '<-2<CR>gv=gv
 
 " ---------------------
 " Replace Selection Without Yanking
@@ -141,10 +159,18 @@ nmap gs <Action>(FileStructurePopup)
 " Symbol search (project-wide)
 nmap gS <Action>(GotoSymbol)
 " Show documentation / hover
+" NOTE: gh and K below both trigger QuickJavaDoc (the Quick Documentation
+" popup). That's intentional redundancy; if you'd rather gh show the inline
+" hover popover instead, swap it for the commented line.
 nmap gh <Action>(QuickJavaDoc)
+" nmap gh <Action>(ShowHoverInfo)
+nmap K <Action>(QuickJavaDoc)
 " Show intention actions / code actions
 nmap g. <Action>(ShowIntentionActions)
 " Rename symbol
+" NOTE: 'cd' starts with the change operator 'c', so after pressing c the
+" editor waits (up to timeoutlen) to see if d follows before resolving cw/ciw
+" etc. Only noticeable if you pause mid-c. Swap for grn / <leader>rn to avoid.
 nmap cd <Action>(RenameElement)
 " Format document / selection (IDE formatter)
 nmap <leader>fd <Action>(ReformatCode)
@@ -169,6 +195,8 @@ vmap ga <Action>(SelectAllOccurrences)
 " ---------------------
 " Smart / Structural Selection
 " ---------------------
+" NOTE: by convention ] is the "expand/forward" direction and [ is "shrink/back".
+" These are intentionally reversed to match your VSCode config; flip if desired.
 " Expand selection
 xmap [x <Action>(EditorSelectWord)
 " Shrink selection

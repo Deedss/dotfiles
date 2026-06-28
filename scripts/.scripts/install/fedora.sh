@@ -13,7 +13,7 @@ install-desktop() {
     ### Generic Setup
     install-rpmfusion
     install-default-packages
-    # install-brave
+    install-brave
 
     install-vscode
     install-pythontools
@@ -104,8 +104,7 @@ install-flatpak() {
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
         com.valvesoftware.Steam \
-        io.podman_desktop.PodmanDesktop \
-        com.brave.Browser
+        io.podman_desktop.PodmanDesktop
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
@@ -138,7 +137,7 @@ install-default-packages() {
     sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
         mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel
+        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel intel-media-driver
 
     ##### OTHER PACKAGES ######
     sudo dnf install -y openssl-devel zstd ncurses git \
@@ -146,7 +145,7 @@ install-default-packages() {
         java-25-openjdk java-25-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard nodejs \
-        lsd bat zoxide fd-find procs ripgrep fzf \
+        lsd bat zoxide fd-find procs ripgrep \
         kcalc okular gwenview plasma-milou vim
 
     ### Set default shell
@@ -172,4 +171,8 @@ install-vscode() {
     sudo rpm --import https://packages.microsoft.com/keys/microsoft.asc
     sudo sh -c 'echo -e "[code]\nname=Visual Studio Code\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\nenabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc" > /etc/yum.repos.d/vscode.repo'
     sudo dnf -y install code
+}
+
+install-brave() {
+    curl -fsS https://dl.brave.com/install.sh | sh
 }
