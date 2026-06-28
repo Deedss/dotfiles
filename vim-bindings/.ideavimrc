@@ -38,25 +38,27 @@ set incsearch
 " ---------------------
 " Plugins
 " ---------------------
-" NOTE: every plugin below is built into core IdeaVim -- the Plug/set line is
-" all that's needed, no JetBrains Marketplace install required.
+" NOTE: every plugin below is built into core IdeaVim -- the `set` line is all
+" that's needed, no JetBrains Marketplace install required.
 
 " Surround text objects easily
-Plug 'tpope/vim-surround'
+set surround
 " Comment out code quickly
-Plug 'tpope/vim-commentary'
+set commentary
 " Highlight yanked text
-Plug 'machakann/vim-highlightedyank'
+set highlightedyank
 " Quick two-character motions (s / S, then ; or , to repeat)
-Plug 'justinmk/vim-sneak'
+set sneak
 " Argument text object (ia / aa)
-Plug 'vim-scripts/argtextobj.vim'
+set argtextobj
 " Entire file text object (ie / ae)
-Plug 'kana/vim-textobj-entire'
+set textobj-entire
 " Replace with register contents (gr / grr)
-Plug 'vim-scripts/ReplaceWithRegister'
+set ReplaceWithRegister
 " Case coercion: crs snake, crc camel, cru UPPER, cr- kebab, crm Pascal
-Plug 'tpope/vim-abolish'
+set abolish
+" Have <Tab> and <S-Tab> to cycle through completion menu
+set youcompleteme
 
 " ---------------------
 " Plugin Settings
