@@ -1,209 +1,107 @@
 " ==============================
 " IdeaVim Configuration
 " ==============================
-"
-" Mapping convention used in this file:
-"   - <Action>(...) mappings MUST be recursive (map/nmap/vmap/xmap).
-"     They do NOT work with noremap, because <Action>(...) is itself a
-"     mapping (like <Plug>). Do not convert these to *noremap.
-"   - Plain key/motion remaps (no <Action>) use the *noremap variants.
 
-" ---------------------
-" Leader Key
-" ---------------------
-" Use Space as leader key
 let mapleader=' '
 let maplocalleader=' '
 
 " ---------------------
 " Generic Vim Settings
 " ---------------------
-" Keep 8 lines visible above and below the cursor
 set scrolloff=8
-" Enable case-insensitive search
 set ignorecase
-" Enable smart case (case-sensitive if uppercase used)
 set smartcase
-" Timeout length for mapped key sequences (ms)
 set timeoutlen=400
-" Allow cursor wrapping across lines (partially supported)
 set whichwrap+=<,>,h,l,[,]
-" Sync with system clipboard (IdeaVim does this automatically)
 set clipboard+=unnamedplus
-" Highlight search matches
 set hlsearch
-" Enable incremental search
 set incsearch
 
 " ---------------------
 " Plugins
 " ---------------------
-" NOTE: every plugin below is built into core IdeaVim -- the `set` line is all
-" that's needed, no JetBrains Marketplace install required.
-
-" Surround text objects easily
-set surround
-" Comment out code quickly
-set commentary
-" Highlight yanked text
-set highlightedyank
-" Quick two-character motions (s / S, then ; or , to repeat)
-set sneak
-" Argument text object (ia / aa)
-set argtextobj
-" Entire file text object (ie / ae)
-set textobj-entire
-" Replace with register contents (gr / grr)
-set ReplaceWithRegister
-" Case coercion: crs snake, crc camel, cru UPPER, cr- kebab, crm Pascal
 set abolish
-" Have <Tab> and <S-Tab> to cycle through completion menu
-set youcompleteme
+set argtextobj
+set commentary
+set functextobj
+set highlightedyank
+set ReplaceWithRegister
+set sneak
+set surround
 
-" ---------------------
-" Plugin Settings
-" ---------------------
-" Let argtextobj recognize {} and <> args too, not just (). Parens MUST come
-" first so expressions like func(x << 5) still parse correctly.
 let g:argtextobj_pairs="(:),{:},<:>"
 
 " ---------------------
 " Idea-specific Settings
 " ---------------------
-" Use IntelliJ-style line joining
 set ideajoin
-" Use gray IdeaVim status icon
 set ideastatusicon=gray
-" Keep refactor preview mode
 set idearefactormode=keep
 
 " ---------------------
 " Motion / Navigation
 " ---------------------
-" CHANGED: plain motions -> noremap variants (no <Action> involved)
-" Move to beginning of line
-nnoremap H ^
-vnoremap H ^
-" Move to end of line
-nnoremap L $
-vnoremap L $
-" Move selected text down
 vnoremap J :m '>+1<CR>gv=gv
-" Move selected text up
 vnoremap K :m '<-2<CR>gv=gv
 
 " ---------------------
 " Replace Selection Without Yanking
 " ---------------------
-" Paste over selection without overwriting register
 vnoremap <leader>p "_dP
-
-" ---------------------
-" Yank to System Clipboard
-" ---------------------
-" Yank to system clipboard
-nnoremap <leader>y "+y
-vnoremap <leader>y "+y
-" Yank line to system clipboard
-nnoremap <leader>Y "+Y
 
 " ---------------------
 " Search Highlight & Redraw
 " ---------------------
-" Clear search highlights and redraw screen
 nnoremap <C-L> :nohlsearch<CR><C-L>
-" Center search results (next)
 nnoremap n nzzzv
-" Center search results (previous)
 nnoremap N Nzzzv
 
 " ---------------------
-" Action Markers / Diagnostics
+" Diagnostics
 " ---------------------
-" Go to next diagnostic
 nmap ]d <Action>(GotoNextError)
-" Go to previous diagnostic
 nmap [d <Action>(GotoPreviousError)
 
 " ---------------------
 " Quick Open / Search (IDE-native)
 " ---------------------
-" Fuzzy find files
 nmap <leader>ff <Action>(GotoFile)
-" Open recent files
 nmap <leader>fr <Action>(RecentFiles)
-" Search text in project
 nmap <leader>sg <Action>(FindInPath)
-" Find command
 nmap <leader>/ <Action>(Find)
-" Quick text search
 nmap g/ <Action>(FindInPath)
-" Show problems window
 nmap <leader>e <Action>(ShowProblems)
-" Show error details
 nmap <leader>sd <Action>(ShowErrorDescription)
 
 " ---------------------
-" LSP / Language Features (Zed-style)
+" LSP / Language Features
 " ---------------------
-" Go to definition
-nmap gd <Action>(GotoDeclaration)
-" Peek declaration
 nmap gD <Action>(QuickDefinition)
-" Go to type definition
 nmap gy <Action>(GotoTypeDeclaration)
-" Go to implementation
 nmap gI <Action>(GotoImplementation)
-" Show all usages
 nmap gA <Action>(ShowUsages)
-" File structure popup
 nmap gs <Action>(FileStructurePopup)
-" Symbol search (project-wide)
 nmap gS <Action>(GotoSymbol)
-" Show documentation / hover
-" NOTE: gh and K below both trigger QuickJavaDoc (the Quick Documentation
-" popup). That's intentional redundancy; if you'd rather gh show the inline
-" hover popover instead, swap it for the commented line.
-nmap gh <Action>(QuickJavaDoc)
-" nmap gh <Action>(ShowHoverInfo)
-nmap K <Action>(QuickJavaDoc)
-" Show intention actions / code actions
 nmap g. <Action>(ShowIntentionActions)
-" Rename symbol
-" NOTE: 'cd' starts with the change operator 'c', so after pressing c the
-" editor waits (up to timeoutlen) to see if d follows before resolving cw/ciw
-" etc. Only noticeable if you pause mid-c. Swap for grn / <leader>rn to avoid.
 nmap cd <Action>(RenameElement)
-" Format document / selection (IDE formatter)
 nmap <leader>fd <Action>(ReformatCode)
 vmap <leader>fd <Action>(ReformatCode)
 
 " ---------------------
-" Multi-Cursor / Selection (Zed-style)
+" Multi-Cursor / Selection
 " ---------------------
-" Select next occurrence
 nmap gl <Action>(SelectNextOccurrence)
 vmap gl <Action>(SelectNextOccurrence)
-" Select previous occurrence
 nmap gL <Action>(SelectPreviousOccurrence)
 vmap gL <Action>(SelectPreviousOccurrence)
-" Skip current selection and select next
 vmap g> <Action>(SelectNextOccurrenceExcludingCurrent)
-" Skip current selection and select previous
 vmap g< <Action>(SelectPreviousOccurrenceExcludingCurrent)
-" Select all occurrences
 vmap ga <Action>(SelectAllOccurrences)
 
 " ---------------------
 " Smart / Structural Selection
 " ---------------------
-" NOTE: by convention ] is the "expand/forward" direction and [ is "shrink/back".
-" These are intentionally reversed to match your VSCode config; flip if desired.
-" Expand selection
 xmap [x <Action>(EditorSelectWord)
-" Shrink selection
 xmap ]x <Action>(EditorUnSelectWord)
-" Go to previous function
 nmap [f <Action>(MethodUp)
-" Go to next function
 nmap ]f <Action>(MethodDown)
