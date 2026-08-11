@@ -133,6 +133,9 @@ install-default-packages() {
     ###### NETWORKING ######
     sudo dnf install -y wireshark nmap curl wget
 
+    ### Power-profiles
+    sudo dnf swap -y power-profiles-daemon tuned-ppd
+
     ##### VIDEO DRIVERS ######
     sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
         mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
