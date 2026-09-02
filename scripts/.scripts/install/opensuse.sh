@@ -7,6 +7,8 @@ source $DIR/tools.sh
 ###############################################################################
 install-desktop() {
     echo "Perform Installation for OpenSuse"
+    cleanup-packages
+
     ### Generic Setup
     install-default-packages
 
@@ -22,6 +24,12 @@ install-desktop() {
 
     ##### FLATPAKS
     install-flatpak
+}
+
+cleanup-packages() {
+    sudo zypper remove -y \
+        icewm chromium xscreensaver xscreensaver-data \
+        plasma6-desktop-emojier 
 }
 
 ###############################################################################
@@ -47,9 +55,7 @@ install-flatpak() {
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \
-        com.spotify.Client \
-        com.jgraph.drawio.desktop \
-        org.videolan.VLC
+        com.spotify.Client
 
     ##### KDE #####
     flatpak install -y \
@@ -73,15 +79,15 @@ install-default-packages() {
     sudo zypper install -y wireshark nmap curl wget
 
     ##### VIDEO DRIVERS ######
-    sudo zypper install -y libva-vdpau-drivers \
+    sudo zypper install -y intel-media-driver intel-vaapi-driver 
 
     ##### OTHER PACKAGES ######
     sudo zypper install -y flatpak openssl zstd ncurses-utils git \
         stow zsh util-linux java-25-openjdk java-25-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts \
         steam-devices wl-clipboard nodejs \
-        lsd bat zoxide fd procs ripgrep fzf neovim \
-        starship 
+        lsd bat zoxide fd procs ripgrep fzf neovim python313-neovim \
+        starship kitty lua-language-server StyLua
 
     ###### PODMAN #######
     echo "Install podman and buildah"
@@ -104,7 +110,7 @@ install-arc-theme() {
     echo "Install arc theme"
     sudo zypper addrepo https://download.opensuse.org/repositories/home:kill_it/openSUSE_Tumbleweed/home:kill_it.repo
     sudo zypper refresh
-    sudo zypper install -y arc-kde gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc
+    sudo zypper install -y arc-kde-decoration arc-kde-style gtk2-metatheme-arc gtk3-metatheme-arc gtk4-metatheme-arc
 
     # Set gtk theme
     dbus-send --session --dest=org.kde.GtkConfig --type=method_call /GtkConfig org.kde.GtkConfig.setGtkTheme 'string:Arc-Dark'
