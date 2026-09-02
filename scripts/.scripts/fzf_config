@@ -90,28 +90,6 @@ fkill() {
   fi
 }
 
-# Select a podman container to start and attach to
-function pa() {
-  local cid
-  cid=$(podman ps -a | sed 1d | fzf -1 -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && podman start "$cid" && podman attach "$cid"
-}
-# Select a running podman container to stop
-function ps() {
-  local cid
-  cid=$(podman ps | sed 1d | fzf -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && podman stop "$cid"
-}
-# Select a podman container to remove
-function prm() {
-  local cid
-  cid=$(podman ps -a | sed 1d | fzf -q "$1" | awk '{print $1}')
-
-  [ -n "$cid" ] && podman rm "$cid"
-}
-# Same as above, but allows multi selection:
 function prm() {
   podman ps -a | sed 1d | fzf -q "$1" --no-sort -m --tac | awk '{ print $1 }' | xargs -r podman rm
 }

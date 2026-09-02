@@ -43,8 +43,7 @@ install-flatpak() {
         org.qbittorrent.qBittorrent \
         org.remmina.Remmina \
         com.valvesoftware.Steam \
-        io.podman_desktop.PodmanDesktop \
-        com.brave.Browser
+        io.podman_desktop.PodmanDesktop
 
     ##### MUSIC & GRAPHICS #####
     flatpak install -y \

@@ -25,6 +25,7 @@ path_add "/usr/local/sbin"
 path_add "$HOME/.local/bin"
 path_add "$HOME/.scripts"
 path_add "$HOME/.scripts/utils"
+path_add "$HOME/.npm-packages/bin"
 
 ## EDITOR
 export EDITOR=vim
@@ -46,9 +47,6 @@ source "$HOME/.cargo/env"
 # Android
 export ANDROID_HOME="$HOME"/Software/Android/Sdk
 path_add "$ANDROID_HOME/platform-tools"
-
-# Flutter
-export CHROME_EXECUTABLE="flatpak run com.brave.Browser"
 
 # Go
 export GOPATH="$SOFTWARE_DIR/go"
