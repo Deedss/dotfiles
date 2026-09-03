@@ -1,6 +1,6 @@
 #!/bin/bash
 DIR=$(dirname ${BASH_SOURCE[0]:-$0})
-source $DIR/tools.sh
+source $DIR/common.sh
 
 ###############################################################################
 ###  INSTALLATION KDE                                                       ###
@@ -15,6 +15,7 @@ install-desktop() {
 
     install-vscode
     install-rust
+    install-python-tools
     install-zed
 
     ## Theme
@@ -38,10 +39,6 @@ cleanup-packages() {
 ###############################################################################
 install-flatpak() {
     sudo zypper install -y flatpak
-
-    echo "Add flathub repository"
-    sudo flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
-    sudo flatpak remote-modify flathub --enable
 
     echo "Install flatpak applications"
     ##### INTERNET #####
