@@ -100,6 +100,7 @@ install-flatpak() {
 
 install-default-packages() {
     echo "Install a selection of used applications"
+
     ###### CMAKE / CLANG #########
     sudo dnf install -y cmake ninja-build clang llvm clang-tools-extra
 
@@ -114,18 +115,15 @@ install-default-packages() {
     sudo dnf swap -y power-profiles-daemon tuned-ppd
 
     ### VIDEO DRIVERS ######
-    sudo dnf install -y mesa-vulkan-drivers mesa-va-drivers \
-        mesa-vdpau-drivers mesa-libGLw mesa-libEGL libva-utils \
-        mesa-libGL mesa-libGLU mesa-libOpenCL libva libva-vdpau-driver libva-utils \
-        libvdpau-va-gl gstreamer1-vaapi mesa-libGL-devel libglvnd-devel intel-media-driver
+    sudo dnf install -y \
+        mesa-vulkan-drivers mesa-libGL mesa-libEGL mesa-libGLU mesa-libOpenCL \
+        intel-media-driver libva libva-utils gstreamer1-vaapi
 
     ### OTHER PACKAGES ######
-    sudo dnf install -y openssl-devel zstd ncurses git \
-        ncurses-libs stow zsh util-linux-user \
-        java-25-openjdk java-25-openjdk-devel \
-        jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard nodejs \
-        lsd bat zoxide fd-find procs ripgrep \
+    sudo dnf install -y openssl-devel zstd ncurses git stow zsh \
+        util-linux-user java-25-openjdk java-25-openjdk-devel \
+        jetbrains-mono-fonts google-roboto-fonts steam-devices \
+        wl-clipboard nodejs lsd bat zoxide fd-find procs ripgrep \
         kcalc okular gwenview plasma-milou vim
 
     ### Podman
@@ -138,7 +136,7 @@ install-default-packages() {
     sudo dnf install -y python3-devel python3-wheel python3-virtualenv python3-pygments
 
     ### Set default shell
-    sudo chsh -s /bin/zsh $USER
+    sudo chsh -s /bin/zsh "$USER"
 }
 
 install-arc-theme() {
