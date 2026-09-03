@@ -136,7 +136,7 @@ install-brave() {
 
 install-zram() {
     sudo zypper install -y zram-generator
-    echo -e "[zram0]\nzram-size = min(ram, 8192)" | sudo ktee /etc/systemd/zram-generator.conf
+    echo -e "[zram0]\nzram-size = min(ram, 8192)" | sudo tee /etc/systemd/zram-generator.conf
     sudo systemctl daemon-reload
     sudo systemctl start systemd-zram-setup@zram0.service
 }
