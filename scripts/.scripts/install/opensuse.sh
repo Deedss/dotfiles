@@ -10,6 +10,7 @@ install-desktop() {
     cleanup-packages
 
     ### Generic Setup
+    install-zram
     install-default-packages
 
     install-vscode
@@ -131,4 +132,9 @@ install-vscode() {
 
 install-brave() {
     curl -fsS https://dl.brave.com/install.sh | sh
+}
+
+install-zram() {
+    sudo zypper install -y zram-generator
+    echo -e "[zram0]\nzram-size = min(ram, 8192)" | sudo ktee /etc/systemd/zram-generator.conf
 }
