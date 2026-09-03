@@ -40,9 +40,12 @@ cleanup-packages() {
 install-flatpak() {
     sudo zypper install -y flatpak
 
+    echo "Add Flathub remote"
+    flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
     echo "Install flatpak applications"
     ##### INTERNET #####
-    flatpak install -y \
+    flatpak install -y flathub \
         com.discordapp.Discord \
         org.libreoffice.LibreOffice \
         org.signal.Signal \
@@ -52,11 +55,11 @@ install-flatpak() {
         io.podman_desktop.PodmanDesktop
 
     ##### MUSIC & GRAPHICS #####
-    flatpak install -y \
+    flatpak install -y flathub \
         com.spotify.Client
 
     ##### KDE #####
-    flatpak install -y \
+    flatpak install -y flathub \
         org.gtk.Gtk3theme.Arc-Dark \
         org.gtk.Gtk3theme.Arc-Dark-solid
 }
@@ -66,39 +69,50 @@ install-flatpak() {
 ###############################################################################
 install-default-packages() {
     echo "Install a selection of used applications"
-    ###### CMAKE / CLANG #########
-    sudo zypper install -y cmake ninja clang llvm clang-tools
 
-    ###### VIRTUALIZATION ########
+    ##### BUILD TOOLS #####
+    sudo zypper install -y clang clang-tools cmake llvm ninja
+
+    ##### VIRTUALIZATION #####
     sudo zypper install -y virt-manager
-    sudo usermod -aG kvm,libvirt,lp,dialout "$USER"
+    sudo usermod -aG kvm,libvirt,lp,dialout,wheel "$USER"
 
-    ###### NETWORKING ######
-    sudo zypper install -y wireshark nmap curl wget
+    ##### VIDEO DRIVERS #####
+    sudo zypper install -y intel-media-driver intel-vaapi-driver
 
-    ##### VIDEO DRIVERS ######
-    sudo zypper install -y intel-media-driver intel-vaapi-driver 
+    ##### SHELL / TERMINAL #####
+    sudo zypper install -y kitty starship stow zsh
 
-    ##### OTHER PACKAGES ######
-    sudo zypper install -y flatpak openssl zstd ncurses-utils git \
-        stow zsh util-linux java-25-openjdk java-25-openjdk-devel \
-        jetbrains-mono-fonts google-roboto-fonts \
-        steam-devices wl-clipboard nodejs \
-        lsd bat zoxide fd procs ripgrep fzf neovim python313-neovim \
-        starship kitty lua-language-server StyLua
+    ##### FONTS #####
+    sudo zypper install -y google-roboto-fonts jetbrains-mono-fonts
+
+    ##### CLI / MODERN UNIX TOOLS #####
+    sudo zypper install -y git bat fd fzf lsd procs ripgrep zoxide
+
+    ##### EDITORS / LANGUAGE TOOLING #####
+    sudo zypper install -y lua-language-server neovim python313-neovim StyLua
+
+    ##### NETWORKING #####
+    sudo zypper install -y curl nmap wget wireshark
+
+    ##### SYSTEM / MISC UTILITIES #####
+    sudo zypper install -y flatpak ncurses-utils openssl steam-devices util-linux wl-clipboard zstd
+
+    ##### RUNTIMES / LANGUAGES #####
+    sudo zypper install -y java-25-openjdk java-25-openjdk-devel nodejs
 
     ###### PODMAN #######
     echo "Install podman and buildah"
-    sudo zypper install -y podman podman-docker buildah distrobox python313-podman-compose
+    sudo zypper install -y buildah distrobox podman podman-docker python313-podman-compose
     sudo touch /etc/containers/nodocker
     systemctl --user enable --now podman.socket
     systemctl --user status podman.socket
 
     ###### PYTHON #######
-    sudo zypper install -y python313-wheel python313-devel python313-pipx python313-virtualenv
+    sudo zypper install -y python313-devel python313-pipx python313-virtualenv python313-wheel
 
     ### Set default shell
-    sudo chsh -s /bin/zsh $USER
+    sudo chsh -s /bin/zsh "$USER"
 }
 
 ###############################################################################
