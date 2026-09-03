@@ -113,14 +113,14 @@ bindkey '^[[1;5D' emacs-backward-word
 # Custom Scripting
 #########################################################################
 [[ -f ~/.local/bin/mise ]] && eval "$(~/.local/bin/mise activate zsh)"
-[[ -f ~/.scripts/sources ]] && source ~/.scripts/sources
+source ~/.scripts/sources
 
 # Integrations
-command -v fzf >/dev/null && source <(fzf --zsh)
-command -v zoxide >/dev/null && eval "$(zoxide init zsh)"
-command -v uv >/dev/null && eval "$(uv generate-shell-completion zsh)"
-command -v uvx >/dev/null && eval "$(uvx --generate-shell-completion=zsh)"
-command -v starship >dev/null && eval "$(starship init zsh)"
+source <(fzf --zsh)
+eval "$(zoxide init zsh)"
+eval "$(uv generate-shell-completion zsh)"
+eval "$(uvx --generate-shell-completion=zsh)"
+eval "$(starship init zsh)"
 
 #########################################################################
 # Initialize Completion
