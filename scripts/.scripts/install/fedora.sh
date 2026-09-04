@@ -19,7 +19,6 @@ install-desktop() {
     install-rust
     install-python-tools
     install-zed
-    install-neovim
     install-cli-tools
     install-kitty
 
@@ -124,7 +123,7 @@ install-default-packages() {
         util-linux-user java-25-openjdk java-25-openjdk-devel \
         jetbrains-mono-fonts google-roboto-fonts steam-devices \
         wl-clipboard nodejs lsd bat zoxide fd-find procs ripgrep \
-        kcalc okular gwenview plasma-milou vim
+        kcalc okular gwenview plasma-milou vim fzf neovim
 
     ### Podman
     sudo dnf install -y podman podman-compose podman-docker buildah distrobox
