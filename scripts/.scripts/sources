@@ -28,8 +28,8 @@ path_add "$HOME/.scripts/utils"
 path_add "$HOME/.npm-packages/bin"
 
 ## EDITOR
-export EDITOR=nvim
-export VISUAL=nvim
+export EDITOR=vim
+export VISUAL=vim
 
 ## Environment Variables
 export LIBVIRT_DEFAULT_URI="qemu:///system"
