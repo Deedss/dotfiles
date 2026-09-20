@@ -22,11 +22,11 @@
       "src": "https://github.com/folke/flash.nvim"
     },
     "friendly-snippets": {
-      "rev": "6cd7280adead7f586db6fccbd15d2cac7e2188b9",
+      "rev": "b4d01b0fdf3c9a549961c2f9ffe8dc09be166219",
       "src": "https://github.com/rafamadriz/friendly-snippets"
     },
     "fzf-lua": {
-      "rev": "05e44d38de0a79c11fba5f7bf8138791b1dbdd1e",
+      "rev": "02bc882f208f3481aa959dbbee8ce5edad2fd8b2",
       "src": "https://github.com/ibhagwan/fzf-lua"
     },
     "fzf-lua-explorer.nvim": {
@@ -38,7 +38,7 @@
       "src": "https://github.com/MagicDuck/grug-far.nvim"
     },
     "mini.nvim": {
-      "rev": "9d01f392b33fb2ba36fbc87fc0bf4453e63ffb0a",
+      "rev": "ac5dffcc52b8378fbb15efeb0497a83e57a0b01c",
       "src": "https://github.com/echasnovski/mini.nvim"
     },
     "nvim-lint": {
@@ -46,7 +46,7 @@
       "src": "https://github.com/mfussenegger/nvim-lint"
     },
     "nvim-lspconfig": {
-      "rev": "ee1e369181a9e64904cdd7b739e98c70778cfc71",
+      "rev": "ffd261c09c3dabd0bf1a438f47a8ae3b22f3c3ff",
       "src": "https://github.com/neovim/nvim-lspconfig"
     },
     "nvim-surround": {
@@ -54,7 +54,7 @@
       "src": "https://github.com/kylechui/nvim-surround"
     },
     "nvim-treesitter": {
-      "rev": "427e9222363d07c32d6db6169e4049c28d58d141",
+      "rev": "f603a2f4da48728f80257fb5fbb90145fd1dc173",
       "src": "https://github.com/nvim-treesitter/nvim-treesitter"
     },
     "nvim-treesitter-textobjects": {
@@ -62,7 +62,7 @@
       "src": "https://github.com/nvim-treesitter/nvim-treesitter-textobjects"
     },
     "nvim-web-devicons": {
-      "rev": "5f032a85be210cd1c6ac98861eb3b187ff3bd5eb",
+      "rev": "914decffe650296c87312c53b7933ecb86718499",
       "src": "https://github.com/nvim-tree/nvim-web-devicons"
     },
     "trouble.nvim": {
