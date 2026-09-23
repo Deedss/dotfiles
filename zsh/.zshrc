@@ -1,25 +1,76 @@
 #########################################################################
 # Variables & Cache
 #########################################################################
-
-# Create ZSH cache directory if it doesn't exist# Zsh cache directory
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-[[ -d $ZSH_CACHE_DIR ]] || mkdir -p "$ZSH_CACHE_DIR"
+ZSH_PLUGIN_DIR="${ZDOTDIR:-$HOME}/.zsh/plugins"
+ZSH_COMPLETIONS_CACHE="$ZSH_CACHE_DIR/completions"
+
+mkdir -p "$ZSH_CACHE_DIR"
+mkdir -p "$ZSH_PLUGIN_DIR"
+mkdir -p "$ZSH_COMPLETIONS_CACHE"
 
 #########################################################################
-# Antidote Plugin Manager
+# Plugin registry + minimal loader
 #########################################################################
+typeset -gA ZSH_PLUGINS=(
+  [romkatv/zsh-defer]=zsh-defer.plugin.zsh
+  [zsh-users/zsh-completions]=""
+  [Aloxaf/fzf-tab]=fzf-tab.plugin.zsh
+  [zsh-users/zsh-autosuggestions]=zsh-autosuggestions.zsh
+  [zsh-users/zsh-syntax-highlighting]=zsh-syntax-highlighting.zsh
+)
 
-[[ -d $HOME/.antidote ]] || git clone https://github.com/mattmc3/antidote.git $HOME/.antidote
+# Clone a plugin if needed and print its local directory.
+zsh-plugin-clone() {
+  local repo=$1
+  local dir="$ZSH_PLUGIN_DIR/${repo##*/}"
+  if [[ ! -d "$dir/.git" ]]; then
+    git clone --quiet --depth 1 "https://github.com/$repo" "$dir"
+  fi
+  print -r -- "$dir"
+}
 
-ANTIDOTE_HOME=$HOME/.antidote/plugins
-source "$HOME/.antidote/antidote.zsh"
-antidote load
+# Clone (if needed) + source a plugin's entry file.
+zsh-plugin-load() {
+  local repo=$1
+  local file=${ZSH_PLUGINS[$repo]}
+  local dir
+  dir=$(zsh-plugin-clone "$repo") || return 1
+  if [[ -n "$file" ]]; then
+    [[ -f "$dir/$file" ]] || {
+      print -u2 "zsh-plugin-load: missing entry file: $repo/$file"
+      return 1
+    }
+    source "$dir/$file"
+  fi
+}
+
+# Update every registered plugin that is already cloned.
+zsh-plugin-update() {
+  local repo dir
+  for repo in "${(@k)ZSH_PLUGINS}"; do
+    dir="$ZSH_PLUGIN_DIR/${repo##*/}"
+    if [[ -d "$dir/.git" ]]; then
+      print -P "%F{cyan}==>%f updating $repo"
+      git -C "$dir" pull --quiet --ff-only
+    fi
+  done
+}
+
+alias zpupdate='zsh-plugin-update'
+
+zsh-plugin-load romkatv/zsh-defer
+
+#########################################################################
+# Command availability
+#########################################################################
+zsh-has-command() {
+  command -v "$1" >/dev/null 2>&1
+}
 
 #########################################################################
 # General Settings
 #########################################################################
-
 autoload -U colors && colors
 
 setopt auto_cd                 # auto cd to directory
@@ -35,7 +86,6 @@ setopt prompt_subst            # enable parameter expansion in prompts
 # History (clean, consistent, no duplicates)
 # Reference: https://zsh.sourceforge.net/Doc/Release/Options.html#History
 #########################################################################
-
 HISTSIZE=50000
 SAVEHIST=$HISTSIZE
 HISTFILE=~/.zsh_history
@@ -45,7 +95,6 @@ setopt append_history          # append to history file
 setopt inc_append_history      # write immediately to history file
 unsetopt share_history         # prevent race conditions & out-of-order history
 setopt hist_fcntl_lock         # prevent race-conditions
-
 
 # Duplicate handling
 setopt hist_ignore_dups        # ignore consecutive duplicates
@@ -57,51 +106,55 @@ setopt hist_expire_dups_first  # expire dupes first when trimming history
 setopt hist_ignore_space       # ignore commands starting with space
 setopt hist_reduce_blanks      # clean up whitespace
 setopt hist_verify             # show command before executing after history expansion
-setopt hist_find_no_dups       # don’t show same result twice in reverse search
+setopt hist_find_no_dups        # don't show same result twice in reverse search
 
-# Avoid: hist_no_store — causes missing history; intentionally not included
+#########################################################################
+# fpath additions — MUST happen before compinit
+#########################################################################
+fpath=("$(zsh-plugin-clone zsh-users/zsh-completions)/src" "${fpath[@]}")
+
+if zsh-has-command rustup; then
+  [[ -f "$ZSH_COMPLETIONS_CACHE/_rustup" ]] || rustup completions zsh > "$ZSH_COMPLETIONS_CACHE/_rustup"
+  [[ -f "$ZSH_COMPLETIONS_CACHE/_cargo" ]] || rustup completions zsh cargo > "$ZSH_COMPLETIONS_CACHE/_cargo"
+fi
+
+if zsh-has-command uv; then
+  [[ -f "$ZSH_COMPLETIONS_CACHE/_uv" ]] || uv generate-shell-completion zsh > "$ZSH_COMPLETIONS_CACHE/_uv"
+fi
+
+if zsh-has-command uvx; then
+  [[ -f "$ZSH_COMPLETIONS_CACHE/_uvx" ]] || uvx --generate-shell-completion zsh > "$ZSH_COMPLETIONS_CACHE/_uvx"
+fi
+
+fpath=("$ZSH_COMPLETIONS_CACHE" "${fpath[@]}")
 
 #########################################################################
 # Completion System
 #########################################################################
+unsetopt menu_complete          # don't auto-select matches (fzf-tab needs this)
 
-unsetopt menu_complete         # don't auto-select matches (fzf needs this)
-
-# Ensures new-style completion only.
 zstyle ":completion:*" use-compctl false
-
-# Groups results consistently
 zstyle ":completion:*" group-name ""
-
-# Enables extra helpful descriptions.
 zstyle ":completion:*" verbose true
-
-# Disable sorting in git checkout
 zstyle ':completion:*:git-checkout:*' sort false
-
-# Description formatting
 zstyle ':completion:*:descriptions' format '[%d]'
-
-# Enable colored completion lists
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu no        # let fzf-tab capture completions early
 
-# Let fzf-tab capture completions early
-zstyle ':completion:*' menu no
+autoload -Uz compinit
+compinit -d "$ZSH_CACHE_DIR/zcompdump"
 
-# fzf-tab config
+#########################################################################
+# fzf-tab — must load AFTER compinit
+#########################################################################
+zsh-plugin-load Aloxaf/fzf-tab
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' switch-group '<' '>'
-
-# Directory previews with ls
 zstyle ':fzf-tab:complete:cd:*' command 'ls -la --color=always'
-
-# Disable oh-my-zsh update prompt
-zstyle ':omz:update' mode disabled
 
 #########################################################################
 # Key Bindings
 #########################################################################
-
 setopt emacs                   # use emacs keybindings
 bindkey ' ' magic-space        # space does not trigger history expansion
 bindkey '^[[3~' delete-char
@@ -116,15 +169,12 @@ bindkey '^[[1;5D' emacs-backward-word
 source ~/.scripts/sources
 
 # Integrations
-source <(fzf --zsh)
-eval "$(zoxide init zsh)"
-eval "$(uv generate-shell-completion zsh)"
-eval "$(uvx --generate-shell-completion=zsh)"
-eval "$(starship init zsh)"
+zsh-has-command fzf && source <(fzf --zsh)
+zsh-has-command zoxide && eval "$(zoxide init zsh)"
+zsh-has-command starship && eval "$(starship init zsh)"
 
 #########################################################################
-# Initialize Completion
+# deferred so it doesn't block prompt startup
 #########################################################################
-
-autoload -Uz compinit
-compinit
+zsh-defer zsh-plugin-load zsh-users/zsh-autosuggestions
+zsh-defer zsh-plugin-load zsh-users/zsh-syntax-highlighting
