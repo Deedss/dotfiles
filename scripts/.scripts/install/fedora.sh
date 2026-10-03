@@ -173,3 +173,9 @@ install-kitty() {
     # Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
     echo 'kitty.desktop' > ~/.config/xdg-terminals.list
 }
+
+install-iwd() {
+    sudo dnf install -y iwd    
+    echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf 
+    sudo systemctl restart NetworkManager.service
+}
