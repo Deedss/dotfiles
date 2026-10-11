@@ -18,18 +18,8 @@ install-neovim() {
     sudo chmod 755 /usr/local/bin/nvim
 }
 
-install-python-tools() {
-    # Install uv
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-
-    # install ty lsp for python
-    uv tool install ty ruff
-}
-
 install-cli-tools() {
-    ## Use mise 
     curl https://mise.run | sh
-    mise use -g fzf starship lua-language-server stylua tree-sitter
 }
 
 fix-config() {

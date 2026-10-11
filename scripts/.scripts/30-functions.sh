@@ -62,12 +62,6 @@ __update-dev-tools() {
   echo '------ DEV TOOLING ------'
   echo '-------------------------'
   rustup update
-
-  mise self-update
-  mise upgrade
-
-  uv self update
-  uv tool upgrade --all
   echo ''
 }
 

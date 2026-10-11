@@ -1,0 +1,18 @@
+[settings]
+self_update.auto=true
+tool_update.global_auto = true
+
+[tools]
+# Python
+uv = "latest"
+ty = "latest"
+ruff = "latest"
+
+# CLI
+fzf = "latest"
+starship = "latest"
+tree-sitter = "latest"
+
+# Lua
+lua-language-server = "latest"
+stylua = "latest"
