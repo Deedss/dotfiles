@@ -2,10 +2,8 @@
 # Variables & Cache
 #########################################################################
 ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-ZSH_COMPLETIONS_CACHE="$ZSH_CACHE_DIR/completions"
-ZSH_PLUGIN_DIR="${ZDOTDIR:-$HOME}/.zsh/plugins"
-
-mkdir -p "$ZSH_COMPLETIONS_CACHE"
+ZSH_PLUGIN_DIR="${ZDOTDIR:-$HOME/.config/zsh}/plugins"
+ZSH_COMPLETION_DIR="${ZDOTDIR:-$HOME/.config/zsh}/completions"
 
 #########################################################################
 # Plugin registry
@@ -82,7 +80,6 @@ HISTFILE=~/.zsh_history
 setopt append_history
 setopt inc_append_history
 unsetopt share_history
-setopt hist_fcntl_lock
 
 setopt hist_ignore_dups
 setopt hist_ignore_all_dups
@@ -97,9 +94,12 @@ setopt hist_find_no_dups
 #########################################################################
 # Custom Tooling
 #########################################################################
-[[ -f ~/.local/bin/mise ]] && eval "$(~/.local/bin/mise activate zsh)"
-[[ -f ~/.scripts/sources ]] && source ~/.scripts/sources
+# User specific aliases and functions
+for f in "$HOME"/.scripts/*.sh; do
+    [ -r "$f" ] && source "$f"
+done
 
+[[ -f ~/.local/bin/mise ]] && eval "$(~/.local/bin/mise activate zsh)"
 (( $+commands[fzf] )) && source <(fzf --zsh)
 (( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
 (( $+commands[starship] )) && eval "$(starship init zsh)"
@@ -107,19 +107,9 @@ setopt hist_find_no_dups
 #########################################################################
 # Completions
 #########################################################################
-if (( $+commands[rustup] )); then
-  [[ -f "$ZSH_COMPLETIONS_CACHE/_rustup" ]] || rustup completions zsh > "$ZSH_COMPLETIONS_CACHE/_rustup"
-  [[ -f "$ZSH_COMPLETIONS_CACHE/_cargo" ]] || rustup completions zsh cargo > "$ZSH_COMPLETIONS_CACHE/_cargo"
-fi
-
-if (( $+commands[uv] && $+commands[uvx] )); then
-  [[ -f "$ZSH_COMPLETIONS_CACHE/_uv" ]] || uv generate-shell-completion zsh > "$ZSH_COMPLETIONS_CACHE/_uv"
-  [[ -f "$ZSH_COMPLETIONS_CACHE/_uvx" ]] || uvx --generate-shell-completion zsh > "$ZSH_COMPLETIONS_CACHE/_uvx"
-fi
-
 fpath=(
   "$ZSH_PLUGIN_DIR/zsh-completions/src"
-  "$ZSH_COMPLETIONS_CACHE"
+  "$ZSH_COMPLETION_DIR/completions"
   "${fpath[@]}"
 )
 

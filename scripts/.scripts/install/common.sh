@@ -1,4 +1,4 @@
-#!/bin/bash
+# shellcheck shell=bash
 
 install-rust() {
     echo "Install rust and rust-analyzer"
@@ -14,7 +14,6 @@ install-zed() {
 }
 
 install-neovim() {
-    latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq -r '.tag_name')
     sudo curl -L https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.appimage -o /usr/local/bin/nvim
     sudo chmod 755 /usr/local/bin/nvim
 }

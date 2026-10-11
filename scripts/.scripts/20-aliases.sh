@@ -1,8 +1,7 @@
-#!/bin/bash
+# shellcheck shell=bash
 
-## Personal aliases
 alias fp='fzf --preview "bat -n --color=always {}"'
-alias fn='nvim "${fp}"'
+
 alias ls='lsd -Fl'
 alias ll='lsd -Fl'
 alias l='lsd -Fl -A'
