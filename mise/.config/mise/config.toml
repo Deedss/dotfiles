@@ -12,6 +12,7 @@ ruff = "latest"
 fzf = "latest"
 starship = "latest"
 tree-sitter = "latest"
+lazygit = "latest"
 
 # Lua
 lua-language-server = "latest"

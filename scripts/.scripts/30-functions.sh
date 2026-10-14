@@ -40,15 +40,11 @@ path_add() {
 }
 
 update() {
-  echo '-------------------------'
   echo '-------- UPDATE ---------'
-  echo '-------------------------'
   sudo dnf update --refresh
   echo ''
 
-  echo '-------------------------'
   echo '-------- FLATPAK --------'
-  echo '-------------------------'
   flatpak update --assumeyes
   echo ''
 
@@ -58,17 +54,13 @@ update() {
 }
 
 __update-dev-tools() {
-  echo '-------------------------'
   echo '------ DEV TOOLING ------'
-  echo '-------------------------'
   rustup update
   echo ''
 }
 
 __update-neovim() {
-  echo '-------------------------'
   echo '--------- NEOVIM --------'
-  echo '-------------------------'
   local_nvim_version=$(nvim --version | head -n1 | sed 's/^NVIM //')
   latest_nvim_version=$(curl -L https://api.github.com/repos/neovim/neovim/releases/latest 2>/dev/null | jq --raw-output '.tag_name')
   if [[ "$local_nvim_version" != "$latest_nvim_version" ]]; then
@@ -81,9 +73,7 @@ __update-neovim() {
 }
 
 __update-kitty() {
-  echo '-------------------------'
   echo '---------- KITTY --------'
-  echo '-------------------------'
   local_kitty_version=$(kitty --version | awk '{print $2}')
   latest_kitty_version=$(curl -sL https://api.github.com/repos/kovidgoyal/kitty/releases/latest | jq -r '.tag_name' | sed 's/^v//')
   if [[ "$local_kitty_version" != "$latest_kitty_version" ]]; then
