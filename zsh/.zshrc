@@ -127,7 +127,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no
 
 autoload -Uz compinit
-compinit -d "$ZSH_CACHE_DIR/zcompdump"
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 
 #########################################################################
 # fzf-tab
