@@ -1,5 +1,6 @@
 [settings]
-self_update.auto=true
+self_update.auto = true
+self_update.check_duration = "24h"
 tool_update.global_auto = true
 
 [tools]
