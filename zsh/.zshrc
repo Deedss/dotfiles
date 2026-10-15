@@ -1,9 +1,8 @@
 #########################################################################
 # Variables & Cache
 #########################################################################
-ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
-ZSH_PLUGIN_DIR="${ZDOTDIR:-$HOME/.config/zsh}/plugins"
-ZSH_COMPLETION_DIR="${ZDOTDIR:-$HOME/.config/zsh}/completions"
+ZSH_PLUGIN_DIR="$HOME/.config/zsh/plugins"
+ZSH_COMPLETION_DIR="$HOME/.config/zsh/completions"
 
 #########################################################################
 # Plugin registry
@@ -109,7 +108,7 @@ done
 #########################################################################
 fpath=(
   "$ZSH_PLUGIN_DIR/zsh-completions/src"
-  "$ZSH_COMPLETION_DIR/completions"
+  "$ZSH_COMPLETION_DIR"
   "${fpath[@]}"
 )
 
@@ -126,8 +125,7 @@ zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no
 
-autoload -Uz compinit
-compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
+autoload -Uz compinit && compinit
 
 #########################################################################
 # fzf-tab
