@@ -175,12 +175,6 @@ install-kitty() {
     echo 'kitty.desktop' > ~/.config/xdg-terminals.list
 }
 
-install-iwd() {
-    sudo dnf install -y iwd    
-    echo -e "[device]\nwifi.backend=iwd" | sudo tee /etc/NetworkManager/conf.d/10-iwd.conf 
-    sudo systemctl restart NetworkManager.service
-}
-
 install-firefox() {
     sudo dnf config-manager addrepo --id=mozilla --set=baseurl=https://packages.mozilla.org/rpm/firefox --set=gpgkey=https://packages.mozilla.org/rpm/firefox/signing-key.gpg --set=gpgcheck=1 --set=repo_gpgcheck=0 --set=priority=10
     sudo dnf makecache --refresh
