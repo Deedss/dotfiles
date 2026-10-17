@@ -3,56 +3,16 @@
 #########################################################################
 ZSH_PLUGIN_DIR="$HOME/.config/zsh/plugins"
 ZSH_COMPLETION_DIR="$HOME/.config/zsh/completions"
+ZDOTDIR="$HOME/.config/zsh"
+export ANTIDOTE_HOME="$HOME/.config/zsh/antidote"
 
-#########################################################################
-# Plugin registry
-#########################################################################
-typeset -gA ZSH_PLUGINS=(
-  [romkatv/zsh-defer]=zsh-defer.plugin.zsh
-  [zsh-users/zsh-completions]=""
-  [Aloxaf/fzf-tab]=fzf-tab.plugin.zsh
-  [zsh-users/zsh-autosuggestions]=zsh-autosuggestions.zsh
-  [zsh-users/zsh-syntax-highlighting]=zsh-syntax-highlighting.zsh
-)
+# Clone antidote if necessary.
+if [[ ! -d $ANTIDOTE_HOME ]]; then
+  git clone https://github.com/mattmc3/antidote $ANTIDOTE_HOME
+fi
 
-#########################################################################
-# Plugin management
-#########################################################################
-zsh-plugin-install() {
-  local repo=$1
-  local dir="$ZSH_PLUGIN_DIR/${repo##*/}"
-  git clone --quiet --depth 1 "https://github.com/$repo" "$dir"
-}
-
-zsh-plugin-load() {
-  local repo=$1
-  local file=${ZSH_PLUGINS[$repo]}
-  local dir="$ZSH_PLUGIN_DIR/${repo##*/}"
-  [[ -n "$file" && -f "$dir/$file" ]] && source "$dir/$file"
-}
-
-zsh-plugin-update() {
-  local repo dir
-  for repo in "${(@k)ZSH_PLUGINS}"; do
-    dir="$ZSH_PLUGIN_DIR/${repo##*/}"
-    [[ -d "$dir/.git" ]] || continue
-    print -P "%F{cyan}==>%f updating $repo"
-    git -C "$dir" pull --quiet --ff-only
-  done
-}
-
-zpbootstrap() {
-  local repo dir
-  mkdir -p "$ZSH_PLUGIN_DIR"
-  for repo in "${(@k)ZSH_PLUGINS}"; do
-    dir="$ZSH_PLUGIN_DIR/${repo##*/}"
-    [[ -d "$dir" ]] || zsh-plugin-install "$repo"
-  done
-}
-
-[[ -d "$ZSH_PLUGIN_DIR" ]] || zpbootstrap
-
-zsh-plugin-load romkatv/zsh-defer
+source $ANTIDOTE_HOME/antidote.zsh
+antidote load 
 
 #########################################################################
 # General Settings
@@ -106,11 +66,7 @@ done
 #########################################################################
 # Completions
 #########################################################################
-fpath=(
-  "$ZSH_PLUGIN_DIR/zsh-completions/src"
-  "$ZSH_COMPLETION_DIR"
-  "${fpath[@]}"
-)
+fpath=("$ZSH_COMPLETION_DIR" "${fpath[@]}")
 
 #########################################################################
 # Completion System
@@ -124,20 +80,14 @@ zstyle ':completion:*:git-checkout:*' sort false
 zstyle ':completion:*:descriptions' format '[%d]'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' menu no
+zstyle ':completion:*' remove-all-dups yes
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit -d $HOME/.cache/zcompdump
 
 #########################################################################
 # fzf-tab
 #########################################################################
-zsh-plugin-load Aloxaf/fzf-tab
-
 zstyle ':fzf-tab:*' use-fzf-default-opts yes
 zstyle ':fzf-tab:*' switch-group '<' '>'
 zstyle ':fzf-tab:complete:cd:*' command 'ls -la --color=always'
-
-#########################################################################
-# Deferred Plugins
-#########################################################################
-zsh-defer zsh-plugin-load zsh-users/zsh-autosuggestions
-zsh-defer zsh-plugin-load zsh-users/zsh-syntax-highlighting
