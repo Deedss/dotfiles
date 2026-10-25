@@ -59,6 +59,7 @@ setup-dnf() {
     echo -e "defaultyes=1" | sudo tee -a /etc/dnf/dnf.conf
     echo -e "deltarpm=0" | sudo tee -a /etc/dnf/dnf.conf
     echo -e "max_parallel_downloads=20" | sudo tee -a /etc/dnf/dnf.conf
+    echo -e "install_weak_deps=0" | sudo tee -a /etc/dnf/dnf.conf
 }
 
 install-rpmfusion() {
@@ -173,10 +174,4 @@ install-kitty() {
     sed -i "s|Exec=kitty|Exec=$(readlink -f ~)/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
     # Make xdg-terminal-exec (and hence desktop environments that support it use kitty)
     echo 'kitty.desktop' > ~/.config/xdg-terminals.list
-}
-
-install-firefox() {
-    sudo dnf config-manager addrepo --id=mozilla --set=baseurl=https://packages.mozilla.org/rpm/firefox --set=gpgkey=https://packages.mozilla.org/rpm/firefox/signing-key.gpg --set=gpgcheck=1 --set=repo_gpgcheck=0 --set=priority=10
-    sudo dnf makecache --refresh
-    sudo dnf install firefox --setopt=install_weak_deps=False
 }
